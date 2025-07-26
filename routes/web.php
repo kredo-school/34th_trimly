@@ -10,3 +10,7 @@ Route::get('/', function () {
 Route::get('/login-petowner', function () {
     return view('pet_owner.login');
 });
+
+Route::get('/login', function () {
+    return view('salon_owner/login');
+});
