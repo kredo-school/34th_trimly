@@ -74,7 +74,7 @@
             flex-grow: 1; /* 親のFlexboxコンテナ内で利用可能なスペースを埋める */
             height: 3px; /* 線の太さ */
             background-color: #e0e0e0; /* 線の色 */
-            margin: 0 10px; /* 線と丸の間のスペース */
+            margin: 0 20px; /* 線と丸の間のスペース */
             align-self: flex-start; /* 親のFlexアイテムの上端に寄せる */
             margin-top: 19px; /* step-circle (40px) の中心に線が来るように調整 (40px/2 - 2px/2 = 19px) */
             z-index: -1; /*線を円やテキストの裏に隠す */
@@ -124,7 +124,7 @@
     <div class="container my-4"> 
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 col-lg-8">
-                <div class="register-container" style="max-width: 800px; width: 90%; margin: auto;"">
+                <div class="register-container" style="max-width: 800px; width: 90%; margin: auto;">
                    
                     {{--Status--}}
                     <nav class="d-flex justify-content-between align-items-center mt-2 mb-5 step-indicator">
