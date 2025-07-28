@@ -1,0 +1,116 @@
+/* Reservation Process Specific Styles @ Juri*/
+
+/* Step Navigation */
+.steps {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background-color: #b08968;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.step-line {
+    width: 60px;
+    height: 2px;
+    background-color: #e0d4c1;
+}
+
+.step-label {
+    font-size: 14px;
+    color: #666;
+    position: absolute;
+    bottom: -25px;
+    white-space: nowrap;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.step-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.step.inactive .step-number {
+    background-color: #e0d4c1;
+    color: #999;
+}
+
+/* Salon Selection Specific */
+.card-title::before {
+    content: '📋';
+    font-size: 24px;
+}
+
+.salon-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.salon-item {
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.salon-item:hover {
+    border-color: #c8a882;
+    background-color: #faf8f5;
+}
+
+.salon-item.selected {
+    border-color: #c8a882;
+    background-color: #f5f0e8;
+}
+
+.salon-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #f0e8dc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.salon-details {
+    flex: 1;
+}
+
+.salon-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.salon-info {
+    font-size: 14px;
+    color: #666;
+}
