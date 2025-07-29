@@ -15,8 +15,12 @@ Route::get('/login-petowner', function () {
     return view('pet_owner.login');
 });
 
-//add Yoshi
+Route::get('/register-petowner', function () {
+    return view('pet_owner.register.register');
+});
+
+// Salon Owner side  - Yoshi section  //
+// Login//
 Route::get('/login-salonowner', function () {
     return view('salon_owner/login');
 });
-
