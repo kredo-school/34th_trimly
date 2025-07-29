@@ -16,7 +16,7 @@ Route::get('/login-petowner', function () {
 });
 
 //add Yoshi
-Route::get('/login', function () {
+Route::get('/login-salonowner', function () {
     return view('salon_owner/login');
 });
 
