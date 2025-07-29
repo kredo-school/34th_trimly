@@ -14,7 +14,6 @@
             color: #6c757d; 
             padding-right: 8px; 
             padding: 0.75rem 1rem; /* アイコン側のパディングも調整して高さを揃える */
-            min-height: 50px; /* ★アイコン側の最小高さを指定して、入力フィールドと高さを合わせる */
         }
         /* input-group内のform-controlのボーダーと角丸を調整 */
         .input-group .form-control {

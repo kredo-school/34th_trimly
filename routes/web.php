@@ -35,6 +35,14 @@ Route::get('/register-petowner/complete', function () {
     return view('pet_owner.register.complete');
 });
 
+Route::get('/mypage/profile', function () {
+    return view('mypage.profile');
+});
+
+Route::get('/mypage/profile-edit', function () {
+    return view('mypage.profile-edit');
+});
+
 
 
 //add Yoshi
