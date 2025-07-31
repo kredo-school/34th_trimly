@@ -43,6 +43,23 @@ Route::get('/mypage/profile-edit', function () {
     return view('mypage.profile-edit');
 });
 
+Route::get('/mypage/pet', function () {
+    return view('mypage.pet');
+});
+
+Route::get('/mypage/pet-edit', function () {
+    return view('mypage.pet-edit');
+});
+
+Route::get('/mypage/add-pet', function () {
+    return view('mypage.add-pet');
+});
+
+Route::get('/mypage/salon', function () {
+    return view('mypage.salon');
+});
+
+
 
 
 //add Yoshi

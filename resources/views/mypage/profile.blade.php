@@ -81,7 +81,7 @@
 </head>
 
 <body>
-    @include('mypage.header') 
+    @include('mypage.header.mypage') 
 
     <div class="container my-4"> 
         <div class="row justify-content-center">

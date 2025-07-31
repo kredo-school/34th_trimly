@@ -1,5 +1,7 @@
     
-   /* This is css in the register page by Yumiko
+   /* This is css for the register page & my page by Yumiko
+
+     /*入力フォームのデザイン*/
     
         /* input-group自体にボーダーと角丸を適用 */
         .input-group-custom {
@@ -22,6 +24,9 @@
             border-radius: 0; /* 角丸を削除 (input-group-customに任せる) */
             
         }
+
+    /*ステップインジケーターのデザイン*/
+
        .step-item-active .step-circle {
             background-color: #ab8b73; /* アクティブなステップの色 */
             border-color: #ab8b73;
