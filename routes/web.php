@@ -17,8 +17,38 @@ Route::post('/mypage/reservation/new/complete', [ReservationController::class, '
 
 //add Yumiko
 Route::get('/login-petowner', function () {
-    return view('pet_owner.login');
+return view('pet_owner.login');
 });
+
+Route::get('/register-petowner/saloncode', function () {
+    return view('pet_owner.register.salon_code');
+});
+
+Route::get('/register-petowner/petowner', function () {
+    return view('pet_owner.register.pet_owner');
+});
+
+Route::get('/register-petowner/pet', function () {
+    return view('pet_owner.register.pet');
+});
+
+Route::get('/register-petowner/confirm', function () {
+    return view('pet_owner.register.confirm');
+});
+
+Route::get('/register-petowner/complete', function () {
+    return view('pet_owner.register.complete');
+});
+
+Route::get('/mypage/profile', function () {
+    return view('mypage.profile');
+});
+
+Route::get('/mypage/profile-edit', function () {
+    return view('mypage.profile-edit');
+});
+
+
 
 //add Yoshi
 Route::get('/login', function () {
