@@ -1,316 +1,488 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salon Portal - Login</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Salon Portal - Sign In</title>
+    <!--fontawesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--fontawesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        body {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            position: relative;
-            overflow-x: hidden;
+        /* Reset and Base Styles */
+        /* Create a base style for the application @ Juri*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background-color: #FEFCF1;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
         body::before {
             content: '';
-            position: fixed;
-            top: -10%;
-            right: -10%;
-            width: 40%;
-            height: 40%;
-            background: linear-gradient(45deg, #d1e7dd, #a3cfbb);
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 300px;
+            height: 300px;
+            background-color: rgba(200, 220, 200, 0.3);
             border-radius: 50%;
-            opacity: 0.3;
-            z-index: -1;
-        }
-        
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -15%;
-            left: -15%;
-            width: 50%;
-            height: 50%;
-            background: linear-gradient(45deg, #e2e3e5, #ced4da);
-            border-radius: 50%;
-            opacity: 0.2;
             z-index: -1;
         }
 
-        .login-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        /* Common Layout */
+        .main-content {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        .icon-building {
-            width: 2rem;
-            height: 2rem;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-        .icon-eye, .icon-eye-off, .icon-arrow-left, .icon-help {
-            width: 1.25rem;
-            height: 1.25rem;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-        .icon-email, .icon-lock {
-            width: 1.25rem;
-            height: 1.25rem;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+        .container {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
         }
 
-        .floating-circles {
-            position: fixed;
-            top: 20px;
-            right: 30px;
-            z-index: -1;
+        .logo-section {
+            margin-bottom: 40px;
         }
 
-        .circle {
+        .logo-icon {
             width: 60px;
             height: 60px;
+            background-color: #D5C4B8;
             border-radius: 50%;
-            background: linear-gradient(45deg, #dee2e6, #adb5bd);
-            opacity: 0.6;
-            margin-bottom: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
         }
 
-        .input-field {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(5px);
+        .info-icon {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 24px;
+            height: 24px;
+            background-color: #999;
+            border: 2px solid #FEFCF1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .info-icon::before {
+            content: "?";
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        /* Card Component */
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-align: left;
+        }
+
+        .form-title {
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group-custom {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            transition: border-color 0.2s;
+            background-color: white;
+        }
+
+        .input-group-custom:focus-within {
+            border-color: #D5C4B8;
+        }
+
+        .input-group-text-custom {
+            background-color: white;
+            border: none;
+            color: #6c757d;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            font-size: 16px;
+            background-color: white;
+            outline: none;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .password-input-container {
+            position: relative;
+            flex: 1;
+            display: flex;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .password-toggle svg {
+            width: 18px;
+            height: 18px;
+            stroke: #999;
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        .password-toggle svg {
+            width: 18px;
+            height: 18px;
+            stroke: #999;
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin: 0;
+        }
+
+        .forgot-password {
+            color: #D5C4B8;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back {
+            background-color: white;
+            color: #666;
+            border: 2px solid #e0e0e0;
+        }
+
+        .btn-back:hover {
+            background-color: #f5f5f5;
+        }
+
+        .btn-continue {
+            background-color: #D5C4B8;
+            color: white;
+            margin-left: auto;
+        }
+
+        .btn-continue:hover {
+            background-color: #C3B1A6;
+        }
+
+        .btn-continue:disabled {
+            background-color: #e0d4c1;
+            cursor: not-allowed;
+        }
+
+        /* Actions Container */
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-signin {
+            width: 100%;
+            padding: 14px;
+            background-color: #D5C4B8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-bottom: 30px;
+        }
+
+        .btn-signin:hover {
+            background-color: #C3B1A6;
+        }
+
+        .register-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .register-text {
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 12px 32px;
+            background-color: #FEFCF1;
+            color: #333;
+            border: 2px solid #D5C4B8;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-register:hover {
+            background-color: #D5C4B8;
+            color: white;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 20px;
+            padding: 12px 32px;
+            background-color: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .back-link:hover {
+            background-color: #f5f5f5;
+            color: #333;
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center px-4">
-    <!-- Floating decorative circles -->
-    <div class="floating-circles">
-        <div class="circle"></div>
-        <div class="circle" style="width: 40px; height: 40px; opacity: 0.4;"></div>
+<body>
+    <div class="container">
+        <div class="logo-section">
+            <div class="logo">
+                <img src="images/Trimly Logo.png" alt="Trymly Logo" style="max-width:150px;">
+            </div>
+            
+            <h1>Salon Portal</h1>
+            <p class="subtitle">Welcome back! Sign in to manage your salon.</p>
+        </div>
+
+        <div class="form-card">
+            <h2 class="form-title">Sign In</h2>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <div class="input-group-custom">
+                        <span class="input-group-text-custom">
+                            <i class="fa-regular fa-envelope"></i>
+                        </span>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            class="form-input" 
+                            placeholder="Enter your email"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="input-group-custom">
+                        <span class="input-group-text-custom">
+                            <i class="fa-regular fa-lock"></i>
+                        </span>
+                        <div class="password-input-container">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                class="form-input" 
+                                placeholder="Enter your password"
+                                required
+                            >
+                            <button type="button" class="password-toggle" onclick="togglePassword()">
+                                <svg id="eyeIcon" viewBox="0 0 24 24">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                    <path id="eyeSlash" d="M4.5 4.5l15 15" style="display: none;"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn-signin">Sign In</button>
+                
+                <div style="border-top: 1px solid #e0e0e0; margin: 20px 0;"></div>
+            </form>
+
+            <div class="register-section">
+                <p class="register-text">Don't have a salon account yet?</p>
+                <button type="button" class="btn-register" onclick="showRegisterAlert()">Register Your Salon</button>
+            </div>
+
+            <a href="#" style="color: #666; text-decoration: none; font-size: 14px; display: block; text-align: center; margin-top: 20px;">
+                ← Back to Customer Login
+            </a>
+        </div>
+
+        <p style="text-align: center; margin-top: 30px; color: #999; font-size: 14px;">
+            Need help? Contact our <a href="#" style="color: #999; text-decoration: underline;">support team</a>
+        </p>
     </div>
-
-    <div class="max-w-md w-full login-container rounded-2xl shadow-xl p-8">
-        <!-- Logo and Header -->
-        <div class="text-center mb-8">
-            <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="icon-building text-amber-700" viewBox="0 0 24 24">
-                    <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/>
-                    <path d="M6 12H4a2 2 0 0 0-2 2v8h20v-8a2 2 0 0 0-2-2h-2"/>
-                    <path d="M10 6h4"/>
-                    <path d="M10 10h4"/>
-                    <path d="M10 14h4"/>
-                    <path d="M10 18h4"/>
-                </svg>
-            </div>
-            <h1 class="text-2xl font-bold text-gray-800 mb-2">Salon Portal</h1>
-            <p class="text-gray-600">Welcome back! Sign in to manage your salon.</p>
-        </div>
-
-        <!-- Sign In Form -->
-        <form onsubmit="handleSignIn(event)" class="space-y-6">
-            <div class="text-center mb-6">
-                <h2 class="text-xl font-semibold text-gray-800">Sign In</h2>
-            </div>
-
-            <!-- Email Field -->
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address
-                </label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                        <svg class="icon-email text-gray-400" viewBox="0 0 24 24">
-                            <path d="M16 12a4 4 0 1 0-8 0 4 4 0 0 0 8 0zm0 0v1.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-9 9m4.5-1.206a8.959 8.959 0 0 1-4.5 1.207"/>
-                        </svg>
-                    </div>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        class="input-field w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all"
-                        required
-                    />
-                </div>
-            </div>
-
-            <!-- Password Field -->
-            <div>
-                <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-                    Password
-                </label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                        <svg class="icon-lock text-gray-400" viewBox="0 0 24 24">
-                            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                        </svg>
-                    </div>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        class="input-field w-full pl-10 pr-12 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all"
-                        required
-                    />
-                    <button
-                        type="button"
-                        onclick="togglePassword()"
-                        class="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
-                    >
-                        <svg id="eye-icon" class="icon-eye" viewBox="0 0 24 24">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                            <circle cx="12" cy="12" r="3"/>
-                        </svg>
-                        <svg id="eye-off-icon" class="icon-eye-off hidden" viewBox="0 0 24 24">
-                            <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
-                            <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 11 8 11 8a13.16 13.16 0 0 1-1.67 2.68"/>
-                            <path d="M6.61 6.61A13.526 13.526 0 0 0 1 12s4 8 11 8a9.74 9.74 0 0 0 5.39-1.61"/>
-                            <line x1="2" x2="22" y1="2" y2="22"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Remember Me and Forgot Password -->
-            <div class="flex items-center justify-between">
-                <label class="flex items-center">
-                    <input
-                        type="checkbox"
-                        id="rememberMe"
-                        name="rememberMe"
-                        class="w-4 h-4 text-amber-600 bg-gray-100 border-gray-300 rounded focus:ring-amber-500 focus:ring-2"
-                    />
-                    <span class="ml-2 text-sm text-gray-700">Remember me</span>
-                </label>
-                <a href="#" class="text-sm text-amber-600 hover:text-amber-700 transition-colors">
-                    Forgot password?
-                </a>
-            </div>
-
-            <!-- Sign In Button -->
-            <button
-                type="submit"
-                class="w-full bg-amber-200 hover:bg-amber-300 text-amber-800 font-semibold py-3 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-            >
-                Sign In
-            </button>
-
-            <!-- Register Link -->
-            <div class="mt-6 text-center">
-                <p class="text-sm text-gray-600">
-                    Don't have a salon account yet?
-                </p>
-                <button 
-                    type="button"
-                    onclick="handleRegister()"
-                    class="mt-2 w-full bg-gray-50 border border-gray-200 hover:bg-gray-100 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200"
-                >
-                    Register Your Salon
-                </button>
-            </div>
-
-            <!-- Back to Customer Login -->
-            <div class="mt-6 text-center">
-                <button 
-                    type="button"
-                    onclick="backToCustomerLogin()"
-                    class="flex items-center justify-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition-colors mx-auto"
-                >
-                    <svg class="icon-arrow-left" viewBox="0 0 24 24">
-                        <path d="M19 12H5"/>
-                        <path d="m12 19-7-7 7-7"/>
-                    </svg>
-                    Back to Customer Login
-                </button>
-            </div>
-        </form>
-
-        <!-- Support -->
-        <div class="mt-6 text-center">
-            <button 
-                onclick="contactSupport()"
-                class="flex items-center justify-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition-colors mx-auto"
-            >
-                <svg class="icon-help" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-                    <path d="M12 17h.01"/>
-                </svg>
-                Need help? Contact our support team
-            </button>
-        </div>
     </div>
 
     <script>
-        // Password toggle functionality
         function togglePassword() {
             const passwordInput = document.getElementById('password');
-            const eyeIcon = document.getElementById('eye-icon');
-            const eyeOffIcon = document.getElementById('eye-off-icon');
+            const eyeSlash = document.getElementById('eyeSlash');
             
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                eyeIcon.classList.add('hidden');
-                eyeOffIcon.classList.remove('hidden');
+                eyeSlash.style.display = 'block';
             } else {
                 passwordInput.type = 'password';
-                eyeIcon.classList.remove('hidden');
-                eyeOffIcon.classList.add('hidden');
+                eyeSlash.style.display = 'none';
             }
         }
 
-        // Form submission
-        function handleSignIn(event) {
-            event.preventDefault(); // フォームのデフォルト送信を防ぐ
-            
+        function showRegisterAlert() {
+            alert('Registration page would open here!');
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const rememberMe = document.getElementById('rememberMe').checked;
             
-            if (!email || !password) {
-                alert('Please fill in all fields');
-                return;
-            }
-            
-            console.log('Login attempt:', { email, password, rememberMe });
-            alert('Login functionality would be implemented here');
-        }
-
-        // Register button
-        function handleRegister() {
-            alert('Register new salon functionality');
-        }
-
-        // Back to customer login
-        function backToCustomerLogin() {
-            alert('Navigate back to customer login');
-        }
-
-        // Contact support
-        function contactSupport() {
-            alert('Opening support contact form');
-        }
-
-        // Form validation on input
-        document.getElementById('email').addEventListener('input', function(e) {
-            if (e.target.validity.typeMismatch) {
-                e.target.setCustomValidity('Please enter a valid email address');
-            } else {
-                e.target.setCustomValidity('');
+            if (email && password) {
+                alert(`Login attempt for: ${email}`);
             }
         });
     </script>
