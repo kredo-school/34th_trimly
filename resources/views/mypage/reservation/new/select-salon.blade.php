@@ -1,4 +1,4 @@
-// Create a new Blade template for selecting a salon in the reservation process by Juri
+{{-- Create a new Blade template for selecting a salon in the reservation process by Juri --}}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -11,7 +11,7 @@
 <body>
     @include('users.profile.header')
 
-    // Step bar for the reservation process @ Juri
+    {{-- Step bar for the reservation process @ Juri --}}
     <div class="steps">
         <div class="step-wrapper">
             <div class="step">
