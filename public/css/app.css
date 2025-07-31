@@ -1,3 +1,6 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 /* Reset and Base Styles */
 /* Create a base style for the application @ Juri*/
 * {
@@ -7,14 +10,14 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
     background-color: #fefcf1;
     color: #333;
 }
 
 /* Common Layout */
 .main-content {
-    max-width: 700px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -45,7 +48,7 @@ body {
 .btn {
     padding: 12px 32px;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     cursor: pointer;
     border: none;
@@ -57,7 +60,7 @@ body {
 }
 
 .btn-back {
-    background-color: #FEFCF1;
+    background-color: #fefcf1;
     color: #666;
     border: 2px solid #e0e0e0;
 }
