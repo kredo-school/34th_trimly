@@ -1,6 +1,3 @@
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
 /* Reset and Base Styles */
 /* Create a base style for the application @ Juri*/
 * {
@@ -10,14 +7,14 @@
 }
 
 body {
-    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
     background-color: #fefcf1;
     color: #333;
 }
 
 /* Common Layout */
 .main-content {
-    max-width: 900px;
+    max-width: 700px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -48,7 +45,7 @@ body {
 .btn {
     padding: 12px 32px;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     cursor: pointer;
     border: none;
@@ -60,7 +57,7 @@ body {
 }
 
 .btn-back {
-    background-color: #fefcf1;
+    background-color: #FEFCF1;
     color: #666;
     border: 2px solid #e0e0e0;
 }
@@ -84,10 +81,53 @@ body {
     cursor: not-allowed;
 }
 
+.btn-save {
+    background-color: #c8a882 !important;
+    color: white !important; 
+    padding: 10px 25px; 
+    border-radius: 10px; 
+    font-size: 16px; 
+    font-weight: 600; 
+    border: none; 
+    cursor: pointer; /* カーソル */
+    transition: all 0.2s; /* ホバー時のアニメーション */
+    text-decoration: none;
+    display: inline-flex; /* Flexboxで内側を配置 */
+    align-items: center; /* 垂直中央揃え */
+    gap: 8px; /* アイコンとテキストの間隔 (もしあれば) */
+    }
+
+.btn-save:hover {
+    background-color: #b39770 !important;
+    }
+
+.btn-cancel {
+    background-color: #FEFCF1 !important; 
+    border: 1px solid #e0e0e0 !important; 
+    color: #6c757d !important; 
+    padding: 10px 25px; 
+    border-radius: 10px; 
+    font-size: 16px; 
+    font-weight: 600; 
+    cursor: pointer; /* カーソル */
+    transition: all 0.2s; /* ホバー時のアニメーション */
+    text-decoration: none; 
+    display: inline-flex; /* Flexboxで内側を配置 */
+    align-items: center; /* 垂直中央揃え */
+    }
+
 /* Actions Container */
 .actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 16px;
+}
+
+ a {
+    color: #D5C4B8 !important;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
 }

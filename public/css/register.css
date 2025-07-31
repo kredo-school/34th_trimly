@@ -1,0 +1,75 @@
+    
+   /* This is css for the register page & my page by Yumiko
+
+     /*入力フォームのデザイン*/
+    
+        /* input-group自体にボーダーと角丸を適用 */
+        .input-group-custom {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        /* input-group-textの背景色とボーダーを調整 */
+        .input-group-text-custom {
+            background-color: #FEFCF1;
+            border: none;
+            color: #6c757d; 
+            padding-right: 8px; 
+            padding: 0.75rem 1rem; /* アイコン側のパディングも調整して高さを揃える */
+        }
+        /* input-group内のform-controlのボーダーと角丸を調整 */
+        .input-group .form-control {
+            background-color: #FEFCF1;
+            border: none;
+            border-radius: 0; /* 角丸を削除 (input-group-customに任せる) */
+            
+        }
+
+    /*ステップインジケーターのデザイン*/
+
+       .step-item-active .step-circle {
+            background-color: #ab8b73; /* アクティブなステップの色 */
+            border-color: #ab8b73;
+            color: #fff; /* 数字の色 */
+            position: relative; /* z-indexを効かせるため */
+            z-index: 2; /* 線より手前に来るように */
+        }
+        .step-item-active .step-text {
+            color: #ab8b73; /* アクティブなステップのテキスト色 */
+            font-weight: bold;
+            position: relative; /* z-indexを効かせるため */
+            z-index: 2; /* 線より手前に来るように */
+            background-color: #FEFCF1; /*bodyと同じ背景色を設定して線が文字を透けないように */
+        }
+        .step-item-inactive .step-circle {
+            background-color: #e0e0e0; /* 未完了ステップの背景色 */
+            border-color: #e0e0e0;
+            color: #fff; /* 数字の色 */
+            position: relative; /* z-indexを効かせるため */
+            z-index: 2; /* ★追加: 線より手前に来るように */
+        }
+        .step-item-inactive .step-text {
+            color: #e0e0e0; /* 未完了ステップのテキスト色 */
+            position: relative; 
+            z-index: 2; 
+            background-color: #FEFCF1;
+        }
+        /* ステップ円の固定サイズ*/
+        .w-40px { width: 40px; }
+        .h-40px { height: 40px; }
+
+        /* ステップ間の線 */
+        .step-line {
+            flex-grow: 1; /* 親のFlexboxコンテナ内で利用可能なスペースを埋める */
+            height: 3px; /* 線の太さ */
+            background-color: #e0e0e0; /* 線の色 */
+            margin: 0 20px; /* 線と丸の間のスペース */
+            align-self: flex-start; /* 親のFlexアイテムの上端に寄せる */
+            margin-top: 19px; /* step-circle (40px) の中心に線が来るように調整 (40px/2 - 2px/2 = 19px) */
+            z-index: -1; /*線を円やテキストの裏に隠す */
+        }
+        /* ★step-indicatorにz-indexの基準を設定 */
+        .step-indicator {
+            position: relative; /* 子要素のz-indexの基準とする */
+            z-index: 1; /* 他の要素と重なったときの順序 */
+        }
