@@ -64,11 +64,12 @@ Route::get('/mypage/salon', function () {
     return view('mypage.salon');
 });
 
-
-
-
-//add Yoshi
-Route::get('/login', function () {
-    return view('salon_owner/login');
+Route::get('/register-petowner', function () {
+    return view('pet_owner.register.register');
 });
 
+// Salon Owner side  - Yoshi section  //
+// Login//
+Route::get('/login-salonowner', function () {
+    return view('salon_owner/login');
+});
