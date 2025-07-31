@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Mypage Profile</title>
+    <title>Mypage Profile-Edit</title>
     <!--bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -17,6 +17,10 @@
     <link rel="stylesheet" href="{{ asset('css/register.css') }}">
 
     <style>
+        .form-control{
+            border: none;
+            background-color: #FEFCF1; 
+        }
         .form-label {
             font-weight: bold; 
             color: #6c757d; 
@@ -47,40 +51,46 @@
             color: #adb5bd; 
         }
 
-        .btn-save {
-        background-color: #c8a882 !important;
-        color: white !important; 
-        padding: 10px 25px; 
-        border-radius: 10px; 
-        font-size: 16px; 
-        font-weight: 600; 
-        border: none; 
-        cursor: pointer; /* カーソル */
-        transition: all 0.2s; /* ホバー時のアニメーション */
-        text-decoration: none;
-        display: inline-flex; /* Flexboxで内側を配置 */
-        align-items: center; /* 垂直中央揃え */
-        gap: 8px; /* アイコンとテキストの間隔 (もしあれば) */
+        .input-group-custom-edit {
+            display: flex;
+            align-items: center;
+            border: 1px solid #e0e0e0; /* form-control-readonly と同じボーダー */
+            border-radius: 10px; /* form-control-readonly と同じ角丸 */
+            background-color: #FEFCF1; /* form-control-readonly と同じ背景色 */
+            min-height: calc(2.25rem + 2px); /* Bootstrap form-control の高さに合わせる */
+            overflow: hidden; /* 角丸からはみ出さないように */
+        }
+        .input-group-custom-edit .input-group-text-custom-edit {
+            background-color: transparent; /* 背景透明 */
+            border: none; /* ボーダーなし */
+            color: #a68c76; /* アイコンの色 */
+            padding-left: 15px; /* 左のパディング */
+            padding-right: 0; /* アイコンの右のパディングはなし */
+            display: flex; /* アイコンを中央揃えにするため */
+            align-items: center;
+        }
+        .input-group-custom-edit .form-control-inline {
+            background-color: transparent; /* 背景透明 */
+            border: none; /* ボーダーなし */
+            box-shadow: none; /* フォーカス時の影を削除 */
+            padding-left: 5px; /* アイコンとの間隔を調整 */
+            padding-right: 15px; /* 右のパディング */
+            color: #333; /* テキストの色 */
+            height: auto; /* 高さは親要素に合わせる */
+            flex-grow: 1; /* 残りのスペースを埋める */
         }
 
-        .btn-save:hover {
-        background-color: #b39770 !important;
-         }
-
-        .btn-cancel {
-        background-color: #FEFCF1 !important; 
-        border: 1px solid #e0e0e0 !important; 
-        color: #6c757d !important; 
-        padding: 10px 25px; 
-        border-radius: 10px; 
-        font-size: 16px; 
-        font-weight: 600; 
-        cursor: pointer; /* カーソル */
-        transition: all 0.2s; /* ホバー時のアニメーション */
-        text-decoration: none; 
-        display: inline-flex; /* Flexboxで内側を配置 */
-        align-items: center; /* 垂直中央揃え */
-         }
+        .input-group-custom-edit .form-control-inline-select { /* select タグ用 */
+            background-color: transparent; /* 背景透明 */
+            border: none; /* ボーダーなし */
+            box-shadow: none; /* フォーカス時の影を削除 */
+            padding-left: 5px; /* アイコンとの間隔を調整 */
+            padding-right: 15px; /* 右のパディング */
+            color: #333; /* テキストの色 */
+            height: auto; /* 高さは親要素に合わせる */
+            flex-grow: 1; /* 残りのスペースを埋める */
+            
+        }
 
         /* 目玉アイコンは .toggle-password が付与されている部分にのみ適用 */
         .input-group-custom .toggle-password {
@@ -116,7 +126,7 @@
 </head>
 
 <body>
-    @include('mypage.header') 
+     @include('mypage.header.mypage') 
 
     <div class="container my-4"> 
         <div class="row justify-content-center">
@@ -126,48 +136,68 @@
 
                     <form action="#" method="POST">
                         @csrf
+                        @method('PATCH')
 
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="firstName" class="form-label">First Name</label>
-                                <div class="form-control-readonly">
-                                    <i class="fa-solid fa-user"></i>
-                                    <span class="value-text" id="firstName">John</span> {{-- DBからのデータ表示 --}}
+                                {{-- div.input-group に変更し、アイコンと入力フィールドを一体化 --}}
+                                <div class="input-group input-group-custom-edit">
+                                    <span class="input-group-text input-group-text-custom-edit">
+                                        <i class="fa-solid fa-user"></i>
+                                    </span>
+                                    <input type="text" name="firstName" id="firstName" class="form-control form-control-inline" value="John" autofocus>{{-- DBからのデータ表示 --}}
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <label for="lastName" class="form-label">Last Name</label>
-                                <div class="form-control-readonly">
-                                    <i class="fa-solid fa-user"></i>
-                                    <span class="value-text" id="lastName">Smith</span> {{-- DBからのデータ表示 --}}
+                                <div class="input-group input-group-custom-edit">
+                                    <span class="input-group-text input-group-text-custom-edit">
+                                        <i class="fa-solid fa-user"></i>
+                                    </span>
+                                    <input type="text" name="lastName" id="lastName" class="form-control form-control-inline" value="Smith" autofocus>{{-- DBからのデータ表示 --}}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="emailAddress" class="form-label">Email Address</label>
-                                <div class="form-control-readonly">
-                                    <i class="fa-solid fa-envelope"></i>
-                                    <span class="value-text" id="emailAddress">john.smith@email.com</span> {{-- DBからのデータ表示 --}}
+                                <div class="input-group input-group-custom-edit">
+                                    <span class="input-group-text input-group-text-custom-edit">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </span>
+                                    <input type="email" name="emailAddress" id="emailAddress" class="form-control form-control-inline" value="john.smith@email.com" autofocus>{{-- DBからのデータ表示 --}}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="phoneNumber" class="form-label">Phone Number</label>
-                                <div class="form-control-readonly">
-                                    <i class="fa-solid fa-phone"></i>
-                                    <span class="value-text" id="phoneNumber">(555) 123-4567</span> {{-- DBからのデータ表示 --}}
+                                <div class="input-group input-group-custom-edit">
+                                    <span class="input-group-text input-group-text-custom-edit">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </span>
+                                    <input type="tel" name="phoneNumber" id="phoneNumber" class="form-control form-control-inline" value="(555) 123-4567" autofocus>{{-- DBからのデータ表示 --}}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="city" class="form-label">City</label>
-                                <div class="form-control-readonly">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <span class="value-text" id="city">Los Angeles</span> {{-- DBからのデータ表示 --}}
+                                 <div class="input-group input-group-custom-edit">
+                                    <span class="input-group-text input-group-text-custom-edit">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </span>
+                                    <input type="text" name="city" id="city" class="form-control form-control-inline" value="Los Angeles"> {{-- DBからのデータ表示 --}}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="prefecture" class="form-label">Prefecture</label>
-                                <div class="form-control-readonly">
-                                    <i class="fa-solid fa-map"></i>
-                                    <span class="value-text" id="prefecture">California</span> {{-- DBからのデータ表示 --}}
+                                <div class="input-group input-group-custom-edit">
+                                    <span class="input-group-text input-group-text-custom-edit">
+                                        <i class="fa-solid fa-map"></i>
+                                    </span>
+                                    <select name="prefecture" id="prefecture" class="form-select form-control-inline-select">
+                                        <option value="California" selected>California</option>
+                                        <option value="New York">New York</option>
+                                        <option value="Texas">Texas</option>
+                                        {{-- オプションを追加 --}}
+                                    </select>
                                 </div>
                             </div>
 
