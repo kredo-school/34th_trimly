@@ -69,7 +69,21 @@ Route::get('/register-petowner', function () {
 });
 
 // Salon Owner side  - Yoshi section  //
-// Login//
+
+//Owner Login//
 Route::get('/login-salonowner', function () {
     return view('salon_owner/login');
+});
+//Owner Register - confirm //
+Route::get('/register-salonowner/confirm', function () {
+    return view('salon_owner/register/confirm');
+});
+
+//Owner Register -saloninfo //
+Route::get('/register-salonowner/salon-info', function () {
+    return view('salon_owner/register/salon-info');
+});
+//Owner Register -saloncode //
+Route::get('/register-salonowner/salon-code', function () {
+    return view('salon_owner/register/salon-code');
 });
