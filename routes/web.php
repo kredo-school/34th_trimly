@@ -64,9 +64,15 @@ Route::get('/mypage/salon', function () {
     return view('mypage.salon');
 });
 
-Route::get('/register-petowner', function () {
-    return view('pet_owner.register.register');
+Route::get('/mypage/reserve', function () {
+    return view('mypage.reservation');
 });
+
+Route::get('/header', function () {
+    return view('mypage.header.mypage');
+});
+
+
 
 // Salon Owner side  - Yoshi section  //
 
