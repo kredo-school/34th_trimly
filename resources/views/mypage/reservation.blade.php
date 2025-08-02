@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>My salons</title>
+    <title>My reservations</title>
     <!--bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -146,7 +146,7 @@
             <div class="col-12 col-md-10 col-lg-8">
                 <div class="card p-4 mb-4 shadow-sm">
                     {{-- Upcoming Appointments セクション --}}
-                    <div class="mb-5">
+                    <div class="mb-2">
                         <div class="section-header">
                             <div>
                                 <h2 class="text-muted">Upcoming Appointments</h2>
@@ -172,12 +172,12 @@
                                 <span class="price">$85</span>
                                 <div class="pet-actions">
                                     {{-- edit-button --}}
-                                    <button type="button" class="btn btn-continue">
-                                        <i class="fa-solid fa-pencil"></i>
+                                    <button type="button" class="btn btn-continue" data-bs-toggle="modal" data-bs-target="#editReserveModal1">
+                                       <i class="fa-regular fa-pen-to-square"></i>Edit
                                     </button>
                                     {{-- delete-button --}}
-                                    <button type="button" class="btn pet-action-btn text-danger">
-                                        <i class="fa-solid fa-trash-can"></i>
+                                    <button type="button" class="btn pet-action-btn text-danger" data-bs-toggle="modal" data-bs-target="#deleteReserveModal1">
+                                        <i class="fa-solid fa-trash-can"></i>Cancel
                                     </button>
                                 </div>
                             </div>
@@ -198,11 +198,11 @@
                                 <div class="pet-actions">
                                     {{-- edit-button --}}
                                     <button type="button" class="btn btn-continue">
-                                        <i class="fa-solid fa-pencil"></i>
+                                      <i class="fa-regular fa-pen-to-square"></i>Edit
                                     </button>
                                     {{-- delete-button --}}
                                     <button type="button" class="btn pet-action-btn text-danger">
-                                        <i class="fa-solid fa-trash-can"></i>
+                                        <i class="fa-solid fa-trash-can"></i>Cancel
                                     </button>
                                 </div>
                             </div>
@@ -236,7 +236,8 @@
                         </div>
                         <div class="appointment-actions">
                             <span class="price">$85</span>
-                            <a href="#" class="btn btn-action btn-again">Book Again</a>
+                        {{--Rebook--}}
+                            <a href="#" class="btn btn-action btn-again" data-bs-toggle="modal" data-bs-target="#editReserveModal1">Book Again</a>
                         </div>
                     </div>
 
@@ -261,7 +262,8 @@
             </div>
 
             {{-- Include the modal here --}}
-            @include('mypage.modal.delete-salon')
+            @include('mypage.modal.delete-reserve')
+            @include('mypage.modal.edit-reserve')
 
 </body>
 
