@@ -91,7 +91,7 @@
                         <h4 class="card-title mb-0 text-muted">Pet Owner Information</h4>
                     {{--edit button--}}
                         <button class="btn btn-continue">
-                            <i class="fa-solid fa-pencil"></i>
+                            <i class="fa-regular fa-pen-to-square"></i>
                         </button>
                     </div>
                     
