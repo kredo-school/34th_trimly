@@ -1,3 +1,4 @@
+{{-- Need to create CSS for this --}}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -408,7 +409,7 @@
                     <label class="form-label" for="password">Password</label>
                     <div class="input-group-custom">
                         <span class="input-group-text-custom">
-                            <i class="fa-regular fa-lock"></i>
+                            <i class="fa-solid fa-lock"></i>
                         </span>
                         <div class="password-input-container">
                             <input 
