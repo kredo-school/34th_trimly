@@ -46,9 +46,9 @@
 
         /* ログアウトボタンのスタイル */
         .btn-logout {
-            background-color: #FEFCF1;
+            background-color: #fefcf1 !important;
             color: #666;
-            border: 1px solid #e0e0e0;
+            border: 2px solid #e0e0e0 !important;
             height: 40px; 
             padding: 0 20px; 
             display: flex; 

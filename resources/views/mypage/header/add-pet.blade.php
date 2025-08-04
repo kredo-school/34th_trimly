@@ -23,27 +23,6 @@
             width: 80px; 
             height: 80px;
         }
-        /* ナビゲーションリンクのスタイル */
-        .navbar-nav .nav-item .nav-link { 
-            color: #666 !important; /*  文字色を茶色に強制 (image_54bbc4.png) */
-            font-weight: bold; 
-            margin-right: 20px;
-            font-size: 1rem;
-            /* heightの高さが縮まる場合は、上下のpaddingを調整 */
-             padding-top: 8px !important;
-             padding-bottom: 8px !important; 
-        }
-        .navbar-nav .nav-item .nav-link:hover { 
-            color: #c8a882 !important; 
-        }
-        .navbar-nav .nav-item .nav-link i { 
-            color: #666 !important; 
-        }
-
-        .navbar-nav .nav-item .nav-link i:hover { 
-            color: #c8a882 !important; 
-        }
-
         /* ログアウトボタンのスタイル */
         .btn-logout {
             background-color: #FEFCF1;
@@ -60,36 +39,7 @@
             color: #6c757d;
         }
 
-        /* ヘッダー全体の高さと背景色などの調整 */
-        header.bg-white {
-            background-color: white; 
-            border-bottom: 1px solid #e0e0e0 !important; 
-            padding: 5px 0 !important; 
-            height: auto !important; /*高さを自動に任せるか、固定する場合はここで指定 */
-            min-height: 50px; /* 最低限の高さを設定 (ロゴやリンクの高さに合わせて調整) */
-        }
-        header .navbar {
-            padding: 0 !important; /* navbarのデフォルトパディングをリセット */
-            height: 100%; /* 親のheaderに高さを合わせる */
-        }
-        header .container-fluid {
-            height: 100%; /* 親のnavbarに高さを合わせる */
-            display: flex;
-            align-items: center;
-            justify-content: space-between; /* ★修正: ロゴ、ナビ、ログアウトを左右に配置 */
-            padding-left: var(--bs-gutter-x, 1.5rem); /* Bootstrapデフォルトの左右パディング */
-            padding-right: var(--bs-gutter-x, 1.5rem);
-        }
-        header .navbar-brand {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            margin-right: 0 !important; /* デフォルトマージンをリセット */
-        }
-        header .navbar-brand p { /* Trimly テキストのpタグにマージンを適用 */
-            margin-bottom: 0 !important; /* pタグのデフォルト下マージンを削除 */
-            margin-left: 2px; /* ロゴとの間隔 */
-        }
+       
      
     </style>
 </head>
@@ -103,12 +53,12 @@
              
                 
 
-                <form class="d-flex ms-lg-auto" action="#" method="POST">
-                    @csrf
-                    <button class="btn btn-logout" type="submit">Logout</button>
-                </form>
+                    <form class="d-flex ms-lg-auto" action="#" method="POST">
+                        @csrf
+                        <button class="btn btn-logout" type="submit">Logout</button>
+                    </form>
+                </div>
             </div>
-          
     </header>
 
 </body>

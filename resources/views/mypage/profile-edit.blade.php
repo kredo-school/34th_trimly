@@ -13,7 +13,7 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--css-->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/register.css') }}">
 
     <style>
@@ -244,34 +244,13 @@
             </div>
         </div> 
     </div>
+    
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
-            crossorigin="anonymous"></script>
+    {{-- @push('scripts') --}}
+        <script src="{{ asset('js/mypage.profile.js') }}" defer></script>
+    {{-- @endpush --}}
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // 現在のパスワードフィールドの目玉アイコンのみを対象にする
-            const togglePasswordIcon = document.querySelector('.toggle-password[data-target="currentPassword"]');
 
-            if (togglePasswordIcon) { // 目玉アイコンが存在する場合のみイベントリスナーを設定
-                togglePasswordIcon.addEventListener('click', function() {
-                    const targetId = this.dataset.target;
-                    const passwordInput = document.getElementById(targetId);
-                    const eyeIcon = this.querySelector('i');
-
-                    if (passwordInput.type === 'password') {
-                        passwordInput.type = 'text'; 
-                        eyeIcon.classList.remove('fa-eye-slash');
-                        eyeIcon.classList.add('fa-eye');
-                    } else {
-                        passwordInput.type = 'password';
-                        eyeIcon.classList.remove('fa-eye');
-                        eyeIcon.classList.add('fa-eye-slash');
-                    }
-                });
-            }
-        });
-    </script>
+    
 </body>
 </html>

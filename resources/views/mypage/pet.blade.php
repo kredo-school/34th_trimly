@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,46 +14,51 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--css-->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/register.css') }}">
 
     <style>
         .form-label {
-            font-weight: bold; 
-            color: #6c757d; 
+            font-weight: bold;
+            color: #6c757d;
             margin-bottom: 8px;
         }
+
         .form-control::placeholder {
-            color: #adb5bd; 
+            color: #adb5bd;
         }
-        
+
         /* 読み取り専用フィールド */
         .form-control-readonly {
-            background-color: #FEFCF1; 
-            border: 1px solid #e0e0e0; 
+            background-color: #FEFCF1;
+            border: 1px solid #e0e0e0;
             border-radius: 10px;
             padding: 12px 15px;
-            color: #333; 
+            color: #333;
             font-size: 1rem;
             display: flex;
-            align-items: center; 
-            min-height: calc(2.25rem + 2px); /* Bootstrap form-control の高さに合わせる */
+            align-items: center;
+            min-height: calc(2.25rem + 2px);
+            /* Bootstrap form-control の高さに合わせる */
         }
+
         .form-control-readonly .fa-solid {
-            color: #a68c76; 
+            color: #a68c76;
             margin-right: 10px;
         }
+
         .form-control-readonly .value-text {
-            flex-grow: 1; /* テキストが残りのスペースを占める */
-            color: #adb5bd; 
+            flex-grow: 1;
+            /* テキストが残りのスペースを占める */
+            color: #adb5bd;
         }
     </style>
 </head>
 
 <body>
-   @include('mypage.header.mypage') 
+    @include('mypage.header.mypage')
 
-    <div class="container my-4"> 
+    <div class="container my-4">
         <div class="d-flex justify-content-end mb-4">
             <button type="button" class="btn btn-continue">
                 <i class="fa-solid fa-plus"></i> Add Pet
@@ -60,30 +66,30 @@
         </div>
 
 
-    <div class="row g-4"> 
-           
-            {{-- @foreach($pets as $pet)  --}}
-            <div class="col-12 col-md-6"> 
+        <div class="row g-4">
+
+            {{-- @foreach ($pets as $pet)  --}}
+            <div class="col-12 col-md-6">
                 <div class="card p-4">
                     <div class="pet-card-header d-flex justify-content-between align-items-center mb-4"">
                         <div class="pet-name-display fs-3 text-muted">
                             <i class="fa-solid fa-heart"></i>
-                            <span>#</span> 
+                            <span>#</span>
                         </div>
                         <div class="pet-actions">
-                            {{--edit-button--}}
+                            {{-- edit-button --}}
                             <button type="button" class="btn btn-continue">
-                                <i class="fa-solid fa-pencil"></i> 
+                                <i class="fa-solid fa-pencil"></i>
                             </button>
-                            {{--delete-button--}}
-                            <button type="button" class="btn pet-action-btn text-danger">
-                                <i class="fa-solid fa-trash-can"></i> 
+                            {{-- delete-button --}}
+                            <button type="button" class="btn pet-action-btn text-danger" data-bs-toggle="modal" data-bs-target="#deletePetModal1">
+                                <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </div>
                     </div>
 
                     <form>
-                        <div class="row"> 
+                        <div class="row">
                             <div class="col-md-6">
                                 <label class="form-label">Pet Name</label>
                                 <div class="form-control-readonly">
@@ -108,7 +114,7 @@
                                     <span class="value-text">#</span>
                                 </div>
                             </div>
-                            <div class="col-12"> 
+                            <div class="col-12">
                                 <label class="form-label">Gender</label>
                                 <div class="form-control-readonly">
                                     <span class="value-text">#</span>
@@ -125,16 +131,18 @@
                 </div>
             </div>
             {{-- @endforeach --}}
-            
-            
+
+
             {{-- @empty($pets) --}}
-                <div class="col-12 text-center text-muted mt-5">
-                    <p>No pets registered yet. Click "Add Pet" to get started!</p>
-                </div>
+            <div class="col-12 text-center text-muted mt-5">
+                <p>No pets registered yet. Click "Add Pet" to get started!</p>
+            </div>
             {{-- @endempty --}}
 
-        </div> 
+        </div>
     </div>
-
+    {{-- Include the modal here --}}
+    @include('mypage.modal.delete-pet')
 </body>
+
 </html>
