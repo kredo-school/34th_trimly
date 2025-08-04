@@ -1,7 +1,9 @@
-{{-- Todo --}}
+{{-- =====================================================
+   * To do
+   *Need to modify icon place and UI 
 
- <!--
-* Need to modify icon place and UI  -->
+   ===================================================== --}}
+
 
 {{-- Memo >> Some Font Awesome icons are only available in the Pro version,
  so most of the time, you can only use the solid style in the free version. --}}
@@ -22,6 +24,7 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="{{ asset('css/register-salon-owner.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <header class="bg-white shadow-sm mb-2"> 
@@ -44,34 +47,36 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 col-lg-8">
                 <div class="register-container" style="max-width: 800px; width: 90%; margin: auto;">
-                   
-                    <!-- Status -->
-                    <nav class="d-flex justify-content-between align-items-center mt-2 mb-5 owner-step-indicator">
-                        <div class="d-flex flex-column align-items-center owner-step-item-active">
-                            <div class="owner-step-circle d-flex justify-content-center align-items-center owner-w-40px owner-h-40px rounded-circle fs-6 fw-bold">1</div>
-                            <div class="owner-step-text mt-2 fs-6">Salon Info</div>
-                        </div>
-                        <div class="owner-step-line"></div> 
-                        <div class="d-flex flex-column align-items-center owner-step-item-inactive">
-                            <div class="owner-step-circle d-flex justify-content-center align-items-center owner-w-40px owner-h-40px rounded-circle fs-6 fw-bold">2</div>
-                            <div class="owner-step-text mt-2 fs-6">Confirm</div>
-                        </div>
-                        <div class="owner-step-line"></div> 
-                        <div class="d-flex flex-column align-items-center owner-step-item-inactive">
-                            <div class="owner-step-circle d-flex justify-content-center align-items-center owner-w-40px owner-h-40px rounded-circle fs-6 fw-bold">3</div>
-                            <div class="owner-step-text mt-2 fs-6">Salon Code</div>
-                        </div>
-                        <div class="owner-step-line"></div> 
-                        <div class="d-flex flex-column align-items-center owner-step-item-inactive">
-                            <div class="owner-step-circle d-flex justify-content-center align-items-center owner-w-40px owner-h-40px rounded-circle fs-6 fw-bold">4</div>
-                            <div class="owner-step-text mt-2 fs-6">Complete</div>
-                        </div>
-                    </nav>
+                
+                             
+                                    <!-- Status -->
+                                    <div class="owner-step-indicator">
+                                        <div class="owner-step-item-active">
+                                            <div class="owner-step-circle">1</div>
+                                            <div class="owner-step-text">Salon Info</div>
+                                        </div>
+                                        <div class="owner-step-line"></div> 
+                                        <div class="owner-step-item-inactive">
+                                            <div class="owner-step-circle">2</div>
+                                            <div class="owner-step-text">Confirm</div>
+                                        </div>
+                                        <div class="owner-step-line"></div> 
+                                        <div class="owner-step-item-inactive">
+                                            <div class="owner-step-circle">3</div>
+                                            <div class="owner-step-text">Salon Code</div>
+                                        </div>
+                                        <div class="owner-step-line"></div> 
+                                        <div class="owner-step-item-inactive">
+                                            <div class="owner-step-circle">4</div>
+                                            <div class="owner-step-text">Complete</div>
+                                        </div>
+                                    </div>
+                
 
                     <!-- Card -->
-                    <div class="card p-4 mb-4 shadow-sm" style="border-radius: 12px; border: none;">
-                        <div class="card-body">
-                            <h4 class="card-title text-start mb-3 fw-bold text-muted">
+                    <div class="owner-card p-4 owner-mb-4">
+                        <div class="owner-card-body">
+                            <h4 class="card-title text-start mb-3 fw-bold ">
                                 <i class="fa-light fa-solid fa-building me-2"></i>Salon Information
                                
                             </h4>
@@ -237,43 +242,7 @@
         </div> 
     </div>
 
-    <script>
-        function toggleOwnerPassword(fieldId) {
-            const field = document.getElementById(fieldId);
-            const button = field.nextElementSibling;
-            const icon = button.querySelector('i');
-            
-            if (field.type === 'password') {
-                field.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                field.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        }
-
-        // Owner form validation
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
-            
-            if (password.length < 8) {
-                alert('Password must be at least 8 characters long!');
-                return;
-            }
-            
-            alert('Owner registration information submitted successfully! Proceeding to confirmation...');
-        });
-    </script>
+    <script src="{{ asset('js/owner/register.salon.info.js') }}" defer></script>
 
 </body>
 </html>
