@@ -2,11 +2,13 @@
 
  <!-- Qestion 
 *  <i  class="fa-solid fa-check me-2"></i>Confirm Registratio< Is that should be brown? ✅
-*   When hover Bsck botton, the color shuld be change ? -->
+*   When hover Bsck botton, the color shuld be change ? 
+* "owner-success-icon color and font 
+
+-->
 
 {{-- Memo >> Some Font Awesome icons are only available in the Pro version,
  so most of the time, you can only use the solid style in the free version. --}}
-
 
 
  <!DOCTYPE html>
@@ -24,6 +26,7 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="{{ asset('css/register-salon-owner.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <header class="bg-white shadow-sm mb-2"> 
@@ -53,7 +56,7 @@
                             <div class="owner-step-circle"><i class="fa-solid fa-check"></i></div>
                             <div class="owner-step-text">Salon Info</div>
                         </div>
-                        <div class="owner-step-line"></div> 
+                        <div class="owner-step-line-active"></div> 
                         <div class="owner-step-item-active">
                             <div class="owner-step-circle">2</div>
                             <div class="owner-step-text">Confirm</div>
@@ -73,7 +76,7 @@
                     <!-- Card -->
                     <div class="owner-card p-4 owner-mb-4">
                         <div class="owner-card-body">
-                            <h4 class="owner-card-title text-start owner-mb-3 owner-fw-bold owner-text-muted">
+                            <h4 class="owner-card-title text-start owner-mb-3 owner-fw-bold ">
                                 <i class="fa-solid fa-check me-2"></i>Confirm Registration
                             </h4>
                             <p class="owner-card-text owner-text-muted text-start owner-mb-4">Please review your salon information</p>
@@ -132,9 +135,10 @@
                                 @csrf
                                 <div class="d-flex justify-content-between owner-mt-4">
                                     <!-- Left-aligned Back button -->
-                                    <button type="button" class="btn btn-owner-back">
+                                    <button type="button" class="btn btn-owner-back"  onclick="goBack()">
                                         <i class="fa-solid fa-arrow-left me-2"></i> Back
                                     </button>
+                                    
                                   
                                     <!-- Right-aligned Create button -->
                                     <button type="submit" class="btn btn-owner-continue">
@@ -150,22 +154,7 @@
         </div> 
     </div>
 
-    <script>
-        // Owner form validation
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const termsChecked = document.getElementById('termsCheckbox').checked;
-            const authorityChecked = document.getElementById('authorityCheckbox').checked;
-            
-            if (!termsChecked || !authorityChecked) {
-                alert('Please accept all terms and conditions to continue.');
-                return;
-            }
-            
-            alert('Salon account created successfully! Proceeding to next step...');
-        });
-    </script>
+    <script src="{{ asset('js/owner/register.confirm.js') }}" defer></script>
 
 </body>
 </html>
