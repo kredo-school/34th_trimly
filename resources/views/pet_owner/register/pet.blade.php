@@ -203,9 +203,9 @@
         </div>
     </div>
 
-    @push('scripts')
+    {{-- @push('scripts') --}}
         <script src="{{ asset('js/register.add_pet.js') }}" defer></script>
-    @endpush
+    {{-- @endpush --}}
 
 
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 

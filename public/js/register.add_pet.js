@@ -87,7 +87,7 @@
                     <div class="pet-card" id="petCard${petCount}">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h5 class="fw-bold text-muted mb-0">Pet ${petCount}</h5>
-                            {{-- ★Deleteボタンを追加 --}}
+                        
                             <button type="button" class="btn btn-sm btn-outline-danger delete-pet-button" data-target-card="petCard${petCount}">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
