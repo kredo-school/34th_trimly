@@ -216,8 +216,7 @@
             </div>
         </div>
     </div>
-{{-- 
-    @push('scripts')
+    {{-- @push('scripts')
         <script src="{{ asset('js/register.pet_owner.js') }}" defer></script>
     @endpush --}}
 
