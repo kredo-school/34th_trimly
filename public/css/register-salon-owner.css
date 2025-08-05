@@ -1,19 +1,17 @@
 /* Yoshiko*/
-
-/* Confirm step line  >> Do I need to crate active and non active one? */
-
-
-body {
-    background-color: #FEFCF1;
-}
+/* =====================================================
+   Register Salon Owner CSS 
+   ===================================================== */
 
 /* Owner card and card body styling */
 .owner-card {
     background-color: white;
     border-radius: 12px;
-    border: none;
+    border: 1px solid #e0e0e0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
+
+
 
 .owner-card-body {
     padding: 40px;
@@ -23,11 +21,11 @@ body {
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 12px;
-    color: #666;
+    color: #333;
 }
 
 .owner-card-text {
-    color: #666;
+    color: #333;
     margin-bottom: 30px;
 }
 
@@ -48,6 +46,7 @@ body {
     padding-right: 8px; 
     padding: 0.75rem 1rem;
     min-height: 50px;
+    border-right: none !important;
 }
 
 /* Form control styling within input group */
@@ -56,6 +55,13 @@ body {
     border: none;
     border-radius: 0;
     padding-left: 0;
+    border-left: none !important;
+}
+
+.owner-input-group-custom,
+.owner-input-group-text-custom,
+.owner-input-group .form-control {
+    background-color: #FEFCF1;
 }
 
 /* Step indicator */
@@ -144,17 +150,19 @@ body {
 }
 
 /* Owner registration back button */
+
 .btn-owner-back {
-    background-color: #FEFCF1!important; 
-    border-color: #D5C4B8 !important; 
-    border-radius: 8px; 
+    background-color: #FEFCF1 !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 8px;
     padding: 12px 30px;
-    
+    color: #333 !important;
 }
 
 .btn-owner-back:hover {
-    background-color: #e9ecef !important;
+  background-color: #e9ecef !important;
     border-color: #d0d0d0 !important;
+    border: 1px solid #e0e0e0;
     color: #333 !important;
 }
 
@@ -264,7 +272,7 @@ body {
 }
 
 .owner-text-muted {
-    color: #6c757d;
+    color: #333;
 }
 
 .owner-fw-bold {
@@ -401,4 +409,206 @@ body {
 /* Check icon color in card title */
 .owner-card-title .fa-check {
     color: #D5C4B8;
+}
+/* Salon Code Page Specific Styles */
+.owner-code-display-section {
+    background-color: #f9f5f2;
+    border: 2px dashed #D5C4B8;
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.owner-code-icon {
+    width: 60px;
+    height: 60px;
+    background-color: #ab8b73;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.owner-code-icon i {
+    color: white;
+    font-size: 24px;
+}
+
+.owner-code-generated-text {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.owner-salon-code {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ab8b73;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+}
+
+.owner-copy-btn {
+    background-color: #FEFCF1;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 16px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.owner-copy-btn:hover {
+    background-color: #FEFCF1;
+    border-color: #e0e0e0;
+    color: #ab8b73;
+}
+
+/* Active step line styling */
+.owner-step-line-active {
+    flex: 1;
+    height: 2px;
+    background-color: #ab8b73;
+    margin: 0 15px;
+    position: relative;
+    top: -20px;
+}
+
+/* Center alignment utilities */
+.owner-card-title-center {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.owner-card-subtitle-center {
+    text-align: center;
+    margin-bottom: 30px;
+}
+/* Code wrapper with white background */
+.owner-salon-code-wrapper {
+    background-color: #ffffff;
+    padding: 1.5rem 3rem;
+    border-radius: 12px;
+    display: inline-block;
+    margin: 1.5rem 0;
+}
+
+/* Adjust code margin when wrapped */
+.owner-salon-code-wrapper .owner-salon-code {
+    margin-bottom: 0;
+}
+/* Complete section */
+/* Complete Page Specific Styles */
+
+/* Success Icon */
+.owner-success-icon {
+    width: 80px;
+    height: 80px;
+    background-color: #D5F4E6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+}
+
+.owner-success-icon i {
+    color: #4CAF50;
+    font-size: 40px;
+}
+
+/* Welcome Title */
+.owner-welcome-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+/* Welcome Description */
+.owner-welcome-description {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+}
+
+/* How to Use Section */
+.owner-howto-section {
+    background-color: #e6effc;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin: 0 auto 2.5rem;
+    max-width: 600px;
+    text-align: left;
+    border: 1px solid #88b6f2
+}
+
+.owner-howto-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #003366;
+    margin-bottom: 1rem;
+}
+
+.owner-howto-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.owner-howto-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #003366;
+    font-size: 15px;
+}
+
+.owner-howto-list li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #003366;
+    font-weight: bold;
+}
+
+/* Dashboard Button */
+.btn-owner-dashboard {
+    background-color: #ab8b73;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-owner-dashboard:hover {
+    background-color: #8B6341;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(166, 124, 82, 0.3);
+    color: white;
+}
+
+/* Adjust card padding for complete page */
+.owner-card-body.text-center {
+    padding: 20px;
+}
+
+/* All steps completed - line active */
+.owner-step-line-active:last-of-type {
+    background-color: #ab8b73;
 }
