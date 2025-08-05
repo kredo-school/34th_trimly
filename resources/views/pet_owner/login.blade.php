@@ -200,9 +200,9 @@
         </div>
     </div>
 
-    @push('scripts')
+    {{-- @push('scripts') --}}
         <script src="{{ asset('js/pet_owner.login.js') }}" defer></script>
-    @endpush
+    {{-- @endpush --}}
 
     {{-- <script>
 
