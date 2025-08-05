@@ -74,7 +74,10 @@ Route::get('/header', function () {
 
 
 
-// Salon Owner side  - Yoshi section  //
+
+/* =====================================================
+   Salon Owner side  - Yoshi section  
+   ===================================================== */
 
 //Owner Login//
 Route::get('/login-salonowner', function () {
@@ -92,4 +95,8 @@ Route::get('/register-salonowner/salon-info', function () {
 //Owner Register -saloncode //
 Route::get('/register-salonowner/salon-code', function () {
     return view('salon_owner/register/salon-code');
+});
+//Owner Register -complete //
+Route::get('/register-salonowner/complete', function () {
+    return view('salon_owner/register/complete');
 });

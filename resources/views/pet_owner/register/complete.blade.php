@@ -32,7 +32,7 @@
 
         .btn-my-page {
         background-color: #c8a882;
-        color: white;
+        color: white !important;
         margin: 0 auto; /* 上下マージン0、左右マージンautoで中央寄せ */
         }
     </style>
