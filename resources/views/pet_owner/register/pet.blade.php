@@ -229,7 +229,7 @@
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <h5 class="fw-bold text-muted mb-3">Pet 1</h5>
                                         <button type="button" class="btn btn-sm btn-outline-danger delete-pet-button"
-                                            data-target-card="petCard1">
+                                            data-target-card="petCard1" style="display: none;>
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </div>
