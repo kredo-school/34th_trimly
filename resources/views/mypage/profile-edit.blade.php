@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="{{ asset('css/app2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/register.css') }}">
 
+    {{-- <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pages-styles.css') }}">
+     --}}
     <style>
         .form-control{
             border: none;
