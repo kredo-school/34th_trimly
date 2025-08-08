@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('gender', 10);
             $table->text('notes')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

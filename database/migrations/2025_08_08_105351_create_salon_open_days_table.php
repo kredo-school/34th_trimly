@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('salon_id')->constrained('salons')->onDelete('cascade');
             $table->string('day_of_week', 10);
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

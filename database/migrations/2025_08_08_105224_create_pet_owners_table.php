@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('prefecture', 100);
             $table->string('password', 255);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

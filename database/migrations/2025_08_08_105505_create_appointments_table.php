@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('status');
             $table->foreign('salon_code')->references('salon_code')->on('salons')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

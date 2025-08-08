@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('petowner_id')->constrained('pet_owners')->onDelete('cascade');
             $table->foreign('salon_code')->references('salon_code')->on('salons')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

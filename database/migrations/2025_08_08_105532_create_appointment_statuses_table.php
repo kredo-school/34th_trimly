@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->integer('status_name')->unique();
             $table->string('display_name', 50);
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
