@@ -5,21 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Register Confirm</title>
-    <!--bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!--fontawesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!--css-->
-    <link rel="stylesheet" href="{{ asset('css/app2.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pages-styles.css') }}">
 
     <style>
-          /* 確認画面専用の表示スタイル */
+        /* 独自スタイルとしてBlade内に残すCSS */
+        /* Step */
+        .step-item-active .step-circle {
+            background-color: #ab8b73;
+            border-color: #ab8b73;
+            color: #fff;
+            position: relative;
+            z-index: 2;
+        }
+        .step-item-active .step-text {
+            color: #ab8b73;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+            background-color: #FEFCF1;
+        }
+        .step-item-inactive .step-circle {
+            background-color: #e0e0e0;
+            border-color: #e0e0e0;
+            color: #fff;
+            position: relative;
+            z-index: 2;
+        }
+        .step-item-inactive .step-text {
+            color: #e0e0e0;
+            position: relative;
+            z-index: 2;
+            background-color: #FEFCF1;
+        }
+        .w-40px { width: 40px; }
+        .h-40px { height: 40px; }
+        .step-line {
+            flex-grow: 1;
+            height: 3px;
+            background-color: #e0e0e0;
+            margin: 0 20px;
+            align-self: flex-start;
+            margin-top: 19px;
+            z-index: -1;
+        }
+        .step-indicator {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 確認画面専用の表示スタイル */
         .info-section {
-            background-color: #f9f5f2; 
+            background-color: #f9f5f2;
             border-radius: 8px;
             padding: 20px;
             margin-top: 30px;
@@ -31,56 +74,60 @@
             font-weight: bold;
             margin-bottom: 15px;
         }
-        /* 新しい2列レイアウト用のスタイル */
         .info-pair {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start; /* 上揃え */
+            align-items: flex-start;
             margin-bottom: 8px;
         }
         .info-pair .info-label,
         .info-pair .info-value {
-            flex-grow: 1; /*均等にスペースを埋める*/
+            flex-grow: 1;
         }
         .info-pair .info-label {
-             flex-basis: auto; /*Bootstrapのcol-6に任せる*/
-             text-align: left; /* 左寄せ */
+             flex-basis: auto;
+             text-align: left;
              color: #6c757d;
         }
         .info-pair .info-value {
-            flex-basis: auto; /*Bootstrapのcol-6に任せる*/
-            text-align: left /* 左寄せ */
-
+            flex-basis: auto;
+            text-align: left;
         }
-        /* 行のレイアウト用 */
         .info-item-row {
             margin-bottom: 8px;
         }
         .info-value.full-width {
             text-align: left;
         }
-        
-         /* Pet Informationセクションの新しいスタイル */
-        .pet-info-item { /* pet1, pet2の見出しスタイル */
+        .pet-info-item {
             font-weight: bold;
             color: #6c757d;
-            font-size: 1.15rem; /* 少し大きく */
+            font-size: 1.15rem;
             margin-bottom: 5px;
         }
-        .pet-sub-info { /* mix • young • small • female のスタイル */
+        .pet-sub-info {
             color: #888;
             font-size: 0.95rem;
             margin-bottom: 15px;
-            display: block; /* 複数行の場合に備えてブロック要素に */
+            display: block;
         }
         .pet-separator {
-            border-bottom: 1px dashed #e9ecef; /* 各ペットの下線 */
+            border-bottom: 1px dashed #e9ecef;
             margin: 20px 0;
         }
         .pet-separator:last-child {
-            display: none; /* 最後のセパレータは非表示 */
+            display: none;
         }
-     
+        
+        /* ボタンのデザイン */
+        .btn-back {
+            background-color: #FEFCF1;
+            border: 1px solid #ccc;
+            color: #6c757d;
+            font-weight: bold;
+            border-radius: 8px;
+            padding: 12px 25px;
+        }
     </style>
 </head>
 
@@ -124,7 +171,7 @@
                     <div class="card p-4 mb-4 shadow-sm">
                         <div class="card-body">
                                 <div>
-                                    <h4 class="card-title text-start mb-3 fw-bold text-muted"><i class="fa-solid fa-check me-2"></i>Confirm Registration</h4>
+                                    <h4 class="card-title text-start mb-3 fw-bold"><i class="fa-solid fa-check me-2" style="color:#ab8b73"></i>Confirm Registration</h4>
                                     <p class="card-subtitle text-muted text-start mb-4">Please review your information before completing registration</p>
                                 </div>
                         
@@ -184,16 +231,6 @@
                                             <div class="pet-sub-info">
                                                # • # • # • #
                                             </div>
-                                            {{-- @if(!empty($pet['special_notes'])) --}}
-                                            {{-- <div class="info-item-row">
-                                                <div class="col-12">
-                                                    <div class="info-pair">
-                                                        <div class="info-label">Special Notes</div>
-                                                        <div class="info-value full-width text-start">#</div>
-                                                    </div>
-                                                </div>
-                                            </div> --}}
-                                            {{-- @endif --}}
                                         </div>
                                         <div class="pet-separator"></div> {{-- 最初のペットと次のペットの区切り線 --}}
                                         <div class="pet-details-compact">
@@ -207,8 +244,6 @@
                                     @endforelse --}}
                                 </div>
                                 
-
-
                                 {{-- Terms of Service Checkbox --}}
                                 <div class="my-4 form-check text-start">
                                     <input type="checkbox" class="form-check-input" id="termsConsent" name="terms_consent" required>
@@ -220,7 +255,7 @@
                                     <a href="#" class="btn btn-back">
                                         <i class="fa-solid fa-arrow-left me-2"></i>Back
                                     </a>
-                                    <button type="submit" class="btn btn-continue">
+                                    <button type="submit" class="btn btn-primary">
                                         Complete Registration <i class="fa-solid fa-arrow-right ms-2"></i>
                                     </button>
                                 </div>
