@@ -14,19 +14,8 @@
         
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pages-styles.css') }}">
-  
 
     <style>
-        .form-label {
-            font-weight: bold;
-            color: #6c757d;
-            margin-bottom: 8px;
-        }
-
-        .form-control::placeholder {
-            color: #adb5bd;
-        }
-
         /* 読み取り専用フィールド */
         .form-control-readonly {
             background-color: #FEFCF1;
@@ -77,20 +66,28 @@
             /* フォーカス時の影を合わせる */
         }
 
-        /* レスポンシブ調整 */
-        @media (max-width: 767.98px) {
-
-            /* mdブレイクポイント以下 */
-            .card {
-                padding: 20px;
-                /* モバイルでのパディングを調整 */
-            }
-
-            .card-title {
-                font-size: 1.3rem;
-                margin-bottom: 20px;
-            }
+        /* input-group自体にボーダーと角丸を適用 */
+        .input-group-custom {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
         }
+        /* input-group-textの背景色とボーダーを調整 */
+        .input-group-text-custom {
+            background-color: #FEFCF1;
+            border: none;
+            color: #6c757d; 
+            padding-right: 8px; 
+            padding: 0.75rem 1rem; /* アイコン側のパディングも調整して高さを揃える */
+        }
+        /* input-group内のform-controlのボーダーと角丸を調整 */
+        .input-group .form-control {
+            background-color: #FEFCF1;
+            border: none;
+            border-radius: 0; /* 角丸を削除 (input-group-customに任せる) */
+            
+        }
+
     </style>
 </head>
 
@@ -102,9 +99,9 @@
             <div class="col-12 col-md-10 col-lg-8">
                 <div class="card p-4 mb-4">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4 class="card-title mb-0 text-muted">Pet Owner Information</h4>
+                        <h4 class="card-title mb-0">Pet Owner Information</h4>
                         {{-- edit button --}}
-                        <button class="btn btn-continue">
+                        <button class="btn btn-primary">
                             <i class="fa-regular fa-pen-to-square"></i>
                         </button>
                     </div>
@@ -162,7 +159,7 @@
                 </div>
 
                 <div class="card p-4">
-                    <h4 class="card-title mb-4 text-muted">Change Password</h4>
+                    <h4 class="card-title mb-4">Change Password</h4>
                     <form>
                         <div class="row g-3">
                             <div class="col-md-4">
