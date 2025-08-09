@@ -14,27 +14,9 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--css-->
-    <link rel="stylesheet" href="{{ asset('css/app2.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pages-styles.css') }}">
 </head>
-<style>
-    /* Save Changes ボタンのスタイル */
-    .btn-save-changes {
-        background-color: #a68c76 !important;
-        color: #fff !important;
-        border: none;
-        border-radius: 10px;
-        padding: 10px 25px;
-        font-size: 1rem;
-        font-weight: 600;
-        box-shadow: none;
-        gap: 8px;
-    }
-
-    .btn-save-changes:hover {
-        background-color: #8c7664;
-        color: #fff;
-    }
-</style>
 
 <body>
 
@@ -44,7 +26,7 @@
         <div class="modal-dialog">
             <div class="modal-content border-light">
                 <div class="modal-header border-light">
-                    <div class="h5 modal-title text-muted">
+                    <div class="h5 modal-title">
                         Edit Appointment
                     </div>
                 </div>
@@ -52,7 +34,7 @@
                     @csrf
                     @method('PATCH')
 
-                    <div class="modal-body text-muted">
+                    <div class="modal-body">
                         <p> Make changes to your appointment details. Your groomer will be notified of any changes.</p>
 
                         <div class="mb-3">
@@ -82,7 +64,7 @@
 
                     <div class="modal-footer border-0">
                         <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-save-changes btn-sm"><i
+                        <button type="submit" class="btn btn-primary btn-sm"><i
                                 class="fa-solid fa-save me-2"></i>Save Changes</button>
                     </div>
                 </form>
