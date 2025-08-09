@@ -14,10 +14,35 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--css-->
-    <link rel="stylesheet" href="{{ asset('css/app2.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pages-styles.css') }}">
 
     <style>
+         /*入力フォームのデザイン*/
+    
+        /* input-group自体にボーダーと角丸を適用 */
+        .input-group-custom {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        /* input-group-textの背景色とボーダーを調整 */
+        .input-group-text-custom {
+            background-color: #FEFCF1;
+            border: none;
+            color: #6c757d; 
+            padding-right: 8px; 
+            padding: 0.75rem 1rem; /* アイコン側のパディングも調整して高さを揃える */
+        }
+        /* input-group内のform-controlのボーダーと角丸を調整 */
+        .input-group .form-control {
+            background-color: #FEFCF1;
+            border: none;
+            border-radius: 0; /* 角丸を削除 (input-group-customに任せる) */
+            
+        }
+
+        /*カード詳細背景のデザイン*/
         .pet-card {
             background-color: #f9f5f2;
             border-radius: 8px;
@@ -26,6 +51,20 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             text-align: left;
         }
+         
+        /* キャンセルボタンのスタイル */
+        .btn-cancel {
+            background-color: #FEFCF1 !important;
+            color: #666;
+            border: 1px solid #e0e0e0;
+            height: 40px;
+            padding: 0 20px;
+        }
+        .btn-cancel:hover {
+            background-color: #e0e0e0;
+            color: #6c757d;
+        }
+
     </style>
 </head>
 
@@ -36,14 +75,14 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 col-lg-8">
                 
-                <a href="#"><i class="fa-solid fa-arrow-left me-2"></i>Back to My Pets</a>
-                <h2 class="text-muted text-start fw-bold">Add New Pat</h2>
-                <p class="text-muted text-start mb-4">Tell us about your beloved pets</p>
+                <a href="#"><i class="fa-solid fa-arrow-left me-2 mb-2"></i>Back to My Pets</a>
+                <h2 class="text-start fw-bold">Add New Pat</h2>
+                <p class="text-start mb-4">Tell us about your beloved pets</p>
                 <div class="card p-4 mb-4 shadow-sm">
                     <div class="card-body">
                         <div>
-                            <h4 class="card-title text-start mb-3 fw-bold text-muted"><i class="fa-regular fa-heart"></i>Pet Information</h4>
-                            <p class="card-subtitle text-muted text-start mb-4">Enter your pet's details below</p>
+                            <h4 class="card-title text-start mb-3 fw-bold"><i class="fa-regular fa-heart me-2"></i>Pet Information</h4>
+                            <p class="card-subtitle text-start mb-4">Enter your pet's details below</p>
                         </div>
                     </div>
 
@@ -52,11 +91,11 @@
                         @csrf
 
                         <div class="pet-card" id="petCard1">
-                            <h5 class="fw-bold text-muted mb-3"><i class="fa-regular fa-heart"></i>Pet details</h5>
+                            <h5 class="fw-bold mb-3"><i class="fa-regular fa-heart me-2"></i>Pet details</h5>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3 text-start">
-                                    <label for="petName1" class="form-label text-muted">Pet Name <span
+                                    <label for="petName1" class="form-label">Pet Name <span
                                             class="text-danger">*</span></label>
                                     <div class="input-group input-group-custom">
                                         <input type="text" class="form-control" id="petName1"
@@ -64,7 +103,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3 text-start">
-                                    <label for="breed1" class="form-label text-muted">Breed <span
+                                    <label for="breed1" class="form-label">Breed <span
                                             class="text-danger">*</span></label>
                                     <div class="input-group input-group-custom">
                                         <input type="text" class="form-control" id="breed1"
@@ -75,7 +114,7 @@
 
                             <div class="row">
                                 <div class="col-md-6 mb-3 text-start">
-                                    <label for="age1" class="form-label text-muted">Age <span
+                                    <label for="age1" class="form-label">Age <span
                                             class="text-danger">*</span></label>
                                     <div class="input-group input-group-custom">
                                         <select class="form-select form-control" id="age1" required>
@@ -88,7 +127,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3 text-start">
-                                    <label for="weight1" class="form-label text-muted">Weight <span
+                                    <label for="weight1" class="form-label">Weight <span
                                             class="text-danger">*</span></label>
                                     <div class="input-group input-group-custom">
                                         <select class="form-select form-control" id="weight1" required>
@@ -103,7 +142,7 @@
                             </div>
 
                             <div class="mb-3 text-start">
-                                <label for="gender1" class="form-label text-muted">Gender <span
+                                <label for="gender1" class="form-label">Gender <span
                                         class="text-danger">*</span></label>
                                 <div class="input-group input-group-custom">
                                     <select class="form-select form-control" id="gender1" required>
@@ -116,7 +155,7 @@
                             </div>
 
                             <div class="mb-3 text-start">
-                                <label for="specialNotes1" class="form-label text-muted">Special Needs or Notes</label>
+                                <label for="specialNotes1" class="form-label">Special Needs or Notes</label>
                                 <div class="input-group input-group-custom">
                                     <textarea class="form-control" id="specialNotes1" rows="3"
                                         placeholder="Any special care instructions, behavioral notes, medical conditions, etc."></textarea>
@@ -126,12 +165,12 @@
                    
                         <div class="d-flex justify-content-between mt-4">
                              {{--Cancel--}}
-                            <button type="button" class="btn btn-back">
+                            <button type="button" class="btn btn-cancel">
                                 <i class="fa-solid fa-arrow-left me-2"></i>Cancel
                             </button>
                              {{--Add Pet--}}
-                            <button type="submit" class="btn btn-continue">
-                               <i class="fa-regular fa-floppy-disk"></i>Add Pet
+                            <button type="submit" class="btn btn-primary">
+                               <i class="fa-regular fa-floppy-disk me-2"></i>Add Pet
                             </button>
                         </div>
                     </form>

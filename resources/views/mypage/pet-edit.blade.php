@@ -13,16 +13,11 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--css-->
-    <link rel="stylesheet" href="{{ asset('css/app2.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/pages-styles.css') }}"> --}}
 
     <style>
-        .form-label {
-            font-weight: bold; 
-            color: #6c757d; 
-            margin-bottom: 8px;
-        }
-
+    
        .form-control-inline {
             background-color: #FEFCF1 !important; /* 背景色を追加 */
             border: 1px solid #e0e0e0; /* 既存の読み取り専用フィールドと揃えるためにボーダーを追加 */
@@ -32,13 +27,9 @@
             font-size: 1rem;
             height: auto;
             flex-grow: 1;
-            box-shadow: none; /* デフォルトの focus 時の影を削除 */
+            box-shadow: none; /*デフォルトの focus 時の影を削除*/
         }
-        .form-control-inline:focus {
-            border-color: #a68c76; /* focus 時のボーダー色 */
-            box-shadow: 0 0 0 0.25rem rgba(166, 140, 118, 0.25); /* focus 時の影 */
-            outline: none; /* デフォルトの focus アウトラインを削除 */
-        }
+       
 
         .form-control-inline-select {
             background-color: #FEFCF1 !important; /* 背景色を追加 */
@@ -54,11 +45,7 @@
             appearance: none;
         }
 
-        .form-control-inline-select:focus {
-            border-color: #a68c76; /* focus 時のボーダー色 */
-            box-shadow: 0 0 0 0.25rem rgba(166, 140, 118, 0.25); /* focus 時の影 */
-            outline: none; /* デフォルトの focus アウトラインを削除 */
-        }
+       
         .form-control-textarea-inline {
             background-color: #FEFCF1 !important; /* 背景色を追加 */
             border: 1px solid #e0e0e0; /* ボーダーを追加 */
@@ -73,10 +60,18 @@
             box-shadow: none; /* デフォルトの focus 時の影を削除 */
         }
 
-        .form-control-textarea-inline:focus {
-            border-color: #a68c76; /* focus 時のボーダー色 */
-            box-shadow: 0 0 0 0.25rem rgba(166, 140, 118, 0.25); /* focus 時の影 */
-            outline: none; /* デフォルトの focus アウトラインを削除 */
+        
+        /* キャンセルボタンのスタイル */
+        .btn-cancel {
+            background-color: #FEFCF1 !important;
+            color: #666;
+            border: 1px solid #e0e0e0;
+            height: 40px;
+            padding: 0 20px;
+        }
+        .btn-cancel:hover {
+            background-color: #e0e0e0;
+            color: #6c757d;
         }
 
     </style>
@@ -87,7 +82,7 @@
 
     <div class="container my-4"> 
         <div class="d-flex justify-content-end mb-4">
-            <button type="button" class="btn btn-continue">
+            <button type="button" class="btn btn-primary">
                 <i class="fa-solid fa-plus"></i> Add Pet
             </button>
         </div>
@@ -99,7 +94,7 @@
             <div class="col-12 col-md-6"> 
                 <div class="card p-4">
                     <div class="pet-card-header d-flex justify-content-between align-items-center mb-4"">
-                        <div class="pet-name-display fs-3 text-muted">
+                        <div class="pet-name-display fs-3">
                             <i class="fa-solid fa-heart"></i>
                             <span>#</span> 
                         </div>
@@ -159,7 +154,7 @@
 
                              <div class="d-flex justify-content-end mt-4">
                                 <button type="button" class="btn btn-cancel me-2">Cancel</button>
-                                <button type="submit" class="btn btn-save"><i class="fa-regular fa-floppy-disk"></i>Save Changes</button>
+                                <button type="submit" class="btn btn-primary"><i class="fa-regular fa-floppy-disk me-2"></i>Save Changes</button>
                             </div>
 
                         </div>
