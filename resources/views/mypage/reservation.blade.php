@@ -14,8 +14,8 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--css-->
-    <link rel="stylesheet" href="{{ asset('css/app2.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pages-styles.css') }}">
 
     <style>
         /* ページ全体のスタイル */
@@ -149,10 +149,10 @@
                     <div class="mb-2">
                         <div class="section-header">
                             <div>
-                                <h2 class="text-muted">Upcoming Appointments</h2>
-                                <p class="text-muted">Your scheduled grooming appointments</p>
+                                <h2>Upcoming Appointments</h2>
+                                <p>Your scheduled grooming appointments</p>
                             </div>
-                            <a href="#" class="btn btn-continue text-white">New Appointment</a>
+                            <a href="#" class="btn btn-primary">New Appointment</a>
                         </div>
 
                         {{--今後の予約情報を foreach ループで表示 --}}
@@ -172,7 +172,7 @@
                                 <span class="price">$85</span>
                                 <div class="pet-actions">
                                     {{-- edit-button --}}
-                                    <button type="button" class="btn btn-continue" data-bs-toggle="modal" data-bs-target="#editReserveModal1">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editReserveModal1">
                                        <i class="fa-regular fa-pen-to-square"></i>Edit
                                     </button>
                                     {{-- delete-button --}}
@@ -197,7 +197,7 @@
                                 <span class="price">$45</span>
                                 <div class="pet-actions">
                                     {{-- edit-button --}}
-                                    <button type="button" class="btn btn-continue">
+                                    <button type="button" class="btn btn-primary">
                                       <i class="fa-regular fa-pen-to-square"></i>Edit
                                     </button>
                                     {{-- delete-button --}}
