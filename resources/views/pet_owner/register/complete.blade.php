@@ -5,35 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Register Complete</title>
-    <!--bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!--fontawesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!--css-->
-    <link rel="stylesheet" href="{{ asset('css/app2.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pages-styles.css') }}">
 
     <style>
+        /* 独自スタイルとしてBlade内に残すCSS */
+        /* ステップ表示 */
+        .step-item-active .step-circle {
+            background-color: #ab8b73;
+            border-color: #ab8b73;
+            color: #fff;
+            position: relative;
+            z-index: 2;
+        }
+        .step-item-active .step-text {
+            color: #ab8b73;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+            background-color: #FEFCF1;
+        }
+        .step-item-inactive .step-circle {
+            background-color: #e0e0e0;
+            border-color: #e0e0e0;
+            color: #fff;
+            position: relative;
+            z-index: 2;
+        }
+        .step-item-inactive .step-text {
+            color: #e0e0e0;
+            position: relative;
+            z-index: 2;
+            background-color: #FEFCF1;
+        }
+        .w-40px { width: 40px; }
+        .h-40px { height: 40px; }
+        .step-line {
+            flex-grow: 1;
+            height: 3px;
+            background-color: #e0e0e0;
+            margin: 0 20px;
+            align-self: flex-start;
+            margin-top: 19px;
+            z-index: -1;
+        }
+        .step-indicator {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 完了画面専用スタイル */
         .check-circle {
             background-color: #e6fae6; 
             color: #5cb85c;
             width: 80px;
             height: 80px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 3rem; /* チェックマークのサイズ */
-            margin: 0 auto 30px auto; /* 上下中央、下部にマージン */
-        }
-
-        .btn-my-page {
-        background-color: #c8a882;
-        color: white !important;
-        margin: 0 auto; /* 上下マージン0、左右マージンautoで中央寄せ */
+            font-size: 3rem;
         }
     </style>
 </head>
@@ -76,13 +108,14 @@
 
                     {{--Card--}}
                     <div class="card p-4 mb-4 shadow-sm">
-                        <div class="check-circle">
+                        {{-- check-circle --}}
+                        <div class="check-circle d-flex justify-content-center align-items-center rounded-circle mx-auto mb-4">
                             <i class="fa-solid fa-check"></i>
                         </div>
-                        <h2 class="complete-title text-center mb-3 fw-bold text-muted">Welcome to Trimly!</h2>
-                        <p class="complete-message text-center mb-4 text-muted">Your registration is complete. You can now manage your pets and book appointments.</p>
+                        <h2 class="complete-title text-center mb-3 fw-bold">Welcome to Trimly!</h2>
+                        <p class="complete-message text-center mb-4">Your registration is complete. You can now manage your pets and book appointments.</p>
                         
-                        <a href="#" class="btn btn-my-page">
+                        <a href="#" class="btn btn-primary d-block mx-auto">
                             Go to My Page <i class="fa-solid fa-arrow-right ms-2"></i>
                         </a>
                     </div>

@@ -6,28 +6,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Register PetOwner</title>
-    <!--bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!--fontawesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!--css-->
-    <link rel="stylesheet" href="{{ asset('css/app2.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pages-styles.css') }}">
 
     <style>
-        .form-label {
+        /* 独自スタイルとしてBlade内に残すCSS */
+         /* Step（JuriバージョンがCSSに入ってきたら撤去 */
+        .step-item-active .step-circle {
+            background-color: #ab8b73; /* アクティブなステップの色 */
+            border-color: #ab8b73;
+            color: #fff; /* 数字の色 */
+            position: relative; /* z-indexを効かせるため */
+            z-index: 2; /* 線より手前に来るように */
+        }
+        .step-item-active .step-text {
+            color: #ab8b73; /* アクティブなステップのテキスト色 */
             font-weight: bold;
-            /* ラベルを太字に */
-            color: #6c757d;
-            /* ラベルの色 */
+            position: relative; /* z-indexを効かせるため */
+            z-index: 2; /* 線より手前に来るように */
+            background-color: #FEFCF1; /*bodyと同じ背景色を設定して線が文字を透けないように */
+        }
+        .step-item-inactive .step-circle {
+            background-color: #e0e0e0; /* 未完了ステップの背景色 */
+            border-color: #e0e0e0;
+            color: #fff; /* 数字の色 */
+            position: relative; /* z-indexを効かせるため */
+            z-index: 2; /* ★追加: 線より手前に来るように */
+        }
+        .step-item-inactive .step-text {
+            color: #e0e0e0; /* 未完了ステップのテキスト色 */
+            position: relative; 
+            z-index: 2; 
+            background-color: #FEFCF1;
+        }
+        /* ステップ円の固定サイズ*/
+        .w-40px { width: 40px; }
+        .h-40px { height: 40px; }
+
+        /* ステップ間の線 */
+        .step-line {
+            flex-grow: 1; /* 親のFlexboxコンテナ内で利用可能なスペースを埋める */
+            height: 3px; /* 線の太さ */
+            background-color: #e0e0e0; /* 線の色 */
+            margin: 0 20px; /* 線と丸の間のスペース */
+            align-self: flex-start; /* 親のFlexアイテムの上端に寄せる */
+            margin-top: 19px; /* step-circle (40px) の中心に線が来るように調整 (40px/2 - 2px/2 = 19px) */
+            z-index: -1; /*線を円やテキストの裏に隠す */
+        }
+        /* ★step-indicatorにz-indexの基準を設定 */
+        .step-indicator {
+            position: relative; /* 子要素のz-indexの基準とする */
+            z-index: 1; /* 他の要素と重なったときの順序 */
         }
 
-        .form-control::placeholder {
-            color: #adb5bd;
-            /* プレースホルダーの色 */
+
+         /* Inputフォームのデザイン */
+        .input-group-custom {
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .input-group-text-custom {
+            background-color: var(--color-background);
+            border: none;
+            color: var(--color-text-secondary);
+            padding-right: var(--spacing-sm);
+        }
+
+        .input-group .form-control {
+            background-color: var(--color-background);
+            border: none;
+            border-radius: 0;
+            padding-left: 0;
+        }
+        
+         /*目玉アイコン */
+        .toggle-password {
+            cursor: pointer;
+        }
+
+        /* バックボタンのデザイン */
+        .btn-back {
+            background-color: #FEFCF1;
+            border: 1px solid #ccc;
+            color: #6c757d;
+            font-weight: bold;
+            border-radius: 8px;
+            padding: 12px 25px;
         }
     </style>
 </head>
@@ -82,7 +154,7 @@
                     {{-- Card --}}
                     <div class="card p-4 mb-4 shadow-sm">
                         <div class="card-body">
-                            <h4 class="card-title text-start mb-3 fw-bold text-muted"><i
+                            <h4 class="card-title text-start mb-3 fw-bold"><i
                                     class="fa-solid fa-user me-2"></i>Pet Owner Information</h4>
                             <p class="card-subtitle text-muted text-start mb-4">Tell us about yourself</p>
 
@@ -90,7 +162,7 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6 mb-3 text-start">
-                                        <label for="firstName" class="form-label text-muted">First Name <span
+                                        <label for="firstName" class="form-label ">First Name <span
                                                 class="text-danger">*</span></label>
                                         <div class="input-group input-group-custom">
                                             <span class="input-group-text input-group-text-custom">
@@ -101,7 +173,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3 text-start">
-                                        <label for="lastName" class="form-label text-muted">Last Name <span
+                                        <label for="lastName" class="form-label">Last Name <span
                                                 class="text-danger">*</span></label>
                                         <div class="input-group input-group-custom">
                                             <span class="input-group-text input-group-text-custom">
@@ -115,7 +187,7 @@
 
                                 <div class="row">
                                     <div class="col-md-6 mb-3 text-start">
-                                        <label for="emailAddress" class="form-label text-muted">Email Address <span
+                                        <label for="emailAddress" class="form-label ">Email Address <span
                                                 class="text-danger">*</span></label>
                                         <div class="input-group input-group-custom">
                                             <span class="input-group-text input-group-text-custom">
@@ -126,7 +198,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3 text-start">
-                                        <label for="phoneNumber" class="form-label text-muted">Phone Number <span
+                                        <label for="phoneNumber" class="form-label ">Phone Number <span
                                                 class="text-danger">*</span></label>
                                         <div class="input-group input-group-custom">
                                             <span class="input-group-text input-group-text-custom">
@@ -140,7 +212,7 @@
 
                                 <div class="row">
                                     <div class="col-md-6 mb-3 text-start">
-                                        <label for="city" class="form-label text-muted">City <span
+                                        <label for="city" class="form-label ">City <span
                                                 class="text-danger">*</span></label>
                                         <div class="input-group input-group-custom">
                                             <span class="input-group-text input-group-text-custom">
@@ -151,7 +223,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3 text-start">
-                                        <label for="prefecture" class="form-label text-muted">Prefecture <span
+                                        <label for="prefecture" class="form-label">Prefecture <span
                                                 class="text-danger">*</span></label>
                                         <div class="input-group input-group-custom">
                                             <span class="input-group-text input-group-text-custom">
@@ -169,7 +241,7 @@
 
                                 <div class="row">
                                     <div class="col-md-6 mb-3 text-start">
-                                        <label for="password" class="form-label text-muted">Password <span
+                                        <label for="password" class="form-label">Password <span
                                                 class="text-danger">*</span></label>
                                         <div class="input-group input-group-custom">
                                             <span class="input-group-text input-group-text-custom">
@@ -184,7 +256,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3 text-start">
-                                        <label for="confirmPassword" class="form-label text-muted">Confirm Password
+                                        <label for="confirmPassword" class="form-label">Confirm Password
                                             <span class="text-danger">*</span></label>
                                         <div class="input-group input-group-custom">
                                             <span class="input-group-text input-group-text-custom">
@@ -204,23 +276,18 @@
                                     <button type="button" class="btn btn-back">
                                         <i class="fa-solid fa-arrow-left me-2"></i>Back
                                     </button>
-                                    <button type="submit" class="btn btn-continue">
+                                    <button type="submit" class="btn btn-primary">
                                         Continue <i class="fa-solid fa-arrow-right ms-2"></i>
                                     </button>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    {{-- @push('scripts') --}}
-        <script src="{{ asset('js/register.pet_owner.js') }}" defer></script>
-    {{-- @endpush --}}
-
+    <script src="{{ asset('js/register.pet_owner.js') }}" defer></script>
 </body>
 
 </html>
