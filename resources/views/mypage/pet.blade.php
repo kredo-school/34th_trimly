@@ -14,20 +14,10 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--css-->
-    <link rel="stylesheet" href="{{ asset('css/app2.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/pages-styles.css') }}"> --}}
 
     <style>
-        .form-label {
-            font-weight: bold;
-            color: #6c757d;
-            margin-bottom: 8px;
-        }
-
-        .form-control::placeholder {
-            color: #adb5bd;
-        }
-
         /* 読み取り専用フィールド */
         .form-control-readonly {
             background-color: #FEFCF1;
@@ -60,7 +50,7 @@
 
     <div class="container my-4">
         <div class="d-flex justify-content-end mb-4">
-            <button type="button" class="btn btn-continue">
+            <button type="button" class="btn btn-primary">
                 <i class="fa-solid fa-plus"></i> Add Pet
             </button>
         </div>
@@ -72,13 +62,13 @@
             <div class="col-12 col-md-6">
                 <div class="card p-4">
                     <div class="pet-card-header d-flex justify-content-between align-items-center mb-4"">
-                        <div class="pet-name-display fs-3 text-muted">
+                        <div class="pet-name-display fs-3">
                             <i class="fa-solid fa-heart"></i>
                             <span>#</span>
                         </div>
                         <div class="pet-actions">
                             {{-- edit-button --}}
-                            <button type="button" class="btn btn-continue">
+                            <button type="button" class="btn btn-primary">
                                 <i class="fa-solid fa-pencil"></i>
                             </button>
                             {{-- delete-button --}}

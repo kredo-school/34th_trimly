@@ -21,20 +21,20 @@
 
         /* ログアウトボタンのスタイル */
         .btn-logout {
-            background-color: #FEFCF1;
-            color: #666;
-            border: 1px solid #e0e0e0;
+            background-color: #FEFCF1 !important;
+            color: #666 !important;
+            border: 1px solid #e0e0e0 !important;
             height: 40px;
-            padding: 0 20px;
+            padding: 0 20px !important;
         }
         .btn-logout:hover {
-            background-color: #e0e0e0;
-            color: #6c757d;
+            background-color: #e0e0e0 !important;
+            color: #6c757d !important;
         }
 
         /* ナビゲーションリンクのスタイル */
         .navbar-nav .nav-item .nav-link {
-            color: #666;
+            color: #666 !important;
             font-weight: bold;
             margin-right: 20px;
             font-size: 1rem;
@@ -42,13 +42,13 @@
             padding-bottom: 8px;
         }
         .navbar-nav .nav-item .nav-link:hover {
-            color: #c8a882;
+            color: #c8a882 !important;
         }
         .navbar-nav .nav-item .nav-link i {
-            color: #666;
+            color: #666 !important;
         }
         .navbar-nav .nav-item .nav-link i:hover {
-            color: #c8a882;
+            color: #c8a882 !important;
         }
 
         /* レスポンシブ対応の調整 */
