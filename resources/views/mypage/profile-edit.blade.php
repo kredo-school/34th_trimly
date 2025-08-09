@@ -13,23 +13,11 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--css-->
-    <link rel="stylesheet" href="{{ asset('css/app2.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pages-styles.css') }}">
 
+    
     <style>
-        .form-control{
-            border: none;
-            background-color: #FEFCF1; 
-        }
-        .form-label {
-            font-weight: bold; 
-            color: #6c757d; 
-            margin-bottom: 8px;
-        }
-        .form-control::placeholder {
-            color: #adb5bd; 
-        }
-        
         /* 読み取り専用フィールド */
         .form-control-readonly {
             background-color: #FEFCF1; 
@@ -111,15 +99,38 @@
             box-shadow: 0 0 0 0.25rem rgba(166, 140, 118, 0.25); /* フォーカス時の影を合わせる */
         }
 
-        /* レスポンシブ調整 */
-        @media (max-width: 767.98px) { /* mdブレイクポイント以下 */
-            .card {
-                padding: 20px; /* モバイルでのパディングを調整 */
-            }
-            .card-title {
-                font-size: 1.3rem;
-                margin-bottom: 20px;
-            }
+         /* input-group自体にボーダーと角丸を適用 */
+        .input-group-custom {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        /* input-group-textの背景色とボーダーを調整 */
+        .input-group-text-custom {
+            background-color: #FEFCF1;
+            border: none;
+            color: #6c757d; 
+            padding-right: 8px; 
+            padding: 0.75rem 1rem; /* アイコン側のパディングも調整して高さを揃える */
+        }
+        /* input-group内のform-controlのボーダーと角丸を調整 */
+        .input-group .form-control {
+            background-color: #FEFCF1;
+            border: none;
+            border-radius: 0; /* 角丸を削除 (input-group-customに任せる) */
+        }
+
+        /* キャンセルボタンのスタイル */
+        .btn-cancel {
+            background-color: #FEFCF1 !important;
+            color: #666;
+            border: 1px solid #e0e0e0;
+            height: 40px;
+            padding: 0 20px;
+        }
+        .btn-cancel:hover {
+            background-color: #e0e0e0;
+            color: #6c757d;
         }
       
     </style>
@@ -132,7 +143,7 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 col-lg-8">
                 <div class="card p-4 mb-4">
-                    <h4 class="card-title mb-4 text-muted">Pet Owner Information</h4>
+                    <h4 class="card-title mb-4">Pet Owner Information</h4>
 
                     <form action="#" method="POST">
                         @csrf
@@ -203,7 +214,7 @@
 
                             <div class="d-flex justify-content-end mt-4">
                                 <button type="button" class="btn btn-cancel me-2">Cancel</button>
-                                <button type="submit" class="btn btn-save"><i class="fa-regular fa-floppy-disk"></i>Save Changes</button>
+                                <button type="submit" class="btn btn-primary"><i class="fa-regular fa-floppy-disk me-2"></i>Save Changes</button>
                             </div>
                         </div>
                     </form>
@@ -236,7 +247,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end mt-4">
-                            <button type="submit" class="btn btn-continue">Update Password</button>
+                            <button type="submit" class="btn btn-primary">Update Password</button>
                         </div>
                     </form>
                 </div>
