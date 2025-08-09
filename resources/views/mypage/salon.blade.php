@@ -14,10 +14,33 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--css-->
-    <link rel="stylesheet" href="{{ asset('css/app2.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pages-styles.css') }}">
 
     <style>
+        /*入力フォームのデザイン*/
+        /* input-group自体にボーダーと角丸を適用 */
+        .input-group-custom {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        /* input-group-textの背景色とボーダーを調整 */
+        .input-group-text-custom {
+            background-color: #FEFCF1;
+            border: none;
+            color: #6c757d; 
+            padding-right: 8px; 
+            padding: 0.75rem 1rem; /* アイコン側のパディングも調整して高さを揃える */
+        }
+        /* input-group内のform-controlのボーダーと角丸を調整 */
+        .input-group .form-control {
+            background-color: #FEFCF1;
+            border: none;
+            border-radius: 0; /* 角丸を削除 (input-group-customに任せる) */
+            
+        }
+        /*サロンinfoのデザイン*/
         .salon-code-item {
             display: flex;
             align-items: center;
@@ -69,8 +92,8 @@
                 <div class="card p-4 mb-4 shadow-sm">
 
                     <div>
-                        <h4 class="card-title text-start mb-3 fw-bold text-muted">Add Salon Code</h4>
-                        <p class="card-subtitle text-muted text-start mb-4">Enter a salon code to link a new salon to
+                        <h4 class="card-title text-start mb-3 fw-bold">Add Salon Code</h4>
+                        <p class="card-subtitle text-start mb-4">Enter a salon code to link a new salon to
                             your account</p>
                     </div>
 
@@ -80,14 +103,14 @@
                             <input type="text" class="form-control form-control-inline"
                                 placeholder="Enter salon code (e.g., ABC123)" aria-label="Salon Code" name="salon_code"
                                 required>
-                            <button class="btn btn-continue" type="submit">
+                            <button class="btn btn-primary" type="submit">
                                 <i class="fa-solid fa-plus me-2"></i> Add Code
                             </button>
                         </div>
                     </form>
                 </div>
 
-                <h4 class="card-header-main mb-3 text-muted fw-bold">Your Salon Codes</h3>
+                <h4 class="card-header-main mb-3 fw-bold">Your Salon Codes</h3>
 
                 {{-- Salon List --}}
                 <div id="salon-codes-list">
