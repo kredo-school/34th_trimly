@@ -69,13 +69,18 @@ Route::get('/register-petowner', function () {
 });
 
 /* =====================================================
-   Salon Owner side  - Yoshi section  
+   Salon Owner side  - Login
    ===================================================== */
 
 //Owner Login//
 Route::get('/login-salonowner', function () {
     return view('salon_owner/login');
 });
+
+/* =====================================================
+   Salon Owner side  -Register 
+   ===================================================== */
+
 //Owner Register - confirm //
 Route::get('/register-salonowner/confirm', function () {
     return view('salon_owner/register/confirm');
@@ -93,3 +98,20 @@ Route::get('/register-salonowner/salon-code', function () {
 Route::get('/register-salonowner/complete', function () {
     return view('salon_owner/register/complete');
 });
+
+/* =====================================================
+   Salon Owner side  - Dashborard   
+   ===================================================== */
+//Appointments//
+   Route::get('dashboard-salonowner/appointments', function () {
+    return view('salon_owner/dashboard/appointments');
+});
+// customers
+   Route::get('dashboard-salonowner/customers', function () {
+    return view('salon_owner/dashboard/customers');
+});
+// settings
+Route::get('dashboard-salonowner/settings', function () {
+    return view('salon_owner/dashboard/settings');
+});
+
