@@ -100,3 +100,8 @@ Route::get('/register-salonowner/salon-code', function () {
 Route::get('/register-salonowner/complete', function () {
     return view('salon_owner/register/complete');
 });
+
+//Owner Appointments Calendar //
+Route::get('/salon-owner/calendar', function () {
+    return view('salon_owner.calendar');
+});
