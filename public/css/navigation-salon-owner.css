@@ -1,0 +1,622 @@
+/* =============================================
+   Navigation Salon Owner - Complete Styles (No Transform Effects)
+   ============================================= */
+
+/* =============================================
+   Body and Layout Styles
+   ============================================= */
+
+/* Body layout */
+.body-layout {
+    background-color: #f8f9fa !important;
+}
+
+/* Logo image sizing */
+.logo-image {
+    max-width: 80px !important;
+}
+
+/* Subtitle text sizing */
+.subtitle-text {
+    font-size: 0.9rem !important;
+}
+
+/* Main content area */
+.main-content {
+    padding: 20px !important;
+    background-color: #f8f9fa !important;
+    min-height: calc(100vh - 80px) !important;
+}
+
+/* Modal description text */
+.modal-description {
+    margin-bottom: 0 !important;
+}
+
+/* =============================================
+   1. Header Base Styles
+   ============================================= */
+
+/* Logo styling */
+.logo { 
+    width: auto;
+    height: auto;
+}
+
+.logo img {
+    max-width: 80px;
+    height: auto;
+}
+
+/* Brand text styling */
+.brand-text {
+    font-weight: bold !important;
+    color: #6c757d !important;
+    margin-bottom: 0 !important;
+    font-size: 1.25rem !important;
+}
+
+/* Page title styling */
+.page-title {
+    color: #6c757d !important;
+    margin-bottom: 0 !important;
+    margin-right: 0.5rem !important;
+    font-size: 1rem !important;
+}
+
+/* Header styling */
+header.bg-white {
+    background-color: white; 
+    border-bottom: 1px solid #e0e0e0 !important; 
+    padding: 0 !important;
+    min-height: auto;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+}
+
+header .navbar {
+    padding: 0 !important;
+    height: auto;
+}
+
+header .container-fluid {
+    height: auto;
+    padding: 1rem 1.5rem;
+}
+
+/* Bootstrap row/column structure */
+header .row {
+    margin: 0;
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+}
+
+header .col-6 {
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    display: flex;
+    align-items: center;
+}
+
+header .col-6.text-end {
+    justify-content: flex-end;
+}
+
+/* =============================================
+   2. Brand and Logo Styling
+   ============================================= */
+
+header .navbar-brand {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 0 !important;
+    text-decoration: none;
+    color: inherit;
+}
+
+header .navbar-brand:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+header .navbar-brand .brand-text {
+    margin-left: 8px;
+}
+
+header .navbar-brand .main-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #6c757d;
+    margin: 0;
+    line-height: 1.2;
+}
+
+header .navbar-brand .subtitle {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* =============================================
+   3. Menu Dropdown Styling (Rounded)
+   ============================================= */
+
+/* Menu dropdown container */
+.menu-dropdown {
+    position: relative;
+}
+
+/* Menu button - rounded */
+.menu-btn {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 12px !important;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.menu-btn:hover {
+    color: #333;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Dropdown content - rounded */
+.menu-dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    padding: 12px 0;
+    min-width: 200px;
+    z-index: 1000;
+    display: none;
+}
+
+.menu-dropdown-content.show {
+    display: block;
+}
+
+/* Dropdown items - rounded */
+.menu-dropdown-item {
+    display: block;
+    padding: 10px 16px;
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    border-radius: 8px !important;
+    margin: 2px 8px;
+}
+
+.menu-dropdown-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #333;
+    text-decoration: none;
+}
+
+.menu-dropdown-item.active {
+    background-color: rgba(0, 123, 255, 0.1);
+    color: #0066cc;
+    border-radius: 8px !important;
+}
+
+.menu-dropdown-item i {
+    width: 18px;
+    margin-right: 8px;
+    text-align: center;
+}
+
+/* =============================================
+   4. Right Side Actions (Rounded Buttons)
+   ============================================= */
+
+/* Actions container */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Salon Code button - consistent radius */
+.btn-salon-code {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #666;
+    padding: 8px 16px !important;
+    border-radius: 8px !important;
+    font-size: 0.85rem;
+    font-weight: 500 !important;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.btn-salon-code:hover {
+    background-color: #e9ecef;
+    color: #495057;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-salon-code:active {
+    border-radius: 8px !important;
+}
+
+.btn-salon-code:focus {
+    border-radius: 8px !important;
+}
+
+/* =============================================
+   5. Enhanced Button Variants (Optional)
+   ============================================= */
+
+/* Primary style salon code button */
+.btn-salon-code.primary {
+    background: linear-gradient(135deg, #ab8b73 0%, #d5c4b8 100%) !important;
+    border: 1px solid #ab8b73 !important;
+    color: white !important;
+}
+
+.btn-salon-code.primary:hover {
+    background: linear-gradient(135deg, #9a7a65 0%, #c4b3a7 100%) !important;
+    color: white !important;
+}
+
+/* Ghost style for buttons */
+.btn-salon-code.ghost {
+    background: transparent !important;
+    border: 2px solid #dee2e6 !important;
+    color: #666 !important;
+}
+
+.btn-salon-code.ghost:hover {
+    background: #f8f9fa !important;
+    border-color: #adb5bd !important;
+}
+
+.btn-logout.ghost {
+    background: transparent !important;
+    border: 2px solid rgba(220, 53, 69, 0.3) !important;
+    color: #dc3545 !important;
+}
+
+.btn-logout.ghost:hover {
+    background: rgba(220, 53, 69, 0.05) !important;
+    border-color: #dc3545 !important;
+}
+
+/* =============================================
+   6. Salon Code Modal Styles
+   ============================================= */
+
+/* Modal container */
+#salonCodeModal .modal-content {
+    border-radius: 15px !important;
+    border: none !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Modal header */
+#salonCodeModal .modal-header {
+    border-bottom: none !important;
+    padding: 2rem 2rem 1rem 2rem !important;
+}
+
+#salonCodeModal .modal-title {
+    color: #666 !important;
+    font-weight: 600 !important;
+    font-size: 1.25rem !important;
+}
+
+#salonCodeModal .btn-close {
+    background: none !important;
+    border: none !important;
+    font-size: 1.5rem !important;
+    color: #999 !important;
+    opacity: 0.7 !important;
+    transition: opacity 0.2s ease !important;
+}
+
+#salonCodeModal .btn-close:hover {
+    opacity: 1 !important;
+}
+
+/* Modal body */
+#salonCodeModal .modal-body {
+    padding: 1rem 2rem 2rem 2rem !important;
+    text-align: center !important;
+}
+
+/* Salon code display area */
+.salon-code-display {
+    background: #d5c4b8 !important;
+    color: #ab8b73 !important;
+    padding: 1.5rem !important;
+    border-radius: 12px !important;
+    margin-bottom: 1.5rem !important;
+    font-size: 1.8rem !important;
+    font-weight: bold !important;
+    letter-spacing: 3px !important;
+    text-align: center !important;
+    box-shadow: 0 4px 15px rgba(171, 139, 115, 0.3) !important;
+    user-select: all !important;
+    cursor: pointer !important;
+    transition: box-shadow 0.2s ease !important;
+}
+
+.salon-code-display:hover {
+    box-shadow: 0 6px 20px rgba(171, 139, 115, 0.4) !important;
+}
+
+/* Copy button */
+#copyCodeBtn {
+    background-color: #ab8b73 !important;
+    color: white !important;
+    border: none !important;
+    padding: 0.75rem 2rem !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+    margin-bottom: 1rem !important;
+    width: 100% !important;
+    box-shadow: 0 2px 8px rgba(171, 139, 115, 0.3) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+#copyCodeBtn:hover {
+    background-color: #9a7a65 !important;
+    box-shadow: 0 4px 12px rgba(171, 139, 115, 0.4) !important;
+}
+
+#copyCodeBtn:active {
+    background-color: #8a6a55 !important;
+}
+
+/* Copy success state */
+#copyCodeBtn.copied {
+    background-color: #28a745 !important;
+}
+
+/* Description text */
+#salonCodeModal .modal-body p {
+    font-size: 0.9rem !important;
+    line-height: 1.4 !important;
+    color: #6c757d !important;
+    margin-bottom: 0 !important;
+}
+
+/* =============================================
+   7. Responsive Design
+   ============================================= */
+
+/* Mobile responsive - header structure */
+@media (max-width: 768px) {
+    header .container-fluid {
+        padding: 0.75rem 1rem;
+    }
+
+    .logo img {
+        max-width: 60px;
+    }
+
+    .brand-text {
+        font-size: 1rem !important;
+    }
+
+    .page-title {
+        font-size: 0.9rem !important;
+    }
+
+    .btn-salon-code,
+    .btn-logout {
+        padding: 6px 12px !important;
+        font-size: 0.8rem;
+        border-radius: 6px !important;
+    }
+
+    .btn-salon-code span,
+    .btn-logout span {
+        display: none;
+    }
+
+    .header-actions {
+        gap: 8px;
+    }
+
+    /* Modal responsive */
+    #salonCodeModal .modal-header {
+        padding: 1.5rem 1.5rem 1rem 1.5rem !important;
+    }
+
+    #salonCodeModal .modal-body {
+        padding: 1rem 1.5rem 1.5rem 1.5rem !important;
+    }
+
+    #salonCodeModal .modal-title {
+        font-size: 1.1rem !important;
+    }
+
+    .salon-code-display {
+        font-size: 1.5rem !important;
+        padding: 1.25rem !important;
+        letter-spacing: 2px !important;
+    }
+
+    #copyCodeBtn {
+        padding: 0.75rem 1.5rem !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    header .container-fluid {
+        padding: 0.5rem 0.75rem;
+    }
+
+    .logo img {
+        max-width: 50px;
+    }
+
+    .brand-text {
+        font-size: 0.9rem !important;
+    }
+
+    .page-title {
+        font-size: 0.8rem !important;
+    }
+
+    .menu-btn {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+        border-radius: 8px !important;
+    }
+
+    .menu-dropdown-content {
+        min-width: 180px;
+        border-radius: 12px !important;
+    }
+
+    .header-actions {
+        gap: 6px;
+    }
+
+    .btn-salon-code,
+    .btn-logout {
+        padding: 5px 10px !important;
+        border-radius: 6px !important;
+    }
+}
+
+/* =============================================
+   8. Focus and Accessibility (Enhanced)
+   ============================================= */
+
+/* Enhanced focus states */
+.menu-btn:focus {
+    outline: 2px solid #0066cc;
+    outline-offset: 2px;
+    border-radius: 12px !important;
+}
+
+.menu-dropdown-item:focus {
+    outline: 2px solid #0066cc;
+    outline-offset: -2px;
+    background-color: rgba(0, 123, 255, 0.1);
+    border-radius: 8px !important;
+}
+
+.btn-salon-code:focus,
+.btn-logout:focus {
+    outline: 2px solid #0066cc;
+    outline-offset: 2px;
+    border-radius: 8px !important;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    header.bg-white {
+        border-bottom: 2px solid #000 !important;
+    }
+    
+    .menu-dropdown-content {
+        border: 2px solid #000;
+        border-radius: 15px !important;
+    }
+    
+    .btn-salon-code {
+        border: 2px solid #000 !important;
+        border-radius: 8px !important;
+    }
+    
+    .btn-logout {
+        border: 2px solid #000 !important;
+        border-radius: 8px !important;
+    }
+    
+    .menu-dropdown-item.active {
+        background-color: #000;
+        color: #fff;
+        border-radius: 8px !important;
+    }
+}
+
+/* Reduced motion support - NO TRANSFORMS */
+@media (prefers-reduced-motion: reduce) {
+    .menu-btn,
+    .menu-dropdown-item,
+    .btn-salon-code,
+    .btn-logout,
+    .salon-code-display,
+    #copyCodeBtn {
+        transition: none !important;
+    }
+}
+
+/* =============================================
+   9. Modal Animation
+   ============================================= */
+
+/* Animation for modal appearance */
+#salonCodeModal.fade .modal-dialog {
+    transition: transform 0.3s ease-out !important;
+    transform: translate(0, -50px) !important;
+}
+
+#salonCodeModal.show .modal-dialog {
+    transform: translate(0, 0) !important;
+}
+
+/* Backdrop customization */
+#salonCodeModal .modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Loading state for code generation */
+.salon-code-display.loading {
+    background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%) !important;
+    color: #999 !important;
+}
+
+.salon-code-display.loading::after {
+    content: "Generating...";
+    font-size: 1rem !important;
+    letter-spacing: 1px !important;
+    animation: pulse 1.5s ease-in-out infinite !important;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* =============================================
+   10. Print Styles
+   ============================================= */
+@media print {
+    header.bg-white,
+    .menu-dropdown-content,
+    #salonCodeModal {
+        display: none;
+    }
+}
