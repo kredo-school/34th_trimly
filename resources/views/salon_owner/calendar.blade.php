@@ -328,17 +328,8 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
-    {{-- <div class="admin-header">
-        <div class="admin-title">
-            <h1>Trimly Admin</h1>
-            <p>Puppy Palace Downtown</p>
-        </div>
-        <div class="header-buttons">
-            <button class="header-btn">Salon Code</button>
-            <button class="header-btn">Logout</button>
-        </div>
-    </div> --}}
+    @include('layouts.navigation')
+
     
     <!-- Main Container -->
     <div class="main-container">
