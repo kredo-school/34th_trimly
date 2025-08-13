@@ -582,3 +582,53 @@ section,
     color: #555 !important;
     cursor: pointer !important;
 }
+/* =============================================
+   Button Area White Background Override
+   Only make the button area white, keep other areas yellow
+   ============================================= */
+
+/* Target only the button container area */
+.d-flex.justify-content-end.gap-3,
+.d-flex.justify-content-end {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    background-image: none !important;
+    padding: 20px !important;
+    margin: 0 -20px -20px -20px !important;
+    border-radius: 0 0 8px 8px !important;
+}
+
+/* Ensure the parent container of buttons has white background */
+form .d-flex:last-child {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    background-image: none !important;
+}
+
+/* Make sure the buttons themselves maintain their styling */
+.btn-salon-code,
+.btn-owner-continue {
+    /* Keep original button styling */
+}
+
+/* =============================================
+   Service
+   ============================================= */
+
+ /* Feature Badge Styles */
+ .feature-badge {
+    background-color: #d4c4a8 !important;
+    border-radius: 15px !important;
+    color: #333 !important;
+    padding: 4px 12px !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    display: inline-block !important;
+    margin: 2px !important;
+}
+
+.feature-badge:hover {
+    background-color: #c9b896 !important;
+    border-color: #9a7a65 !important;
+    color: #222 !important;
+}

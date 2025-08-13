@@ -43,9 +43,6 @@
                         Menu <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="menu-dropdown-content" id="menuDropdown">
-                        <a href="/admin/dashboard" class="menu-dropdown-item {{ request()->is('admin/dashboard') ? 'active' : '' }}">
-                            <i class="fa-solid fa-house"></i> Dashboard
-                        </a>
                         <a href="salonowner/appointment" class="menu-dropdown-item {{ request()->is('salonowner/appointment') ? 'active' : '' }}">
                             <i class="fa-regular fa-calendar"></i> Appointments
                         </a>

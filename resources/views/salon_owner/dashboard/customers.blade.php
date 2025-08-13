@@ -18,8 +18,10 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Base CSS Files -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/reservation.css') }}">
+   <!-- Base CSS Files -->
+   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+   <link href="{{ asset('css/register-salon-owner.css') }}" rel="stylesheet">
+   <link href="{{ asset('css/dashboard-salon-owner.css') }}" rel="stylesheet">
     <!-- Page Specific CSS -->
     <link href="{{ asset('css/dashboard-salon-owner.css') }}" rel="stylesheet">
 @endpush
