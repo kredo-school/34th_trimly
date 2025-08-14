@@ -158,7 +158,7 @@
                                     class="fa-solid fa-user me-2"></i>Pet Owner Information</h4>
                             <p class="card-subtitle text-muted text-start mb-4">Tell us about yourself</p>
 
-                            <form action="#" method="post">
+                            <form action="{{ route('pet_owner.register.petowner.post') }}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6 mb-3 text-start">
@@ -169,7 +169,7 @@
                                                 <i class="fa-solid fa-user"></i>
                                             </span>
                                             <input type="text" class="form-control" id="firstName"
-                                                placeholder="Enter first name" required>
+                                                name="firstName" placeholder="Enter first name" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3 text-start">
@@ -180,7 +180,7 @@
                                                 <i class="fa-solid fa-user"></i>
                                             </span>
                                             <input type="text" class="form-control" id="lastName"
-                                                placeholder="Enter last name" required>
+                                                name="lastName" placeholder="Enter last name" required>
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +194,7 @@
                                                 <i class="fa-solid fa-envelope"></i>
                                             </span>
                                             <input type="email" class="form-control" id="emailAddress"
-                                                placeholder="Enter email address" required>
+                                                name="email" placeholder="Enter email address" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3 text-start">
@@ -205,7 +205,7 @@
                                                 <i class="fa-solid fa-phone"></i>
                                             </span>
                                             <input type="tel" class="form-control" id="phoneNumber"
-                                                placeholder="(555) 123-4567" required>
+                                                name="phoneNumber" placeholder="(555) 123-4567" required>
                                         </div>
                                     </div>
                                 </div>
@@ -219,7 +219,7 @@
                                                 <i class="fa-solid fa-map-marker-alt"></i>
                                             </span>
                                             <input type="text" class="form-control" id="city"
-                                                placeholder="Enter your city" required>
+                                                name="city" placeholder="Enter your city" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3 text-start">
@@ -229,11 +229,11 @@
                                             <span class="input-group-text input-group-text-custom">
                                                 <i class="fa-solid fa-map"></i>
                                             </span>
-                                            <select class="form-select form-control" id="prefecture" required>
+                                            <select class="form-select form-control" id="prefecture" name="prefecture" required>
                                                 <option selected disabled value="">Select prefecture</option>
                                                 <option>Tokyo</option>
                                                 <option>Osaka</option>
-                                                <option>*****</option>
+                                                <option>Nagoya</option>
                                             </select>
                                         </div>
                                     </div>
@@ -248,7 +248,7 @@
                                                 <i class="fa-solid fa-lock"></i>
                                             </span>
                                             <input type="password" class="form-control" id="password"
-                                                placeholder="Create password" required>
+                                                name="password" placeholder="Create password" required>
                                             <span class="input-group-text input-group-text-custom toggle-password"
                                                 data-target="password">
                                                 <i class="fa-solid fa-eye-slash"></i>
@@ -263,7 +263,7 @@
                                                 <i class="fa-solid fa-lock"></i>
                                             </span>
                                             <input type="password" class="form-control" id="confirmPassword"
-                                                placeholder="Confirm password" required>
+                                                name="password_confirmation" placeholder="Confirm password" required>
                                             <span class="input-group-text input-group-text-custom toggle-password"
                                                 data-target="confirmPassword">
                                                 <i class="fa-solid fa-eye-slash"></i>

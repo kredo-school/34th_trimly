@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pages-styles.css') }}">
 
@@ -19,50 +19,82 @@
         /* 共通CSSにないため、独自スタイルとしてBlade内に残す */
         /* Step（JuriバージョンがCSSに入ってきたら撤去 */
         .step-item-active .step-circle {
-            background-color: #ab8b73; /* アクティブなステップの色 */
+            background-color: #ab8b73;
+            /* アクティブなステップの色 */
             border-color: #ab8b73;
-            color: #fff; /* 数字の色 */
-            position: relative; /* z-indexを効かせるため */
-            z-index: 2; /* 線より手前に来るように */
+            color: #fff;
+            /* 数字の色 */
+            position: relative;
+            /* z-indexを効かせるため */
+            z-index: 2;
+            /* 線より手前に来るように */
         }
+
         .step-item-active .step-text {
-            color: #ab8b73; /* アクティブなステップのテキスト色 */
+            color: #ab8b73;
+            /* アクティブなステップのテキスト色 */
             font-weight: bold;
-            position: relative; /* z-indexを効かせるため */
-            z-index: 2; /* 線より手前に来るように */
-            background-color: #FEFCF1; /*bodyと同じ背景色を設定して線が文字を透けないように */
+            position: relative;
+            /* z-indexを効かせるため */
+            z-index: 2;
+            /* 線より手前に来るように */
+            background-color: #FEFCF1;
+            /*bodyと同じ背景色を設定して線が文字を透けないように */
         }
+
         .step-item-inactive .step-circle {
-            background-color: #e0e0e0; /* 未完了ステップの背景色 */
+            background-color: #e0e0e0;
+            /* 未完了ステップの背景色 */
             border-color: #e0e0e0;
-            color: #fff; /* 数字の色 */
-            position: relative; /* z-indexを効かせるため */
-            z-index: 2; /* ★追加: 線より手前に来るように */
+            color: #fff;
+            /* 数字の色 */
+            position: relative;
+            /* z-indexを効かせるため */
+            z-index: 2;
+            /* ★追加: 線より手前に来るように */
         }
+
         .step-item-inactive .step-text {
-            color: #e0e0e0; /* 未完了ステップのテキスト色 */
-            position: relative; 
-            z-index: 2; 
+            color: #e0e0e0;
+            /* 未完了ステップのテキスト色 */
+            position: relative;
+            z-index: 2;
             background-color: #FEFCF1;
         }
+
         /* ステップ円の固定サイズ*/
-        .w-40px { width: 40px; }
-        .h-40px { height: 40px; }
+        .w-40px {
+            width: 40px;
+        }
+
+        .h-40px {
+            height: 40px;
+        }
 
         /* ステップ間の線 */
         .step-line {
-            flex-grow: 1; /* 親のFlexboxコンテナ内で利用可能なスペースを埋める */
-            height: 3px; /* 線の太さ */
-            background-color: #e0e0e0; /* 線の色 */
-            margin: 0 20px; /* 線と丸の間のスペース */
-            align-self: flex-start; /* 親のFlexアイテムの上端に寄せる */
-            margin-top: 19px; /* step-circle (40px) の中心に線が来るように調整 (40px/2 - 2px/2 = 19px) */
-            z-index: -1; /*線を円やテキストの裏に隠す */
+            flex-grow: 1;
+            /* 親のFlexboxコンテナ内で利用可能なスペースを埋める */
+            height: 3px;
+            /* 線の太さ */
+            background-color: #e0e0e0;
+            /* 線の色 */
+            margin: 0 20px;
+            /* 線と丸の間のスペース */
+            align-self: flex-start;
+            /* 親のFlexアイテムの上端に寄せる */
+            margin-top: 19px;
+            /* step-circle (40px) の中心に線が来るように調整 (40px/2 - 2px/2 = 19px) */
+            z-index: -1;
+            /*線を円やテキストの裏に隠す */
         }
+
         /* ★step-indicatorにz-indexの基準を設定 */
         .step-indicator {
-            position: relative; /* 子要素のz-indexの基準とする */
-            z-index: 1; /* 他の要素と重なったときの順序 */
+            position: relative;
+            /* 子要素のz-indexの基準とする */
+            z-index: 1;
+            /* 他の要素と重なったときの順序 */
         }
 
         /* サロンコードInfoの背景 */
@@ -74,6 +106,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             text-align: left;
         }
+
         /* Inputフォームのデザイン */
         .input-group-custom {
             border: 1px solid var(--color-border);
@@ -94,8 +127,6 @@
             border-radius: 0;
             padding-left: 0;
         }
-
-     
     </style>
 </head>
 
@@ -111,27 +142,37 @@
                     {{-- Juriバージョンと確認 --}}
                     <nav class="d-flex justify-content-between align-items-center mt-2 mb-5 step-indicator">
                         <div class="d-flex flex-column align-items-center step-item-active step-item">
-                            <div class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">1</div>
+                            <div
+                                class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">
+                                1</div>
                             <div class="step-text mt-2 fs-6">Salon Code</div>
                         </div>
-                        <div class="step-line"></div> 
+                        <div class="step-line"></div>
                         <div class="d-flex flex-column align-items-center step-item-inactive step-item">
-                            <div class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">2</div>
+                            <div
+                                class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">
+                                2</div>
                             <div class="step-text mt-2 fs-6">Pet Owner</div>
                         </div>
-                        <div class="step-line"></div> 
+                        <div class="step-line"></div>
                         <div class="d-flex flex-column align-items-center step-item-inactive step-item">
-                            <div class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">3</div>
+                            <div
+                                class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">
+                                3</div>
                             <div class="step-text mt-2 fs-6">Pets</div>
                         </div>
-                        <div class="step-line"></div> 
+                        <div class="step-line"></div>
                         <div class="d-flex flex-column align-items-center step-item-inactive step-item">
-                            <div class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">4</div>
+                            <div
+                                class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">
+                                4</div>
                             <div class="step-text mt-2 fs-6">Confirm</div>
                         </div>
-                        <div class="step-line"></div> 
+                        <div class="step-line"></div>
                         <div class="d-flex flex-column align-items-center step-item-inactive step-item">
-                            <div class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">5</div>
+                            <div
+                                class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">
+                                5</div>
                             <div class="step-text mt-2 fs-6">Complete</div>
                         </div>
                     </nav>
@@ -144,8 +185,16 @@
                             <p class="card-subtitle text-muted text-start mb-4">Please enter the invitation code
                                 provided by your salon</p>
 
-                            <form action="#" method="post">
+                            <form action="{{ route('pet_owner.register.saloncode') }}" method="post">
                                 @csrf
+
+                                {{-- ▼ 成功メッセージの表示 (緑色) ▼ --}}
+                                @if (session('success'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+
                                 <div class="mb-3 text-start">
                                     <label for="salonCode" class="form-label text-muted">Salon Invitation Code <span
                                             class="text-danger">*</span></label>
@@ -154,14 +203,15 @@
                                             <i class="fa-solid fa-key"></i>
                                         </span>
                                         <input type="text" class="form-control text-center fw-bold" id="salonCode"
-                                            placeholder="Enter your salon code" required>
+                                            name="salonCode" placeholder="Enter your salon code" required>
                                     </div>
-                                </div>
 
-                                <div class="salon-code-info">
-                                    <h5 class="fw-bold text-muted">Don't have a salon code?</h5>
-                                    <p class="text-muted">Contact your preferred salon to get an invitation code. This
-                                        ensures you can book appointments and access their specific services.</p>
+                                    {{-- ▼ エラーメッセージの表示 (赤色) ▼ --}}
+                                    @error('salonCode')
+                                        <div class="alert alert-danger mt-2" role="alert">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
 
                                 <div class="d-flex justify-content-end mt-4">
@@ -177,4 +227,5 @@
         </div>
     </div>
 </body>
+
 </html>
