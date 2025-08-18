@@ -20,7 +20,7 @@
 @section('content')
 <div class="container">
     <!-- Add Service Button - positioned at the very top, right aligned -->
-    <div style="text-align: right; margin-bottom: 2rem;">
+    <div class="add-service-container">
         <button class="btn btn-owner-continue" id="addServiceBtn">
             <i class="fa-solid fa-plus me-2" style="color: white;"></i><span style="color: white;">Add Service</span>
         </button>

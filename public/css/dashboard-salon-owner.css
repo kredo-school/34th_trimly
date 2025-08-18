@@ -30,6 +30,10 @@
     gap: var(--spacing-md);
     margin-bottom: var(--spacing-lg);
 }
+.add-service-container {
+    text-align: right;
+    margin-bottom: 2rem;
+}
 
 .owner-search-input {
     background-color: #fefcf1 !important;
