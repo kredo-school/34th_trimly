@@ -863,3 +863,19 @@ nav,
 .badge {
     /* These elements keep their intended colors */
 }
+/* Settings menu item - light brown background when active */
+.menu-dropdown-item.active {
+    background-color: #d5c4b8 !important;
+    color: #333 !important;
+}
+
+/* Specific styling for active settings page */
+.menu-dropdown-item[href="/dashboard-salonowner/settings"].active {
+    background-color: #d5c4b8 !important;
+    color: #333 !important;
+}
+
+/* Icon color for active state */
+.menu-dropdown-item.active i {
+    color: #333 !important;
+}

@@ -124,21 +124,18 @@
 }
 
 .owner-customer-avatar.owner-avatar-confirmed {
-    background-color: #28a745 !important;
     color: white !important;
-    border-color: #28a745 !important;
+ 
 }
 
 .owner-customer-avatar.owner-avatar-completed {
     background-color: #ab8b73 !important;
     color: white !important;
-    border-color: #ab8b73 !important;
 }
 
 .owner-customer-avatar.owner-avatar-cancelled {
-    background-color: #dc3545 !important;
+
     color: white !important;
-    border-color: #dc3545 !important;
 }
 
 /* =============================================
@@ -561,7 +558,6 @@ section,
     height: 20px !important;
     border-radius: 50% !important;
     border: 2px solid #ddd !important;
-    background-color: white !important;
     cursor: pointer !important;
 }
 
@@ -608,7 +604,17 @@ form .d-flex:last-child {
 /* Make sure the buttons themselves maintain their styling */
 .btn-salon-code,
 .btn-owner-continue {
-    /* Keep original button styling */
+    background-color: #fefcf1 !important;
+    color: #333 !important;
+    border-radius: 8px !important;
+    padding: 8px 16px !important;
+    font-weight: 500 !important;
+
+}
+
+.btn-salon-code:hover,
+.btn-owner-continue:hover {
+    color: #222 !important;
 }
 
 /* =============================================
@@ -616,7 +622,8 @@ form .d-flex:last-child {
    ============================================= */
 
  /* Feature Badge Styles */
- .feature-badge {
+/* Feature Badge Styles */
+.feature-badge {
     background-color: #d4c4a8 !important;
     border-radius: 15px !important;
     color: #333 !important;
@@ -629,6 +636,180 @@ form .d-flex:last-child {
 
 .feature-badge:hover {
     background-color: #c9b896 !important;
-    border-color: #9a7a65 !important;
     color: #222 !important;
+}
+
+/* Add Service Button Styles */
+.btn-owner-continue {
+    background-color: #ab8b73 !important;
+    color: #333 !important;
+    border-radius: 8px !important;
+    padding: 8px 16px !important;
+    font-weight: 500 !important;
+    border: none !important;
+}
+
+.btn-owner-continue:hover {
+    background-color: #d5c4b8 !important;
+    
+    color: #222 !important;
+}
+/* =============================================
+   Edit/Delete Button Styles
+   ============================================= */
+
+/* Edit and Delete Button Styles */
+
+/* Delete Button - Red text and icon only */
+.delete-btn {
+    color: #dc3545 !important; /* Red text */
+}
+
+.delete-btn i {
+    color: #dc3545 !important; /* Red trash can icon */
+}
+
+.delete-btn:hover {
+    color: #c82333 !important; /* Darker red text on hover */
+}
+
+.delete-btn:hover i {
+    color: #c82333 !important; /* Darker red icon on hover */
+}
+/* Service Features Checkbox - Force Brown Color */
+#addServiceModal .operating-days .form-check-input {
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 50% !important;
+    border: 2px solid #ddd !important;
+    cursor: pointer !important;
+}
+
+#addServiceModal .operating-days .form-check-input:checked {
+    background-color: #ab8b73 !important;
+    border-color: #ab8b73 !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e") !important;
+}
+
+#addServiceModal .operating-days .form-check-input:focus {
+    border-color: #ab8b73 !important;
+    box-shadow: 0 0 0 0.25rem rgba(171, 139, 115, 0.25) !important;
+}
+.operating-days {
+    background-color: transparent !important;
+    padding: 15px 0;
+    border-radius: 5px;
+}
+/* Modal background to white */
+.modal-content {
+    background-color: white !important;
+}
+
+/* Entire form body to yellow/cream */
+.modal-body {
+    background-color: #fefcf1 !important;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+/* Form controls styling */
+.modal-body .form-control {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+}
+/* Modal background to white */
+.modal-content {
+    background-color: white !important;
+}
+
+/* Only Service Features section to yellow */
+.operating-days {
+    background-color: #fefcf1 !important;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+/* Keep other form sections white */
+.modal-body {
+    background-color: white !important;
+}
+/* Modal background to white */
+.modal-content {
+    background-color: white !important;
+}
+
+/* Modal body to white */
+.modal-body {
+    background-color: white !important;
+}
+
+/* Service Features section to white */
+.operating-days {
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+/* Modal background to white */
+.modal-content {
+    background-color: white !important;
+}
+
+/* Modal body to white */
+.modal-body {
+    background-color: white !important;
+}
+
+/* All form input fields to yellow/cream */
+.modal-body .form-control {
+    background-color: #fefcf1 !important;
+    border: 1px solid #ddd;
+}
+
+/* Input fields, textarea, select to yellow */
+.modal-body input[type="text"],
+.modal-body input[type="number"],
+.modal-body textarea,
+.modal-body select {
+    background-color: #fefcf1 !important;
+}
+
+/* Service Features section background to white */
+.operating-days {
+
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+/* Modal background to white */
+.modal-content {
+    background-color: white !important;
+}
+
+/* Modal body to white */
+.modal-body {
+    background-color: white !important;
+}
+
+/* All form input fields to yellow/cream */
+.modal-body .form-control {
+    background-color: #fefcf1 !important;
+    border: 1px solid #ddd;
+}
+
+/* Input fields, textarea, select to yellow */
+.modal-body input[type="text"],
+.modal-body input[type="number"],
+.modal-body textarea,
+.modal-body select {
+    background-color: #fefcf1 !important;
+}
+
+/* Service Features section background to light gray */
+.operating-days {
+    background-color: #f8f9fa !important;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 1px solid #e9ecef;
 }
