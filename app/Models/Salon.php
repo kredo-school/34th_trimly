@@ -6,6 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Salon extends Model
 {
+    protected $fillable = [
+        'salon_code',
+        'salonname',
+        'firstname',
+        'lastname',
+        'email_address',
+        'phone',
+        'state',
+        'password',
+        'website',
+        'licencenum',
+        'description',
+        'open_time',
+        'close_time'
+    ];
+
+
     #Salon=PetOwner
     #Salon has many petowners via salon_code
 
