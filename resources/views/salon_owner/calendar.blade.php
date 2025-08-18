@@ -1,475 +1,542 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trimly Admin - Calendar</title>
+@extends('layouts.navigation')
+
+@section('title', 'Calendar')
+
+@push('styles')
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Base CSS Files -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/reservation.css') }}">
+    {{-- <link href="{{ asset('css/register-salon-owner.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dashboard-salon-owner.css') }}" rel="stylesheet"> --}}
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #fffbf0;
-            color: #333;
+            background-color: #FBF8F3;
         }
-        
-        /* Header */
-        .admin-header {
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .calendar-wrapper {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
-            background: white;
-        }
-        
-        .admin-title h1 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        
-        .admin-title p {
-            font-size: 14px;
-            color: #666;
-        }
-        
-        .header-buttons {
-            display: flex;
-            gap: 12px;
-        }
-        
-        .header-btn {
-            padding: 8px 16px;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        
-        .header-btn:hover {
-            background: #f5f5f5;
-        }
-        
-        /* Main Content */
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 30px;
-        }
-        
-        /* Calendar Card */
-        .calendar-card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             margin-bottom: 30px;
+            background-color: white;
         }
-        
+
         .calendar-title {
             font-size: 20px;
             font-weight: 600;
-            margin-bottom: 24px;
+            color: #333;
         }
-        
-        /* Calendar Navigation */
+
         .calendar-nav {
             display: flex;
-            justify-content: center;
             align-items: center;
-            margin-bottom: 24px;
-            position: relative;
+            gap: 20px;
         }
-        
-        .month-year {
+
+        .nav-btn {
+            background: none;
+            border: none;
             font-size: 18px;
-            font-weight: 600;
-        }
-        
-        .nav-arrow {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: #999;
             cursor: pointer;
-            font-size: 14px;
-            color: #666;
+            padding: 5px 10px;
         }
-        
-        .nav-arrow:hover {
-            background: #f5f5f5;
+
+        .nav-btn:hover {
+            color: #333;
         }
-        
-        .nav-arrow.prev {
-            left: 0;
+
+        .current-month {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            min-width: 100px;
+            text-align: center;
         }
-        
-        .nav-arrow.next {
-            right: 0;
-        }
-        
-        /* Calendar Grid */
-        .weekdays {
+
+        .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
-            margin-bottom: 8px;
+            gap: 1px;
+            background-color: #E8E8E8;
+            border: 1px solid #E8E8E8;
         }
-        
-        .weekday {
+
+        .day-header {
+            background-color: #FAFAFA;
+            padding: 12px;
             text-align: center;
             font-size: 13px;
-            color: #666;
             font-weight: 500;
-            padding: 8px 0;
+            color: #666;
         }
-        
-        .days-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
-        }
-        
-        .day {
-            aspect-ratio: 1;
+
+        .calendar-day {
+            background-color: white;
             min-height: 100px;
-            background: #f9f9f9;
-            border: 1px solid #e5e5e5;
-            border-radius: 8px;
             padding: 8px;
-            cursor: pointer;
             position: relative;
-            transition: all 0.2s;
         }
-        
-        .day:hover:not(.other-month) {
-            border-color: #b08968;
-            background: #fefefe;
+
+        .calendar-day.empty {
+            background-color: #FAFAFA;
         }
-        
-        .day.other-month {
-            opacity: 0.4;
-            cursor: default;
-        }
-        
-        .day.has-appointments {
-            background: #b08968;
-            color: white;
-            border-color: #b08968;
-        }
-        
+
         .day-number {
             font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 4px;
+            color: #666;
+            margin-bottom: 5px;
         }
-        
-        .day.has-appointments .day-number {
+
+        .day-number.active {
+            color: #4A90E2;
+            font-weight: 600;
+        }
+
+        .appointment {
+            background-color: #C8B8A1;
             color: white;
-        }
-        
-        .appointments-preview {
-            font-size: 10px;
-            line-height: 1.3;
-        }
-        
-        .appointment-line {
-            background: rgba(255,255,255,0.25);
-            padding: 1px 3px;
-            border-radius: 2px;
-            margin-bottom: 2px;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            margin-bottom: 3px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-        }
-        
-        .more-count {
-            text-align: center;
-            font-size: 10px;
-            margin-top: 2px;
-        }
-        
-        /* Schedule Section */
-        .schedule-header {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        
-        .action-buttons {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        
-        .btn {
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            border: none;
             cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: opacity 0.2s;
         }
-        
-        .btn:hover {
-            opacity: 0.85;
+
+        .appointment:hover {
+            background-color: #B5A58E;
         }
-        
-        .btn-primary {
-            background: #b08968;
-            color: white;
+
+        .appointment.more {
+            background-color: #E3F2FD;
+            color: #4A90E2;
         }
-        
-        .btn-outline-danger {
-            background: white;
-            color: #dc3545;
-            border: 1px solid #dc3545;
+
+        .schedule-wrapper {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
         }
-        
-        /* Appointment Items */
-        .appointment-item {
-            background: #e8dcd0;
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 12px;
+
+        .schedule-header {
+            font-size: 17px;
+            font-weight: 600;
+            color: #333;
+            padding: 25px 30px;
+            border-bottom: 1px solid #E8E8E8;
+        }
+
+        .appointment-list {
+            padding: 0;
+        }
+
+        .appointment-card {
             display: flex;
             align-items: center;
-            gap: 12px;
-            position: relative;
+            padding: 20px 30px;
+            background-color: white;
+            border-bottom: 1px solid #F0F0F0;
+            transition: background-color 0.2s;
+            cursor: pointer;
         }
-        
-        .appointment-item.cancelled {
-            background: #e5e5e5;
-            opacity: 0.7;
+
+        .appointment-card:hover {
+            background-color: #FAFAFA;
         }
-        
+
+        .appointment-card:last-child {
+            border-bottom: none;
+        }
+
         .appointment-avatar {
-            width: 40px;
-            height: 40px;
-            background: #9e9e9e;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
+            background-color: #D4C5B9;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 16px;
             color: white;
-            font-size: 20px;
+            margin-right: 15px;
+            flex-shrink: 0;
         }
-        
-        .appointment-content {
+
+        .appointment-details {
             flex: 1;
         }
-        
-        .customer-name {
-            font-weight: 600;
-            font-size: 15px;
-            margin-bottom: 2px;
+
+        .client-info {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 4px;
         }
-        
-        .service-details {
+
+        .client-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .service-type {
             font-size: 13px;
             color: #666;
-            margin-bottom: 2px;
         }
-        
-        .time-details {
+
+        .appointment-meta {
             font-size: 12px;
             color: #999;
         }
-        
-        .status-label {
-            display: inline-block;
-            padding: 2px 8px;
+
+        .appointment-status {
+            padding: 4px 10px;
             border-radius: 12px;
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-left: 8px;
+            font-size: 11px;
+            font-weight: 500;
+            margin-right: 10px;
         }
-        
+
         .status-confirmed {
-            background: #4caf50;
+            background-color: #C8B8A1;
             color: white;
         }
-        
+
         .status-cancelled {
-            background: #f44336;
+            background-color: #FF6B6B;
             color: white;
         }
-        
-        .options-btn {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
+
+        .action-btn {
             background: none;
             border: none;
             color: #999;
-            cursor: pointer;
             font-size: 18px;
-            padding: 4px;
+            cursor: pointer;
+            padding: 5px;
+            position: relative;
+        }
+
+        .action-btn:hover {
+            color: #666;
+        }
+
+        .action-menu {
+            position: absolute;
+            top: 35px;
+            right: -10px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            padding: 8px 0;
+            min-width: 250px;
+            z-index: 9999;
+            display: none;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .action-menu.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .action-menu-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 20px;
+            color: #555;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .action-menu-item:hover {
+            background-color: #f8f8f8;
+        }
+
+        .action-menu-item i {
+            margin-right: 12px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+            color: #999;
+        }
+
+        .action-menu-item.cancel {
+            color: #ef9a9a;
+        }
+        
+        .action-menu-item.cancel i {
+            color: #ef9a9a;
+        }
+
+        .appointment-actions {
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px auto;
+            }
+
+            .calendar-wrapper,
+            .schedule-wrapper {
+                border-radius: 8px;
+                padding: 20px;
+            }
+
+            .calendar-day {
+                min-height: 70px;
+                padding: 5px;
+            }
+
+            .appointment {
+                font-size: 10px;
+                padding: 2px 4px;
+            }
+
+            .appointment-card {
+                padding: 15px 20px;
+            }
         }
     </style>
-</head>
-<body>
-    @include('layouts.navigation')
+@endpush
 
-    
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Calendar Section -->
-        <div class="calendar-card">
-            <h2 class="calendar-title">Calendar View</h2>
-            
-            <div class="calendar-nav">
-                <button class="nav-arrow prev">←</button>
-                <span class="month-year">July 2025</span>
-                <button class="nav-arrow next">→</button>
-            </div>
-            
-            <div class="weekdays">
-                <div class="weekday">Sun</div>
-                <div class="weekday">Mon</div>
-                <div class="weekday">Tue</div>
-                <div class="weekday">Wed</div>
-                <div class="weekday">Thu</div>
-                <div class="weekday">Fri</div>
-                <div class="weekday">Sat</div>
-            </div>
-            
-            <div class="days-grid">
-                <!-- Previous month -->
-                <div class="day other-month">
-                    <div class="day-number">29</div>
+@section('content')
+    <div class="container">
+        <div class="calendar-wrapper">
+            <div class="calendar-header">
+                <h2 class="calendar-title">Calendar View</h2>
+                <div class="calendar-nav">
+                    <button class="nav-btn" onclick="previousMonth()">‹</button>
+                    <span class="current-month" id="currentMonth">July 2025</span>
+                    <button class="nav-btn" onclick="nextMonth()">›</button>
                 </div>
-                <div class="day other-month">
-                    <div class="day-number">30</div>
-                </div>
-                
-                <!-- July 2025 -->
-                @for ($i = 1; $i <= 31; $i++)
-                    @if ($i == 25)
-                        <div class="day has-appointments">
-                            <div class="day-number">{{ $i }}</div>
-                            <div class="appointments-preview">
-                                <div class="appointment-line">09:00 Sarah J.</div>
-                                <div class="appointment-line">11:30 Mike T.</div>
-                                <div class="more-count">1 more...</div>
-                            </div>
+            </div>
+
+            <div class="calendar-grid">
+                <div class="day-header">Sun</div>
+                <div class="day-header">Mon</div>
+                <div class="day-header">Tue</div>
+                <div class="day-header">Wed</div>
+                <div class="day-header">Thu</div>
+                <div class="day-header">Fri</div>
+                <div class="day-header">Sat</div>
+
+                @php
+                    $daysInMonth = 31;
+                    $firstDayOfWeek = 2; // Tuesday
+                    $totalCells = 35;
+                    $dayCounter = 1;
+                @endphp
+
+                @for ($i = 0; $i < $totalCells; $i++)
+                    @if ($i < $firstDayOfWeek - 1)
+                        <div class="calendar-day empty"></div>
+                    @elseif ($dayCounter <= $daysInMonth)
+                        <div class="calendar-day">
+                            <div class="day-number {{ $dayCounter == 25 ? 'active' : '' }}">{{ $dayCounter }}</div>
+                            
+                            @if ($dayCounter == 25)
+                                <div class="appointment">09:00 Sarah J.</div>
+                                <div class="appointment">11:30 Mike T.</div>
+                                <div class="appointment more">1 more...</div>
+                            @elseif ($dayCounter == 26)
+                                <div class="appointment">10:00 John D.</div>
+                                <div class="appointment">03:00 Lisa M.</div>
+                            @elseif ($dayCounter == 27)
+                                <div class="appointment">09:30 Alex P.</div>
+                            @endif
                         </div>
-                    @elseif ($i == 26)
-                        <div class="day has-appointments">
-                            <div class="day-number">{{ $i }}</div>
-                            <div class="appointments-preview">
-                                <div class="appointment-line">10:00 John D.</div>
-                                <div class="appointment-line">03:00 Lisa M.</div>
-                            </div>
-                        </div>
-                    @elseif ($i == 27)
-                        <div class="day has-appointments">
-                            <div class="day-number">{{ $i }}</div>
-                            <div class="appointments-preview">
-                                <div class="appointment-line">09:30 Alex P.</div>
-                            </div>
-                        </div>
+                        @php $dayCounter++; @endphp
                     @else
-                        <div class="day">
-                            <div class="day-number">{{ $i }}</div>
-                        </div>
+                        <div class="calendar-day empty"></div>
                     @endif
                 @endfor
-                
-                <!-- Next month -->
-                <div class="day other-month">
-                    <div class="day-number">1</div>
-                </div>
-                <div class="day other-month">
-                    <div class="day-number">2</div>
-                </div>
             </div>
         </div>
-        
-        <!-- Schedule Section -->
-        <div class="schedule-section">
+
+        <div class="schedule-wrapper">
             <h3 class="schedule-header">Schedule for Friday, July 25, 2025</h3>
             
-            <div class="action-buttons">
-                <button class="btn btn-primary">
-                    ✏️ Edit Appointment
-                </button>
-                <button class="btn btn-outline-danger">
-                    🗑 Cancel Appointment
-                </button>
-            </div>
-            
-            <!-- Appointments -->
-            <div class="appointment-item">
-                <div class="appointment-avatar">✂️</div>
-                <div class="appointment-content">
-                    <div class="customer-name">
-                        Sarah Johnson
-                        <span class="status-label status-confirmed">CONFIRMED</span>
+            <div class="appointment-list">
+                <div class="appointment-card">
+                    <div class="appointment-avatar">S</div>
+                    <div class="appointment-details">
+                        <div class="client-info">
+                            <span class="client-name">Sarah Johnson</span>
+                            <span class="service-type">Full Grooming • Buddy</span>
+                        </div>
+                        <div class="appointment-meta">09:00 AM • Golden Retriever</div>
                     </div>
-                    <div class="service-details">Full Grooming • Buddy</div>
-                    <div class="time-details">09:00 AM • Golden Retriever</div>
-                </div>
-                <button class="options-btn">⋮</button>
-            </div>
-            
-            <div class="appointment-item">
-                <div class="appointment-avatar">✂️</div>
-                <div class="appointment-content">
-                    <div class="customer-name">
-                        Mike Thompson
-                        <span class="status-label status-confirmed">CONFIRMED</span>
+                    <span class="appointment-status status-confirmed">confirmed</span>
+                    <div class="appointment-actions">
+                        <button class="action-btn" onclick="toggleMenu(event, 'menu1')">⋯</button>
+                        <div class="action-menu" id="menu1">
+                            <button class="action-menu-item">
+                                <i class="fas fa-edit"></i>
+                                Edit Appointment
+                            </button>
+                            <button class="action-menu-item cancel">
+                                <i class="fas fa-trash"></i>
+                                Cancel Appointment
+                            </button>
+                        </div>
                     </div>
-                    <div class="service-details">Trim & Style • Luna</div>
-                    <div class="time-details">11:30 AM • Poodle</div>
                 </div>
-                <button class="options-btn">⋮</button>
-            </div>
-            
-            <div class="appointment-item cancelled">
-                <div class="appointment-avatar">✂️</div>
-                <div class="appointment-content">
-                    <div class="customer-name">
-                        Emma Davis
-                        <span class="status-label status-cancelled">CANCELLED</span>
+
+                <div class="appointment-card">
+                    <div class="appointment-avatar">M</div>
+                    <div class="appointment-details">
+                        <div class="client-info">
+                            <span class="client-name">Mike Thompson</span>
+                            <span class="service-type">Trim & Style • Luna</span>
+                        </div>
+                        <div class="appointment-meta">11:30 AM • Poodle</div>
                     </div>
-                    <div class="service-details">Breed Cut • Max</div>
-                    <div class="time-details">02:00 PM • German Shepherd</div>
+                    <span class="appointment-status status-confirmed">confirmed</span>
+                    <div class="appointment-actions">
+                        <button class="action-btn" onclick="toggleMenu(event, 'menu2')">⋯</button>
+                        <div class="action-menu" id="menu2">
+                            <button class="action-menu-item">
+                                <i class="fas fa-edit"></i>
+                                Edit Appointment
+                            </button>
+                            <button class="action-menu-item cancel">
+                                <i class="fas fa-trash"></i>
+                                Cancel Appointment
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <button class="options-btn">⋮</button>
+
+                <div class="appointment-card">
+                    <div class="appointment-avatar">E</div>
+                    <div class="appointment-details">
+                        <div class="client-info">
+                            <span class="client-name">Emma Davis</span>
+                            <span class="service-type">Breed Cut • Max</span>
+                        </div>
+                        <div class="appointment-meta">02:00 PM • German Shepherd</div>
+                    </div>
+                    <span class="appointment-status status-cancelled">cancelled</span>
+                    <div class="appointment-actions">
+                        <button class="action-btn" onclick="toggleMenu(event, 'menu3')">⋯</button>
+                        <div class="action-menu" id="menu3">
+                            <button class="action-menu-item">
+                                <i class="fas fa-edit"></i>
+                                Edit Appointment
+                            </button>
+                            <button class="action-menu-item cancel">
+                                <i class="fas fa-trash"></i>
+                                Cancel Appointment
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    
+@endsection
+
+@push('scripts')
     <script>
-        // Calendar day selection
-        document.querySelectorAll('.day:not(.other-month)').forEach(day => {
-            day.addEventListener('click', function() {
-                // Update selected date display
-                const dayNum = this.querySelector('.day-number').textContent;
-                document.querySelector('.schedule-header').textContent = 
-                    `Schedule for July ${dayNum}, 2025`;
+        let currentDate = new Date(2025, 6, 1); // July 2025
+
+        function updateCalendarHeader() {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+            const month = months[currentDate.getMonth()];
+            const year = currentDate.getFullYear();
+            document.getElementById('currentMonth').textContent = `${month} ${year}`;
+        }
+
+        function previousMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            updateCalendarHeader();
+        }
+
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            updateCalendarHeader();
+        }
+
+        updateCalendarHeader();
+
+        function toggleMenu(event, menuId) {
+            event.stopPropagation();
+            event.preventDefault();
+            
+            // Close all other menus
+            document.querySelectorAll('.action-menu').forEach(menu => {
+                if (menu.id !== menuId) {
+                    menu.classList.remove('show');
+                }
+            });
+            
+            // Toggle current menu
+            const menu = document.getElementById(menuId);
+            if (menu) {
+                menu.classList.toggle('show');
+                console.log('Menu toggled:', menuId, menu.classList.contains('show'));
+            } else {
+                console.error('Menu not found:', menuId);
+            }
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            console.log('Document clicked, closing menus');
+            document.querySelectorAll('.action-menu').forEach(menu => {
+                if (menu.classList.contains('show')) {
+                    console.log('Closing menu:', menu.id);
+                    menu.classList.remove('show');
+                }
             });
         });
+
+        // Prevent menu from closing when clicking inside it
+        document.querySelectorAll('.action-menu').forEach(menu => {
+            menu.addEventListener('click', function(event) {
+                console.log('Menu clicked, preventing close:', menu.id);
+                event.stopPropagation();
+            });
+        });
+
+        // Initialize after DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Calendar initialized, menus available:', document.querySelectorAll('.action-menu').length);
+        });
     </script>
-</body>
-</html>
+@endpush
