@@ -22,9 +22,9 @@ class RegisterController extends Controller
     public function showPetOwner()
     {
         // SalonCodeがセッションに存在しない場合、最初のステップに戻す
-        // if (!Session::has('registration_data.salon_code')) {
-        //     return redirect()->route('pet_owner.register.saloncode');
-        // }
+        if (!Session::has('registration_data.salon_code')) {
+            return redirect()->route('pet_owner.register.saloncode');
+        }
         return view('pet_owner.register.pet_owner');
     }
     public function showPet()
