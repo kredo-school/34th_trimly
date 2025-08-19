@@ -146,6 +146,11 @@
         </style>
     @endpush
 
+    @section('header')
+        @include('pet_owner.register.header')
+    @endsection
+
+
     @section('content')
         {{-- Step --}}
         <nav class="d-flex justify-content-between align-items-center mt-2 mb-5 step-indicator">

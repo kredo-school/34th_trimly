@@ -71,6 +71,11 @@
         </style>
     @endpush
 
+    @section('header')
+        @include('pet_owner.register.header')
+    @endsection
+
+
     @section('content')
 
         {{-- Step --}}

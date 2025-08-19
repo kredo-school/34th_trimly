@@ -35,16 +35,17 @@
 
 <body>
     <!-- ヘッダー -->
-    @includeWhen(View::exists('pet_owner.register.header'), 'pet_owner.register.header')
+    {{-- @includeWhen(View::exists('pet_owner.register.header'), 'pet_owner.register.header') --}}
+    @hasSection('header')
+        @yield('header')
+    @endif
 
     <!-- メインコンテンツ -->
     <div class="container my-4">
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 col-lg-8">
-                <div class="register-container" style="max-width: 800px; width: 90%; margin: auto;">
                     {{-- ページ固有コンテンツ --}}
                     @yield('content')
-                </div>
             </div>
         </div>
     </div>
