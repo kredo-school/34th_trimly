@@ -49,25 +49,23 @@
                         Menu <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="menu-dropdown-content" id="menuDropdown">
-                        <a href="/admin/dashboard" class="menu-dropdown-item {{ request()->is('admin/dashboard') ? 'active' : '' }}">
-                            <i class="fa-solid fa-house"></i> Dashboard
-                        </a>
-                        <a href="salonowner/appointment" class="menu-dropdown-item {{ request()->is('salonowner/appointment') ? 'active' : '' }}">
+                        <a href="/dashboard-salonowner/appointments" class="menu-dropdown-item {{ request()->is('dashboard-salonowner/appointments') ? 'active' : '' }}">
                             <i class="fa-regular fa-calendar"></i> Appointments
                         </a>
-                        <a href="/admin/customers" class="menu-dropdown-item {{ request()->is('admin/customers') ? 'active' : '' }}">
+                        <a href="/dashboard-salonowner/customers" class="menu-dropdown-item {{ request()->is('dashboard-salonowner/customers') ? 'active' : '' }}">
                             <i class="fa-regular fa-user"></i> Customers
                         </a>
-                        <a href="/admin/calendar" class="menu-dropdown-item {{ request()->is('admin/calendar') ? 'active' : '' }}">
+                        <a href="/dashboard-salonowner/calendar" class="menu-dropdown-item {{ request()->is('dashboard-salonowner/calendar') ? 'active' : '' }}">
                             <i class="fa-regular fa-calendar-days"></i> Calendar
                         </a>
-                        <a href="/admin/services" class="menu-dropdown-item {{ request()->is('admin/services') ? 'active' : '' }}">
+                        <a href="/dashboard-salonowner/services" class="menu-dropdown-item {{ request()->is('dashboard-salonowner/services') ? 'active' : '' }}">
                             <i class="fa-solid fa-scissors"></i> Services
                         </a>
-                        <a href="/admin/settings" class="menu-dropdown-item {{ request()->is('admin/settings') ? 'active' : '' }}">
+                        <a href="/dashboard-salonowner/settings" class="menu-dropdown-item {{ request()->is('dashboard-salonowner/settings') ? 'active' : '' }}">
                             <i class="fa-solid fa-gear"></i> Settings
                         </a>
                     </div>
+                    
                 </div>
 
                 <!-- Right side: Salon Code and Logout -->

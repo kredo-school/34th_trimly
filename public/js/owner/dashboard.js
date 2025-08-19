@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Salon Owner navigation loaded');
 });
 
-// Owner - appointment  
+// Owner - appointments  
 document.addEventListener('DOMContentLoaded', function() {
     // Get elements
     const searchInput = document.getElementById('searchInput');
@@ -374,3 +374,233 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Appointments page loaded successfully');
 });
 
+// Owner - Customers  // 
+document.addEventListener('DOMContentLoaded', function() {
+    // Get elements
+    const searchInput = document.getElementById('searchInput');
+    const customerCards = document.querySelectorAll('.card');
+    const emptyState = document.getElementById('emptyState');
+
+    // Search functionality
+    searchInput.addEventListener('input', function() {
+        filterCustomers();
+    });
+
+    // Filter function
+    function filterCustomers() {
+        const searchTerm = searchInput.value.toLowerCase();
+        let visibleCount = 0;
+
+        customerCards.forEach(card => {
+            // Skip the search card and empty state
+            if (card.closest('#emptyState') || card.closest('.owner-search-section')) {
+                return;
+            }
+
+            const customerName = card.querySelector('h5').textContent.toLowerCase();
+            const customerEmail = card.querySelector('span').textContent.toLowerCase();
+            const petName = card.querySelector('.pet-section .fw-bold').textContent.toLowerCase();
+
+            const matchesSearch = customerName.includes(searchTerm) || 
+                                customerEmail.includes(searchTerm) || 
+                                petName.includes(searchTerm);
+
+            const cardContainer = card.closest('.col-md-6');
+            if (matchesSearch) {
+                cardContainer.style.display = 'block';
+                visibleCount++;
+            } else {
+                cardContainer.style.display = 'none';
+            }
+        });
+
+        // Show/hide empty state
+        if (visibleCount === 0) {
+            emptyState.style.display = 'block';
+        } else {
+            emptyState.style.display = 'none';
+        }
+    }
+
+    // Dropdown item handlers
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const customerCard = this.closest('.card');
+            const customerName = customerCard.querySelector('h5').textContent;
+            const action = this.textContent.trim();
+            
+            switch(true) {
+                case action.includes('Delete'):
+                    if (confirm(`Are you sure you want to delete customer ${customerName}?`)) {
+                        console.log('Deleting customer:', customerName);
+                    }
+                    break;
+            }
+        });
+    });
+
+    console.log('Customers page loaded successfully');
+});
+// Owner - Settigns// 
+
+   // Password toggle function
+   function toggleOwnerPassword(fieldId) {
+       const passwordField = document.getElementById(fieldId);
+       const toggleButton = passwordField.nextElementSibling;
+       const icon = toggleButton.querySelector('i');
+       
+       if (passwordField.type === 'password') {
+           passwordField.type = 'text';
+           icon.classList.remove('fa-eye');
+           icon.classList.add('fa-eye-slash');
+       } else {
+           passwordField.type = 'password';
+           icon.classList.remove('fa-eye-slash');
+           icon.classList.add('fa-eye');
+       }
+   }
+   
+   document.addEventListener('DOMContentLoaded', function() {
+       const form = document.getElementById('settingsForm');
+       const newPassword = document.getElementById('password');
+       const confirmPassword = document.getElementById('confirmPassword');
+   
+       // Form validation
+       form.addEventListener('submit', function(e) {
+           e.preventDefault();
+           
+           // Password validation
+           if (newPassword.value || confirmPassword.value) {
+               if (newPassword.value !== confirmPassword.value) {
+                   alert('Passwords do not match!');
+                   return;
+               }
+               
+               if (newPassword.value.length < 6) {
+                   alert('Password must be at least 6 characters long.');
+                   return;
+               }
+           }
+           
+           // Required fields validation
+           const requiredFields = form.querySelectorAll('[required]');
+           let isValid = true;
+           
+           requiredFields.forEach(field => {
+               if (!field.value.trim()) {
+                   field.classList.add('is-invalid');
+                   isValid = false;
+               } else {
+                   field.classList.remove('is-invalid');
+               }
+           });
+           
+           if (!isValid) {
+               alert('Please fill in all required fields.');
+               return;
+           }
+           
+           // Success message
+           alert('Settings saved successfully!');
+           console.log('Settings updated successfully');
+       });
+   
+       // Real-time password confirmation validation
+       confirmPassword.addEventListener('input', function() {
+           if (newPassword.value && confirmPassword.value) {
+               if (newPassword.value === confirmPassword.value) {
+                   confirmPassword.classList.remove('is-invalid');
+                   confirmPassword.classList.add('is-valid');
+               } else {
+                   confirmPassword.classList.remove('is-valid');
+                   confirmPassword.classList.add('is-invalid');
+               }
+           } else {
+               confirmPassword.classList.remove('is-valid', 'is-invalid');
+           }
+       });
+   
+       // Cancel button
+       document.getElementById('cancelBtn').addEventListener('click', function() {
+           if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
+               window.location.reload();
+           }
+       });
+   
+       console.log('Salon Settings page loaded successfully');
+   });
+//    
+   document.addEventListener('DOMContentLoaded', function() {
+       // Add Service Button
+       const addServiceBtn = document.getElementById('addServiceBtn');
+       addServiceBtn.addEventListener('click', function() {
+           const modal = new bootstrap.Modal(document.getElementById('addServiceModal'));
+           modal.show();
+       });
+   
+       // Save Service Button
+       document.getElementById('saveServiceBtn').addEventListener('click', function() {
+           const form = document.getElementById('addServiceForm');
+           if (form.checkValidity()) {
+               // Here you would typically send data to server
+               alert('Service added successfully!');
+               
+               // Close modal
+               const modal = bootstrap.Modal.getInstance(document.getElementById('addServiceModal'));
+               modal.hide();
+               
+               // Reset form
+               form.reset();
+           } else {
+               form.reportValidity();
+           }
+       });
+   
+       // Edit Service Buttons
+       document.querySelectorAll('.btn-salon-code[data-service]').forEach(btn => {
+           btn.addEventListener('click', function() {
+               const serviceId = this.getAttribute('data-service');
+               
+               // Open Edit Modal
+               const modal = new bootstrap.Modal(document.getElementById('editServiceModal'));
+               modal.show();
+               
+               console.log(`Edit service: ${serviceId}`);
+           });
+       });
+// Owner - Settigns// 
+       // Save Edit Service Button
+       document.getElementById('saveEditServiceBtn').addEventListener('click', function() {
+           const form = document.getElementById('editServiceForm');
+           if (form.checkValidity()) {
+               alert('Service updated successfully!');
+               
+               // Close modal
+               const modal = bootstrap.Modal.getInstance(document.getElementById('editServiceModal'));
+               modal.hide();
+           } else {
+               form.reportValidity();
+           }
+       });
+   
+       // Delete Service Actions
+       document.querySelectorAll('.btn-salon-code.delete-btn').forEach(btn => {
+           btn.addEventListener('click', function(e) {
+               e.preventDefault();
+               
+               const serviceCard = this.closest('.card');
+               const serviceName = serviceCard.querySelector('h5').textContent;
+               
+               if (confirm(`Are you sure you want to delete "${serviceName}"?`)) {
+                   // Here you would typically send delete request to server
+                   serviceCard.closest('.card.service-card').remove();
+                   console.log(`Deleted service: ${serviceName}`);
+               }
+           });
+       });
+   
+       console.log('Services page loaded successfully');
+   });
+  

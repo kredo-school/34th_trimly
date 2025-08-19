@@ -157,7 +157,6 @@
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-edit me-2"></i>Edit Appointment</a></li>
-                                            <li><hr class="dropdown-divider"></li>
                                             <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-trash-can me-2"></i>Cancel Appointment</a></li>
                                         </ul>
                                     </div>
@@ -197,7 +196,6 @@
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-edit me-2"></i>Edit Appointment</a></li>
-                                            <li><hr class="dropdown-divider"></li>
                                             <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-trash-can me-2"></i>Cancel Appointment</a></li>
                                         </ul>
                                     </div>

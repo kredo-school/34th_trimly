@@ -1,18 +1,16 @@
-// login-salon-owner.js
-
 /**
  * Toggle password visibility
  */
 function togglePassword() {
     const passwordInput = document.getElementById('password');
-    const eyeSlash = document.getElementById('eyeSlash');
-
+    const eyeIcon = document.querySelector('.owner-password-toggle i');
+    
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
-        eyeSlash.style.display = 'block';
+        eyeIcon.className = 'fa-solid fa-eye-slash';
     } else {
         passwordInput.type = 'password';
-        eyeSlash.style.display = 'none';
+        eyeIcon.className = 'fa-solid fa-eye';
     }
 }
 

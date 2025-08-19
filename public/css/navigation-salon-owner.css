@@ -1,14 +1,16 @@
 /* =============================================
-   Navigation Salon Owner - Complete Styles (No Transform Effects)
+   Navigation Salon Owner - Complete Styles (Pure White Background)
    ============================================= */
 
 /* =============================================
    Body and Layout Styles
    ============================================= */
 
-/* Body layout */
+/* Body layout - Pure white background */
 .body-layout {
-    background-color: #f8f9fa !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    background-image: none !important;
 }
 
 /* Logo image sizing */
@@ -21,10 +23,12 @@
     font-size: 0.9rem !important;
 }
 
-/* Main content area */
+/* Main content area - Pure white background */
 .main-content {
     padding: 20px !important;
-    background-color: #f8f9fa !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    background-image: none !important;
     min-height: calc(100vh - 80px) !important;
 }
 
@@ -34,13 +38,16 @@
 }
 
 /* =============================================
-   1. Header Base Styles
+   1. Header Base Styles - PURE WHITE
    ============================================= */
 
 /* Logo styling */
 .logo { 
     width: auto;
     height: auto;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 .logo img {
@@ -48,25 +55,33 @@
     height: auto;
 }
 
-/* Brand text styling */
+/* Brand text styling - PURE WHITE BACKGROUND */
 .brand-text {
     font-weight: bold !important;
-    color: #6c757d !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    color: black !important;
     margin-bottom: 0 !important;
     font-size: 1.25rem !important;
 }
 
 /* Page title styling */
 .page-title {
-    color: #6c757d !important;
+    color: black !important;
     margin-bottom: 0 !important;
     margin-right: 0.5rem !important;
     font-size: 1rem !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
-/* Header styling */
+/* Header styling - PURE WHITE background */
 header.bg-white {
-    background-color: white; 
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
     border-bottom: 1px solid #e0e0e0 !important; 
     padding: 0 !important;
     min-height: auto;
@@ -75,20 +90,29 @@ header.bg-white {
 }
 
 header .navbar {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
     padding: 0 !important;
     height: auto;
 }
 
 header .container-fluid {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
     height: auto;
     padding: 1rem 1.5rem;
 }
 
-/* Bootstrap row/column structure */
+/* Bootstrap row/column structure - PURE WHITE */
 header .row {
     margin: 0;
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 header .col-6 {
@@ -96,17 +120,26 @@ header .col-6 {
     padding-right: calc(var(--bs-gutter-x) * .5);
     display: flex;
     align-items: center;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 header .col-6.text-end {
     justify-content: flex-end;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 /* =============================================
-   2. Brand and Logo Styling
+   2. Brand and Logo Styling - PURE WHITE
    ============================================= */
 
 header .navbar-brand {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
     height: 100%;
     display: flex;
     align-items: center;
@@ -118,10 +151,16 @@ header .navbar-brand {
 header .navbar-brand:hover {
     text-decoration: none;
     color: inherit;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 header .navbar-brand .brand-text {
     margin-left: 8px;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 header .navbar-brand .main-title {
@@ -130,6 +169,9 @@ header .navbar-brand .main-title {
     color: #6c757d;
     margin: 0;
     line-height: 1.2;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 header .navbar-brand .subtitle {
@@ -137,20 +179,28 @@ header .navbar-brand .subtitle {
     color: #666;
     margin: 0;
     line-height: 1.2;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 /* =============================================
-   3. Menu Dropdown Styling (Rounded)
+   3. Menu Dropdown Styling (Rounded) - White Background
    ============================================= */
 
 /* Menu dropdown container */
 .menu-dropdown {
     position: relative;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 /* Menu button - rounded */
 .menu-btn {
-    background: none;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
     border: none;
     color: #666;
     font-size: 0.9rem;
@@ -165,15 +215,19 @@ header .navbar-brand .subtitle {
 
 .menu-btn:hover {
     color: #333;
-    background-color: rgba(0, 0, 0, 0.05);
+    background: #f8f9fa !important;
+    background-color: #f8f9fa !important;
+    background-image: none !important;
 }
 
-/* Dropdown content - rounded */
+/* Dropdown content - rounded with white background */
 .menu-dropdown-content {
     position: absolute;
     top: 100%;
     left: 0;
-    background: white;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
     border: 1px solid #e0e0e0;
     border-radius: 15px !important;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
@@ -184,10 +238,13 @@ header .navbar-brand .subtitle {
 }
 
 .menu-dropdown-content.show {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
     display: block;
 }
 
-/* Dropdown items - rounded */
+/* Dropdown items - rounded with white background */
 .menu-dropdown-item {
     display: block;
     padding: 10px 16px;
@@ -197,16 +254,23 @@ header .navbar-brand .subtitle {
     transition: all 0.2s ease;
     border-radius: 8px !important;
     margin: 2px 8px;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 .menu-dropdown-item:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background: #f8f9fa !important;
+    background-color: #f8f9fa !important;
+    background-image: none !important;
     color: #333;
     text-decoration: none;
 }
 
 .menu-dropdown-item.active {
-    background-color: rgba(0, 123, 255, 0.1);
+    background: #e3f2fd !important;
+    background-color: #e3f2fd !important;
+    background-image: none !important;
     color: #0066cc;
     border-radius: 8px !important;
 }
@@ -226,11 +290,16 @@ header .navbar-brand .subtitle {
     display: flex;
     align-items: center;
     gap: 12px;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 /* Salon Code button - consistent radius */
 .btn-salon-code {
-    background-color: #f8f9fa;
+    background-color: #f8f9fa !important;
+    background: #f8f9fa !important;
+    background-image: none !important;
     border: 1px solid #dee2e6;
     color: #666;
     padding: 8px 16px !important;
@@ -246,7 +315,9 @@ header .navbar-brand .subtitle {
 }
 
 .btn-salon-code:hover {
-    background-color: #e9ecef;
+    background-color: #e9ecef !important;
+    background: #e9ecef !important;
+    background-image: none !important;
     color: #495057;
     text-decoration: none;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -267,35 +338,47 @@ header .navbar-brand .subtitle {
 /* Primary style salon code button */
 .btn-salon-code.primary {
     background: linear-gradient(135deg, #ab8b73 0%, #d5c4b8 100%) !important;
+    background-color: #ab8b73 !important;
+    background-image: linear-gradient(135deg, #ab8b73 0%, #d5c4b8 100%) !important;
     border: 1px solid #ab8b73 !important;
     color: white !important;
 }
 
 .btn-salon-code.primary:hover {
     background: linear-gradient(135deg, #9a7a65 0%, #c4b3a7 100%) !important;
+    background-color: #9a7a65 !important;
+    background-image: linear-gradient(135deg, #9a7a65 0%, #c4b3a7 100%) !important;
     color: white !important;
 }
 
 /* Ghost style for buttons */
 .btn-salon-code.ghost {
     background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
     border: 2px solid #dee2e6 !important;
     color: #666 !important;
 }
 
 .btn-salon-code.ghost:hover {
     background: #f8f9fa !important;
+    background-color: #f8f9fa !important;
+    background-image: none !important;
     border-color: #adb5bd !important;
 }
 
 .btn-logout.ghost {
     background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
     border: 2px solid rgba(220, 53, 69, 0.3) !important;
     color: #dc3545 !important;
 }
 
 .btn-logout.ghost:hover {
     background: rgba(220, 53, 69, 0.05) !important;
+    background-color: rgba(220, 53, 69, 0.05) !important;
+    background-image: none !important;
     border-color: #dc3545 !important;
 }
 
@@ -308,22 +391,33 @@ header .navbar-brand .subtitle {
     border-radius: 15px !important;
     border: none !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 /* Modal header */
 #salonCodeModal .modal-header {
     border-bottom: none !important;
     padding: 2rem 2rem 1rem 2rem !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 #salonCodeModal .modal-title {
     color: #666 !important;
     font-weight: 600 !important;
     font-size: 1.25rem !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 #salonCodeModal .btn-close {
     background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
     border: none !important;
     font-size: 1.5rem !important;
     color: #999 !important;
@@ -333,17 +427,25 @@ header .navbar-brand .subtitle {
 
 #salonCodeModal .btn-close:hover {
     opacity: 1 !important;
+    background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
 }
 
 /* Modal body */
 #salonCodeModal .modal-body {
     padding: 1rem 2rem 2rem 2rem !important;
     text-align: center !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 /* Salon code display area */
 .salon-code-display {
     background: #d5c4b8 !important;
+    background-color: #d5c4b8 !important;
+    background-image: none !important;
     color: #ab8b73 !important;
     padding: 1.5rem !important;
     border-radius: 12px !important;
@@ -365,6 +467,8 @@ header .navbar-brand .subtitle {
 /* Copy button */
 #copyCodeBtn {
     background-color: #ab8b73 !important;
+    background: #ab8b73 !important;
+    background-image: none !important;
     color: white !important;
     border: none !important;
     padding: 0.75rem 2rem !important;
@@ -382,16 +486,22 @@ header .navbar-brand .subtitle {
 
 #copyCodeBtn:hover {
     background-color: #9a7a65 !important;
+    background: #9a7a65 !important;
+    background-image: none !important;
     box-shadow: 0 4px 12px rgba(171, 139, 115, 0.4) !important;
 }
 
 #copyCodeBtn:active {
     background-color: #8a6a55 !important;
+    background: #8a6a55 !important;
+    background-image: none !important;
 }
 
 /* Copy success state */
 #copyCodeBtn.copied {
     background-color: #28a745 !important;
+    background: #28a745 !important;
+    background-image: none !important;
 }
 
 /* Description text */
@@ -400,6 +510,9 @@ header .navbar-brand .subtitle {
     line-height: 1.4 !important;
     color: #6c757d !important;
     margin-bottom: 0 !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 /* =============================================
@@ -410,6 +523,9 @@ header .navbar-brand .subtitle {
 @media (max-width: 768px) {
     header .container-fluid {
         padding: 0.75rem 1rem;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
     }
 
     .logo img {
@@ -418,10 +534,16 @@ header .navbar-brand .subtitle {
 
     .brand-text {
         font-size: 1rem !important;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
     }
 
     .page-title {
         font-size: 0.9rem !important;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
     }
 
     .btn-salon-code,
@@ -438,19 +560,31 @@ header .navbar-brand .subtitle {
 
     .header-actions {
         gap: 8px;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
     }
 
     /* Modal responsive */
     #salonCodeModal .modal-header {
         padding: 1.5rem 1.5rem 1rem 1.5rem !important;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
     }
 
     #salonCodeModal .modal-body {
         padding: 1rem 1.5rem 1.5rem 1.5rem !important;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
     }
 
     #salonCodeModal .modal-title {
         font-size: 1.1rem !important;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
     }
 
     .salon-code-display {
@@ -468,6 +602,9 @@ header .navbar-brand .subtitle {
 @media (max-width: 576px) {
     header .container-fluid {
         padding: 0.5rem 0.75rem;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
     }
 
     .logo img {
@@ -476,25 +613,40 @@ header .navbar-brand .subtitle {
 
     .brand-text {
         font-size: 0.9rem !important;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
     }
 
     .page-title {
         font-size: 0.8rem !important;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
     }
 
     .menu-btn {
         padding: 6px 10px;
         font-size: 0.85rem;
         border-radius: 8px !important;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
     }
 
     .menu-dropdown-content {
         min-width: 180px;
         border-radius: 12px !important;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
     }
 
     .header-actions {
         gap: 6px;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
     }
 
     .btn-salon-code,
@@ -513,12 +665,17 @@ header .navbar-brand .subtitle {
     outline: 2px solid #0066cc;
     outline-offset: 2px;
     border-radius: 12px !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 .menu-dropdown-item:focus {
     outline: 2px solid #0066cc;
     outline-offset: -2px;
-    background-color: rgba(0, 123, 255, 0.1);
+    background-color: rgba(0, 123, 255, 0.1) !important;
+    background: rgba(0, 123, 255, 0.1) !important;
+    background-image: none !important;
     border-radius: 8px !important;
 }
 
@@ -533,11 +690,17 @@ header .navbar-brand .subtitle {
 @media (prefers-contrast: high) {
     header.bg-white {
         border-bottom: 2px solid #000 !important;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
     }
     
     .menu-dropdown-content {
         border: 2px solid #000;
         border-radius: 15px !important;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
     }
     
     .btn-salon-code {
@@ -551,7 +714,9 @@ header .navbar-brand .subtitle {
     }
     
     .menu-dropdown-item.active {
-        background-color: #000;
+        background-color: #000 !important;
+        background: #000 !important;
+        background-image: none !important;
         color: #fff;
         border-radius: 8px !important;
     }
@@ -586,11 +751,15 @@ header .navbar-brand .subtitle {
 /* Backdrop customization */
 #salonCodeModal .modal-backdrop {
     background-color: rgba(0, 0, 0, 0.6) !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    background-image: none !important;
 }
 
 /* Loading state for code generation */
 .salon-code-display.loading {
     background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%) !important;
+    background-color: #e0e0e0 !important;
+    background-image: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%) !important;
     color: #999 !important;
 }
 
@@ -619,4 +788,94 @@ header .navbar-brand .subtitle {
     #salonCodeModal {
         display: none;
     }
+    
+    body {
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        background-image: none !important;
+    }
+}
+
+/* =============================================
+   11. PURE WHITE Background Override - Ultimate Safety
+   ============================================= */
+
+/* Force complete white background for ANY element that might have color */
+html,
+body,
+header,
+nav,
+.navbar,
+.navbar-brand,
+.container,
+.container-fluid,
+.row,
+.col,
+.col-6,
+.logo,
+.brand-text,
+.main-title,
+.subtitle,
+.page-title,
+.menu-dropdown,
+.menu-btn,
+.header-actions {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+}
+
+/* Specific override for any colored backgrounds */
+.bg-light,
+.bg-warning,
+.bg-secondary,
+.bg-primary,
+[style*="background-color: #fefcf1"],
+[style*="background-color: #f8f9fa"],
+[style*="background-color: rgb(254, 252, 241)"],
+[style*="background: #fefcf1"],
+[style*="background: #f8f9fa"],
+[style*="background: rgb(254, 252, 241)"],
+[class*="bg-"]:not(.bg-white):not(.btn):not(.badge):not(.alert):not(.salon-code-display):not(#copyCodeBtn):not(.btn-salon-code.primary) {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+}
+
+/* Override any inline styles that might set background colors */
+*[style*="background"] {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+}
+
+/* Exception for specific functional elements that should keep their colors */
+.btn-salon-code.primary,
+.salon-code-display,
+#copyCodeBtn,
+.btn-success,
+.btn-primary,
+.btn-danger,
+.alert-success,
+.alert-danger,
+.alert-warning,
+.alert-info,
+.badge {
+    /* These elements keep their intended colors */
+}
+/* Settings menu item - light brown background when active */
+.menu-dropdown-item.active {
+    background-color: #d5c4b8 !important;
+    color: #333 !important;
+}
+
+/* Specific styling for active settings page */
+.menu-dropdown-item[href="/dashboard-salonowner/settings"].active {
+    background-color: #d5c4b8 !important;
+    color: #333 !important;
+}
+
+/* Icon color for active state */
+.menu-dropdown-item.active i {
+    color: #333 !important;
 }

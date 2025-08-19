@@ -123,4 +123,9 @@ Route::get('/salon-owner/calendar', function () {
 Route::get('dashboard-salonowner/settings', function () {
     return view('salon_owner/dashboard/settings');
 });
+// settings
+Route::get('dashboard-salonowner/services', function () {
+    return view('salon_owner/dashboard/services');
+});
+
 
