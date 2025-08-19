@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>register header</title>
-</head>
-
-<body>
     <header class="header">
         <div class="logo">
             <img src="{{ asset('images/Trimly Logo.png') }}" alt="Trimly Logo">
@@ -48,6 +37,3 @@
         }
 
     </style>
-</body>
-
-</html>
