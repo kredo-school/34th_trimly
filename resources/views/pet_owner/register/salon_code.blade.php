@@ -5,6 +5,7 @@
 @push('styles')
 <style>
 /* ステップ関連のCSS（ページ固有） */
+/* Step（JuriバージョンがCSSに入ってきたら撤去 */
 .step-item-active .step-circle {
     background-color: #ab8b73;
     border-color: #ab8b73;
@@ -71,6 +72,10 @@
 }
 </style>
 @endpush
+
+@section('header')
+    @include('pet_owner.register.header')
+@endsection
 
 @section('content')
     {{-- Stepナビゲーション --}}
