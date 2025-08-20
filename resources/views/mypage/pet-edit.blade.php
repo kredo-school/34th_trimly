@@ -1,6 +1,6 @@
         @extends('layouts.pet_owner')
 
-        @section('title', 'MyPage Pet')
+        @section('title', 'MyPage Pet-Edit')
 
         @push('styles')
             <style>
