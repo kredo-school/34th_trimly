@@ -658,6 +658,40 @@ form .d-flex:last-child {
     
     color: #222 !important;
 }
+
+/* Add Service Button Container */
+.owner-add-service-container {
+    text-align: right;
+    margin-bottom: 2rem;
+}
+
+/* Add Service Button Icon Color */
+.owner-add-service-container .btn i,
+.owner-add-service-container .btn span {
+    color: white;
+}
+
+/* Service Info Styles */
+.owner-service-info {
+    font-size: 0.9rem;
+}
+
+/* Service Description */
+.owner-service-description {
+    font-size: 0.95rem;
+}
+
+/* Features Header */
+.owner-features-header {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Empty State (hidden by default) */
+.owner-empty-state-hidden {
+    display: none;
+}
 /* =============================================
    Edit/Delete Button Styles
    ============================================= */
@@ -816,4 +850,34 @@ form .d-flex:last-child {
     border-radius: 8px;
     margin-top: 10px;
     border: 1px solid #e9ecef;
+}
+/* Settings Page Specific Styles */
+
+/* Register Container Max Width */
+.owner-register-container {
+    max-width: 1200px;
+    width: 98%;
+    margin: auto;
+}
+
+/* Section Headers */
+.owner-section-header {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+/* Section Dividers */
+.owner-section-divider {
+    border-color: #ddd;
+    margin-top: 0.5rem;
+}
+
+/* Time Input Padding */
+.owner-time-input {
+    padding-right: 40px;
+}
+
+/* Action Buttons Gap */
+.owner-action-buttons {
+    gap: 1rem;
 }

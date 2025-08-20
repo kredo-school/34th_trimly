@@ -20,9 +20,9 @@
 @section('content')
 <div class="container">
     <!-- Add Service Button - positioned at the very top, right aligned -->
-    <div class="add-service-container">
+    <div class="owner-add-service-container">
         <button class="btn btn-owner-continue" id="addServiceBtn">
-            <i class="fa-solid fa-plus me-2" style="color: white;"></i><span style="color: white;">Add Service</span>
+            <i class="fa-solid fa-plus me-2"></i><span>Add Service</span>
         </button>
     </div>
    
@@ -56,7 +56,7 @@
                                </div>
                            </div>
                            
-                           <div class="d-flex align-items-center text-muted mb-3" style="font-size: 0.9rem;">
+                           <div class="d-flex align-items-center text-muted mb-3 owner-service-info">
                                <i class="fa-regular fa-clock me-2"></i>
                                <span class="me-4">90-120 minutes</span>
                                <i class="fa-solid fa-dollar-sign me-2"></i>
@@ -65,10 +65,10 @@
                                <span>10 features</span>
                            </div>
                            
-                           <p class="text-muted mb-3" style="font-size: 0.95rem;">Complete grooming service including bath, haircut, nail trim, and ear cleaning for a full spa experience.</p>
+                           <p class="text-muted mb-3 owner-service-description">Complete grooming service including bath, haircut, nail trim, and ear cleaning for a full spa experience.</p>
                            
                            <div class="mb-0">
-                               <h6 class="text-dark mb-2 fw-bold" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">INCLUDED FEATURES:</h6>
+                               <h6 class="text-dark mb-2 fw-bold owner-features-header">INCLUDED FEATURES:</h6>
                                <div class="d-flex flex-wrap gap-2">
                                    <span class="badge feature-badge">Bath & Shampoo</span>
                                    <span class="badge feature-badge">Nail Trim</span>
@@ -103,7 +103,7 @@
                                </div>
                            </div>
                            
-                           <div class="d-flex align-items-center text-muted mb-3" style="font-size: 0.9rem;">
+                           <div class="d-flex align-items-center text-muted mb-3 owner-service-info">
                                <i class="fa-regular fa-clock me-2"></i>
                                <span class="me-4">45 minutes</span>
                                <i class="fa-solid fa-dollar-sign me-2"></i>
@@ -112,10 +112,10 @@
                                <span>3 features</span>
                            </div>
                            
-                           <p class="text-muted mb-3" style="font-size: 0.95rem;">Essential bath and brushing service to keep your pet clean and fresh.</p>
+                           <p class="text-muted mb-3 owner-service-description">Essential bath and brushing service to keep your pet clean and fresh.</p>
                            
                            <div class="mb-0">
-                               <h6 class="text-dark mb-2 fw-bold" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">INCLUDED FEATURES:</h6>
+                               <h6 class="text-dark mb-2 fw-bold owner-features-header">INCLUDED FEATURES:</h6>
                                <div class="d-flex flex-wrap gap-2">
                                    <span class="badge feature-badge">Bath & Shampoo</span>
                                    <span class="badge feature-badge">Brushing & De-matting</span>
@@ -143,7 +143,7 @@
                                </div>
                            </div>
                            
-                           <div class="d-flex align-items-center text-muted mb-3" style="font-size: 0.9rem;">
+                           <div class="d-flex align-items-center text-muted mb-3 owner-service-info">
                                <i class="fa-regular fa-clock me-2"></i>
                                <span class="me-4">15 minutes</span>
                                <i class="fa-solid fa-dollar-sign me-2"></i>
@@ -152,10 +152,10 @@
                                <span>2 features</span>
                            </div>
                            
-                           <p class="text-muted mb-3" style="font-size: 0.95rem;">Quick and safe nail trimming service for your pet's comfort and health.</p>
+                           <p class="text-muted mb-3 owner-service-description">Quick and safe nail trimming service for your pet's comfort and health.</p>
                            
                            <div class="mb-0">
-                               <h6 class="text-dark mb-2 fw-bold" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">INCLUDED FEATURES:</h6>
+                               <h6 class="text-dark mb-2 fw-bold owner-features-header">INCLUDED FEATURES:</h6>
                                <div class="d-flex flex-wrap gap-2">
                                    <span class="badge feature-badge">Nail Trim</span>
                                    <span class="badge feature-badge">Paw Claw Trim</span>
@@ -165,7 +165,7 @@
                    </div>
    
                    <!-- Empty State (hidden by default) -->
-                   <div id="emptyState" class="text-center" style="display: none;">
+                   <div id="emptyState" class="text-center owner-empty-state-hidden">
                        <div class="owner-empty-state">
                            <i class="fa-solid fa-scissors text-muted"></i>
                            <h5 class="text-muted">No services found</h5>
