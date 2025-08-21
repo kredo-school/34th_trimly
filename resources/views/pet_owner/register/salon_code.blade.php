@@ -4,7 +4,6 @@
 
 @push('styles')
 <style>
-/* ステップ関連のCSS（ページ固有） */
 /* Step（JuriバージョンがCSSに入ってきたら撤去 */
 .step-item-active .step-circle {
     background-color: #ab8b73;
@@ -45,14 +44,8 @@
     z-index: -1;
 }
 .step-indicator { position: relative; z-index: 1; }
-.salon-code-info {
-    background-color: #f9f5f2;
-    border-radius: 8px;
-    padding: 20px;
-    margin-top: 30px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    text-align: left;
-}
+
+/* Input Form */
 .input-group-custom {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
@@ -78,7 +71,7 @@
 @endsection
 
 @section('content')
-    {{-- Stepナビゲーション --}}
+    {{-- Step--}}
     <nav class="d-flex justify-content-between align-items-center mt-2 mb-5 step-indicator">
         <div class="d-flex flex-column align-items-center step-item-active step-item">
             <div class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">1</div>
@@ -109,13 +102,13 @@
     {{-- Card --}}
     <div class="card p-4 mb-4 shadow-sm">
         <div class="card-body">
-            <h4 class="card-title text-start mb-3 fw-bold text-muted"><i class="fa-solid fa-key me-2"></i>Enter Salon Code</h4>
-            <p class="card-subtitle text-muted text-start mb-4">Please enter the invitation code provided by your salon</p>
+            <h4 class="card-title text-start mb-3 fw-bold"><i class="fa-solid fa-key me-2"></i>Enter Salon Code</h4>
+            <p class="card-subtitle text-start mb-4">Please enter the invitation code provided by your salon</p>
 
-            <form action="{{ route('pet_owner.register.saloncode') }}" method="post">
+            <form action="{{ route('pet_owner.register.saloncode.post') }}" method="post">
                 @csrf
 
-                {{-- 成功メッセージ --}}
+                {{-- success --}}
                 @if (session('success'))
                     <div class="alert alert-success" role="alert">
                         {{ session('success') }}
@@ -123,13 +116,13 @@
                 @endif
 
                 <div class="mb-3 text-start">
-                    <label for="salonCode" class="form-label text-muted">Salon Invitation Code <span class="text-danger">*</span></label>
+                    <label for="salonCode" class="form-label">Salon Invitation Code <span class="text-danger">*</span></label>
                     <div class="input-group input-group-custom">
                         <span class="input-group-text input-group-text-custom"><i class="fa-solid fa-key"></i></span>
                         <input type="text" class="form-control text-center fw-bold" id="salonCode" name="salonCode" placeholder="Enter your salon code" required>
                     </div>
 
-                    {{-- エラーメッセージ --}}
+                    {{-- error --}}
                     @error('salonCode')
                         <div class="alert alert-danger mt-2" role="alert">{{ $message }}</div>
                     @enderror
@@ -144,7 +137,3 @@
         </div>
     </div>
 @endsection
-
-{{-- @push('scripts')
-<script src="{{ asset('js/register.js') }}"></script>
-@endpush --}}

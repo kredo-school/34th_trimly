@@ -6,6 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class PetOwner extends Model
 {
+    protected $fillable = [
+        'firstname',
+        'lastname',
+        'email_address',
+        'phone',
+        'city',
+        'prefecture',
+        'password',
+    ];
+
+
+
     #PetOwner=Pet
     #PetOwner has many pets
 

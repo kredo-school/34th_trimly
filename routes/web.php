@@ -17,56 +17,58 @@ Route::get('/mypage/reservation/new/schedule', [ReservationController::class, 's
 Route::get('/mypage/reservation/new/confirm', [ReservationController::class, 'confirm'])->name('reservation.confirm');
 Route::post('/mypage/reservation/new/complete', [ReservationController::class, 'complete'])->name('reservation.complete');
 
-//add Yumiko
+/* =====================================================
+   Pet Owner side  - Login
+   ===================================================== */
+
 Route::get('/login-petowner', function () {
 return view('pet_owner.login');
 });
-
-
-// ペットオーナー登録フローのルートグループ
+/* =====================================================
+   Pet Owner side  - Register
+   ===================================================== */
 Route::prefix('petowner/register')->name('pet_owner.register.')->group(function () {
-    // Step 1: サロンコード入力フォームを表示 (GET)
+    // Step 1: display salon_code page
     Route::get('/saloncode', [RegisterController::class, 'showSalonCode'])->name('saloncode');
-    // Step 1: サロンコードを検証・セッション保存 (POST)
+    // Step 1: validate salon_code & keep session
     Route::post('/saloncode', [RegisterController::class, 'postSalonCode'])->name('saloncode.post');
-    // Step 2: ペットオーナー情報入力フォームの表示 (GET)
+    // Step 2: display pet_owner page
     Route::get('/petowner', [RegisterController::class, 'showPetOwner'])->name('petowner');
-    // Step 2: ペットオーナー情報の検証とセッション保存 (POST)
+    // Step 2: validate pet_owner info & keep session
     Route::post('/petowner', [RegisterController::class, 'postPetOwner'])->name('petowner.post');
-    // Step 3: ペット情報入力フォームの表示 (GET)
+    // Step 3: display pet page
     Route::get('/pet', [RegisterController::class, 'showPet'])->name('pet');
-    // Step 4: 確認画面の表示 (GET)
+    // Step 3: display pet pagevalidate pet info & keep session
+    Route::post('/pet', [RegisterController::class, 'postPet'])->name('pet.post');
+    // Step 4: display confrim page
     Route::get('/confirm', [RegisterController::class, 'showConfirm'])->name('confirm');
-    // Step 5: 登録完了画面の表示 (GET)
+    // Step 4: validate&store
+    Route::post('/confirm', [RegisterController::class, 'postConfirm'])->name('confirm.post');
+    // Step 5: display complete page
     Route::get('/complete', [RegisterController::class, 'showComplete'])->name('complete');
 });
-
-
+/* =====================================================
+   Pet Owner side  - MyPage
+   ===================================================== */
 
 Route::get('/mypage/profile', function () {
     return view('mypage.profile');
 });
-
 Route::get('/mypage/profile-edit', function () {
     return view('mypage.profile-edit');
 });
-
 Route::get('/mypage/pet', function () {
     return view('mypage.pet');
 });
-
 Route::get('/mypage/pet-edit', function () {
     return view('mypage.pet-edit');
 });
-
 Route::get('/mypage/add-pet', function () {
     return view('mypage.add-pet');
 });
-
 Route::get('/mypage/salon', function () {
     return view('mypage.salon');
 });
-
 Route::get('/mypage/reserve', function () {
     return view('mypage.reservation');
 });
