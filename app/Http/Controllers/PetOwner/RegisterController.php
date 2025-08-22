@@ -167,7 +167,7 @@ class RegisterController extends Controller
                 'phone' => $registrationData['pet_owner']['phoneNumber'], // テーブルの列名に合わせる
                 'city' => $registrationData['pet_owner']['city'],
                 'prefecture' => $registrationData['pet_owner']['prefecture'],
-                'password' => Hash::make($registrationData['pet_owner']['password']),
+                'password' => $registrationData['pet_owner']['password'],
             ];
 
             // 1. Save the Pet Owner to the database.

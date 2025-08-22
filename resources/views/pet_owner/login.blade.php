@@ -4,25 +4,27 @@
 
     @push('styles')
         <style>
-            /* 共通CSSにないもの */
-            /* 1. Inputフォームのデザイン */
+            /* 1. InputForm */
             .input-group-custom {
                 border: 1px solid var(--color-border);
                 border-radius: var(--radius-md);
                 overflow: hidden;
             }
+
             .input-group-text-custom {
                 background-color: var(--color-background);
                 border: none;
                 color: var(--color-text-secondary);
                 padding-right: var(--spacing-sm);
             }
+
             .input-group .form-control {
                 background-color: var(--color-background);
                 border: none;
                 border-radius: 0;
                 padding-left: 0;
             }
+
             .input-group-text-custom-right {
                 background-color: var(--color-background);
                 border: none;
@@ -30,7 +32,8 @@
                 cursor: pointer;
                 padding-left: 0;
             }
-            /* ２. For Salonボタンのデザイン */
+
+            /* ２. For Salon button */
             .btn-outline-secondary {
                 background-color: var(--color-background);
                 border-color: var(--color-background);
@@ -38,14 +41,17 @@
                 padding: var(--spacing-sm) var(--spacing-lg);
                 font-weight: 500;
             }
+
             .btn-outline-secondary:hover {
                 background-color: var(--color-primary);
             }
-            /* ３. or罫線のデザイン */
+
+            /* ３. or Line */
             .divider {
                 margin: var(--spacing-md) 0;
                 position: relative;
             }
+
             .divider::before {
                 content: '';
                 position: absolute;
@@ -55,6 +61,7 @@
                 border-top: 1px solid var(--color-border);
                 z-index: 1;
             }
+
             .divider span {
                 background-color: white;
                 /* 背景色は共通CSSの--color-surfaceを使用 */
@@ -78,7 +85,8 @@
                     <p>Sign in to manage your pets and book appointments</p>
                     <div class="bg-white shadow-sm rounded-5 p-4">
 
-                        <form action="#" method="post">
+
+                        <form action="{{ route('pet_owner.login') }}" method="post">
                             @csrf
 
                             <div class="mt-3 mb-3 text-start">
@@ -87,8 +95,8 @@
                                     <span class="input-group-text input-group-text-custom">
                                         <i class="fa-solid fa-envelope"></i>
                                     </span>
-                                    <input type="email" class="form-control" id="email" placeholder="Enter your email"
-                                        required>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder="Enter your email" required>
                                 </div>
                             </div>
                             <div class="mb-3 text-start">
@@ -97,7 +105,7 @@
                                     <span class="input-group-text input-group-text-custom">
                                         <i class="fa-solid fa-lock"></i>
                                     </span>
-                                    <input type="password" class="form-control" id="password"
+                                    <input type="password" class="form-control" id="password" name="password"
                                         placeholder="Enter your password" required>
                                     <span class="input-group-text input-group-text-custom-right" id="togglePassword">
                                         <i class="fa-solid fa-eye"></i>
@@ -106,7 +114,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="rememberMe">
+                                    <input class="form-check-input" type="checkbox" id="rememberMe" name="remember_me" required>
                                     <label class="form-check-label" for="rememberMe">
                                         Remember me
                                     </label>
@@ -116,15 +124,16 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
-                            <p>Don't have an account? <a href="#" class="text-decoration-none">Sign up
-                                    here</a></p>
+                            <p>Don't have an account? <a href="{{ route('pet_owner.register.saloncode') }}"
+                                    class="text-decoration-none">Sign up here</a></p>
 
                             <div class="divider mb-4">
                                 <span>or</span>
                             </div>
 
-                            <button type="button" class="btn btn-outline-secondary w-100 mb-3">For Salons - Sign
-                                In</button>
+                            <a href="#" class="btn btn-outline-secondary w-100 mb-3" role="button">
+                                For Salons - Sign In
+                            </a>
                             <p>New Salon? <a href="#" class="text-decoration-none">Register Here</a></p>
                         </form>
                     </div>

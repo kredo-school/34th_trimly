@@ -40,6 +40,16 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        // ペットオーナー用のガードを追加
+        'petowner' => [
+            'driver' => 'session',
+            'provider' => 'petowners',
+        ],
+        // サロンオーナー用のガードを追加
+        'salonowner' => [
+            'driver' => 'session',
+            'provider' => 'salons',
+        ],
     ],
 
     /*
@@ -63,6 +73,17 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+
+        // ペットオーナー用のプロバイダー
+        'petowners' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\PetOwner::class,
+        ],
+        // サロンオーナー用のプロバイダー
+        'salons' => [ 
+            'driver' => 'eloquent',
+            'model' => App\Models\Salon::class, 
         ],
 
         // 'users' => [
