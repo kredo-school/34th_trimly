@@ -4,7 +4,6 @@
 
     @push('styles')
         <style>
-            /* 独自スタイルとしてBlade内に残すCSS */
             /* Step（JuriバージョンがCSSに入ってきたら撤去 */
             .step-item-active .step-circle {
                 background-color: #ab8b73;

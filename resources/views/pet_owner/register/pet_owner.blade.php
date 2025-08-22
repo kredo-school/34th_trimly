@@ -4,53 +4,38 @@
 
     @push('styles')
         <style>
-            /* 独自スタイルとしてBlade内に残すCSS */
             /* Step（JuriバージョンがCSSに入ってきたら撤去 */
             .step-item-active .step-circle {
                 background-color: #ab8b73;
-                /* アクティブなステップの色 */
                 border-color: #ab8b73;
                 color: #fff;
-                /* 数字の色 */
                 position: relative;
-                /* z-indexを効かせるため */
                 z-index: 2;
-                /* 線より手前に来るように */
             }
 
             .step-item-active .step-text {
                 color: #ab8b73;
-                /* アクティブなステップのテキスト色 */
                 font-weight: bold;
                 position: relative;
-                /* z-indexを効かせるため */
                 z-index: 2;
-                /* 線より手前に来るように */
                 background-color: #FEFCF1;
-                /*bodyと同じ背景色を設定して線が文字を透けないように */
             }
 
             .step-item-inactive .step-circle {
                 background-color: #e0e0e0;
-                /* 未完了ステップの背景色 */
                 border-color: #e0e0e0;
                 color: #fff;
-                /* 数字の色 */
                 position: relative;
-                /* z-indexを効かせるため */
                 z-index: 2;
-                /* ★追加: 線より手前に来るように */
             }
 
             .step-item-inactive .step-text {
                 color: #e0e0e0;
-                /* 未完了ステップのテキスト色 */
                 position: relative;
                 z-index: 2;
                 background-color: #FEFCF1;
             }
 
-            /* ステップ円の固定サイズ*/
             .w-40px {
                 width: 40px;
             }
@@ -59,34 +44,22 @@
                 height: 40px;
             }
 
-            /* ステップ間の線 */
             .step-line {
                 flex-grow: 1;
-                /* 親のFlexboxコンテナ内で利用可能なスペースを埋める */
                 height: 3px;
-                /* 線の太さ */
                 background-color: #e0e0e0;
-                /* 線の色 */
                 margin: 0 20px;
-                /* 線と丸の間のスペース */
                 align-self: flex-start;
-                /* 親のFlexアイテムの上端に寄せる */
                 margin-top: 19px;
-                /* step-circle (40px) の中心に線が来るように調整 (40px/2 - 2px/2 = 19px) */
                 z-index: -1;
-                /*線を円やテキストの裏に隠す */
             }
 
-            /* ★step-indicatorにz-indexの基準を設定 */
             .step-indicator {
                 position: relative;
-                /* 子要素のz-indexの基準とする */
                 z-index: 1;
-                /* 他の要素と重なったときの順序 */
             }
 
-
-            /* Inputフォームのデザイン */
+            /* InputForm */
             .input-group-custom {
                 border: 1px solid var(--color-border);
                 border-radius: var(--radius-md);
@@ -107,12 +80,12 @@
                 padding-left: 0;
             }
 
-            /*目玉アイコン */
+            /*Toggle icon */
             .toggle-password {
                 cursor: pointer;
             }
 
-            /* バックボタンのデザイン */
+            /* Back buttton */
             .btn-back {
                 background-color: #FEFCF1;
                 border: 1px solid #ccc;
@@ -178,6 +151,7 @@
 
                 <form action="{{ route('pet_owner.register.petowner.post') }}" method="post">
                     @csrf
+
                     <div class="row">
                         <div class="col-md-6 mb-3 text-start">
                             <label for="firstName" class="form-label ">First Name <span class="text-danger">*</span></label>
@@ -221,7 +195,7 @@
                                     <i class="fa-solid fa-phone"></i>
                                 </span>
                                 <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
-                                    placeholder="(555) 123-4567" required>
+                                    placeholder="09012345678" required>
                             </div>
                         </div>
                     </div>
@@ -282,6 +256,9 @@
                                     <i class="fa-solid fa-eye-slash"></i>
                                 </span>
                             </div>
+                            @error('password')
+                                <div class="alert alert-danger mt-2" role="alert">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
