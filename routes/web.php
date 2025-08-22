@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PetOwner\RegisterController;
+use App\Http\Controllers\PetOwner\LoginController;
 
 
 Route::get('/', function () {
@@ -20,10 +21,11 @@ Route::post('/mypage/reservation/new/complete', [ReservationController::class, '
 /* =====================================================
    Pet Owner side  - Login
    ===================================================== */
-
-Route::get('/login-petowner', function () {
-return view('pet_owner.login');
+Route::prefix('petowner')->name('pet_owner.')->group(function () {
+    Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
 });
+
 /* =====================================================
    Pet Owner side  - Register
    ===================================================== */
@@ -47,9 +49,17 @@ Route::prefix('petowner/register')->name('pet_owner.register.')->group(function 
     // Step 5: display complete page
     Route::get('/complete', [RegisterController::class, 'showComplete'])->name('complete');
 });
+
 /* =====================================================
    Pet Owner side  - MyPage
    ===================================================== */
+
+Route::middleware('auth:petowner')->group(function () {
+    Route::get('/mypage/profile', function () {
+        return view('mypage.profile');
+    })->name('mypage.profile');
+});
+
 
 Route::get('/mypage/profile', function () {
     return view('mypage.profile');

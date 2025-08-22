@@ -4,8 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PetOwner extends Model
+// Illuminate\Foundation\Auth\Userをインポート
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class PetOwner extends Authenticatable
 {
+
+    // HasFactoryとSoftDeletes traitを使用
+    use HasFactory, SoftDeletes;
+
     protected $fillable = [
         'firstname',
         'lastname',
@@ -15,6 +24,12 @@ class PetOwner extends Model
         'prefecture',
         'password',
     ];
+
+    // パスワードを隠す設定を追加（セキュリティのため）
+    protected $hidden = [
+        'password',
+    ];
+
 
 
 
