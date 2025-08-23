@@ -85,6 +85,12 @@
                     <p>Sign in to manage your pets and book appointments</p>
                     <div class="bg-white shadow-sm rounded-5 p-4">
 
+                        @if ($errors->has('email'))
+                            <div class="alert alert-danger mb-3">
+                                {{ $errors->first('email') }}
+                            </div>
+                        @endif
+
 
                         <form action="{{ route('pet_owner.login') }}" method="post">
                             @csrf
@@ -114,7 +120,8 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="rememberMe" name="remember_me" required>
+                                    <input class="form-check-input" type="checkbox" id="rememberMe" name="remember_me"
+                                        required>
                                     <label class="form-check-label" for="rememberMe">
                                         Remember me
                                     </label>
