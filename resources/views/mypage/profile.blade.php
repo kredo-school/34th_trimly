@@ -90,12 +90,12 @@
                <div class="d-flex justify-content-between align-items-center mb-4">
                    <h4 class="card-title mb-0">Pet Owner Information</h4>
                    {{-- edit button --}}
-                   <a href="#" class="btn btn-primary">
+                   <a href="{{ route('mypage.profile.edit') }}" class="btn btn-primary">
                        <i class="fa-regular fa-pen-to-square"></i>
                    </a>
                </div>
 
-
+            {{--Profile--}}
                <div class="row g-3">
                    <div class="col-md-6">
                        <label for="firstName" class="form-label">First Name</label>
@@ -112,17 +112,17 @@
                        </div>
                    </div>
                    <div class="col-md-6">
-                       <label for="emailAddress" class="form-label">Email Address</label>
+                       <label for="email_address" class="form-label">Email Address</label>
                        <div class="form-control-readonly">
                            <i class="fa-solid fa-envelope"></i>
-                           <span class="value-text" id="emailAddress">{{ $petOwner->email_address }}</span>
+                           <span class="value-text" id="email_address">{{ $petOwner->email_address }}</span>
                        </div>
                    </div>
                    <div class="col-md-6">
-                       <label for="phoneNumber" class="form-label">Phone Number</label>
+                       <label for="phone" class="form-label">Phone Number</label>
                        <div class="form-control-readonly">
                            <i class="fa-solid fa-phone"></i>
-                           <span class="value-text" id="phoneNumber">{{ $petOwner->phone }}</span>
+                           <span class="value-text" id="phone">{{ $petOwner->phone }}</span>
                        </div>
                    </div>
                    <div class="col-md-6">
@@ -140,9 +140,9 @@
                        </div>
                    </div>
                </div>
-
            </div>
 
+           {{--Password reset--}}
            <div class="card p-4">
                <h4 class="card-title mb-4">Change Password</h4>
 

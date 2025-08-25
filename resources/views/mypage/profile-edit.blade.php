@@ -4,7 +4,7 @@
 
        @push('styles')
            <style>
-               /* 読み取り専用フィールド */
+               /* InputField */
                .form-control-readonly {
                    background-color: #FEFCF1;
                    border: 1px solid #e0e0e0;
@@ -46,61 +46,37 @@
 
                .input-group-custom-edit .input-group-text-custom-edit {
                    background-color: transparent;
-                   /* 背景透明 */
                    border: none;
-                   /* ボーダーなし */
                    color: #a68c76;
-                   /* アイコンの色 */
                    padding-left: 15px;
-                   /* 左のパディング */
                    padding-right: 0;
-                   /* アイコンの右のパディングはなし */
                    display: flex;
-                   /* アイコンを中央揃えにするため */
                    align-items: center;
                }
 
                .input-group-custom-edit .form-control-inline {
                    background-color: transparent;
-                   /* 背景透明 */
                    border: none;
-                   /* ボーダーなし */
                    box-shadow: none;
-                   /* フォーカス時の影を削除 */
                    padding-left: 5px;
-                   /* アイコンとの間隔を調整 */
                    padding-right: 15px;
-                   /* 右のパディング */
                    color: #333;
-                   /* テキストの色 */
                    height: auto;
-                   /* 高さは親要素に合わせる */
                    flex-grow: 1;
-                   /* 残りのスペースを埋める */
                }
 
                .input-group-custom-edit .form-control-inline-select {
-                   /* select タグ用 */
                    background-color: transparent;
-                   /* 背景透明 */
                    border: none;
-                   /* ボーダーなし */
                    box-shadow: none;
-                   /* フォーカス時の影を削除 */
                    padding-left: 5px;
-                   /* アイコンとの間隔を調整 */
                    padding-right: 15px;
-                   /* 右のパディング */
                    color: #333;
-                   /* テキストの色 */
                    height: auto;
-                   /* 高さは親要素に合わせる */
                    flex-grow: 1;
-                   /* 残りのスペースを埋める */
-
                }
 
-               /* 目玉アイコンは .toggle-password が付与されている部分にのみ適用 */
+               /* 目玉アイコン */
                .input-group-custom .toggle-password {
                    background-color: #FEFCF1;
                    border-left: none;
@@ -150,7 +126,7 @@
                    /* 角丸を削除 (input-group-customに任せる) */
                }
 
-               /* キャンセルボタンのスタイル */
+               /* Cancelbutton */
                .btn-cancel {
                    background-color: #FEFCF1 !important;
                    color: #666;
@@ -158,6 +134,7 @@
                    height: 40px;
                    padding: 0 20px;
                }
+
                .btn-cancel:hover {
                    background-color: #e0e0e0;
                    color: #6c757d;
@@ -170,24 +147,35 @@
        @endsection
 
        @section('content')
+
+           @if (session('success'))
+               <div class="alert alert-success">
+                   {{ session('success') }}
+               </div>
+           @endif
+
            <div class="card p-4 mb-4">
                <h4 class="card-title mb-4">Pet Owner Information</h4>
 
-               <form action="#" method="POST">
+               {{-- Edit profile --}}
+               <form action="{{ route('mypage.profile.update') }}" method="POST">
                    @csrf
                    @method('PATCH')
 
                    <div class="row g-3">
                        <div class="col-md-6">
                            <label for="firstName" class="form-label">First Name</label>
-                           {{-- div.input-group に変更し、アイコンと入力フィールドを一体化 --}}
                            <div class="input-group input-group-custom-edit">
                                <span class="input-group-text input-group-text-custom-edit">
                                    <i class="fa-solid fa-user"></i>
                                </span>
                                <input type="text" name="firstName" id="firstName"
-                                   class="form-control form-control-inline" value="John" autofocus>{{-- DBからのデータ表示 --}}
+                                   class="form-control form-control-inline"
+                                   value="{{ old('firstName', $petOwner->firstname) }}" autofocus>
                            </div>
+                           @error('firstName')
+                               <div class="text-danger mt-1">{{ $message }}</div>
+                           @enderror
                        </div>
 
                        <div class="col-md-6">
@@ -197,8 +185,11 @@
                                    <i class="fa-solid fa-user"></i>
                                </span>
                                <input type="text" name="lastName" id="lastName" class="form-control form-control-inline"
-                                   value="Smith" autofocus>{{-- DBからのデータ表示 --}}
+                                   value="{{ old('lastName', $petOwner->lastname) }}" autofocus>
                            </div>
+                           @error('lastName')
+                               <div class="text-danger mt-1">{{ $message }}</div>
+                           @enderror
                        </div>
                        <div class="col-md-6">
                            <label for="emailAddress" class="form-label">Email Address</label>
@@ -206,10 +197,13 @@
                                <span class="input-group-text input-group-text-custom-edit">
                                    <i class="fa-solid fa-envelope"></i>
                                </span>
-                               <input type="email" name="emailAddress" id="emailAddress"
-                                   class="form-control form-control-inline" value="john.smith@email.com"
-                                   autofocus>{{-- DBからのデータ表示 --}}
+                               <input type="email" name="email_address" id="email_address"
+                                   class="form-control form-control-inline"
+                                   value="{{ old('email_address', $petOwner->email_address) }}" autofocus>
                            </div>
+                           @error('email_address')
+                               <div class="text-danger mt-1">{{ $message }}</div>
+                           @enderror
                        </div>
                        <div class="col-md-6">
                            <label for="phoneNumber" class="form-label">Phone Number</label>
@@ -217,10 +211,13 @@
                                <span class="input-group-text input-group-text-custom-edit">
                                    <i class="fa-solid fa-phone"></i>
                                </span>
-                               <input type="tel" name="phoneNumber" id="phoneNumber"
-                                   class="form-control form-control-inline" value="(555) 123-4567"
-                                   autofocus>{{-- DBからのデータ表示 --}}
+                               <input type="tel" name="phone" id="phone"
+                                   class="form-control form-control-inline"
+                                   value="{{ old('phone', $petOwner->phone) }}" autofocus>
                            </div>
+                           @error('phoneNumber')
+                               <div class="text-danger mt-1">{{ $message }}</div>
+                           @enderror
                        </div>
                        <div class="col-md-6">
                            <label for="city" class="form-label">City</label>
@@ -229,9 +226,11 @@
                                    <i class="fa-solid fa-location-dot"></i>
                                </span>
                                <input type="text" name="city" id="city" class="form-control form-control-inline"
-                                   value="Los Angeles">
-                               {{-- DBからのデータ表示 --}}
+                                   value="{{ old('city', $petOwner->city) }}">
                            </div>
+                           @error('city')
+                               <div class="text-danger mt-1">{{ $message }}</div>
+                           @enderror
                        </div>
                        <div class="col-md-6">
                            <label for="prefecture" class="form-label">Prefecture</label>
@@ -240,12 +239,20 @@
                                    <i class="fa-solid fa-map"></i>
                                </span>
                                <select name="prefecture" id="prefecture" class="form-select form-control-inline-select">
-                                   <option value="California" selected>California</option>
-                                   <option value="New York">New York</option>
-                                   <option value="Texas">Texas</option>
-                                   {{-- オプションを追加 --}}
+                                   <option value="Tokyo"
+                                       {{ old('prefecture', $petOwner->prefecture) == 'Tokyo' ? 'selected' : '' }}>Tokyo
+                                   </option>
+                                   <option value="Osaka"
+                                       {{ old('prefecture', $petOwner->prefecture) == 'Osaka' ? 'selected' : '' }}>Osaka
+                                   </option>
+                                   <option value="Nagoya"
+                                       {{ old('prefecture', $petOwner->prefecture) == 'Nagoya' ? 'selected' : '' }}>Nagoya
+                                   </option>
                                </select>
                            </div>
+                           @error('prefecture')
+                               <div class="text-danger mt-1">{{ $message }}</div>
+                           @enderror
                        </div>
 
                        <div class="d-flex justify-content-end mt-4">
@@ -257,39 +264,56 @@
                </form>
            </div>
 
+           {{-- Password reset --}}
            <div class="card p-4">
                <h4 class="card-title mb-4">Change Password</h4>
-               <form>
+               <form action="{{ route('mypage.password.update') }}" method="POST">
+                   @csrf
+
                    <div class="row g-3">
                        <div class="col-md-4">
                            <label for="currentPassword" class="form-label">Current Password</label>
                            <div class="input-group input-group-custom">
-                               <input type="password" class="form-control" id="currentPassword"
+                               <input type="password" class="form-control" id="currentPassword" name="current_password"
                                    placeholder="Enter current password">
                                <span class="input-group-text input-group-text-custom toggle-password"
                                    data-target="currentPassword">
                                    <i class="fa-solid fa-eye-slash"></i>
                                </span>
                            </div>
+                           @error('current_password')
+                               <div class="text-danger mt-1">{{ $message }}</div>
+                           @enderror
                        </div>
                        <div class="col-md-4">
                            <label for="newPassword" class="form-label">New Password</label>
                            <div class="input-group input-group-custom">
-                               <input type="password" class="form-control" id="newPassword"
+                               <input type="password" class="form-control" id="newPassword" name="new_password"
                                    placeholder="Enter new password">
                            </div>
+                           @error('new_password')
+                               <div class="text-danger mt-1">{{ $message }}</div>
+                           @enderror
                        </div>
                        <div class="col-md-4">
                            <label for="confirmNewPassword" class="form-label">Confirm Password</label>
                            <div class="input-group input-group-custom">
                                <input type="password" class="form-control" id="confirmNewPassword"
-                                   placeholder="Confirm new password">
+                                   name="new_password_confirmation" placeholder="Confirm new password">
                            </div>
                        </div>
+                       @error('new_password_confirmation')
+                           <div class="text-danger mt-1">{{ $message }}</div>
+                       @enderror
                    </div>
                    <div class="d-flex justify-content-end mt-4">
                        <button type="submit" class="btn btn-primary">Update Password</button>
                    </div>
+                   @if (session('status'))
+                       <div class="alert alert-success">
+                           {{ session('status') }}
+                       </div>
+                   @endif
                </form>
            </div>
        @endsection

@@ -59,6 +59,8 @@ Route::middleware('auth:petowner')->group(function () {
     /*Profile*/
     Route::get('/mypage/profile', [ProfileController::class, 'showProfile'])->name('mypage.profile');
     Route::post('/mypage/profile/password', [ProfileController::class, 'updatePassword'])->name('mypage.password.update');
+    Route::get('/mypage/profile/edit', [ProfileController::class, 'editProfile'])->name('mypage.profile.edit');
+    Route::patch('/mypage/profile', [ProfileController::class, 'updateProfile'])->name('mypage.profile.update');
 });
 
 
