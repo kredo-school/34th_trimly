@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PetOwner\RegisterController;
 use App\Http\Controllers\PetOwner\LoginController;
+use App\Http\Controllers\PetOwner\Mypage\PetController;
 
 
 Route::get('/', function () {
@@ -61,12 +62,23 @@ Route::middleware('auth:petowner')->group(function () {
 });
 
 
-Route::get('/mypage/profile', function () {
-    return view('mypage.profile');
+    /*Pets*/
+Route::middleware(['auth:petowner'])->group(function () {
+    // show manage page
+    Route::get('/mypage/pets', [PetController::class, 'index'])->name('mypage.pets.index');
+    // show add page
+    Route::get('/mypage/pets/create', [PetController::class, 'create'])->name('mypage.pets.create');
+    // save new pet
+    Route::post('/mypage/pets', [PetController::class, 'store'])->name('mypage.pets.store');
+    // edit
+    Route::get('/mypage/pets/{pet}/edit', [PetController::class, 'edit'])->name('mypage.pets.edit');
+    // update
+    Route::patch('/mypage/pets/{pet}', [PetController::class, 'update'])->name('mypage.pets.update');
+    // delete
+    Route::delete('/mypage/pets/{pet}', [PetController::class, 'destroy'])->name('mypage.pets.destroy');
 });
-Route::get('/mypage/profile-edit', function () {
-    return view('mypage.profile-edit');
-});
+
+
 Route::get('/mypage/pet', function () {
     return view('mypage.pet');
 });
