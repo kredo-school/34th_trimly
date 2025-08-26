@@ -1,16 +1,14 @@
 {{-- Create a new Blade template for selecting a salon in the reservation process by Juri --}}
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trimly - choose salon</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/reservation.css') }}">
-</head>
-<body>
-    @include('users.profile.header')
+@extends('layouts.pet_owner')
 
+@section('title', 'Select Salon')
+
+
+@section('header')
+    @include('users.profile.header')
+@endsection
+
+@section('content')
     {{-- Step bar for the reservation process @ Juri --}}
     <div class="steps">
         <div class="step-wrapper">
@@ -96,5 +94,4 @@
             });
         });
     </script>
-</body>
-</html>
+@endsection

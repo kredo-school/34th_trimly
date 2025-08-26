@@ -1,16 +1,13 @@
 {{-- Select schedule page for reservation process @ Juri --}}
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trimly - Choose Date & Time</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/reservation.css') }}">
-</head>
-<body>
-    @include('users.profile.header')
+@extends('layouts.pet_owner')
 
+@section('title', 'Choose Date & Time')
+
+@section('header')
+    @include('users.profile.header')
+@endsection
+
+@section('content')
     {{-- Step bar for the reservation process @ Juri --}}
     <div class="steps">
         <div class="step-wrapper">
@@ -150,5 +147,4 @@
             });
         });
     </script>
-</body>
-</html>
+@endsection
