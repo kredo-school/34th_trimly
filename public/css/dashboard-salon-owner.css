@@ -1,11 +1,11 @@
 /* =============================================
-   Dashboard Salon Owner - Complete Styles (No Transform Effects)
-   ============================================= */
+  Dashboard Salon Owner - Complete Styles (No Transform Effects)
+  ============================================= */
 
 /* =============================================
-   CSS Variables Definition
-   ============================================= */
-   :root {
+  CSS Variables Definition
+  ============================================= */
+  :root {
     --color-success: #28a745;
     --color-primary: #ab8b73;
     --color-error: #dc3545;
@@ -18,24 +18,28 @@
     --spacing-lg: 1.5rem;
     --radius-sm: 4px;
     --radius-md: 8px;
-}
-
-/* =============================================
+ }
+ 
+ /* =============================================
    Search Section Styles
    ============================================= */
-.owner-search-section {
+   .owner-search-section {
     background-color: #fefcf1 !important;
+    color: #000 !important;
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
     margin-bottom: var(--spacing-lg);
-}
-.add-service-container {
+ }
+ 
+ 
+ 
+ .add-service-container {
     text-align: right;
     margin-bottom: 2rem;
-}
-
-.owner-search-input {
+ }
+ 
+ .owner-search-input {
     background-color: #fefcf1 !important;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
@@ -43,28 +47,34 @@
     font-size: 0.95rem;
     width: 100%;
     transition: all 0.2s ease;
-}
-
-.owner-search-input:focus {
+    color: #333 !important; /* Dark text color for better visibility */
+ }
+ 
+ .owner-search-input::placeholder {
+    color: #666 !important; /* Darker placeholder color for better visibility */
+    opacity: 1 !important;
+ }
+ 
+ .owner-search-input:focus {
     outline: none;
     border-color: var(--color-primary);
     box-shadow: 0 0 0 3px rgba(176, 137, 104, 0.1);
     background-color: #fefcf1 !important;
-}
-
-.owner-search-icon {
+ }
+ 
+ .owner-search-icon {
     position: absolute;
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--color-text-light);
+    color: #666 !important; /* Darker icon color for better visibility */
     font-size: 0.9rem;
-}
-
-.owner-status-dropdown {
+ }
+ 
+ .owner-status-dropdown {
     background-color: #fefcf1 !important;
     border: 1px solid var(--color-border);
-    color: var(--color-text-secondary);
+    color: #333 !important; /* Dark text color for better visibility */
     padding: 8px 16px;
     border-radius: var(--radius-md);
     font-size: 0.9rem;
@@ -73,31 +83,482 @@
     gap: var(--spacing-sm);
     cursor: pointer;
     transition: all 0.2s ease;
-}
-
-.owner-status-dropdown:hover {
-    background-color: #fefcf1 !important;
+ }
+ 
+ .owner-status-dropdown:hover {
+    background-color: #f5f3e8 !important; /* Slightly darker cream color on hover */
     color: var(--color-text-primary);
     border-color: var(--color-primary);
-}
-
-/* =============================================
+ }
+ 
+ /* Prevent Card Selection and Movement */
+ .card,
+ .card-body,
+ .owner-appointment-item,
+ .owner-customer-details,
+ .owner-customer-name {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+ }
+ 
+ /* Remove focus/active states that might cause movement */
+ .card:focus,
+ .card:active,
+ .card-body:focus,
+ .card-body:active,
+ .owner-appointment-item:focus,
+ .owner-appointment-item:active {
+    outline: none !important;
+    transform: none !important;
+    transition: none !important;
+ }
+ 
+ /* =============================================
+   FORCE FIX - Search Section Strong Styles
+   ============================================= */
+   .owner-search-section {
+    background-color: #fefcf1 !important;
+    padding: 20px !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 20px !important;
+    margin-bottom: 20px !important;
+ }
+ 
+ .owner-search-input {
+    background-color: #fefcf1 !important;
+    border: 2px solid #d0d0d0 !important;
+    border-radius: 8px !important;
+    padding: 12px 16px 12px 45px !important;
+    font-size: 16px !important;
+    width: 100% !important;
+    color: #000 !important;
+    font-weight: 500 !important;
+ }
+ 
+ .owner-search-input::placeholder {
+    color: #555 !important;
+    opacity: 1 !important;
+ }
+ 
+ .owner-search-icon {
+    position: absolute !important;
+    left: 15px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: #555 !important;
+    font-size: 16px !important;
+    z-index: 11 !important;
+ }
+ 
+ .owner-status-dropdown {
+    background-color: #fefcf1 !important;
+    border: 2px solid #d0d0d0 !important;
+    color: #000 !important;
+    padding: 12px 20px !important;
+    border-radius: 8px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+    min-width: 150px !important;
+ }
+ 
+ /* =============================================
+   FORCE YELLOW SEARCH INPUT - DEFAULT STATE
+   ============================================= */
+ 
+ /* Force search input to be yellow by default - maximum specificity */
+ .owner-search-section input.owner-search-input,
+ .card-body .owner-search-section .owner-search-input,
+ .card .card-body .owner-search-section .owner-search-input,
+ input[type="text"].owner-search-input,
+ .owner-search-input {
+    background-color: #fefcf1 !important;
+    border: 1px solid #d0d0d0 !important;
+    color: #000 !important;
+    padding: 12px 16px 12px 45px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    border-radius: 8px !important;
+ }
+ 
+ /* Ensure it stays yellow on focus/hover too */
+ .owner-search-section input.owner-search-input:focus,
+ .owner-search-section input.owner-search-input:hover,
+ .card-body .owner-search-section .owner-search-input:focus,
+ .card-body .owner-search-section .owner-search-input:hover,
+ .card .card-body .owner-search-section .owner-search-input:focus,
+ .card .card-body .owner-search-section .owner-search-input:hover,
+ input[type="text"].owner-search-input:focus,
+ input[type="text"].owner-search-input:hover,
+ .owner-search-input:focus,
+ .owner-search-input:hover {
+    background-color: #fefcf1 !important;
+    border: 1px solid #d0d0d0 !important;
+    color: #000 !important;
+    outline: none !important;
+    box-shadow: none !important;
+ }
+ 
+ /* Remove any transitions that might interfere */
+ .owner-search-input {
+    transition: none !important;
+    -webkit-transition: none !important;
+ }
+ 
+ /* =============================================
+   FORCE YELLOW SEARCH INPUT - SAME SIZE AS ALL STATUS
+   ============================================= */
+ 
+ /* Force search input to be yellow and same size as All Status button */
+ .owner-search-section input.owner-search-input,
+ .card-body .owner-search-section .owner-search-input,
+ .card .card-body .owner-search-section .owner-search-input,
+ input[type="text"].owner-search-input,
+ .owner-search-input {
+    background-color: #fefcf1 !important;
+    border: 1px solid #d0d0d0 !important;
+    color: #000 !important;
+    padding: 12px 20px 12px 45px !important; /* Same padding as All Status */
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    border-radius: 8px !important;
+    height: auto !important; /* Let padding define height */
+    min-height: 48px !important; /* Match button height */
+ }
+ 
+ /* Ensure it stays yellow on focus/hover too */
+ .owner-search-section input.owner-search-input:focus,
+ .owner-search-section input.owner-search-input:hover,
+ .card-body .owner-search-section .owner-search-input:focus,
+ .card-body .owner-search-section .owner-search-input:hover,
+ .card .card-body .owner-search-section .owner-search-input:focus,
+ .card .card-body .owner-search-section .owner-search-input:hover,
+ input[type="text"].owner-search-input:focus,
+ input[type="text"].owner-search-input:hover,
+ .owner-search-input:focus,
+ .owner-search-input:hover {
+    background-color: #fefcf1 !important;
+    border: 1px solid #d0d0d0 !important;
+    color: #000 !important;
+    outline: none !important;
+    box-shadow: none !important;
+ }
+ 
+ /* Remove any transitions that might interfere */
+ .owner-search-input {
+    transition: none !important;
+    -webkit-transition: none !important;
+ }
+ 
+ /* Placeholder styling */
+ .owner-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+    opacity: 1 !important;
+ }
+ 
+ .owner-search-icon {
+    color: rgba(255, 255, 255, 0.7) !important;
+ }
+ /* =============================================
+   FIX BORDER THICKNESS - MAKE BOTH 1PX
+   ============================================= */
+ 
+ /* Force All Status to have exactly 1px border like search */
+ .owner-status-dropdown,
+ button.owner-status-dropdown,
+ .btn.owner-status-dropdown {
+    background-color: #fefcf1 !important;
+    border: 1px solid #d0d0d0 !important; /* Force 1px border */
+    color: #000 !important;
+    padding: 12px 20px !important;
+    border-radius: 8px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    height: 48px !important;
+    line-height: 1.5 !important;
+    box-shadow: none !important;
+    transform: none !important;
+    transition: none !important;
+ }
+ 
+ /* Force 1px border on all states */
+ .owner-status-dropdown:hover,
+ .owner-status-dropdown:focus,
+ .owner-status-dropdown:active,
+ .owner-status-dropdown.show,
+ button.owner-status-dropdown:hover,
+ button.owner-status-dropdown:focus,
+ button.owner-status-dropdown:active,
+ .btn.owner-status-dropdown:hover,
+ .btn.owner-status-dropdown:focus,
+ .btn.owner-status-dropdown:active {
+    background-color: #fefcf1 !important;
+    border: 1px solid #d0d0d0 !important; /* Force 1px border on interaction */
+    color: #000 !important;
+    box-shadow: none !important;
+    transform: none !important;
+    outline: none !important;
+ }
+ 
+ /* Ensure search input also has exactly 1px border */
+ .owner-search-input,
+ input.owner-search-input {
+    background-color: #fefcf1 !important;
+    border: 1px solid #d0d0d0 !important; /* Force 1px border */
+    color: #000 !important;
+    padding: 12px 20px 12px 45px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    border-radius: 8px !important;
+    height: 48px !important;
+    line-height: 1.5 !important;
+    box-shadow: none !important;
+    transform: none !important;
+    transition: none !important;
+ }
+ 
+ .owner-search-input:focus,
+ .owner-search-input:hover {
+    background-color: #fefcf1 !important;
+    border: 1px solid #d0d0d0 !important; /* Force 1px border on interaction */
+    color: #000 !important;
+    box-shadow: none !important;
+    transform: none !important;
+    outline: none !important;
+ }
+ 
+ /* =============================================
+   MATCH DROPDOWN BORDER RADIUS TO CARDS
+   ============================================= */
+ 
+ /* Make dropdown menus have same border radius as cards */
+ .dropdown-menu {
+    border-radius: 0.375rem !important; /* Same as Bootstrap card default */
+    background-color: #ffffff !important;
+    border: 1px solid #e0e0e0 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+    padding: 8px 0 !important;
+    z-index: 9999 !important;
+    overflow: visible !important;
+    max-height: auto !important;
+    position: absolute !important;
+    top: 100% !important;
+    transform: none !important;
+ }
+ 
+ /* Ensure dropdown items have proper spacing */
+ .dropdown-menu .dropdown-item {
+    padding: 10px 16px !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #333 !important;
+    background-color: transparent !important;
+    border: none !important;
+    font-size: 14px !important;
+    white-space: nowrap !important;
+ }
+ 
+ .dropdown-menu .dropdown-item:hover {
+    background-color: #f8f9fa !important;
+    color: #1e2125 !important;
+ }
+ 
+ .dropdown-menu .dropdown-item.text-danger {
+    color: #dc3545 !important;
+ }
+ 
+ .dropdown-menu .dropdown-item.text-danger:hover {
+ 
+    color: #bb2d3b !important;
+ }
+ 
+ /* =============================================
+   FLAT UI - REMOVE ALL SHADOWS AND 3D EFFECTS
+   ============================================= */
+ 
+ /* Make All Status button completely flat like search input */
+ .owner-status-dropdown {
+    background-color: #fefcf1 !important;
+    border: 1px solid #d0d0d0 !important;
+    color: #000 !important;
+    padding: 12px 20px !important;
+    border-radius: 8px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    
+    /* Remove all 3D effects */
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    transition: none !important;
+    -webkit-transition: none !important;
+ }
+ 
+ /* Keep flat on hover/focus/active */
+ .owner-status-dropdown:hover,
+ .owner-status-dropdown:focus,
+ .owner-status-dropdown:active,
+ .owner-status-dropdown.show {
+    background-color: #fefcf1 !important;
+    border: 1px solid #d0d0d0 !important;
+    color: #000 !important;
+    
+    /* Remove all 3D effects on interaction */
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    outline: none !important;
+ }
+ 
+ /* Force search input to also be completely flat */
+ .owner-search-input {
+    background-color: #fefcf1 !important;
+    border: 1px solid #d0d0d0 !important;
+    color: #000 !important;
+    padding: 12px 20px 12px 45px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    border-radius: 8px !important;
+    
+    /* Remove all 3D effects */
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    transition: none !important;
+    -webkit-transition: none !important;
+ }
+ 
+ /* Keep search input flat on focus/hover */
+ .owner-search-input:focus,
+ .owner-search-input:hover {
+    background-color: #fefcf1 !important;
+    color: #000 !important;
+    
+    /* Remove all 3D effects on interaction */
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    outline: none !important;
+ }
+ /* =============================================
+   PERFECT MATCH - SEARCH INPUT AND ALL STATUS BUTTON
+   ============================================= */
+ 
+ /* Make search input exactly match All Status button */
+ .owner-search-input {
+    background-color: #fefcf1 !important;
+    border: 1px solid #d0d0d0 !important;
+    color: #000 !important;
+    padding: 12px 20px 12px 45px !important; /* Same as All Status but with left space for icon */
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    border-radius: 8px !important;
+    
+    /* Match exact height */
+    height: 48px !important; /* Same as All Status button */
+    line-height: 1.5 !important;
+    
+    /* Remove all effects */
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    transition: none !important;
+    -webkit-transition: none !important;
+ }
+ 
+ /* Make All Status button match search input */
+ .owner-status-dropdown {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+    padding: 12px 20px !important;
+    border-radius: 8px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    
+    /* Match exact height */
+    height: 48px !important; /* Same height as search */
+    line-height: 1.5 !important;
+    
+    /* Remove all effects */
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    transition: none !important;
+    -webkit-transition: none !important;
+ }
+ 
+ /* Keep both flat on all interactions */
+ .owner-search-input:focus,
+ .owner-search-input:hover,
+ .owner-status-dropdown:hover,
+ .owner-status-dropdown:focus,
+ .owner-status-dropdown:active,
+ .owner-status-dropdown.show {
+    background-color: #fefcf1 !important;
+    border: 1px solid #d0d0d0 !important; /* Same 1px border on interaction */
+    color: #000 !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    outline: none !important;
+ }
+ 
+ /* Placeholder styling */
+ .owner-search-input::placeholder {
+    color: #555 !important;
+    opacity: 1 !important;
+ }
+ /* =============================================
    Appointment Items Styles
    ============================================= */
-.owner-appointment-item {
+ .owner-appointment-item {
     padding: 0 !important;
     border-bottom: none !important;
     transition: background-color 0.2s ease;
-}
-
-.owner-appointment-item:hover {
+ }
+ 
+ .owner-appointment-item:hover {
     background-color: transparent !important;
-}
-
-/* =============================================
+ }
+ 
+ /* Appointments Page Specific Styles */
+ 
+ /* Search Section Max Width */
+ .owner-search-max-width {
+    max-width: 400px;
+ }
+ 
+ /* Empty State Hidden */
+ .owner-empty-state-display-none {
+    display: none;
+ }
+ 
+ 
+ /* =============================================
    Customer Avatar Styles (Fixed Icon Display)
    ============================================= */
-.owner-customer-avatar {
+ .owner-customer-avatar {
     width: 48px !important;
     height: 48px !important;
     border-radius: 50% !important;
@@ -109,78 +570,78 @@
     flex-shrink: 0 !important;
     border: 2px solid transparent !important;
     transition: all 0.2s ease !important;
-}
-
-/* Ensure icons are visible */
-.owner-customer-avatar i {
+ }
+ 
+ /* Ensure icons are visible */
+ .owner-customer-avatar i {
     color: inherit !important;
     font-size: 1.1rem !important;
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
-}
-
-/* Avatar status colors - with higher specificity */
-.owner-customer-avatar.owner-avatar-neutral {
+ }
+ 
+ /* Avatar status colors - with higher specificity */
+ .owner-customer-avatar.owner-avatar-neutral {
     background-color: #D5C4B8 !important;
     color: #ab8b73 !important;
     border-color: #D5C4B8 !important;
-}
-
-.owner-customer-avatar.owner-avatar-confirmed {
+ }
+ 
+ .owner-customer-avatar.owner-avatar-confirmed {
     color: white !important;
  
-}
-
-.owner-customer-avatar.owner-avatar-completed {
+ }
+ 
+ .owner-customer-avatar.owner-avatar-completed {
     background-color: #ab8b73 !important;
     color: white !important;
-}
-
-.owner-customer-avatar.owner-avatar-cancelled {
-
+ }
+ 
+ .owner-customer-avatar.owner-avatar-cancelled {
+ 
     color: white !important;
-}
-
-/* =============================================
+ }
+ 
+ /* =============================================
    Customer Details Styles
    ============================================= */
-.owner-customer-name {
+ .owner-customer-name {
     font-size: 1.25rem !important;
     font-weight: 600 !important;
     color: var(--color-text-primary) !important;
     margin: 0 0 4px 0 !important;
     background-color: transparent !important;
-}
-
-/* Increased spacing between customer name and status badge */
-.owner-customer-name.me-auto {
+ }
+ 
+ /* Increased spacing between customer name and status badge */
+ .owner-customer-name.me-auto {
     margin-right: auto !important;
-}
-
-.badge.ms-4 {
+ }
+ 
+ .badge.ms-4 {
     margin-left: 1.5rem !important;
-}
-
-.owner-service-info {
+ }
+ 
+ .owner-service-info {
     font-size: 0.9rem;
     color: var(--color-text-secondary);
     margin-bottom: 4px;
-}
-
-.owner-appointment-time {
+ }
+ 
+ .owner-appointment-time {
     font-size: 0.85rem;
     color: var(--color-text-light);
-}
-
-/* =============================================
+ }
+ 
+ /* =============================================
    Status Badges Styles (Maximum Specificity)
    ============================================= */
-
-/* Force badge styles with maximum specificity to override Bootstrap */
-span.badge.owner-badge-confirmed,
-.badge.owner-badge-confirmed,
-.owner-badge-confirmed {
+ 
+ /* Force badge styles with maximum specificity to override Bootstrap */
+ span.badge.owner-badge-confirmed,
+ .badge.owner-badge-confirmed,
+ .owner-badge-confirmed {
     background-color: #ab8b73 !important;
     color: white !important;
     border: 1px solid #ab8b73 !important;
@@ -193,11 +654,11 @@ span.badge.owner-badge-confirmed,
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-}
-
-span.badge.owner-badge-completed,
-.badge.owner-badge-completed,
-.owner-badge-completed {
+ }
+ 
+ span.badge.owner-badge-completed,
+ .badge.owner-badge-completed,
+ .owner-badge-completed {
     background-color: #D5C4B8 !important;
     color: black !important;
     border: 1px solid #D5C4B8 !important;
@@ -210,14 +671,13 @@ span.badge.owner-badge-completed,
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-}
-
-span.badge.owner-badge-cancelled,
-.badge.owner-badge-cancelled,
-.owner-badge-cancelled {
-    background-color: #FF3A3A !important;
+ }
+ 
+ span.badge.owner-badge-cancelled,
+ .badge.owner-badge-cancelled,
+ .owner-badge-cancelled {
+   
     color: white !important;
-    border: 1px solid #FF3A3A !important;
     padding: 4px 12px !important;
     font-size: 0.75rem !important;
     font-weight: 600 !important;
@@ -227,12 +687,12 @@ span.badge.owner-badge-cancelled,
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-}
-
-/* =============================================
+ }
+ 
+ /* =============================================
    Action Menu Styles
    ============================================= */
-.owner-action-menu {
+ .owner-action-menu {
     background: none;
     border: none;
     color: var(--color-text-light);
@@ -240,296 +700,251 @@ span.badge.owner-badge-cancelled,
     border-radius: var(--radius-sm);
     cursor: pointer;
     transition: all 0.2s ease;
-}
-
-.owner-action-menu:hover {
+ }
+ 
+ .owner-action-menu:hover {
     background-color: rgba(0, 0, 0, 0.05);
     color: var(--color-text-primary);
-}
-
-/* =============================================
+ }
+ 
+ /* =============================================
    Empty State Styles
    ============================================= */
-.owner-empty-state {
+ .owner-empty-state {
     text-align: center;
     padding: 3rem;
     color: var(--color-text-light);
-}
-
-.owner-empty-state i {
+ }
+ 
+ .owner-empty-state i {
     font-size: 3rem;
     margin-bottom: 1rem;
     color: var(--color-text-light);
-}
-
-.owner-empty-state h5 {
+ }
+ 
+ .owner-empty-state h5 {
     margin-bottom: 0.5rem;
     color: var(--color-text-secondary);
-}
-
-/* =============================================
+ }
+ 
+ /* =============================================
    Background Color Management (Fixed)
    ============================================= */
-
-/* Body background - force yellow background */
-html,
-body {
+ 
+ /* Body background - force yellow background */
+ html,
+ body {
     background-color: #fefcf1 !important;
-}
-
-/* Layout and wrapper elements */
-.app,
-.wrapper,
-.layout,
-.main,
-.content,
-#app,
-[class*="layout"],
-[class*="wrapper"],
-[class*="main"],
-[class*="content"] {
+ }
+ 
+ /* Layout and wrapper elements */
+ .app,
+ .wrapper,
+ .layout,
+ .main,
+ .content,
+ #app,
+ [class*="layout"],
+ [class*="wrapper"],
+ [class*="main"],
+ [class*="content"] {
     background-color: #fefcf1 !important;
-}
-
-/* Override Bootstrap backgrounds */
-.bg-light,
-.bg-white,
-.bg-body {
+ }
+ 
+ /* Override Bootstrap backgrounds */
+ .bg-light,
+ .bg-white,
+ .bg-body {
     background-color: #fefcf1 !important;
-}
-
-/* Main content area */
-main,
-section,
-article {
+ }
+ 
+ /* Modal backdrop - dark overlay */
+ .modal-backdrop {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 1040 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+ }
+ 
+ /* Main content area */
+ main,
+ section,
+ article {
     background-color: transparent !important;
-}
-
-/* Keep navigation white */
-.navbar,
-.owner-admin-header,
-header,
-nav {
+ }
+ 
+ /* Keep navigation white */
+ .navbar,
+ .owner-admin-header,
+ header,
+ nav {
     background-color: #ffffff !important;
-}
-
-/* Keep cards white */
-.card,
-.owner-card {
+ }
+ 
+ /* Keep cards white */
+ .card,
+ .owner-card {
     background-color: #ffffff !important;
-}
-
-/* Ensure containers are transparent to show background */
-.container,
-.container-fluid {
+ }
+ 
+ /* Ensure containers are transparent to show background */
+ .container,
+ .container-fluid {
     background-color: transparent !important;
-}
-
-/* Main content wrapper transparent */
-main,
-section,
-.main-content {
+ }
+ 
+ /* Main content wrapper transparent */
+ main,
+ section,
+ .main-content {
     background-color: transparent !important;
-}
-
-/* Customer details area - force white background */
-.owner-customer-details {
+ }
+ 
+ /* Customer details area - force white background */
+ .owner-customer-details {
     background-color: #ffffff !important;
     padding: 0 !important; /* Remove any padding that might interfere */
     border-radius: 0 !important; /* Remove any border radius */
-}
-
-/* Ensure customer name area is white */
-.owner-customer-name {
+ }
+ 
+ /* Ensure customer name area is white */
+ .owner-customer-name {
     background-color: #ffffff !important;
-}
-
-/* Customer details section should be white */
-.owner-customer-details,
-.owner-customer-details * {
+ }
+ 
+ /* Customer details section should be white */
+ .owner-customer-details,
+ .owner-customer-details * {
     background-color: #ffffff !important;
-}
-
-/* Appointment item content area - ensure white background */
-.owner-appointment-item .d-flex {
+ }
+ 
+ /* Appointment item content area - ensure white background */
+ .owner-appointment-item .d-flex {
     background-color: #ffffff !important;
-}
-
-/* Force white background for all content inside cards */
-.card-body,
-.card-body * {
+ }
+ 
+ /* Force white background for all content inside cards */
+ .card-body,
+ .card-body * {
     background-color: inherit !important;
-}
-
-/* =============================================
-   Rounded Dropdown Menu Styles (No Transform Effects)
+ }
+ 
+ /* =============================================
+   FINAL Simple Owner Dropdown Fix + Card Animation Fix + Search Filter Fix
    ============================================= */
-
-/* Dropdown menu container */
-.dropdown-menu {
-    background-color: #ffffff !important;
-    border: 1px solid #e0e0e0 !important;
-    border-radius: 12px !important;
-    padding: 8px !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-}
-
-/* Individual dropdown items */
-.dropdown-item {
-    background-color: transparent !important;
+ 
+ /* Disable ALL animations that hide dropdowns */
+ .owner-appointment-item,
+ .owner-search-section,
+ .owner-status-dropdown,
+ .card,
+ .card-body,
+ .dropdown,
+ .dropdown-menu {
+    transform: none !important;
+    transition: none !important;
+    -webkit-transform: none !important;
+    -webkit-transition: none !important;
+ }
+ 
+ /* Force search filter to be yellow by default */
+ .owner-status-dropdown {
+    background-color: #fefcf1 !important;
+    border: 2px solid #d0d0d0 !important;
+    color: #000 !important;
+    padding: 12px 20px !important;
     border-radius: 8px !important;
-    margin: 2px 0 !important;
-    padding: 8px 12px !important;
-    transition: all 0.2s ease !important;
-    border: none !important;
-}
-
-.dropdown-item:hover {
-    background-color: #f8f9fa !important;
-}
-
-/* Active state */
-.dropdown-item:active,
-.dropdown-item.active {
-    background-color: #e3f2fd !important;
-    color: #1976d2 !important;
-}
-
-/* Rounded divider */
-.dropdown-divider {
-    border-top: 1px solid #e0e0e0 !important;
-    margin: 6px 8px !important;
-}
-
-/* Extra rounded variant */
-.dropdown-menu.extra-rounded {
-    border-radius: 16px !important;
-}
-
-.dropdown-menu.extra-rounded .dropdown-item {
-    border-radius: 12px !important;
-}
-
-/* Colorful hover effects for specific actions */
-.dropdown-item.edit-item:hover {
-    background-color: #e8f5e8 !important;
-    color: #2e7d32 !important;
-}
-
-.dropdown-item.delete-item:hover {
-    background-color: #ffebee !important;
-    color: #c62828 !important;
-}
-
-/* Icon styling for dropdown items */
-.dropdown-item i {
-    margin-right: 8px !important;
-    width: 16px !important;
-    text-align: center !important;
-}
-
-/* Enhanced salon-style dropdown */
-.dropdown-menu.salon-style {
-    border-radius: 15px !important;
-    padding: 12px !important;
-    border: 1px solid #d5c4b8 !important;
-    background: linear-gradient(145deg, #ffffff 0%, #fefcf1 100%) !important;
-}
-
-.dropdown-menu.salon-style .dropdown-item {
-    border-radius: 10px !important;
-    margin: 3px 0 !important;
+    font-size: 16px !important;
     font-weight: 500 !important;
-}
+ }
+ 
+ /* Keep yellow background even on hover */
+ .owner-status-dropdown:hover {
+    background-color: #fefcf1 !important;
+    color: #000 !important;
+  
+ }
+ 
 
-.dropdown-menu.salon-style .dropdown-item:hover {
-    background-color: #f5f1eb !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-}
-
-/* =============================================
-   Pet Section Background Style
-   ============================================= */
-
-.pet-section {
-    background-color: #f8f9fa !important;
-    padding: 16px !important;
-    border-radius: 8px !important;
+ .dropdown-menu li {
+    display: list-item !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+ }
+ 
+ /* Allow overflow for all owner containers */
+ .owner-card,
+ .owner-card-body,
+ .card,
+ .card-body,
+ .container,
+ .container-fluid {
+    overflow: visible !important;
+ }
+ 
+ /* Owner action menu styling */
+ .owner-action-menu {
+    background: transparent !important;
     border: none !important;
-}
-
-/* =============================================
-   Customer Card Size Enhancement & Uniformity
-   ============================================= */
-
-/* Only target customer cards, not search cards */
-#customersGrid .card {
-    height: 520px !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-    display: flex !important;
-    flex-direction: column !important;
-}
-
-#customersGrid .card-body {
-    padding: 1.75rem !important;
-    display: flex !important;
-    flex-direction: column !important;
-    height: 100% !important;
-}
-
-/* Stats section should always be at the bottom */
-#customersGrid .bg-light.p-3.rounded {
-    margin-top: auto !important;
-}
-
-/* =============================================
+    color: #6c757d !important;
+    padding: 4px 8px !important;
+    cursor: pointer !important;
+ }
+ 
+ .owner-action-menu:hover {
+    background-color: #f8f9fa !important;
+ }
+ /* =============================================
    Responsive Design
    ============================================= */
-@media (max-width: 768px) {
+ @media (max-width: 768px) {
     .owner-search-section {
         flex-direction: column;
         align-items: stretch;
         gap: var(--spacing-sm);
         background-color: #fefcf1 !important;
     }
-
+ 
     .owner-search-input {
         max-width: none;
     }
-
+ 
     .owner-appointment-item {
         padding: 1rem;
     }
-
+ 
     .owner-customer-avatar {
         width: 40px !important;
         height: 40px !important;
         font-size: 1rem !important;
     }
-
+ 
     .owner-customer-name {
         font-size: 0.95rem !important;
     }
-
+ 
     .owner-service-info {
         font-size: 0.85rem;
     }
-
+ 
     .owner-appointment-time {
         font-size: 0.8rem;
     }
-
+ 
     /* Mobile responsive for cards */
     .card {
         height: auto !important;
         min-height: 450px !important;
     }
-}
-
-/* =============================================
+ }
+ 
+ /* =============================================
    Reduced Motion Support (No Transform Effects)
    ============================================= */
-@media (prefers-reduced-motion: reduce) {
+ @media (prefers-reduced-motion: reduce) {
     .owner-search-input,
     .owner-status-dropdown,
     .owner-appointment-item,
@@ -537,97 +952,84 @@ section,
     .dropdown-item {
         transition: none !important;
     }
-}
-
-/* =============================================
-   Debug Styles - Add when troubleshooting
-   ============================================= */
-/* 
-.owner-customer-avatar {
-    border: 2px solid red !important;
-}
-
-.owner-avatar-confirmed {
-    background-color: lime !important;
-}
-*/
-
-/* =============================================
+ }
+ 
+ /* =============================================
    Operating Days Checkbox Styles
    ============================================= */
-
-/* Custom checkbox styles for operating days */
-.operating-days .form-check-input {
+ 
+ /* Custom checkbox styles for operating days */
+ .operating-days .form-check-input {
     width: 20px !important;
     height: 20px !important;
     border-radius: 50% !important;
     border: 2px solid #ddd !important;
     cursor: pointer !important;
-}
-
-.operating-days .form-check-input:checked {
+ }
+ 
+ .operating-days .form-check-input:checked {
     background-color: #ab8b73 !important;
     border-color: #ab8b73 !important;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e") !important;
-}
-
-.operating-days .form-check-input:focus {
+ }
+ 
+ .operating-days .form-check-input:focus {
     border-color: #ab8b73 !important;
     box-shadow: 0 0 0 0.25rem rgba(171, 139, 115, 0.25) !important;
-}
-
-.operating-days .form-check-label {
+ }
+ 
+ .operating-days .form-check-label {
     margin-left: 8px !important;
     font-weight: 500 !important;
     color: #555 !important;
     cursor: pointer !important;
-}
-/* =============================================
+ }
+ 
+ /* =============================================
    Button Area White Background Override
    Only make the button area white, keep other areas yellow
    ============================================= */
-
-/* Target only the button container area */
-.d-flex.justify-content-end.gap-3,
-.d-flex.justify-content-end {
+ 
+ /* Target only the button container area */
+ .d-flex.justify-content-end.gap-3,
+ .d-flex.justify-content-end {
     background-color: #ffffff !important;
     background: #ffffff !important;
     background-image: none !important;
     padding: 20px !important;
     margin: 0 -20px -20px -20px !important;
     border-radius: 0 0 8px 8px !important;
-}
-
-/* Ensure the parent container of buttons has white background */
-form .d-flex:last-child {
+ }
+ 
+ /* Ensure the parent container of buttons has white background */
+ form .d-flex:last-child {
     background-color: #ffffff !important;
     background: #ffffff !important;
     background-image: none !important;
-}
-
-/* Make sure the buttons themselves maintain their styling */
-.btn-salon-code,
-.btn-owner-continue {
+ }
+ 
+ /* Make sure the buttons themselves maintain their styling */
+ .btn-salon-code,
+ .btn-owner-continue {
     background-color: #fefcf1 !important;
     color: #333 !important;
     border-radius: 8px !important;
     padding: 8px 16px !important;
     font-weight: 500 !important;
-
-}
-
-.btn-salon-code:hover,
-.btn-owner-continue:hover {
+ 
+ }
+ 
+ .btn-salon-code:hover,
+ .btn-owner-continue:hover {
     color: #222 !important;
-}
-
-/* =============================================
-   Service
+ }
+ 
+ /* =============================================
+   Service Styles
    ============================================= */
-
+ 
  /* Feature Badge Styles */
-/* Feature Badge Styles */
-.feature-badge {
+ .feature-badge {
     background-color: #d4c4a8 !important;
     border-radius: 15px !important;
     color: #333 !important;
@@ -636,248 +1038,893 @@ form .d-flex:last-child {
     font-weight: 500 !important;
     display: inline-block !important;
     margin: 2px !important;
-}
-
-.feature-badge:hover {
+ }
+ 
+ .feature-badge:hover {
     background-color: #c9b896 !important;
     color: #222 !important;
-}
-
-/* Add Service Button Styles */
-.btn-owner-continue {
+ }
+ 
+ /* Add Service Button Styles */
+ .btn-owner-continue {
     background-color: #ab8b73 !important;
     color: #333 !important;
     border-radius: 8px !important;
     padding: 8px 16px !important;
     font-weight: 500 !important;
     border: none !important;
-}
-
-.btn-owner-continue:hover {
+ }
+ 
+ .btn-owner-continue:hover {
     background-color: #d5c4b8 !important;
-    
     color: #222 !important;
-}
-
-/* Add Service Button Container */
-.owner-add-service-container {
+ }
+ 
+ /* Add Service Button Container */
+ .owner-add-service-container {
     text-align: right;
     margin-bottom: 2rem;
-}
-
-/* Add Service Button Icon Color */
-.owner-add-service-container .btn i,
-.owner-add-service-container .btn span {
+ }
+ 
+ /* Add Service Button Icon Color */
+ .owner-add-service-container .btn i,
+ .owner-add-service-container .btn span {
     color: white;
-}
-
-/* Service Info Styles */
-.owner-service-info {
+ }
+ 
+ /* Service Info Styles */
+ .owner-service-info {
     font-size: 0.9rem;
-}
-
-/* Service Description */
-.owner-service-description {
+ }
+ 
+ /* Service Description */
+ .owner-service-description {
     font-size: 0.95rem;
-}
-
-/* Features Header */
-.owner-features-header {
+ }
+ 
+ /* Features Header */
+ .owner-features-header {
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-}
-
-/* Empty State (hidden by default) */
-.owner-empty-state-hidden {
+ }
+ 
+ /* Empty State (hidden by default) */
+ .owner-empty-state-hidden {
     display: none;
-}
-/* =============================================
+ }
+ 
+ /* =============================================
    Edit/Delete Button Styles
    ============================================= */
-
-/* Edit and Delete Button Styles */
-
-/* Delete Button - Red text and icon only */
-.delete-btn {
-    color: #dc3545 !important; /* Red text */
-}
-
-.delete-btn i {
-    color: #dc3545 !important; /* Red trash can icon */
-}
-
-.delete-btn:hover {
-    color: #c82333 !important; /* Darker red text on hover */
-}
-
-.delete-btn:hover i {
-    color: #c82333 !important; /* Darker red icon on hover */
-}
-/* Service Features Checkbox - Force Brown Color */
-#addServiceModal .operating-days .form-check-input {
+ 
+ /* Delete Button - Red text and icon only */
+ .delete-btn {
+    color: #dc3545 !important;
+ }
+ 
+ .delete-btn i {
+    color: #dc3545 !important;
+ }
+ 
+ .delete-btn:hover {
+    color: #c82333 !important;
+ }
+ 
+ .delete-btn:hover i {
+    color: #c82333 !important;
+ }
+ 
+ /* Service Features Checkbox - Force Brown Color */
+ #addServiceModal .operating-days .form-check-input {
     width: 20px !important;
     height: 20px !important;
     border-radius: 50% !important;
     border: 2px solid #ddd !important;
     cursor: pointer !important;
+ }
+ 
+ #addServiceModal .operating-days .form-check-input:checked {
+    background-color: #ab8b73 !important;
+    border-color: #ab8b73 !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e") !important;
+ }
+ 
+ #addServiceModal .operating-days .form-check-input:focus {
+    border-color: #ab8b73 !important;
+    box-shadow: 0 0 0 0.25rem rgba(171, 139, 115, 0.25) !important;
+ }
+ 
+
+ /* Settings Page Specific Styles */
+ .owner-register-container {
+    max-width: 1200px;
+    width: 98%;
+    margin: auto;
+ }
+ 
+ .owner-section-header {
+    font-size: 1.5rem;
+    color: #333;
+ }
+ 
+ .owner-section-divider {
+    border-color: #ddd;
+    margin-top: 0.5rem;
+ }
+ 
+ .owner-time-input {
+    padding-right: 40px;
+ }
+ 
+ .owner-action-buttons {
+    gap: 1rem;
+ }
+ 
+ /* =============================================
+   DISABLE ALL HOVER ANIMATIONS AND MOVEMENTS
+   ============================================= */
+ 
+ /* Disable all hover effects on cards */
+ .card,
+ .card-body,
+ .owner-appointment-item,
+ .owner-customer-details,
+ .owner-customer-name,
+ .owner-search-section,
+ .dropdown,
+ .dropdown-menu {
+    transform: none !important;
+    -webkit-transform: none !important;
+    -moz-transform: none !important;
+    transition: none !important;
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    animation: none !important;
+    -webkit-animation: none !important;
+ }
+ 
+ /* Disable hover effects on all states */
+ .card:hover,
+ .card:focus,
+ .card:active,
+ .card-body:hover,
+ .card-body:focus,
+ .card-body:active,
+ .owner-appointment-item:hover,
+ .owner-appointment-item:focus,
+ .owner-appointment-item:active {
+    transform: none !important;
+    -webkit-transform: none !important;
+    -moz-transform: none !important;
+    transition: none !important;
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    scale: 1 !important;
+    -webkit-scale: 1 !important;
+ }
+ 
+ /* Disable all Bootstrap hover effects */
+ .btn:hover,
+ .btn:focus,
+ .btn:active {
+    transform: none !important;
+    -webkit-transform: none !important;
+    transition: none !important;
+    -webkit-transition: none !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+ }
+ 
+ 
+ /* Disable search input and dropdown animations */
+ .owner-search-input:hover,
+ .owner-search-input:focus,
+ .owner-status-dropdown:hover,
+ .owner-status-dropdown:focus {
+    transform: none !important;
+    -webkit-transform: none !important;
+    transition: none !important;
+    -webkit-transition: none !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+ }
+ 
+ /* Force static positioning - no movement at all */
+ *:not(.modal-dialog):not(.owner-search-icon) {
+    transform: none !important;
+    -webkit-transform: none !important;
+    transition: none !important;
+    -webkit-transition: none !important;
+ }
+
+ 
+ /* =============================================
+   FIX DROPDOWN CLIPPING - PREVENT BOTTOM CUTOFF
+   ============================================= */
+ 
+ /* Force higher z-index and prevent clipping */
+ .dropdown-menu {
+    z-index: 99999 !important; /* Much higher z-index */
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: auto !important;
+    margin-top: 2px !important;
+
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+
+    /* display: none !important;     
+    visibility: hidden !important;
+    opacity: 0 !important;          */
+    transition: opacity 0.2s ease; 
+}
+/* =============================================
+   DROPDOWN POSITIONING FIX - COMPLETE SOLUTION
+   ============================================= */
+
+/* Ensure parent containers don't clip dropdown */
+.card,
+.card-body,
+.container,
+.container-fluid,
+.row,
+.col-md-6,
+.owner-appointment-item {
+    overflow: visible !important;
 }
 
-#addServiceModal .operating-days .form-check-input:checked {
+/* Fix dropdown position */
+
+/* Alternative: If static doesn't work, use relative */
+.dropdown {
+    position: relative !important;
+}
+
+/* Dropdown menu positioning */
+.dropdown-menu {
+    position: absolute !important;
+    z-index: 99999 !important;
+    top: 100% !important;
+    left: auto !important;
+    right: 0 !important; /* Align to right edge of button */
+    margin-top: 4px !important;
+    transform: translateZ(0) !important; /* Force GPU acceleration */
+    
+    /* Ensure visibility */
+    display: none;
+    visibility: visible !important;
+    opacity: 1 !important;
+    
+    /* Size and appearance */
+    min-width: 180px !important;
+    max-height: none !important;
+    overflow: visible !important;
+    
+    /* Styling */
+    background-color: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    border-radius: 0.375rem !important;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175) !important;
+    padding: 8px 0 !important;
+}
+
+/* When dropdown is shown */
+.dropdown-menu.show {
+    display: block !important;
+}
+
+/* For appointments page specifically */
+#appointmentsList .dropdown-menu {
+    right: 0 !important;
+    left: auto !important;
+}
+
+/* For customer page specifically */
+#customersGrid .dropdown-menu {
+    right: 0 !important;
+    left: auto !important;
+}
+
+/* If dropdown still gets cut off, use fixed positioning */
+.dropdown-menu-fixed {
+    position: fixed !important;
+}
+
+/* =============================================
+   DROPDOWN OVERFLOW FIX - KEEP POSITION
+   ============================================= */
+
+/* Force all parent containers to show overflow */
+.card,
+.card-body,
+.card .card-body,
+#appointmentsList .card,
+#appointmentsList .card-body,
+#customersGrid .card,
+#customersGrid .card-body {
+    overflow: visible !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+}
+
+/* Ensure dropdown container doesn't clip */
+.owner-appointment-item,
+.owner-appointment-item .d-flex,
+.owner-customer-header,
+.dropdown {
+    overflow: visible !important;
+}
+
+/* Force dropdown menu to be on top without changing position */
+.dropdown-menu {
+    z-index: 999999 !important;
+    /* Keep default positioning */
+    position: absolute !important;
+    
+    /* Ensure it's not clipped */
+    overflow: visible !important;
+    clip: unset !important;
+    clip-path: none !important;
+}
+
+/* Nuclear option - remove ALL overflow hidden */
+div.card,
+div.card-body,
+div.container,
+div.row,
+div[class*="col-"] {
+    overflow: visible !important;
+}
+
+/* Make sure the dropdown menu itself can show all content */
+.dropdown-menu.show {
+    display: block !important;
+    min-width: 200px !important;
+    max-height: none !important; /* Remove any height restrictions */
+}
+/* ULTRA FORCE - Remove all clipping everywhere */
+* {
+    overflow: visible !important;
+    clip: unset !important;
+    clip-path: none !important;
+}
+
+/* Keep scrolling for body */
+html {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+}
+
+body {
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+}
+
+ 
+ /* =============================================
+   CUSTOMERS PAGE SPECIFIC STYLES
+   ============================================= */
+
+/* Customers page card override */
+#customersGrid .card {
+    background: #ffffff !important;
+    border-radius: 8px !important;
+    padding: 0 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+    border: 1px solid #f0f0f0 !important;
+    transition: box-shadow 0.2s ease !important;
+}
+
+#customersGrid .card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+#customersGrid .card-body {
+    padding: 24px !important;
+}
+
+/* Customer Header */
+#customersGrid .owner-customer-header {
+    margin-bottom: 20px !important;
+}
+
+#customersGrid .owner-customer-header h5 {
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    color: #1a1a1a !important;
+    margin-bottom: 4px !important;
+}
+
+#customersGrid .owner-customer-member-since {
+    font-size: 0.875rem !important;
+    color: #666 !important;
+    margin: 0 !important;
+}
+
+/* Contact Information */
+#customersGrid .owner-customer-contact-info {
+    margin-bottom: 24px;
+}
+
+#customersGrid .owner-customer-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 0.9375rem;
+    color: #333;
+}
+
+#customersGrid .owner-customer-contact-item i {
+    width: 16px;
+    font-size: 14px;
+    color: #999 !important;
+}
+
+#customersGrid .owner-customer-contact-item span {
+    color: #333 !important;
+}
+/* Force gray background with maximum specificity */
+body .container #customersGrid .col-md-6 .card .card-body .owner-pet-section {
+    background-color: #f5f7fa !important;
+    background: #f5f7fa !important;
+    border-radius: 8px !important;
+    padding: 20px !important;
+    margin: 20px 0 24px 0 !important;
+    display: block !important;
+}
+/* Pet Section */
+#customersGrid .owner-pet-section {
+    background-color: #f8f9fa; 
+    border-radius: 6px;
+    padding: 20px; 
+    margin-bottom: 24px;
+    border-top: 1px solid #e9ecef;
+    margin-top: 20px;
+}
+#customersGrid .owner-pet-section > div {
+    background-color: transparent; /* 内部要素は透明に */
+}
+
+#customersGrid .owner-pet-section h6 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#customersGrid .owner-pet-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    display: block;
+    margin-bottom: 4px;
+}
+
+#customersGrid .owner-pet-details {
+    font-size: 0.875rem;
+    color: #666 !important;
+}
+
+#customersGrid .owner-pet-notes {
+    font-size: 0.8125rem;
+    color: #999 !important;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+/* Customer Stats */
+#customersGrid .owner-customer-stats {
+    border-top: 1px solid #f0f0f0;
+    padding-top: 20px;
+}
+
+#customersGrid .owner-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    text-align: center;
+}
+
+#customersGrid .owner-stat-item {
+    padding: 0 8px;
+}
+
+#customersGrid .owner-stat-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+}
+
+#customersGrid .owner-stat-label {
+    font-size: 0.75rem;
+    color: #999 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Action Menu for customers page */
+#customersGrid .owner-action-menu {
+    background: transparent !important;
+    border: none !important;
+    color: #999 !important;
+    padding: 4px 8px !important;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+#customersGrid .owner-action-menu:hover {
+    background-color: #f5f5f5 !important;
+    color: #666 !important;
+}
+
+/* Grid Spacing for customers */
+#customersGrid {
+    margin-left: -12px;
+    margin-right: -12px;
+}
+
+#customersGrid .col-md-6 {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+/* Empty State */
+#customersGrid .owner-empty-state {
+    padding: 60px 20px;
+}
+
+#customersGrid .owner-empty-state i {
+    font-size: 3rem;
+    color: #ddd;
+    margin-bottom: 16px;
+}
+
+#customersGrid .owner-empty-state h5 {
+    font-size: 1.125rem;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+#customersGrid .owner-empty-state p {
+    font-size: 0.875rem;
+    color: #999;
+}
+
+/* Ensure dropdown works on customers page */
+#customersGrid .dropdown-menu {
+    z-index: 999999 !important;
+    position: absolute !important;
+}
+
+/* Search section for customers page */
+.owner-customers-search-max-width {
+    max-width: 100%;
+}
+/* =============================================
+   UNIFIED CARD BORDER RADIUS
+   ============================================= */
+
+/* Apply same border radius to ALL cards */
+.card {
+    border-radius: 0.375rem !important; /* Bootstrap default = 6px */
+}
+
+/* Override for customer cards to match other cards */
+#customersGrid .card {
+    border-radius: 0.375rem !important; /* 8px → 0.375rem (6px) */
+}
+
+/* Also update pet section to match */
+#customersGrid .owner-pet-section {
+    border-radius: 0.25rem !important; /* Slightly smaller for inner sections */
+}
+
+/* Ensure all cards have the same border radius */
+.card,
+#appointmentsList .card,
+#customersGrid .card,
+.service-card {
+    border-radius: 0.375rem !important;
+    overflow: hidden !important;
+}
+/* =============================================
+   MODAL STYLES - MODERN UI (UPDATED)
+   ============================================= */
+
+/* Modal Dialog - Wider */
+.modal-dialog.modal-lg {
+    max-width: 900px !important;
+    margin: 1.75rem auto !important;
+}
+
+/* Modal Content - Rounded corners */
+.modal-content {
+    border-radius: 16px !important; 
+    border: none !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15) !important;
+    overflow: hidden !important;
+}
+
+/* Modal Header */
+.modal-header {
+    background-color: #ffffff !important;
+    border-bottom: none !important;
+    padding: 32px 40px 24px 40px !important;
+}
+
+.modal-title {
+    font-size: 1.75rem !important;
+    font-weight: 700 !important;
+    color: #1a1a1a !important;
+    letter-spacing: -0.02em !important;
+}
+
+/* Close Button - Modern style */
+.modal-header .btn-close {
+    position: absolute !important;
+    right: 24px !important;
+    top: 24px !important;
+    width: 32px !important;
+    height: 32px !important;
+    padding: 0 !important;
+    background-color: #f5f5f5 !important;
+    border-radius: 50% !important;
+    opacity: 1 !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23666'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") !important;
+    background-size: 16px !important;
+}
+
+.modal-header .btn-close:hover {
+    background-color: #e0e0e0 !important;
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 0 40px 32px 40px !important;
+    background-color: #ffffff !important;
+}
+
+/* Form Labels */
+.modal-body .form-label {
+    font-size: 0.9375rem !important;
+    font-weight: 600 !important;
+    color: #2c3e50 !important;
+    margin-bottom: 10px !important;
+    letter-spacing: -0.01em !important;
+}
+
+/* Form Inputs - Modern style */
+.modal-body .form-control {
+    border: 1.5px solid #e8e8e8 !important;
+    border-radius: 10px !important;
+    padding: 14px 18px !important;
+    font-size: 1rem !important;
+    background-color: #fefcf1 !important; 
+    transition: all 0.2s ease !important;
+    height: 48px !important;
+}
+
+
+.modal-body .form-control:hover {
+    border-color: #d0d0d0 !important;
+    background-color: #fefcf1 !important; 
+}
+
+.modal-body .form-control:focus {
+    background-color: #fefcf1 !important;
+    border-color: #ab8b73 !important;
+    box-shadow: 0 0 0 4px rgba(171, 139, 115, 0.08) !important;
+    outline: none !important;
+}
+
+.modal-body .form-control::placeholder {
+    color: #b0b0b0 !important;
+    font-size: 0.95rem !important;
+}
+
+/* Textarea specific */
+.modal-body textarea.form-control {
+    resize: vertical !important;
+    min-height: 120px !important;
+    height: auto !important;
+    padding-top: 14px !important;
+}
+
+/* Service Features Section - Better spacing */
+.modal-body .operating-days {
+    background-color: #f8f9fa !important;
+    border-radius: 12px !important;
+    padding: 24px !important;
+    margin-top: 16px !important;
+    border: 1px solid #e8e8e8 !important;
+}
+
+/* Section Headers */
+.modal-body h6,
+.modal-body .form-label:has(+ .operating-days) {
+    font-size: 0.9375rem !important;
+    font-weight: 600 !important;
+    color: #2c3e50 !important;
+    margin-bottom: 16px !important;
+}
+
+/* Checkboxes - Modern circular style */
+.modal-body .form-check-input {
+    width: 22px !important;
+    height: 22px !important;
+    border-radius: 50% !important;
+    border: 2px solid #d0d0d0 !important;
+    background-color: #ffffff !important;
+    cursor: pointer !important;
+    margin-top: 0 !important;
+    transition: all 0.2s ease !important;
+}
+
+.modal-body .form-check-input:hover {
+    border-color: #ab8b73 !important;
+}
+
+.modal-body .form-check-input:checked {
     background-color: #ab8b73 !important;
     border-color: #ab8b73 !important;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e") !important;
 }
 
-#addServiceModal .operating-days .form-check-input:focus {
-    border-color: #ab8b73 !important;
-    box-shadow: 0 0 0 0.25rem rgba(171, 139, 115, 0.25) !important;
-}
-.operating-days {
-    background-color: transparent !important;
-    padding: 15px 0;
-    border-radius: 5px;
-}
-/* Modal background to white */
-.modal-content {
-    background-color: white !important;
+/* Checkbox layout */
+.modal-body .form-check {
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 16px !important;
+    padding-left: 0 !important;
 }
 
-/* Entire form body to yellow/cream */
-.modal-body {
+.modal-body .form-check-label {
+    margin-left: 12px !important;
+    font-size: 0.95rem !important;
+    color: #495057 !important;
+    cursor: pointer !important;
+    margin-bottom: 0 !important;
+    user-select: none !important;
+}
+
+/* Modal Footer */
+.modal-footer {
+    background-color: white !important;
+    border-top: 1px solid white !important;
+    padding: 24px 40px !important;
+    gap: 12px !important;
+    border-radius: 0 0 16px 16px !important;
+}
+
+/* Buttons Container */
+.modal-footer {
+    display: flex !important;
+    justify-content: flex-end !important;
+}
+
+/* Cancel Button - Modern style */
+.modal-footer .btn-salon-code {
     background-color: #fefcf1 !important;
-    border-radius: 8px;
-    margin: 10px;
+    color: #666 !important;
+    border: 1.5px solid #e0e0e0 !important;
+    border-radius: 10px !important;
+    padding: 12px 32px !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    transition: all 0.2s ease !important;
+    min-width: 120px !important;
 }
 
-/* Form controls styling */
-.modal-body .form-control {
-    background-color: white;
-    border: 1px solid #e0e0e0;
-}
-/* Modal background to white */
-.modal-content {
-    background-color: white !important;
+.modal-footer .btn-salon-code:hover {
+    border-color: #d0d0d0 !important;
+    transform: translateY(-1px) !important;
 }
 
-/* Only Service Features section to yellow */
-.operating-days {
-    background-color: #fefcf1 !important;
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 10px;
+/* Save Button - Modern style */
+.modal-footer .btn-owner-continue {
+    background-color: #d4c4a8 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 12px 32px !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    transition: all 0.2s ease !important;
+    min-width: 140px !important;
 }
 
-/* Keep other form sections white */
-.modal-body {
-    background-color: white !important;
-}
-/* Modal background to white */
-.modal-content {
-    background-color: white !important;
+.modal-footer .btn-owner-continue:hover {
+    background-color: #997a63 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(171, 139, 115, 0.25) !important;
 }
 
-/* Modal body to white */
-.modal-body {
-    background-color: white !important;
+/* Column spacing in form */
+.modal-body .row {
+    margin-left: -12px !important;
+    margin-right: -12px !important;
 }
 
-/* Service Features section to white */
-.operating-days {
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 10px;
-}
-/* Modal background to white */
-.modal-content {
-    background-color: white !important;
+.modal-body .col-md-6,
+.modal-body .col-md-4 {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
 }
 
-/* Modal body to white */
-.modal-body {
-    background-color: white !important;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-dialog.modal-lg {
+        max-width: calc(100% - 20px) !important;
+        margin: 10px !important;
+    }
+    
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+    }
+}
+/* =============================================
+   PASSWORD TOGGLE BUTTON POSITION FIX - SETTINGS PAGE
+   ============================================= */
+
+/* Override the existing password toggle positioning */
+.owner-password-container {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
 }
 
-/* All form input fields to yellow/cream */
-.modal-body .form-control {
-    background-color: #fefcf1 !important;
-    border: 1px solid #ddd;
+/* Fix password toggle button vertical alignment */
+.owner-password-container .owner-password-toggle {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background: none !important;
+    border: none !important;
+    color: #999 !important;
+    cursor: pointer !important;
+    z-index: 3 !important;
+    padding: 8px !important;
+    height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
-/* Input fields, textarea, select to yellow */
-.modal-body input[type="text"],
-.modal-body input[type="number"],
-.modal-body textarea,
-.modal-body select {
-    background-color: #fefcf1 !important;
+/* Ensure the input has proper height for alignment */
+.owner-password-container input.form-control {
+    height: 50px !important; /* Match the min-height of input group */
+    display: flex !important;
+    align-items: center !important;
 }
 
-/* Service Features section background to white */
-.operating-days {
-
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 10px;
-}
-/* Modal background to white */
-.modal-content {
-    background-color: white !important;
+/* Make sure the icon prefix has the same height */
+.owner-password-container .owner-input-group-text-custom {
+    min-height: 50px !important;
+    display: flex !important;
+    align-items: center !important;
 }
 
-/* Modal body to white */
-.modal-body {
-    background-color: white !important;
+/* Ensure proper padding for password inputs */
+.owner-password-container input[type="password"],
+.owner-password-container input[type="text"] {
+    padding-right: 45px !important;
 }
 
-/* All form input fields to yellow/cream */
-.modal-body .form-control {
-    background-color: #fefcf1 !important;
-    border: 1px solid #ddd;
-}
-
-/* Input fields, textarea, select to yellow */
-.modal-body input[type="text"],
-.modal-body input[type="number"],
-.modal-body textarea,
-.modal-body select {
-    background-color: #fefcf1 !important;
-}
-
-/* Service Features section background to light gray */
-.operating-days {
-    background-color: #f8f9fa !important;
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 10px;
-    border: 1px solid #e9ecef;
-}
-/* Settings Page Specific Styles */
-
-/* Register Container Max Width */
-.owner-register-container {
-    max-width: 1200px;
-    width: 98%;
-    margin: auto;
-}
-
-/* Section Headers */
-.owner-section-header {
-    font-size: 1.5rem;
-    color: #333;
-}
-
-/* Section Dividers */
-.owner-section-divider {
-    border-color: #ddd;
-    margin-top: 0.5rem;
-}
-
-/* Time Input Padding */
-.owner-time-input {
-    padding-right: 40px;
-}
-
-/* Action Buttons Gap */
-.owner-action-buttons {
-    gap: 1rem;
+/* Fix for the entire input group alignment */
+.owner-input-group-custom.owner-password-container {
+    min-height: 50px !important;
+    align-items: stretch !important;
 }

@@ -28,7 +28,7 @@
                    <div class="owner-card p-4 owner-mb-4">
                        <div class="owner-card-body">
                            <h4 class="card-title text-start mb-3 fw-bold">
-                               <i class="fa-solid fa-gear me-2"></i>Salon Registration Details
+                               Salon Registration Details
                            </h4>
                            <p class="card-text text-muted text-start mb-4">Update your salon information and business details</p>
    
@@ -153,7 +153,7 @@
                                                <span class="owner-input-group-text-custom">
                                                    <i class="fa-solid fa-lock"></i>
                                                </span>
-                                               <input type="password" class="form-control" id="password" placeholder="&nbsp;&nbsp;&nbsp; Enter new password">
+                                               <input type="password" class="form-control" id="password" placeholder="&nbsp;&nbsp;&nbsp; Create password" required>
                                                <button type="button" class="owner-password-toggle" onclick="toggleOwnerPassword('password')">
                                                    <i class="fa-solid fa-eye"></i>
                                                </button>

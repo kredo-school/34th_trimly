@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\PetOwner\RegisterController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,25 +22,26 @@ Route::get('/login-petowner', function () {
 return view('pet_owner.login');
 });
 
-Route::get('/register-petowner/saloncode', function () {
-    return view('pet_owner.register.salon_code');
+
+// ペットオーナー登録フローのルートグループ
+Route::prefix('petowner/register')->name('pet_owner.register.')->group(function () {
+    // Step 1: サロンコード入力フォームを表示 (GET)
+    Route::get('/saloncode', [RegisterController::class, 'showSalonCode'])->name('saloncode');
+    // Step 1: サロンコードを検証・セッション保存 (POST)
+    Route::post('/saloncode', [RegisterController::class, 'postSalonCode'])->name('saloncode.post');
+    // Step 2: ペットオーナー情報入力フォームの表示 (GET)
+    Route::get('/petowner', [RegisterController::class, 'showPetOwner'])->name('petowner');
+    // Step 2: ペットオーナー情報の検証とセッション保存 (POST)
+    Route::post('/petowner', [RegisterController::class, 'postPetOwner'])->name('petowner.post');
+    // Step 3: ペット情報入力フォームの表示 (GET)
+    Route::get('/pet', [RegisterController::class, 'showPet'])->name('pet');
+    // Step 4: 確認画面の表示 (GET)
+    Route::get('/confirm', [RegisterController::class, 'showConfirm'])->name('confirm');
+    // Step 5: 登録完了画面の表示 (GET)
+    Route::get('/complete', [RegisterController::class, 'showComplete'])->name('complete');
 });
 
-Route::get('/register-petowner/petowner', function () {
-    return view('pet_owner.register.pet_owner');
-});
 
-Route::get('/register-petowner/pet', function () {
-    return view('pet_owner.register.pet');
-});
-
-Route::get('/register-petowner/confirm', function () {
-    return view('pet_owner.register.confirm');
-});
-
-Route::get('/register-petowner/complete', function () {
-    return view('pet_owner.register.complete');
-});
 
 Route::get('/mypage/profile', function () {
     return view('mypage.profile');
@@ -64,9 +67,11 @@ Route::get('/mypage/salon', function () {
     return view('mypage.salon');
 });
 
-Route::get('/register-petowner', function () {
-    return view('pet_owner.register.register');
+Route::get('/mypage/reserve', function () {
+    return view('mypage.reservation');
 });
+
+
 
 /* =====================================================
    Salon Owner side  - Login
@@ -99,6 +104,10 @@ Route::get('/register-salonowner/complete', function () {
     return view('salon_owner/register/complete');
 });
 
+//Owner Appointments Calendar //
+Route::get('/salon-owner/calendar', function () {
+    return view('salon_owner.calendar');
+});
 /* =====================================================
    Salon Owner side  - Dashborard   
    ===================================================== */

@@ -276,8 +276,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-salon-code" data-bs-dismiss="modal">
-                    <i class="fa-solid fa-times me-2"></i>Cancel
+                <button type="button" class="btn btn-owner-back" data-bs-dismiss="modal">
+                    Cancel
                 </button>
                 <button type="button" class="btn btn-owner-continue" id="saveServiceBtn">
                     <i class="fa-solid fa-save me-2"></i>Save Service

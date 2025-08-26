@@ -6,9 +6,9 @@
 function toggleMobileMenu() {
     const mobileNav = document.getElementById('mobileNav');
     mobileNav.classList.toggle('show');
-}
-
-function toggleMenu() {
+ }
+ 
+ function toggleMenu() {
     const dropdown = document.getElementById('menuDropdown');
     const btn = document.getElementById('menuBtn');
     const icon = btn.querySelector('i');
@@ -20,10 +20,10 @@ function toggleMenu() {
     } else {
         icon.style.transform = 'rotate(0deg)';
     }
-}
-
-// Close menu when clicking outside
-document.addEventListener('click', function(event) {
+ }
+ 
+ // Close menu when clicking outside
+ document.addEventListener('click', function(event) {
     const dropdown = document.getElementById('menuDropdown');
     const btn = document.getElementById('menuBtn');
     
@@ -33,13 +33,13 @@ document.addEventListener('click', function(event) {
             btn.querySelector('i').style.transform = 'rotate(0deg)';
         }
     }
-});
-
-// =====================================================
-// Salon Code Functions
-// =====================================================
-
-function generateSalonCode() {
+ });
+ 
+ // =====================================================
+ // Salon Code Functions
+ // =====================================================
+ 
+ function generateSalonCode() {
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const numbers = '0123456789';
     let code = 'TRIMLY';
@@ -48,9 +48,9 @@ function generateSalonCode() {
     code += new Date().getFullYear();
     
     return code;
-}
-
-function copyToClipboard(text) {
+ }
+ 
+ function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(function() {
         // Change button text temporarily
         const copyBtn = document.getElementById('copyCodeBtn');
@@ -86,13 +86,13 @@ function copyToClipboard(text) {
             }, 2000);
         }
     });
-}
-
-// =====================================================
-// Services Page Functions
-// =====================================================
-
-function initializeServicesPage() {
+ }
+ 
+ // =====================================================
+ // Services Page Functions
+ // =====================================================
+ 
+ function initializeServicesPage() {
     const addServiceBtn = document.getElementById('addServiceBtn');
     const addServiceModal = document.getElementById('addServiceModal');
     const editServiceModal = document.getElementById('editServiceModal');
@@ -211,33 +211,57 @@ function initializeServicesPage() {
             cleanupModals();
         }
     });
-}
-
-// Modal cleanup function
-function cleanupModals() {
-    // Remove all modal backdrops
+ }
+ 
+ // Modal cleanup function
+ function cleanupModals() {
+    // Exclude Salon Code Modal
+    const salonCodeModal = document.getElementById('salonCodeModal');
+    
+    // Remove all modal backdrops except for salon code modal
     document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+        // Check if this is Salon Code Modal's backdrop
+        if (salonCodeModal && salonCodeModal.classList.contains('show')) {
+            // Don't remove backdrop if Salon Code Modal is showing
+            return;
+        }
         backdrop.remove();
     });
     
-    // Remove modal-open class from body
-    document.body.classList.remove('modal-open');
+    // Remove modal-open class from body only if no modals are open
+    const openModals = document.querySelectorAll('.modal.show');
+    if (openModals.length === 0) {
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+    }
     
-    // Reset body styles
-    document.body.style.overflow = '';
-    document.body.style.paddingRight = '';
-    
-    // Hide all modals
+    // Hide all modals except salon code modal
     document.querySelectorAll('.modal').forEach(modal => {
+        if (modal.id === 'salonCodeModal') {
+            return; // Skip salon code modal
+        }
         modal.classList.remove('show');
         modal.style.display = 'none';
         modal.setAttribute('aria-hidden', 'true');
         modal.removeAttribute('aria-modal');
     });
-}
-
-// Populate edit form function
-function populateEditForm(serviceId) {
+ }
+ 
+ // Cleanup function specifically for Salon Code Modal
+ function cleanupSalonCodeModal() {
+    const salonCodeModal = document.getElementById('salonCodeModal');
+    if (salonCodeModal) {
+        // Get Bootstrap modal instance
+        const modalInstance = bootstrap.Modal.getInstance(salonCodeModal);
+        if (modalInstance) {
+            modalInstance.hide();
+        }
+    }
+ }
+ 
+ // Populate edit form function
+ function populateEditForm(serviceId) {
     const serviceData = getServiceData(serviceId);
     
     if (serviceData) {
@@ -253,10 +277,10 @@ function populateEditForm(serviceId) {
         if (editServicePrice) editServicePrice.value = serviceData.price;
         if (editServiceDescription) editServiceDescription.value = serviceData.description;
     }
-}
-
-// Get service data function (mock data)
-function getServiceData(serviceId) {
+ }
+ 
+ // Get service data function (mock data)
+ function getServiceData(serviceId) {
     const services = {
         'full-grooming': {
             name: 'Full Grooming Package',
@@ -282,176 +306,240 @@ function getServiceData(serviceId) {
     };
     
     return services[serviceId] || null;
-}
-
-// =====================================================
+ }
+ 
+ // =====================================================
 // Appointments Page Functions
 // =====================================================
 
 function initializeAppointmentsPage() {
-    const searchInput = document.getElementById('searchInput');
-    const appointmentItems = document.querySelectorAll('.owner-appointment-item');
-    const emptyState = document.getElementById('emptyState');
-    const statusDropdownItems = document.querySelectorAll('.dropdown-item[data-status]');
-    const statusDropdownBtn = document.querySelector('.owner-status-dropdown');
+   const searchInput = document.getElementById('searchInput');
+   const appointmentItems = document.querySelectorAll('.owner-appointment-item');
+   const emptyState = document.getElementById('emptyState');
+   const statusDropdownItems = document.querySelectorAll('.dropdown-item[data-status]');
+   const statusDropdownBtn = document.querySelector('.owner-status-dropdown');
 
-    let currentStatusFilter = '';
+   let currentStatusFilter = '';
 
-    if (searchInput) {
-        searchInput.addEventListener('input', function() {
-            filterAppointments();
-        });
-    }
+   if (searchInput) {
+       searchInput.addEventListener('input', function() {
+           filterAppointments();
+       });
+   }
 
-    // Status filter
-    statusDropdownItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            currentStatusFilter = this.dataset.status;
-            if (statusDropdownBtn) {
-                statusDropdownBtn.innerHTML = `<i class="fa-solid fa-filter me-2"></i>${this.textContent} <i class="fa-solid fa-chevron-down ms-2"></i>`;
-            }
-            filterAppointments();
-        });
-    });
+   // Status filter
+   statusDropdownItems.forEach(item => {
+       item.addEventListener('click', function(e) {
+           e.preventDefault();
+           currentStatusFilter = this.dataset.status;
+           if (statusDropdownBtn) {
+               statusDropdownBtn.innerHTML = `<i class="fa-solid fa-filter me-2"></i>${this.textContent} <i class="fa-solid fa-chevron-down ms-2"></i>`;
+           }
+           filterAppointments();
+       });
+   });
 
-    // Filter function
-    function filterAppointments() {
-        if (!searchInput || !appointmentItems.length) return;
-        
-        const searchTerm = searchInput.value.toLowerCase();
-        let visibleCount = 0;
+   // Filter function
+   function filterAppointments() {
+       if (!searchInput || !appointmentItems.length) return;
+       
+       const searchTerm = searchInput.value.toLowerCase();
+       let visibleCount = 0;
 
-        appointmentItems.forEach(item => {
-            const customerNameEl = item.querySelector('.owner-customer-name');
-            const serviceInfoEl = item.querySelector('.owner-service-info');
-            
-            if (!customerNameEl || !serviceInfoEl) return;
-            
-            const customerName = customerNameEl.textContent.toLowerCase();
-            const serviceInfo = serviceInfoEl.textContent.toLowerCase();
-            const status = item.dataset.status;
+       appointmentItems.forEach(item => {
+           const customerNameEl = item.querySelector('.owner-customer-name');
+           const serviceInfoEl = item.querySelector('.owner-service-info');
+           
+           if (!customerNameEl || !serviceInfoEl) return;
+           
+           const customerName = customerNameEl.textContent.toLowerCase();
+           const serviceInfo = serviceInfoEl.textContent.toLowerCase();
+           const status = item.dataset.status;
 
-            const matchesSearch = customerName.includes(searchTerm) || serviceInfo.includes(searchTerm);
-            const matchesStatus = !currentStatusFilter || status === currentStatusFilter;
+           const matchesSearch = customerName.includes(searchTerm) || serviceInfo.includes(searchTerm);
+           const matchesStatus = !currentStatusFilter || status === currentStatusFilter;
 
-            const cardElement = item.closest('.card');
-            if (cardElement) {
-                if (matchesSearch && matchesStatus) {
-                    cardElement.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    cardElement.style.display = 'none';
-                }
-            }
-        });
+           const cardElement = item.closest('.card');
+           if (cardElement) {
+               if (matchesSearch && matchesStatus) {
+                   cardElement.style.display = 'block';
+                   visibleCount++;
+               } else {
+                   cardElement.style.display = 'none';
+               }
+           }
+       });
 
-        // Show/hide empty state
-        if (emptyState) {
-            if (visibleCount === 0) {
-                emptyState.style.display = 'block';
-            } else {
-                emptyState.style.display = 'none';
-            }
-        }
-    }
+       // Show/hide empty state
+       if (emptyState) {
+           if (visibleCount === 0) {
+               emptyState.style.display = 'block';
+           } else {
+               emptyState.style.display = 'none';
+           }
+       }
+   }
 
-    // Initialize badge colors
-    function initializeBadgeColors() {
-        appointmentItems.forEach(item => {
-            const status = item.dataset.status;
-            if (status) {
-                updateBadgeStatus(item, status);
-            }
-        });
-    }
+   // Initialize badge colors
+   function initializeBadgeColors() {
+       appointmentItems.forEach(item => {
+           const status = item.dataset.status;
+           if (status) {
+               updateBadgeStatus(item, status);
+           }
+       });
+   }
 
-    function updateBadgeStatus(appointmentItem, newStatus) {
-        const avatar = appointmentItem.querySelector('.owner-customer-avatar');
-        const badge = appointmentItem.querySelector('.badge');
-        
-        if (avatar) {
-            avatar.classList.remove('owner-avatar-confirmed', 'owner-avatar-completed', 'owner-avatar-cancelled');
-            avatar.classList.add('owner-avatar-neutral');
-        }
-        
-        if (badge) {
-            badge.classList.remove('owner-badge-confirmed', 'owner-badge-completed', 'owner-badge-cancelled');
-            
-            switch(newStatus) {
-                case 'confirmed':
-                    badge.classList.add('owner-badge-confirmed');
-                    badge.textContent = 'Confirmed';
-                    break;
-                case 'completed':
-                    badge.classList.add('owner-badge-completed');
-                    badge.textContent = 'Completed';
-                    break;
-                case 'cancelled':
-                    badge.classList.add('owner-badge-cancelled');
-                    badge.textContent = 'Cancelled';
-                    break;
-            }
-        }
-        
-        appointmentItem.dataset.status = newStatus;
-    }
+   function updateBadgeStatus(appointmentItem, newStatus) {
+       const avatar = appointmentItem.querySelector('.owner-customer-avatar');
+       const badge = appointmentItem.querySelector('.badge');
+       
+       if (avatar) {
+           avatar.classList.remove('owner-avatar-confirmed', 'owner-avatar-completed', 'owner-avatar-cancelled');
+           avatar.classList.add('owner-avatar-neutral');
+       }
+       
+       if (badge) {
+           badge.classList.remove('owner-badge-confirmed', 'owner-badge-completed', 'owner-badge-cancelled');
+           
+           switch(newStatus) {
+               case 'confirmed':
+                   badge.classList.add('owner-badge-confirmed');
+                   badge.textContent = 'Confirmed';
+                   break;
+               case 'completed':
+                   badge.classList.add('owner-badge-completed');
+                   badge.textContent = 'Completed';
+                   break;
+               case 'cancelled':
+                   badge.classList.add('owner-badge-cancelled');
+                   badge.textContent = 'Cancelled';
+                   break;
+           }
+       }
+       
+       appointmentItem.dataset.status = newStatus;
+   }
 
-    // Initialize on page load
-    initializeBadgeColors();
+   // Initialize on page load
+   initializeBadgeColors();
 
-    // Dropdown handlers
-    document.addEventListener('click', function(e) {
-        const dropdownItem = e.target.closest('.dropdown-item');
-        if (dropdownItem && !dropdownItem.hasAttribute('data-status')) {
-            e.preventDefault();
-            
-            const appointmentItem = dropdownItem.closest('.owner-appointment-item');
-            if (!appointmentItem) return;
-            
-            const customerNameEl = appointmentItem.querySelector('.owner-customer-name');
-            const customerName = customerNameEl ? customerNameEl.textContent : 'Unknown';
-            const action = dropdownItem.textContent.trim();
-            
-            if (action.includes('Edit')) {
-                console.log('Editing appointment for:', customerName);
-            } else if (action.includes('Cancel')) {
-                if (confirm(`Are you sure you want to cancel the appointment for ${customerName}?`)) {
-                    console.log('Cancelling appointment for:', customerName);
-                    updateBadgeStatus(appointmentItem, 'cancelled');
-                }
-            }
-        }
-    });
+   // =====================================================
+   // DROPDOWN POSITIONING FIX FOR NESTED CARDS
+   // =====================================================
+   
+   // Fix dropdown position when shown
+   document.addEventListener('shown.bs.dropdown', function(event) {
+       const button = event.target;
+       const menu = button.nextElementSibling;
+       
+       if (menu && menu.classList.contains('dropdown-menu')) {
+           // Get button position
+           const rect = button.getBoundingClientRect();
+           
+           // Set menu position using fixed positioning
+           menu.style.position = 'fixed';
+           menu.style.top = `${rect.bottom + 5}px`;
+           menu.style.left = 'auto';
+           menu.style.right = `${window.innerWidth - rect.right}px`;
+           menu.style.zIndex = '999999';
+           
+           // Ensure menu doesn't go off screen
+           const menuRect = menu.getBoundingClientRect();
+           if (menuRect.bottom > window.innerHeight) {
+               // If menu goes below viewport, position it above the button
+               menu.style.top = 'auto';
+               menu.style.bottom = `${window.innerHeight - rect.top + 5}px`;
+           }
+       }
+   });
+
+   // Hide dropdown on scroll
+   window.addEventListener('scroll', function() {
+       // Close all open dropdowns
+       const openDropdowns = document.querySelectorAll('.dropdown-menu.show');
+       openDropdowns.forEach(menu => {
+           const dropdownButton = menu.previousElementSibling;
+           if (dropdownButton) {
+               const dropdown = bootstrap.Dropdown.getInstance(dropdownButton);
+               if (dropdown) {
+                   dropdown.hide();
+               }
+           }
+       });
+   }, { passive: true });
+
+   // Reset dropdown position when hidden
+   document.addEventListener('hidden.bs.dropdown', function(event) {
+       const button = event.target;
+       const menu = button.nextElementSibling;
+       
+       if (menu && menu.classList.contains('dropdown-menu')) {
+           // Reset to default positioning
+           menu.style.position = '';
+           menu.style.top = '';
+           menu.style.left = '';
+           menu.style.right = '';
+           menu.style.bottom = '';
+           menu.style.zIndex = '';
+       }
+   });
+
+   // =====================================================
+   // END DROPDOWN POSITIONING FIX
+   // =====================================================
+
+   // Dropdown handlers for actions
+   document.addEventListener('click', function(e) {
+       const dropdownItem = e.target.closest('.dropdown-item');
+       if (dropdownItem && !dropdownItem.hasAttribute('data-status')) {
+           e.preventDefault();
+           
+           const appointmentItem = dropdownItem.closest('.owner-appointment-item');
+           if (!appointmentItem) return;
+           
+           const customerNameEl = appointmentItem.querySelector('.owner-customer-name');
+           const customerName = customerNameEl ? customerNameEl.textContent : 'Unknown';
+           const action = dropdownItem.textContent.trim();
+           
+           if (action.includes('Edit')) {
+               console.log('Editing appointment for:', customerName);
+           } else if (action.includes('Cancel')) {
+               if (confirm(`Are you sure you want to cancel the appointment for ${customerName}?`)) {
+                   console.log('Cancelling appointment for:', customerName);
+                   updateBadgeStatus(appointmentItem, 'cancelled');
+               }
+           }
+       }
+   });
 }
-
-// =====================================================
-// Customers Page Functions
-// =====================================================
-
-function initializeCustomersPage() {
+ // =====================================================
+ // Customers Page Functions
+ // =====================================================
+ 
+ function initializeCustomersPage() {
     const searchInput = document.getElementById('searchInput');
     const customerCards = document.querySelectorAll('.card');
     const emptyState = document.getElementById('emptyState');
-
+ 
     if (searchInput) {
         searchInput.addEventListener('input', function() {
             filterCustomers();
         });
     }
-
+ 
     function filterCustomers() {
         if (!searchInput || !customerCards.length) return;
         
         const searchTerm = searchInput.value.toLowerCase();
         let visibleCount = 0;
-
+ 
         customerCards.forEach(card => {
             // Skip the search card and empty state
             if (card.closest('#emptyState') || card.closest('.owner-search-section')) {
                 return;
             }
-
+ 
             const customerNameEl = card.querySelector('h5');
             const customerEmailEl = card.querySelector('span');
             const petNameEl = card.querySelector('.pet-section .fw-bold');
@@ -461,11 +549,11 @@ function initializeCustomersPage() {
             const customerName = customerNameEl.textContent.toLowerCase();
             const customerEmail = customerEmailEl ? customerEmailEl.textContent.toLowerCase() : '';
             const petName = petNameEl ? petNameEl.textContent.toLowerCase() : '';
-
+ 
             const matchesSearch = customerName.includes(searchTerm) || 
                                 customerEmail.includes(searchTerm) || 
                                 petName.includes(searchTerm);
-
+ 
             const cardContainer = card.closest('.col-md-6');
             if (cardContainer) {
                 if (matchesSearch) {
@@ -476,7 +564,7 @@ function initializeCustomersPage() {
                 }
             }
         });
-
+ 
         // Show/hide empty state
         if (emptyState) {
             if (visibleCount === 0) {
@@ -486,7 +574,7 @@ function initializeCustomersPage() {
             }
         }
     }
-
+ 
     // Dropdown handlers
     document.addEventListener('click', function(e) {
         const dropdownItem = e.target.closest('.dropdown-item');
@@ -507,13 +595,13 @@ function initializeCustomersPage() {
             }
         }
     });
-}
-
-// =====================================================
-// Settings Page Functions
-// =====================================================
-
-function toggleOwnerPassword(fieldId) {
+ }
+ 
+ // =====================================================
+ // Settings Page Functions
+ // =====================================================
+ 
+ function toggleOwnerPassword(fieldId) {
     const passwordField = document.getElementById(fieldId);
     if (!passwordField) return;
     
@@ -532,14 +620,14 @@ function toggleOwnerPassword(fieldId) {
         icon.classList.remove('fa-eye-slash');
         icon.classList.add('fa-eye');
     }
-}
-
-function initializeSettingsPage() {
+ }
+ 
+ function initializeSettingsPage() {
     const form = document.getElementById('settingsForm');
     const newPassword = document.getElementById('password');
     const confirmPassword = document.getElementById('confirmPassword');
     const cancelBtn = document.getElementById('cancelBtn');
-
+ 
     if (form) {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -579,7 +667,7 @@ function initializeSettingsPage() {
             console.log('Settings updated successfully');
         });
     }
-
+ 
     // Real-time password confirmation validation
     if (confirmPassword && newPassword) {
         confirmPassword.addEventListener('input', function() {
@@ -596,7 +684,7 @@ function initializeSettingsPage() {
             }
         });
     }
-
+ 
     // Cancel button
     if (cancelBtn) {
         cancelBtn.addEventListener('click', function() {
@@ -605,26 +693,44 @@ function initializeSettingsPage() {
             }
         });
     }
-}
-
-// =====================================================
-// Main Initialization
-// =====================================================
-
-document.addEventListener('DOMContentLoaded', function() {
+ }
+ 
+ // =====================================================
+ // Main Initialization
+ // =====================================================
+ 
+ document.addEventListener('DOMContentLoaded', function() {
     console.log('Salon Owner Dashboard loaded');
     
     // Initialize Salon Code Modal
     const salonCodeModal = document.getElementById('salonCodeModal');
     if (salonCodeModal) {
-        salonCodeModal.addEventListener('show.bs.modal', function() {
+        // Before modal shows
+        salonCodeModal.addEventListener('show.bs.modal', function(event) {
+            // Clean up other modals first
+            cleanupModals();
+            
+            // Generate code
             const code = generateSalonCode();
             const codeDisplay = document.getElementById('salonCodeDisplay');
             if (codeDisplay) {
                 codeDisplay.textContent = code;
             }
+            
+            // Ensure proper z-index
+            this.style.zIndex = '1060';
         });
-
+        
+        // After modal is shown
+        salonCodeModal.addEventListener('shown.bs.modal', function(event) {
+            // Verify backdrop z-index
+            const backdrop = document.querySelector('.modal-backdrop');
+            if (backdrop) {
+                backdrop.style.zIndex = '1050';
+            }
+        });
+ 
+        // Copy button handler
         const copyBtn = document.getElementById('copyCodeBtn');
         if (copyBtn) {
             copyBtn.addEventListener('click', function() {
@@ -659,4 +765,69 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeSettingsPage();
         console.log('Settings page initialized');
     }
+ });
+ salonCodeModal.addEventListener('shown.bs.modal', function(event) {
+    // Check if backdrop exists
+    let backdrop = document.querySelector('.modal-backdrop');
+    if (!backdrop) {
+        // Create backdrop manually
+        backdrop = document.createElement('div');
+        backdrop.className = 'modal-backdrop fade show';
+        backdrop.style.zIndex = '1040';
+        document.body.appendChild(backdrop);
+    }
+});
+// Replace the existing salon code modal initialization with this:
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Salon Owner Dashboard loaded');
+    
+    // Initialize Salon Code Modal
+    const salonCodeModal = document.getElementById('salonCodeModal');
+    if (salonCodeModal) {
+        // Clean initialization
+        const bsModal = new bootstrap.Modal(salonCodeModal, {
+            backdrop: true,
+            keyboard: true,
+            focus: true
+        });
+        
+        // Store modal instance for later use
+        salonCodeModal.bsModal = bsModal;
+        
+        // Before modal shows
+        salonCodeModal.addEventListener('show.bs.modal', function(event) {
+            console.log('Modal showing');
+            // Generate code
+            const code = generateSalonCode();
+            const codeDisplay = document.getElementById('salonCodeDisplay');
+            if (codeDisplay) {
+                codeDisplay.textContent = code;
+            }
+        });
+        
+        // After modal is shown
+        salonCodeModal.addEventListener('shown.bs.modal', function(event) {
+            console.log('Modal shown');
+            // Ensure backdrop exists
+            const backdrop = document.querySelector('.modal-backdrop');
+            if (backdrop) {
+                backdrop.style.zIndex = '1040';
+            }
+        });
+
+        // Copy button handler
+        const copyBtn = document.getElementById('copyCodeBtn');
+        if (copyBtn) {
+            copyBtn.removeEventListener('click', copyToClipboard); // Remove any existing listeners
+            copyBtn.addEventListener('click', function() {
+                const codeDisplay = document.getElementById('salonCodeDisplay');
+                if (codeDisplay) {
+                    const code = codeDisplay.textContent;
+                    copyToClipboard(code);
+                }
+            });
+        }
+    }
+    
+    // ... rest of initialization code
 });
