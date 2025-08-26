@@ -24,7 +24,9 @@
 
     <!--CSS -->
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pages-styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/reservation.css') }}">
 
     <!-- Vite (必要なら有効に) -->
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
