@@ -25,7 +25,7 @@
            <!-- Logo Section -->
            <div class="owner-logo-section">
                <div class="owner-logo">
-                   <img src="/images/Trimly Logo.png" alt="Trimly Logo" style="max-width: 150px;">
+                <img src="/images/Trimly Logo.png" alt="Trimly Logo">
                </div>
                
                <h1 class="owner-h1">Salon Portal</h1>
@@ -105,7 +105,7 @@
    
                <!-- Back to Customer Login -->
                <div class="owner-divider"></div>
-               <a href="#" class="owner-back-link text-align: center;">
+               <a href="#" class="owner-back-link owner-back-link-center">
                    <i class="fa-solid fa-arrow-left"></i> Back to Customer Login
                </a>
            </div>
