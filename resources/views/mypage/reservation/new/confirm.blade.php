@@ -1,16 +1,13 @@
 {{-- Confirm booking page for reservation process @ Juri --}}
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trimly - Confirm Booking</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/reservation.css') }}">
-</head>
-<body>
-    @include('users.profile.header')
+@extends('layouts.pet_owner')
 
+@section('title', 'Confirm Booking')
+
+@section('header')
+    @include('users.profile.header')
+@endsection
+
+@section('content')
     {{-- Step bar for the reservation process @ Juri --}}
     <div class="steps">
         <div class="step-wrapper">
@@ -62,14 +59,14 @@
                         <p class="service-description">{{ $bookingData['service']['description'] }}</p>
                         <div class="service-duration">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="#666" stroke-width="1.5"/>
-                                <path d="M8 4V8L10 10" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+                                <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M8 4V8L10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                             </svg>
                             {{ $bookingData['service']['duration'] }}
                         </div>
                     </div>
-
-                    <div class="appointment-time">
+                    
+                    <div class="appointment-box">
                         <h3 class="appointment-heading">Appointment Time</h3>
                         <div class="appointment-details">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -86,12 +83,13 @@
                 <div class="payment-section">
                     <h2 class="section-heading">Payment Information</h2>
                     
-                    <div class="total-price">
-                        <span class="total-label">Total</span>
-                        <span class="total-amount">${{ $bookingData['service']['price'] }}</span>
+                    <div class="payment-total">
+                        <div class="total-row">
+                            <span class="total-label">Total</span>
+                            <span class="total-amount">${{ $bookingData['service']['price'] }}</span>
+                        </div>
+                        <p class="payment-note">Final price may vary based on pet size and specific grooming requirements.</p>
                     </div>
-                    
-                    <p class="price-note">Final price may vary based on pet size and specific grooming requirements.</p>
                     
                     <div class="payment-method">
                         <h3 class="payment-heading">Payment Method</h3>
@@ -157,5 +155,4 @@
             });
         });
     </script>
-</body>
-</html>
+@endsection

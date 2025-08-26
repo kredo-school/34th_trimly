@@ -1,112 +1,141 @@
 {{-- Select service page for reservation process @ Juri --}}
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trimly - Choose Service</title>
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/pages-styles.css') }}">
+@extends('layouts.pet_owner')
+
+@section('title', 'Select Service')
+
+@push('styles')
     <style>
-        /* ページ固有の微調整のみ */
-        .service-card.selected {
-            border: 2px solid var(--color-primary);
-            background-color: rgba(176, 137, 104, 0.03);
+        /* サービス選択ページの幅を広げる */
+        /* Custom styles for service selection page @Juri */
+        .col-lg-8 {
+            max-width: 100% !important;
+            flex: 0 0 100% !important;
         }
         
-        .services-grid {
-            grid-template-columns: repeat(2, 1fr);
+        /* コンテナの左右パディングを減らす */
+        .container {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
         }
         
-        @media (max-width: 768px) {
-            .services-grid {
-                grid-template-columns: 1fr;
+        @media (min-width: 768px) {
+            .container {
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .container {
+                padding-left: 30px !important;
+                padding-right: 30px !important;
+            }
+        }
+        
+        @media (min-width: 1400px) {
+            .col-lg-8 {
+                max-width: 98% !important;
+                flex: 0 0 98% !important;
+            }
+            .container {
+                padding-left: 40px !important;
+                padding-right: 40px !important;
             }
         }
     </style>
-</head>
-<body>
-    @include('users.profile.header')
+@endpush
 
+@section('header')
+    @include('users.profile.header')
+@endsection
+
+@section('content')
     {{-- Step bar for the reservation process @ Juri --}}
-    <div class="container mt-4">
-        <div class="booking-progress">
-            <div class="booking-step completed">
-                <div class="booking-step-circle">✓</div>
-                <div class="booking-step-label">Salon</div>
+    <div class="steps">
+        <div class="step-wrapper">
+            <div class="step">
+                <div class="step-number">✓</div>
             </div>
-            <div class="booking-step active">
-                <div class="booking-step-circle">2</div>
-                <div class="booking-step-label">Service</div>
+            <div class="step-label">Salon</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-wrapper">
+            <div class="step">
+                <div class="step-number">2</div>
             </div>
-            <div class="booking-step">
-                <div class="booking-step-circle">3</div>
-                <div class="booking-step-label">Pet</div>
+            <div class="step-label">Service</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-wrapper">
+            <div class="step inactive">
+                <div class="step-number">3</div>
             </div>
-            <div class="booking-step">
-                <div class="booking-step-circle">4</div>
-                <div class="booking-step-label">Schedule</div>
+            <div class="step-label">Pet</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-wrapper">
+            <div class="step inactive">
+                <div class="step-number">4</div>
             </div>
-            <div class="booking-step">
-                <div class="booking-step-circle">5</div>
-                <div class="booking-step-label">Confirm</div>
+            <div class="step-label">Schedule</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-wrapper">
+            <div class="step inactive">
+                <div class="step-number">5</div>
             </div>
+            <div class="step-label">Confirm</div>
         </div>
     </div>
 
-    <main class="container section">
+    <main class="main-content">
         <div class="card">
-            <div class="card-body">
-                <h3 class="page-title">✂️ Choose Your Service</h3>
+            <h1 class="card-title service-title">Choose Your Service</h1>
+            <p class="card-subtitle">Select the service for your pet</p>
 
-                <div class="services-grid">
-                    @foreach($services as $service)
-                    <div class="service-card" data-service-id="{{ $service['id'] }}">
-                        <div class="service-header">
-                            <h3 class="service-title">{{ $service['name'] }}</h3>
-                            <div class="service-price">${{ $service['price'] }}</div>
-                        </div>
-                        <p class="text-secondary">{{ $service['description'] }}</p>
-                        <div class="service-duration">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="currentColor" stroke-width="1.5"/>
-                                <path d="M8 4V8L10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                            </svg>
-                            {{ $service['duration'] }}
-                        </div>
-                        <div>
-                            <p class="text-secondary mb-2">Includes:</p>
-                            <div class="service-features">
-                                @foreach($service['includes'] as $include)
-                                <span class="service-feature">✓ {{ $include }}</span>
-                                @endforeach
-                            </div>
-                        </div>
+            <div class="service-grid">
+                @foreach($services as $service)
+                <div class="service-item" data-service-id="{{ $service['id'] }}">
+                    <div class="service-header">
+                        <h3 class="service-name">{{ $service['name'] }}</h3>
+                        <div class="service-price">${{ $service['price'] }}</div>
                     </div>
-                    @endforeach
+                    <p class="service-description">{{ $service['description'] }}</p>
+                    <div class="service-duration">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M8 4V8L10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        {{ $service['duration'] }}
+                    </div>
+                    <div class="service-includes">
+                        <p class="includes-label">Includes:</p>
+                        <ul class="includes-list">
+                            @foreach($service['includes'] as $include)
+                            <li>{{ $include }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
+                @endforeach
+            </div>
 
-                <div class="flex justify-between mt-5">
-                    <a href="/mypage/reservation/new" class="btn btn-outline">
-                        ← Back
-                    </a>
-                    <button class="btn btn-primary" id="continueBtn" disabled>
-                        Continue →
-                    </button>
-                </div>
+            <div class="actions">
+                <a href="/mypage/reservation/new" class="btn btn-back">← Back</a>
+                <button class="btn btn-continue" id="continueBtn" disabled>Continue →</button>
             </div>
         </div>
     </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const serviceCards = document.querySelectorAll('.service-card');
+            const serviceItems = document.querySelectorAll('.service-item');
             const continueBtn = document.getElementById('continueBtn');
             let selectedServiceId = null;
 
-            serviceCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    serviceCards.forEach(c => c.classList.remove('selected'));
+            serviceItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    serviceItems.forEach(si => si.classList.remove('selected'));
                     this.classList.add('selected');
                     selectedServiceId = this.dataset.serviceId;
                     continueBtn.disabled = false;
@@ -122,5 +151,5 @@
             });
         });
     </script>
-</body>
-</html>
+
+@endsection

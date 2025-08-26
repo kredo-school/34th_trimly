@@ -1,5 +1,18 @@
 /* Reservation Process Specific Styles @ Juri*/
 
+/* Disable card hover effect for reservation pages */
+.card:hover {
+    transform: none !important;
+    box-shadow: var(--shadow-md) !important;
+}
+
+.service-card:hover {
+    transform: none !important;
+    box-shadow: var(--shadow-sm) !important;
+    border-color: #c8a882;
+    background-color: #faf8f5;
+}
+
 /* Step Navigation */
 .steps {
     padding: 40px 20px;
@@ -115,6 +128,44 @@
 .salon-info {
     font-size: 14px;
     color: #666;
+}
+
+/* Salon/Service Selection Page Overrides */
+.salon-item .salon-details {
+    display: block;
+}
+
+.salon-item {
+    align-items: center;
+}
+
+.salon-item .salon-name {
+    margin-bottom: 4px;
+}
+
+.salon-item .salon-info {
+    margin-bottom: 4px;
+}
+
+.salon-item .salon-info:last-child {
+    margin-bottom: 0;
+}
+
+/* Service Selection Styles */
+.service-card.selected {
+    border: 2px solid var(--color-primary);
+    background-color: rgba(176, 137, 104, 0.03);
+}
+
+.services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Service Selection Specific */
@@ -487,7 +538,7 @@
 
 /* Booking Summary */
 .service-summary {
-    background-color: #f8f6f3;
+    background-color: #fefcf1;
     padding: 24px;
     border-radius: 8px;
     margin-bottom: 24px;
@@ -512,6 +563,12 @@
     gap: 6px;
     font-size: 14px;
     color: #666;
+}
+
+.appointment-box {
+    background-color: #fefcf1;
+    padding: 20px;
+    border-radius: 8px;
 }
 
 .appointment-heading {
@@ -573,12 +630,15 @@
 /* Important Information */
 .important-info {
     margin-bottom: 32px;
+    background-color: #e8f2ff;
+    padding: 24px;
+    border-radius: 8px;
 }
 
-.info-heading {
-    font-size: 18px;
+.important-info .info-heading {
+    font-size: 20px;
     font-weight: 600;
-    color: #1e3a8a;
+    color: #2563eb;
     margin-bottom: 16px;
 }
 
@@ -590,17 +650,17 @@
 .info-list li {
     position: relative;
     padding-left: 24px;
-    margin-bottom: 12px;
-    font-size: 14px;
-    color: #1e3a8a;
-    line-height: 1.5;
+    margin-bottom: 6px;
+    font-size: 15px;
+    color: #3b82f6;
+    line-height: 1.4;
 }
 
 .info-list li::before {
     content: '•';
     position: absolute;
     left: 8px;
-    color: #1e3a8a;
+    color: #3b82f6;
 }
 
 /* Terms Agreement */
@@ -837,7 +897,7 @@
 }
 
 .pet-info,
-.salon-info {
+.confirm-page .salon-info {
     margin-bottom: 24px;
 }
 
@@ -875,7 +935,8 @@
     margin-bottom: 16px;
 }
 
-.salon-details {
+/* Confirm page specific grid layout */
+.confirm-page .salon-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
@@ -937,4 +998,43 @@
 
 .btn-another:hover {
     background-color: #b39770;
+}
+/* Payment Section Styles for Confirm Page */
+.payment-total {
+    background-color: #fefcf1;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.total-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.total-amount {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.payment-note {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+}
+
+.payment-method {
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e5e5e5;
 }

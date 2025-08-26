@@ -4,7 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PetOwner\RegisterController;
 use App\Http\Controllers\PetOwner\LoginController;
+
 use App\Http\Controllers\PetOwner\Mypage\PetController;
+
+use App\Http\Controllers\PetOwner\Mypage\ProfileController;
 
 
 Route::get('/', function () {
@@ -56,10 +59,13 @@ Route::prefix('petowner/register')->name('pet_owner.register.')->group(function 
    ===================================================== */
 
 Route::middleware('auth:petowner')->group(function () {
-    Route::get('/mypage/profile', function () {
-        return view('mypage.profile');
-    })->name('mypage.profile');
+    /*Profile*/
+    Route::get('/mypage/profile', [ProfileController::class, 'showProfile'])->name('mypage.profile');
+    Route::post('/mypage/profile/password', [ProfileController::class, 'updatePassword'])->name('mypage.password.update');
+    Route::get('/mypage/profile/edit', [ProfileController::class, 'editProfile'])->name('mypage.profile.edit');
+    Route::patch('/mypage/profile', [ProfileController::class, 'updateProfile'])->name('mypage.profile.update');
 });
+
 
 
     /*Pets*/
@@ -76,6 +82,11 @@ Route::middleware(['auth:petowner'])->group(function () {
     Route::patch('/mypage/pets/{pet}', [PetController::class, 'update'])->name('mypage.pets.update');
     // delete
     Route::delete('/mypage/pets/{pet}', [PetController::class, 'destroy'])->name('mypage.pets.destroy');
+
+
+Route::get('/mypage/profile-edit', function () {
+    return view('mypage.profile-edit');
+
 });
 
 

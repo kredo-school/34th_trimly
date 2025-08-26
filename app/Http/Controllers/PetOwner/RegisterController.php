@@ -5,6 +5,8 @@ namespace App\Http\Controllers\PetOwner;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PetOwner;
@@ -145,63 +147,74 @@ class RegisterController extends Controller
     // Step 4:  validate all data & store 
     public function postConfirm(Request $request)
     {
-        // Check if the Terms of Service checkbox is checked.
+        // Terms of Service チェック
         $request->validate([
             'terms_consent' => 'required|accepted',
         ]);
 
-        // Retrieve all registered data from the session.
+        // セッションから登録データ取得
         $registrationData = Session::get('registration_data');
 
-        // Check if the data exists in the session.
-        if (! $registrationData || !isset($registrationData['pet_owner']) || !isset($registrationData['pets'])) {
-            return redirect()->route('pet_owner.register.saloncode')->with('error', 'Registration data not found. Please start over.');
+        // セッションデータの存在チェック
+        if (!$registrationData || !isset($registrationData['pet_owner']) || !isset($registrationData['pets'])) {
+            return redirect()->route('pet_owner.register.saloncode')
+                ->with('error', 'Registration data not found. Please start over.');
         }
 
+        // SalonCode が空でないかチェック
+        if (empty($registrationData['salon_code'])) {
+            return back()->with('error', 'Salon code is missing. Please enter it.');
+        }
+
+        // トランザクション開始
+        DB::beginTransaction();
+
         try {
-            // Format the Pet Owner data to match the table.
-            $petOwnerData = [
+            // 1. PetOwner 登録
+            $petOwner = PetOwner::create([
                 'firstname' => $registrationData['pet_owner']['firstName'],
                 'lastname' => $registrationData['pet_owner']['lastName'],
                 'email_address' => $registrationData['pet_owner']['email'],
-                'phone' => $registrationData['pet_owner']['phoneNumber'], // テーブルの列名に合わせる
+                'phone' => $registrationData['pet_owner']['phoneNumber'],
                 'city' => $registrationData['pet_owner']['city'],
                 'prefecture' => $registrationData['pet_owner']['prefecture'],
                 'password' => $registrationData['pet_owner']['password'],
-            ];
+            ]);
 
-            // 1. Save the Pet Owner to the database.
-            $petOwner = PetOwner::create($petOwnerData);
-
-            // 2. Save the Pet information to the database.
+            // 2. Pet 登録
             foreach ($registrationData['pets'] as $petData) {
-                // Format the Pet data to match the table.
-                $petFormattedData = [
+                $pet = Pet::create([
                     'pet_owner_id' => $petOwner->id,
                     'name' => $petData['pet_name'],
                     'breed' => $petData['breed'],
                     'age' => $petData['age'],
                     'weight' => $petData['weight'],
                     'gender' => $petData['gender'],
-                    'notes' => $petData['special_notes'], // テーブルの列名に合わせる
-                ];
-                Pet::create($petFormattedData);
+                    'notes' => $petData['special_notes'],
+                ]);
             }
 
-            // 3. Save the Salon Code information to the database.
+            // 3. SalonCode 登録
             $salonCode = new SalonCode();
             $salonCode->salon_code = $registrationData['salon_code'];
-            $salonCode->petowner_id = $petOwner->id; // 外部キーにPetOwnerのIDをセット
+            $salonCode->petowner_id = $petOwner->id;
             $salonCode->save();
+           
+            // 成功したらコミット
+            DB::commit();
 
-            // 4. Clear the session data.
+            // セッション削除
             Session::forget('registration_data');
 
-            // 5. Redirect to the　complete page.
+            // 完了画面へリダイレクト
             return redirect()->route('pet_owner.register.complete');
         } catch (\Exception $e) {
-            
-            // If error 
+            // エラー時はロールバック
+            DB::rollBack();
+
+            // エラー内容をログに出す（必要に応じて）
+            Log::error('Registration failed: ' . $e->getMessage());
+
             return back()->with('error', 'Registration failed. Please try again.')->withInput();
         }
     }
