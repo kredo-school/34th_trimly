@@ -83,6 +83,7 @@ Route::middleware(['auth:petowner'])->group(function () {
     // delete
     Route::delete('/mypage/pets/{pet}', [PetController::class, 'destroy'])->name('mypage.pets.destroy');
 
+});
 
 Route::get('/mypage/profile-edit', function () {
     return view('mypage.profile-edit');
