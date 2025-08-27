@@ -4,81 +4,25 @@
 
 @push('styles')
     <style>
-        /* Step（JuriバージョンがCSSに入ってきたら撤去 */
-        .step-item-active .step-circle {
-            background-color: #ab8b73;
-            border-color: #ab8b73;
-            color: #fff;
-            position: relative;
-            z-index: 2;
-        }
-        .step-item-active .step-text {
-            color: #ab8b73;
-            font-weight: bold;
-            position: relative;
-            z-index: 2;
-            background-color: #FEFCF1;
-        }
-        .step-item-inactive .step-circle {
-            background-color: #e0e0e0;
-            border-color: #e0e0e0;
-            color: #fff;
-            position: relative;
-            z-index: 2;
-        }
-        .step-item-inactive .step-text {
-            color: #e0e0e0;
-            position: relative;
-            z-index: 2;
-            background-color: #FEFCF1;
-        }
-        .w-40px {
-            width: 40px;
-        }
-        .h-40px {
-            height: 40px;
-        }
-        .step-line {
-            flex-grow: 1;
-            height: 3px;
-            background-color: #e0e0e0;
-            margin: 0 20px;
-            align-self: flex-start;
-            margin-top: 19px;
-            z-index: -1;
-        }
-        .step-indicator {
-            position: relative;
-            z-index: 1;
-        }
-
         /* InputForm */
         .input-group-custom {
             border: 1px solid var(--color-border);
             border-radius: var(--radius-md);
             overflow: hidden;
         }
+
         .input-group-text-custom {
             background-color: var(--color-background);
             border: none;
             color: var(--color-text-secondary);
             padding-right: var(--spacing-sm);
         }
+
         .input-group .form-control {
             background-color: var(--color-background);
             border: none;
             border-radius: 0;
             padding-left: 0;
-        }
-
-        /* Back Button */
-        .btn-back {
-            background-color: #FEFCF1;
-            border: 1px solid #ccc;
-            color: #6c757d;
-            font-weight: bold;
-            border-radius: 8px;
-            padding: 12px 25px;
         }
 
         /* Add pet Button */
@@ -88,6 +32,7 @@
             font-weight: bold;
             border: 2px solid #e0e0e0;
         }
+
         .btn-add-pet:hover {
             background-color: #f5f5f5;
         }
@@ -116,42 +61,42 @@
 
 @section('content')
     {{-- Step --}}
-    <nav class="d-flex justify-content-between align-items-center mt-2 mb-5 step-indicator">
-        <div class="d-flex flex-column align-items-center step-item-active step-item">
-            <div
-                class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">
-                <i class="fa-solid fa-check"></i>
+    <nav class="d-flex justify-content-between align-items-center mt-2 mb-5">
+        <div class="steps">
+            <div class="step-wrapper">
+                <div class="step">
+                    <div class="step-number">✓</div>
+                </div>
+                <div class="step-label">Salon Code</div>
             </div>
-            <div class="step-text mt-2 fs-6">Salon Code</div>
-        </div>
-        <div class="step-line"></div>
-        <div class="d-flex flex-column align-items-center step-item-active step-item">
-            <div
-                class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">
-                <i class="fa-solid fa-check"></i>
+            <div class="step-line"></div>
+            <div class="step-wrapper">
+                <div class="step">
+                    <div class="step-number">✓</div>
+                </div>
+                <div class="step-label">Pet Owner</div>
             </div>
-            <div class="step-text mt-2 fs-6">Pet Owner</div>
-        </div>
-        <div class="step-line"></div>
-        <div class="d-flex flex-column align-items-center step-item-active step-item">
-            <div
-                class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">
-                3</div>
-            <div class="step-text mt-2 fs-6">Pets</div>
-        </div>
-        <div class="step-line"></div>
-        <div class="d-flex flex-column align-items-center step-item-inactive step-item">
-            <div
-                class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">
-                4</div>
-            <div class="step-text mt-2 fs-6">Confirm</div>
-        </div>
-        <div class="step-line"></div>
-        <div class="d-flex flex-column align-items-center step-item-inactive step-item">
-            <div
-                class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">
-                5</div>
-            <div class="step-text mt-2 fs-6">Complete</div>
+            <div class="step-line"></div>
+            <div class="step-wrapper">
+                <div class="step">
+                    <div class="step-number">✓</div>
+                </div>
+                <div class="step-label">Pets</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-wrapper">
+                <div class="step inactive">
+                    <div class="step-number">4</div>
+                </div>
+                <div class="step-label">Confirm</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-wrapper">
+                <div class="step inactive">
+                    <div class="step-number">5</div>
+                </div>
+                <div class="step-label">Complete</div>
+            </div>
         </div>
     </nav>
 
@@ -160,9 +105,9 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <div>
-                    <h4 class="card-title text-start  mb-3 fw-bold"><i
-                            class="fa-regular fa-heart text-danger me-2"></i>Pet Information</h4>
-                    <p class="card-subtitle text-start mb-4">Tell us about your beloved pets
+                    <h4 class="text-start  mb-3 fw-bold"><i class="fa-regular fa-heart text-danger me-2"></i>Pet Information
+                    </h4>
+                    <p class="text-start mb-4">Tell us about your beloved pets
                     </p>
                 </div>
                 <button type="button" class="btn btn-add-pet"><i class="fa-solid fa-plus me-2"></i>Add
@@ -182,7 +127,7 @@
                         </ul>
                     </div>
                 @endif
-                
+
                 <div class="pet-card" id="petCard1">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="fw-bold text-muted mb-0">Pet 1</h5>
@@ -195,14 +140,16 @@
                         <div class="col-md-6 mb-3 text-start">
                             <label for="petName1" class="form-label">Pet Name <span class="text-danger">*</span></label>
                             <div class="input-group input-group-custom">
-                                <input type="text" class="form-control" id="petName1" name="pets[0][pet_name]" placeholder="Enter pet's name"
-                                    required>
+                                <input type="text" class="form-control" id="petName1" name="pets[0][pet_name]"
+                                    placeholder="Enter pet's name"
+                                    value="{{ old('pets.0.pet_name', $pets[0]['pet_name'] ?? '') }}" required>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3 text-start">
                             <label for="breed1" class="form-label">Breed <span class="text-danger">*</span></label>
                             <div class="input-group input-group-custom">
-                                <input type="text" class="form-control" id="breed1" name="pets[0][breed]" placeholder="Enter breed"
+                                <input type="text" class="form-control" id="breed1" name="pets[0][breed]"
+                                    placeholder="Enter breed" value="{{ old('pets.0.breed', $pets[0]['breed'] ?? '') }}"
                                     required>
                             </div>
                         </div>
@@ -212,25 +159,26 @@
                         <div class="col-md-6 mb-3 text-start">
                             <label for="age1" class="form-label">Age <span class="text-danger">*</span></label>
                             <div class="input-group input-group-custom">
+                                @php $age0 = old('pets.0.age', $pets[0]['age'] ?? '') @endphp
                                 <select class="form-select form-control" id="age1" name="pets[0][age]" required>
-                                    <option selected disabled value="">Select age</option>
-                                    <option>0-1 year</option>
-                                    <option>1-3 years</option>
-                                    <option>3-7 years</option>
-                                    <option>7+ years</option>
+                                    <option disabled value="">Select age</option>
+                                    @foreach (['0-1 year', '1-3 years', '3-7 years', '7+ years'] as $opt)
+                                        <option value="{{ $opt }}" @selected($age0 === $opt)>
+                                            {{ $opt }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3 text-start">
                             <label for="weight1" class="form-label">Weight <span class="text-danger">*</span></label>
                             <div class="input-group input-group-custom">
+                                @php $wt0 = old('pets.0.weight', $pets[0]['weight'] ?? '') @endphp
                                 <select class="form-select form-control" id="weight1" name="pets[0][weight]" required>
-                                    <option selected disabled value="">Select weight range
-                                    </option>
-                                    <option>0-5 kg</option>
-                                    <option>5-10 kg</option>
-                                    <option>10-20 kg</option>
-                                    <option>20+ kg</option>
+                                    <option disabled value="">Select weight range</option>
+                                    @foreach (['0-5 kg', '5-10 kg', '10-20 kg', '20+ kg'] as $opt)
+                                        <option value="{{ $opt }}" @selected($wt0 === $opt)>
+                                            {{ $opt }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -239,11 +187,13 @@
                     <div class="mb-3 text-start">
                         <label for="gender1" class="form-label">Gender <span class="text-danger">*</span></label>
                         <div class="input-group input-group-custom">
+                            @php $gd0 = old('pets.0.gender', $pets[0]['gender'] ?? '') @endphp
                             <select class="form-select form-control" id="gender1" name="pets[0][gender]" required>
-                                <option selected disabled value="">Select gender</option>
-                                <option>Male</option>
-                                <option>Female</option>
-                                <option>Unknown</option>
+                                <option disabled value="">Select gender</option>
+                                @foreach (['Male', 'Female', 'Unknown'] as $opt)
+                                    <option value="{{ $opt }}" @selected($gd0 === $opt)>{{ $opt }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -253,7 +203,7 @@
                             Notes</label>
                         <div class="input-group input-group-custom">
                             <textarea class="form-control" id="specialNotes1" name="pets[0][special_notes]" rows="3"
-                                placeholder="Any special care instructions, behavioral notes, medical conditions, etc."></textarea>
+                                placeholder="Any special care instructions, behavioral notes, medical conditions, etc.">{{ old('pets.0.special_notes', $pets[0]['special_notes'] ?? '') }}</textarea>
                         </div>
                     </div>
                 </div>
