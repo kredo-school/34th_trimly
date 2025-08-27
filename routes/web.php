@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\PetOwner\RegisterController;
+use App\Http\Controllers\PetOwner\LoginController;
+
+use App\Http\Controllers\PetOwner\Mypage\PetController;
+
+use App\Http\Controllers\PetOwner\Mypage\ProfileController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,67 +22,106 @@ Route::get('/mypage/reservation/new/schedule', [ReservationController::class, 's
 Route::get('/mypage/reservation/new/confirm', [ReservationController::class, 'confirm'])->name('reservation.confirm');
 Route::post('/mypage/reservation/new/complete', [ReservationController::class, 'complete'])->name('reservation.complete');
 
-//add Yumiko
-Route::get('/login-petowner', function () {
-return view('pet_owner.login');
+/* =====================================================
+   Pet Owner side  - Login
+   ===================================================== */
+Route::prefix('petowner')->name('pet_owner.')->group(function () {
+    Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
 });
 
-Route::get('/register-petowner/saloncode', function () {
-    return view('pet_owner.register.salon_code');
+/* =====================================================
+   Pet Owner side  - Register
+   ===================================================== */
+Route::prefix('petowner/register')->name('pet_owner.register.')->group(function () {
+    // Step 1: display salon_code page
+    Route::get('/saloncode', [RegisterController::class, 'showSalonCode'])->name('saloncode');
+    // Step 1: validate salon_code & keep session
+    Route::post('/saloncode', [RegisterController::class, 'postSalonCode'])->name('saloncode.post');
+    // Step 2: display pet_owner page
+    Route::get('/petowner', [RegisterController::class, 'showPetOwner'])->name('petowner');
+    // Step 2: validate pet_owner info & keep session
+    Route::post('/petowner', [RegisterController::class, 'postPetOwner'])->name('petowner.post');
+    // Step 3: display pet page
+    Route::get('/pet', [RegisterController::class, 'showPet'])->name('pet');
+    // Step 3: display pet pagevalidate pet info & keep session
+    Route::post('/pet', [RegisterController::class, 'postPet'])->name('pet.post');
+    // Step 4: display confrim page
+    Route::get('/confirm', [RegisterController::class, 'showConfirm'])->name('confirm');
+    // Step 4: validate&store
+    Route::post('/confirm', [RegisterController::class, 'postConfirm'])->name('confirm.post');
+    // Step 5: display complete page
+    Route::get('/complete', [RegisterController::class, 'showComplete'])->name('complete');
 });
 
-Route::get('/register-petowner/petowner', function () {
-    return view('pet_owner.register.pet_owner');
+/* =====================================================
+   Pet Owner side  - MyPage
+   ===================================================== */
+
+Route::middleware('auth:petowner')->group(function () {
+    /*Profile*/
+    Route::get('/mypage/profile', [ProfileController::class, 'showProfile'])->name('mypage.profile');
+    Route::post('/mypage/profile/password', [ProfileController::class, 'updatePassword'])->name('mypage.password.update');
+    Route::get('/mypage/profile/edit', [ProfileController::class, 'editProfile'])->name('mypage.profile.edit');
+    Route::patch('/mypage/profile', [ProfileController::class, 'updateProfile'])->name('mypage.profile.update');
 });
 
-Route::get('/register-petowner/pet', function () {
-    return view('pet_owner.register.pet');
-});
 
-Route::get('/register-petowner/confirm', function () {
-    return view('pet_owner.register.confirm');
-});
 
-Route::get('/register-petowner/complete', function () {
-    return view('pet_owner.register.complete');
-});
+    /*Pets*/
+Route::middleware(['auth:petowner'])->group(function () {
+    // show manage page
+    Route::get('/mypage/pets', [PetController::class, 'index'])->name('mypage.pets.index');
+    // show add page
+    Route::get('/mypage/pets/create', [PetController::class, 'create'])->name('mypage.pets.create');
+    // save new pet
+    Route::post('/mypage/pets', [PetController::class, 'store'])->name('mypage.pets.store');
+    // edit
+    Route::get('/mypage/pets/{pet}/edit', [PetController::class, 'edit'])->name('mypage.pets.edit');
+    // update
+    Route::patch('/mypage/pets/{pet}', [PetController::class, 'update'])->name('mypage.pets.update');
+    // delete
+    Route::delete('/mypage/pets/{pet}', [PetController::class, 'destroy'])->name('mypage.pets.destroy');
 
-Route::get('/mypage/profile', function () {
-    return view('mypage.profile');
 });
 
 Route::get('/mypage/profile-edit', function () {
     return view('mypage.profile-edit');
+
 });
+
 
 Route::get('/mypage/pet', function () {
     return view('mypage.pet');
 });
-
 Route::get('/mypage/pet-edit', function () {
     return view('mypage.pet-edit');
 });
-
 Route::get('/mypage/add-pet', function () {
     return view('mypage.add-pet');
 });
-
 Route::get('/mypage/salon', function () {
     return view('mypage.salon');
 });
-
-Route::get('/register-petowner', function () {
-    return view('pet_owner.register.register');
+Route::get('/mypage/reserve', function () {
+    return view('mypage.reservation');
 });
 
+
+
 /* =====================================================
-   Salon Owner side  - Yoshi section  
+   Salon Owner side  - Login
    ===================================================== */
 
 //Owner Login//
 Route::get('/login-salonowner', function () {
     return view('salon_owner/login');
 });
+
+/* =====================================================
+   Salon Owner side  -Register 
+   ===================================================== */
+
 //Owner Register - confirm //
 Route::get('/register-salonowner/confirm', function () {
     return view('salon_owner/register/confirm');
@@ -93,3 +139,29 @@ Route::get('/register-salonowner/salon-code', function () {
 Route::get('/register-salonowner/complete', function () {
     return view('salon_owner/register/complete');
 });
+
+//Owner Appointments Calendar //
+Route::get('/salon-owner/calendar', function () {
+    return view('salon_owner.calendar');
+});
+/* =====================================================
+   Salon Owner side  - Dashborard   
+   ===================================================== */
+//Appointments//
+   Route::get('dashboard-salonowner/appointments', function () {
+    return view('salon_owner/dashboard/appointments');
+});
+// customers
+   Route::get('dashboard-salonowner/customers', function () {
+    return view('salon_owner/dashboard/customers');
+});
+// settings
+Route::get('dashboard-salonowner/settings', function () {
+    return view('salon_owner/dashboard/settings');
+});
+// settings
+Route::get('dashboard-salonowner/services', function () {
+    return view('salon_owner/dashboard/services');
+});
+
+

@@ -1,16 +1,55 @@
 {{-- Select service page for reservation process @ Juri --}}
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trimly - Choose Service</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/reservation.css') }}">
-</head>
-<body>
-    @include('users.profile.header')
+@extends('layouts.pet_owner')
 
+@section('title', 'Select Service')
+
+@push('styles')
+    <style>
+        /* サービス選択ページの幅を広げる */
+        /* Custom styles for service selection page @Juri */
+        .col-lg-8 {
+            max-width: 100% !important;
+            flex: 0 0 100% !important;
+        }
+        
+        /* コンテナの左右パディングを減らす */
+        .container {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .container {
+                padding-left: 30px !important;
+                padding-right: 30px !important;
+            }
+        }
+        
+        @media (min-width: 1400px) {
+            .col-lg-8 {
+                max-width: 98% !important;
+                flex: 0 0 98% !important;
+            }
+            .container {
+                padding-left: 40px !important;
+                padding-right: 40px !important;
+            }
+        }
+    </style>
+@endpush
+
+@section('header')
+    @include('users.profile.header')
+@endsection
+
+@section('content')
     {{-- Step bar for the reservation process @ Juri --}}
     <div class="steps">
         <div class="step-wrapper">
@@ -52,19 +91,20 @@
     <main class="main-content">
         <div class="card">
             <h1 class="card-title service-title">Choose Your Service</h1>
-            
+            <p class="card-subtitle">Select the service for your pet</p>
+
             <div class="service-grid">
                 @foreach($services as $service)
                 <div class="service-item" data-service-id="{{ $service['id'] }}">
                     <div class="service-header">
                         <h3 class="service-name">{{ $service['name'] }}</h3>
-                        <span class="service-price">${{ $service['price'] }}</span>
+                        <div class="service-price">${{ $service['price'] }}</div>
                     </div>
                     <p class="service-description">{{ $service['description'] }}</p>
                     <div class="service-duration">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="#666" stroke-width="1.5"/>
-                            <path d="M8 4V8L10 10" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M8 4V8L10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                         </svg>
                         {{ $service['duration'] }}
                     </div>
@@ -111,5 +151,5 @@
             });
         });
     </script>
-</body>
-</html>
+
+@endsection

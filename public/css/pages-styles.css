@@ -1,0 +1,1294 @@
+/* =============================================
+   Trimly - ページ固有スタイルシート
+   ============================================= */
+
+/* =============================================
+   1. ホームページ (Index)
+   ============================================= */
+
+/* ヒーローセクション */
+.hero-section {
+  background: linear-gradient(135deg, 
+    rgba(222, 201, 182, 0.3) 0%, 
+    var(--color-background) 50%, 
+    rgba(176, 137, 104, 0.2) 100%);
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+}
+
+/* ステップインジケーター */
+.steps-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 3rem 0;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+}
+
+.step-circle {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  position: relative;
+  box-shadow: var(--shadow-md);
+}
+
+.step-circle-1 {
+  background-color: var(--color-accent-1);
+}
+
+.step-circle-2 {
+  background-color: var(--color-accent-2);
+}
+
+.step-circle-3 {
+  background-color: var(--color-primary);
+}
+
+.step-connector {
+  width: 4rem;
+  height: 2px;
+  background-color: var(--color-accent-3);
+  margin: 0 -1rem;
+}
+
+.step-content {
+  margin-left: 1.5rem;
+}
+
+.step-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.step-description {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+/* お客様の声セクション */
+.testimonials-section {
+  background-color: rgba(222, 201, 182, 0.1);
+  padding: 4rem 0;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.testimonial-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.star-rating {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.star {
+  color: #fbbf24;
+  fill: #fbbf24;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* =============================================
+   2. 予約ページ (Reservation)
+   ============================================= */
+
+/* ページタイトル - 予約フロー共通 */
+h3.page-title,
+h2.page-title,
+.page-title {
+  font-size: 1.75rem !important;
+  font-weight: 600 !important;
+  color: #595959;
+  text-align: center;
+  margin: 0 0 2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* 進捗インジケーター */
+.booking-progress {
+  display: flex;
+  justify-content: space-between;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  position: relative;
+}
+
+.booking-progress::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-border);
+  z-index: 0;
+}
+
+.booking-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.booking-step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.booking-step.active .booking-step-circle {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.booking-step.completed .booking-step-circle {
+  background-color: var(--color-success);
+  color: white;
+  border-color: var(--color-success);
+}
+
+.booking-step-label {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+/* カレンダーグリッド */
+.calendar-container {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.calendar-month {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.calendar-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.calendar-nav-btn {
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.calendar-nav-btn:hover {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.calendar-weekday {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  padding: 0.5rem 0;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  min-height: 4rem;
+}
+
+.calendar-day:hover:not(.calendar-day-disabled) {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.calendar-day-selected {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.calendar-day-disabled {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--color-text-light);
+  cursor: not-allowed;
+}
+
+.calendar-day-number {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.calendar-day-price {
+  font-size: 0.625rem;
+  margin-top: 0.25rem;
+  opacity: 0.8;
+}
+
+/* タイムスロットグリッド */
+.time-slots-container {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+.time-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.75rem;
+}
+
+.time-slot {
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+.time-slot:hover:not(.time-slot-disabled) {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.time-slot-selected {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.time-slot-disabled {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--color-text-light);
+  cursor: not-allowed;
+}
+
+/* ペット選択カード */
+.pet-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.pet-card {
+  background-color: white;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.pet-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.pet-card-selected {
+  border-color: var(--color-primary);
+  background-color: rgba(176, 137, 104, 0.05);
+  box-shadow: var(--shadow-lg);
+}
+
+.pet-card-selected::after {
+  content: '✓';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.pet-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.pet-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.pet-breed {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+.pet-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.pet-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-secondary);
+}
+
+/* =============================================
+   3. 管理ダッシュボード (AdminDashboard)
+   ============================================= */
+
+/* ダッシュボードレイアウト */
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+.dashboard-sidebar {
+  background-color: white;
+  border-right: 1px solid var(--color-border);
+  padding: 2rem 1rem;
+}
+
+.dashboard-main {
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* 統計カード */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-info {
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.stat-change {
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.stat-change-positive {
+  color: var(--color-success);
+}
+
+.stat-change-negative {
+  color: var(--color-error);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(176, 137, 104, 0.1);
+  color: var(--color-primary);
+}
+
+/* カレンダー予約ブロック */
+.appointment-block {
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.appointment-confirmed {
+  background-color: #ab8a73;
+  color: white;
+}
+
+.appointment-completed {
+  background-color: #dbceba;
+  color: #595959;
+}
+
+.appointment-cancelled {
+  background-color: #e0e0e0;
+  color: #757575;
+  text-decoration: line-through;
+}
+
+.appointment-block:hover {
+  transform: translateX(2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* 顧客カード */
+.customer-card {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.customer-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.customer-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.customer-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.customer-info {
+  flex: 1;
+}
+
+.customer-name {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.customer-email {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.customer-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.customer-stat {
+  text-align: center;
+}
+
+.customer-stat-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.customer-stat-label {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+/* =============================================
+   4. サロン管理 (SalonManagement)
+   ============================================= */
+
+/* タブナビゲーション */
+.tabs-container {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.tabs-list {
+  display: flex;
+  border-bottom: 2px solid var(--color-border);
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.tab-trigger {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  background-color: transparent;
+  border: none;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.tab-trigger:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.tab-trigger-active {
+  color: var(--color-primary);
+  background-color: white;
+}
+
+.tab-trigger-active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+}
+
+.tab-content {
+  padding: 2rem;
+}
+
+/* サービスカード */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.service-card {
+  background-color: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.service-card-inactive {
+  opacity: 0.6;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.service-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.service-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.service-price {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  background-color: var(--color-secondary);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.service-duration {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.service-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.service-feature {
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(176, 137, 104, 0.1);
+  color: var(--color-primary);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* スケジュール管理 */
+.schedule-grid {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 1rem;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.schedule-day {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  padding-top: 0.75rem;
+}
+
+.schedule-times {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.schedule-time-input {
+  width: 120px;
+}
+
+.schedule-closed {
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/* =============================================
+   5. ログイン/認証ページ
+   ============================================= */
+
+/* 背景装飾 */
+.auth-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.bg-decoration-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.2;
+}
+
+.bg-circle-1 {
+  width: 300px;
+  height: 300px;
+  background-color: var(--color-accent-1);
+  top: -150px;
+  right: -150px;
+}
+
+.bg-circle-2 {
+  width: 200px;
+  height: 200px;
+  background-color: var(--color-accent-2);
+  bottom: -100px;
+  left: -100px;
+}
+
+.bg-circle-3 {
+  width: 150px;
+  height: 150px;
+  background-color: var(--color-primary);
+  top: 50%;
+  left: 10%;
+}
+
+/* 認証フォームコンテナ */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.auth-card {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  padding: 3rem;
+  width: 100%;
+  max-width: 450px;
+}
+
+.auth-logo {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* ユーザータイプトグル */
+.user-type-toggle {
+  background-color: rgba(188, 184, 177, 0.2);
+  border-radius: var(--radius-md);
+  padding: 0.25rem;
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.user-type-btn {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
+}
+
+.user-type-btn-active {
+  background-color: var(--color-primary);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+/* ソーシャルログインボタン */
+.social-login-container {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.social-login-title {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.social-login-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-login-btn {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  background-color: white;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.social-login-btn:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+  border-color: var(--color-primary);
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* =============================================
+   6. 予約完了ページ (BookingComplete)
+   ============================================= */
+
+/* 成功アイコン */
+.success-container {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.success-icon-wrapper {
+  display: inline-flex;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.success-icon-circle {
+  width: 5rem;
+  height: 5rem;
+  background-color: var(--color-accent-2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  animation: scaleIn 0.5s ease;
+}
+
+.success-icon {
+  width: 3rem;
+  height: 3rem;
+  color: white;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 確認番号表示 */
+.confirmation-box {
+  background-color: rgba(129, 178, 154, 0.1);
+  border: 2px dashed var(--color-accent-2);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.confirmation-label {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.confirmation-number {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-accent-2);
+  letter-spacing: 0.1em;
+}
+
+/* 予約詳細サマリー */
+.booking-summary {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.booking-summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 1.5rem;
+}
+
+.booking-summary-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.booking-status {
+  padding: 0.5rem 1rem;
+  background-color: rgba(129, 178, 154, 0.1);
+  color: var(--color-success);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.booking-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.booking-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.booking-detail-label {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.booking-detail-value {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* =============================================
+   7. マイページコンポーネント
+   ============================================= */
+
+/* プロフィールレイアウト */
+.mypage-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.mypage-sidebar {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
+}
+
+.mypage-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mypage-nav-item {
+  margin-bottom: 0.5rem;
+}
+
+.mypage-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.mypage-nav-link:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--color-text-primary);
+}
+
+.mypage-nav-link-active {
+  background-color: rgba(176, 137, 104, 0.1);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.mypage-content {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ペットカード */
+.pet-profile-card {
+  background-color: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.pet-profile-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.pet-favorite-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--color-accent-1);
+  cursor: pointer;
+}
+
+.pet-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.pet-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.pet-profile-info {
+  flex: 1;
+}
+
+.pet-profile-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.pet-profile-breed {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+.pet-profile-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+/* =============================================
+   8. レスポンシブデザイン調整
+   ============================================= */
+
+@media (max-width: 1024px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-sidebar {
+    display: none;
+  }
+  
+  .mypage-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .mypage-sidebar {
+    position: static;
+  }
+  
+  .booking-details-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .steps-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .step-connector {
+    width: 2px;
+    height: 2rem;
+    margin: -0.5rem 0;
+  }
+  
+  .time-slots-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .auth-card {
+    padding: 2rem;
+  }
+  
+  .calendar-grid {
+    gap: 0.25rem;
+  }
+  
+  .calendar-day {
+    min-height: 3rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .booking-progress {
+    padding: 0 1rem;
+  }
+  
+  .booking-step-label {
+    font-size: 0.75rem;
+  }
+  
+  .pet-selection-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .social-login-buttons {
+    flex-direction: column;
+  }
+  
+  .confirmation-number {
+    font-size: 1.25rem;
+  }
+}
