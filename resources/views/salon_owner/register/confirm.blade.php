@@ -1,17 +1,4 @@
-{{-- Todo --}}
-
- <!-- Qestion 
-*  <i  class="fa-solid fa-check me-2"></i>Confirm Registratio< Is that should be brown? ✅
-*   When hover Bsck botton, the color shuld be change ? 
-* "owner-success-icon color and font 
-
--->
-
-{{-- Memo >> Some Font Awesome icons are only available in the Pro version,
- so most of the time, you can only use the solid style in the free version. --}}
-
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,8 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="{{ asset('css/register-salon-owner.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="/css/register-salon-owner.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
 </head>
 <body>
     <header class="bg-white shadow-sm mb-2"> 
@@ -34,7 +21,7 @@
             <div class="row align-items-center"> 
                 <div class="col-6 d-flex align-items-center">
                     <div class="logo me-1">
-                        <img src="{{ asset('images/Trimly Logo.png') }}" alt="Trimly Logo" class="img-fluid" style="max-width: 80px;">
+                        <img src="/images/Trimly Logo.png" alt="Trimly Logo" class="img-fluid">
                     </div>
                     <p class="fw-bold text-muted mb-0 fs-5">Trimly</p> 
                 </div>
@@ -48,7 +35,7 @@
     <div class="container my-4"> 
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 col-lg-8">
-                <div class="register-container" style="max-width: 800px; width: 90%; margin: auto;">
+                <div class="register-container">
                    
                     <!-- Status -->
                     <div class="owner-step-indicator">
@@ -131,15 +118,13 @@
                             </div>
 
                             <form action="#" method="post"> 
-                                
-                                @csrf
+                                <!-- CSRF token will be handled by server-side template -->
                                 <div class="d-flex justify-content-between owner-mt-4">
                                     <!-- Left-aligned Back button -->
                                     <button type="button" class="btn btn-owner-back"  onclick="goBack()">
                                         <i class="fa-solid fa-arrow-left me-2"></i> Back
                                     </button>
                                     
-                                  
                                     <!-- Right-aligned Create button -->
                                     <button type="submit" class="btn btn-owner-continue">
                                         Create Salon Account <i class="fa-solid fa-arrow-right ms-2"></i>
@@ -154,7 +139,7 @@
         </div> 
     </div>
 
-    <script src="{{ asset('js/owner/register.confirm.js') }}" defer></script>
+    <script src="/js/owner/register.confirm.js" defer></script>
 
 </body>
 </html>

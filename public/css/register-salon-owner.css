@@ -612,3 +612,25 @@
 .owner-step-line-active:last-of-type {
     background-color: #ab8b73;
 }
+.logo img {
+    max-width: 80px;
+}
+/* Register container styling */
+.register-container {
+    max-width: 800px;
+    width: 90%;
+    margin: auto;
+}
+/* Key icon color in title */
+.owner-card-title .fa-key {
+    color: #ab8b73;
+}
+
+/* Salon code wrapper */
+.owner-salon-code-wrapper {
+    background-color: #ffffff;
+    padding: 1.5rem 3rem;
+    border-radius: 12px;
+    display: inline-block;
+    margin: 1.5rem 0;
+}
