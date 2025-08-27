@@ -24,7 +24,7 @@
                 <!-- Logo and Brand Name -->
                 <div class="col-6 d-flex align-items-center">
                     <div class="logo me-1">
-                        <img src="/images/Trimly Logo.png" alt="Trimly Logo" class="img-fluid" style="max-width: 80px;">
+                        <img src="/images/Trimly Logo.png" alt="Trimly Logo" class="img-fluid">
                     </div>
                     <p class="fw-bold text-muted mb-0 fs-5">Trimly</p> 
                 </div>
@@ -106,7 +106,7 @@
         </div> 
     </div>
 
-    <script src="{{ asset('js/owner/register.complete.js') }}" defer></script>
+    <script src="/js/owner/register.complete.js" defer></script>
 
 </body>
 </html>

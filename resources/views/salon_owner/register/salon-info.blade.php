@@ -1,14 +1,3 @@
-{{-- =====================================================
-   * To do
-   *Need to modify icon place and UI 
-
-   ===================================================== --}}
-
-
-{{-- Memo >> Some Font Awesome icons are only available in the Pro version,
- so most of the time, you can only use the solid style in the free version. --}}
- 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,8 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link href="{{ asset('css/register-salon-owner.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="/css/register-salon-owner.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
 </head>
 <body>
     <header class="bg-white shadow-sm mb-2"> 
@@ -32,7 +21,7 @@
             <div class="row align-items-center"> 
                 <div class="col-6 d-flex align-items-center">
                     <div class="logo me-1">
-                        <img src="{{ asset('images/Trimly Logo.png') }}" alt="Trimly Logo" class="img-fluid" style="max-width: 80px;">
+                        <img src="/images/Trimly Logo.png" alt="Trimly Logo" class="img-fluid">
                     </div>
                     <p class="fw-bold text-muted mb-0 fs-5">Trimly</p> 
                 </div>
@@ -46,31 +35,30 @@
     <div class="container my-4"> 
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 col-lg-8">
-                <div class="register-container" style="max-width: 800px; width: 90%; margin: auto;">
+                <div class="register-container">
                 
-                             
-                                    <!-- Status -->
-                                    <div class="owner-step-indicator">
-                                        <div class="owner-step-item-active">
-                                            <div class="owner-step-circle">1</div>
-                                            <div class="owner-step-text">Salon Info</div>
-                                        </div>
-                                        <div class="owner-step-line"></div> 
-                                        <div class="owner-step-item-inactive">
-                                            <div class="owner-step-circle">2</div>
-                                            <div class="owner-step-text">Confirm</div>
-                                        </div>
-                                        <div class="owner-step-line"></div> 
-                                        <div class="owner-step-item-inactive">
-                                            <div class="owner-step-circle">3</div>
-                                            <div class="owner-step-text">Salon Code</div>
-                                        </div>
-                                        <div class="owner-step-line"></div> 
-                                        <div class="owner-step-item-inactive">
-                                            <div class="owner-step-circle">4</div>
-                                            <div class="owner-step-text">Complete</div>
-                                        </div>
-                                    </div>
+                    <!-- Status -->
+                    <div class="owner-step-indicator">
+                        <div class="owner-step-item-active">
+                            <div class="owner-step-circle">1</div>
+                            <div class="owner-step-text">Salon Info</div>
+                        </div>
+                        <div class="owner-step-line"></div> 
+                        <div class="owner-step-item-inactive">
+                            <div class="owner-step-circle">2</div>
+                            <div class="owner-step-text">Confirm</div>
+                        </div>
+                        <div class="owner-step-line"></div> 
+                        <div class="owner-step-item-inactive">
+                            <div class="owner-step-circle">3</div>
+                            <div class="owner-step-text">Salon Code</div>
+                        </div>
+                        <div class="owner-step-line"></div> 
+                        <div class="owner-step-item-inactive">
+                            <div class="owner-step-circle">4</div>
+                            <div class="owner-step-text">Complete</div>
+                        </div>
+                    </div>
                 
 
                     <!-- Card -->
@@ -78,12 +66,12 @@
                         <div class="owner-card-body">
                             <h4 class="card-title text-start mb-3 fw-bold ">
                                 <i class="fa-light fa-solid fa-building me-2"></i>Salon Information
-                               
                             </h4>
                             <p class="card-text text-muted text-start mb-4">Tell us about your salon and business</p>
 
                             <form action="#" method="post"> 
-                                @csrf
+                                <!-- CSRF token will be handled by server-side template -->
+                                
                                 <!-- Salon Name -->
                                 <div class="mb-3">
                                     <label for="salonName" class="owner-form-label">Salon Name <span class="text-danger">*</span></label>
@@ -155,14 +143,12 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="city" class="owner-form-label">City <span class="text-danger">*</span></label>
                                         <div class="owner-input-group owner-input-group-custom">
-        
                                             <input type="text" class="form-control" id="city" placeholder="&nbsp;&nbsp;&nbsp; Enter city" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="state" class="owner-form-label">State <span class="text-danger">*</span></label>
                                         <div class="owner-input-group owner-input-group-custom">
-
                                             <select class="form-control" id="state" required>
                                                 <option value="">&nbsp;&nbsp;&nbsp;Select state</option>
                                                 <option value="CA">&nbsp;&nbsp;&nbsp;California</option>
@@ -207,7 +193,6 @@
                                 <div class="mb-3">
                                     <label for="website" class="owner-form-label">Website (optional)</label>
                                     <div class="owner-input-group owner-input-group-custom">
-                          
                                         <input type="url" class="form-control" id="website" placeholder="&nbsp;&nbsp;&nbsp;https://yourwebsite.com">
                                     </div>
                                 </div>
@@ -216,7 +201,6 @@
                                 <div class="mb-3">
                                     <label for="businessLicense" class="owner-form-label">Business License Number (optional)</label>
                                     <div class="owner-input-group owner-input-group-custom">
-                    
                                         <input type="text" class="form-control" id="businessLicense" placeholder="&nbsp;&nbsp;&nbsp; Enter business license number">
                                     </div>
                                 </div>
@@ -242,7 +226,7 @@
         </div> 
     </div>
 
-    <script src="{{ asset('js/owner/register.salon.info.js') }}" defer></script>
+    <script src="/js/owner/register.salon.info.js" defer></script>
 
 </body>
 </html>

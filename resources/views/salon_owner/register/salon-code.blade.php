@@ -1,13 +1,4 @@
-{{-- Todo --}}
-
- <!-- Qestion 
-*  <i  class="fa-solid fa-check me-2"></i>Confirm Registratio< Is that should be brown? ✅
-*   When hover Bsck botton, the color shuld be change ? -->
-
-{{-- Memo >> Some Font Awesome icons are only available in the Pro version,
- so most of the time, you can only use the solid style in the free version. --}}
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -33,7 +24,7 @@
                 <!-- Logo and Brand Name -->
                 <div class="col-6 d-flex align-items-center">
                     <div class="logo me-1">
-                        <img src="/images/Trimly Logo.png" alt="Trimly Logo" class="img-fluid" style="max-width: 80px;">
+                        <img src="/images/Trimly Logo.png" alt="Trimly Logo" class="img-fluid">
                     </div>
                     <p class="fw-bold text-muted mb-0 fs-5">Trimly</p> 
                 </div>
@@ -83,7 +74,7 @@
                         <div class="owner-card-body">
                             <!-- Card Title -->
                             <h4 class="owner-card-title owner-fw-bold owner-text-muted">
-                                <i class="fa-solid fa-key me-2" style="color: #ab8b73;"></i>Your Salon Code
+                                <i class="fa-solid fa-key me-2"></i>Your Salon Code
                             </h4>
                             <!-- Card Description -->
                             <p class="owner-card-text owner-text-muted owner-card-subtitle-center text-start">
@@ -99,7 +90,7 @@
                                 <!-- Success Message -->
                                 <div class="owner-code-generated-text">Salon Code Generated!</div>
                                 <!-- Generated Code -->
-                                <div class="owner-salon-code-wrapper" style="background-color: #ffffff; padding: 1.5rem 3rem; border-radius: 12px; display: inline-block; margin: 1.5rem 0;">
+                                <div class="owner-salon-code-wrapper">
                                     <div class="owner-salon-code">G1P441219</div>
                                 </div>
                                 <br>
@@ -134,6 +125,6 @@
         </div> 
     </div>
 
-    <script src="{{ asset('js/owner/register.salon.code.js') }}" defer></script>
+    <script src="/js/owner/register.salon.code.js" defer></script>
 </body>
 </html>
