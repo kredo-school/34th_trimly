@@ -1,3 +1,4 @@
+    
     <header class="header">
         <div class="logo">
             <img src="{{ asset('images/Trimly Logo.png') }}" alt="Trimly Logo">
@@ -25,15 +26,13 @@
         }
 
         .logo img {
-            height: 40px;
+            height: 80px;
             width: auto;
         }
 
         .logo-text {
-            font-family: 'Poppins', sans-serif;
             font-size: 20px;
             font-weight: 700;
-            color: #333;
         }
 
     </style>

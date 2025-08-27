@@ -4,55 +4,7 @@
 
     @push('styles')
         <style>
-           /* Step（JuriバージョンがCSSに入ってきたら撤去 */
-            .step-item-active .step-circle {
-                background-color: #ab8b73;
-                border-color: #ab8b73;
-                color: #fff;
-                position: relative;
-                z-index: 2;
-            }
-            .step-item-active .step-text {
-                color: #ab8b73;
-                font-weight: bold;
-                position: relative;
-                z-index: 2;
-                background-color: #FEFCF1;
-            }
-            .step-item-inactive .step-circle {
-                background-color: #e0e0e0;
-                border-color: #e0e0e0;
-                color: #fff;
-                position: relative;
-                z-index: 2;
-            }
-            .step-item-inactive .step-text {
-                color: #e0e0e0;
-                position: relative;
-                z-index: 2;
-                background-color: #FEFCF1;
-            }
-            .w-40px {
-                width: 40px;
-            }
-            .h-40px {
-                height: 40px;
-            }
-            .step-line {
-                flex-grow: 1;
-                height: 3px;
-                background-color: #e0e0e0;
-                margin: 0 20px;
-                align-self: flex-start;
-                margin-top: 19px;
-                z-index: -1;
-            }
-            .step-indicator {
-                position: relative;
-                z-index: 1;
-            }
-
-            /* 確認画面専用の表示スタイル */
+            /* InputForm */
             .info-section {
                 background-color: #f9f5f2;
                 border-radius: 8px;
@@ -61,64 +13,65 @@
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
                 text-align: left;
             }
+
             .info-section h5 {
                 color: #6c757d;
                 font-weight: bold;
                 margin-bottom: 15px;
             }
+
             .info-pair {
                 display: flex;
                 justify-content: space-between;
                 align-items: flex-start;
                 margin-bottom: 8px;
             }
+
             .info-pair .info-label,
             .info-pair .info-value {
                 flex-grow: 1;
             }
+
             .info-pair .info-label {
                 flex-basis: auto;
                 text-align: left;
                 color: #6c757d;
             }
+
             .info-pair .info-value {
                 flex-basis: auto;
                 text-align: left;
             }
+
             .info-item-row {
                 margin-bottom: 8px;
             }
+
             .info-value.full-width {
                 text-align: left;
             }
+
             .pet-info-item {
                 font-weight: bold;
                 color: #6c757d;
                 font-size: 1.15rem;
                 margin-bottom: 5px;
             }
+
             .pet-sub-info {
                 color: #888;
                 font-size: 0.95rem;
                 margin-bottom: 15px;
                 display: block;
             }
+
             .pet-separator {
                 border-bottom: 1px dashed #e9ecef;
                 margin: 20px 0;
             }
+
             .pet-separator:last-child {
                 display: none;
-            }
-
-            /* Back Button */
-            .btn-back {
-                background-color: #FEFCF1;
-                border: 1px solid #ccc;
-                color: #6c757d;
-                font-weight: bold;
-                border-radius: 8px;
-                padding: 12px 25px;
             }
         </style>
     @endpush
@@ -130,147 +83,157 @@
 
     @section('content')
         {{-- Step --}}
-        <nav class="d-flex justify-content-between align-items-center mt-2 mb-5 step-indicator">
-            <div class="d-flex flex-column align-items-center step-item-active step-item">
-                <div
-                    class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">
-                    <i class="fa-solid fa-check"></i>
+        <nav class="d-flex justify-content-between align-items-center mt-2 mb-5">
+            <div class="steps">
+                <div class="step-wrapper">
+                    <div class="step">
+                        <div class="step-number">✓</div>
+                    </div>
+                    <div class="step-label">Salon Code</div>
                 </div>
-                <div class="step-text mt-2 fs-6">Salon Code</div>
-            </div>
-            <div class="step-line"></div>
-            <div class="d-flex flex-column align-items-center step-item-active step-item">
-                <div
-                    class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">
-                    <i class="fa-solid fa-check"></i>
+                <div class="step-line"></div>
+                <div class="step-wrapper">
+                    <div class="step">
+                        <div class="step-number">✓</div>
+                    </div>
+                    <div class="step-label">Pet Owner</div>
                 </div>
-                <div class="step-text mt-2 fs-6">Pet Owner</div>
-            </div>
-            <div class="step-line"></div>
-            <div class="d-flex flex-column align-items-center step-item-active step-item">
-                <div
-                    class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">
-                    <i class="fa-solid fa-check"></i>
+                <div class="step-line"></div>
+                <div class="step-wrapper">
+                    <div class="step">
+                        <div class="step-number">✓</div>
+                    </div>
+                    <div class="step-label">Pets</div>
                 </div>
-                <div class="step-text mt-2 fs-6">Pets</div>
-            </div>
-            <div class="step-line"></div>
-            <div class="d-flex flex-column align-items-center step-item-active step-item">
-                <div
-                    class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">
-                    4</div>
-                <div class="step-text mt-2 fs-6">Confirm</div>
-            </div>
-            <div class="step-line"></div>
-            <div class="d-flex flex-column align-items-center step-item-inactive step-item">
-                <div
-                    class="step-circle d-flex justify-content-center align-items-center w-40px h-40px rounded-circle fs-5 fw-bold">
-                    5</div>
-                <div class="step-text mt-2 fs-6">Complete</div>
+                <div class="step-line"></div>
+                <div class="step-wrapper">
+                    <div class="step">
+                        <div class="step-number">✓</div>
+                    </div>
+                    <div class="step-label">Confirm</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-wrapper">
+                    <div class="step inactive">
+                        <div class="step-number">5</div>
+                    </div>
+                    <div class="step-label">Complete</div>
+                </div>
             </div>
         </nav>
 
         {{-- Card --}}
         <div class="card p-4 mb-4 shadow-sm">
-                        <div class="card-body">
-                            <div>
-                                <h4 class="card-title text-start mb-3 fw-bold"><i class="fa-solid fa-check me-2"
-                                        style="color:#ab8b73"></i>Confirm Registration</h4>
-                                <p class="card-subtitle text-muted text-start mb-4">Please review your information before completing
-                                    registration</p>
-                            </div>
+            <div class="card-body">
+                <div>
+                    <h4 class="text-start mb-3 fw-bold"><i class="fa-solid fa-check me-2" style="color:#ab8b73"></i>Confirm
+                        Registration</h4>
+                    <p class="text-start mb-4">Please review your information before completing
+                        registration</p>
+                </div>
 
-                            <form action="{{ route('pet_owner.register.confirm.post') }}" method="POST">
-                                @csrf
+                <form action="{{ route('pet_owner.register.confirm.post') }}" method="POST">
+                    @csrf
 
-                                {{-- Salon Code Section --}}
-                                <div class="info-section">
-                                    <h5 class="text-start">Salon Code</h5>
-                                    <div class="info-item">
-                                        <div class="info-value full-width">{{ $salonCode }}</div>
-                                    </div>
-                                </div>
+                    {{-- ▼ 追加：共通エラー表示 --}}
+                    @if ($errors->any())
+                        <div class="alert alert-danger" role="alert">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $e)
+                                    <li>{{ $e }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    {{-- ▲ 追加ここまで --}}
 
-                                {{-- Personal Information Section --}}
-                                <div class="info-section">
-                                    <h5 class="text-start">Personal Information</h5>
-                                    {{-- name&Email --}}
-                                    <div class="row info-item-row">
-                                        <div class="col-6">
-                                            <div class="info-pair">
-                                                <div class="info-label">Name</div>
-                                                <div class="info-value">{{ $petOwner['lastName'] }} {{ $petOwner['firstName'] }}</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="info-pair">
-                                                <div class="info-label">Email</div>
-                                                <div class="info-value">{{ $petOwner['email'] }}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Phone&Location --}}
-                                    <div class="row info-item-row">
-                                        <div class="col-6">
-                                            <div class="info-pair">
-                                                <div class="info-label">Phone</div>
-                                                <div class="info-value">{{ $petOwner['phoneNumber'] }}</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="info-pair">
-                                                <div class="info-label">Location</div>
-                                                <div class="info-value">{{ $petOwner['city'] }}, {{ $petOwner['prefecture'] }}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {{-- Pet Information Section --}}
-                                <div class="info-section">
-                                    <h5 class="text-start">Pet Information</h5>
-                                    @forelse($pets as $index => $pet)
-                                        <div class="pet-details-compact">
-                                            <div class="pet-info-item">Pet {{ $index + 1 }} : {{ $pet['pet_name'] }}</div>
-                                            <div class="pet-sub-info">
-                                                {{ $pet['breed'] }} • {{ $pet['age'] }} • {{ $pet['weight'] }} • {{ $pet['gender'] }}
-                                            </div>
-                                            @if($pet['special_notes'])
-                                                <div class="info-pair">
-                                                    <div class="info-label">Special Notes:</div>
-                                                    <div class="info-value">{{ $pet['special_notes'] }}</div>
-                                                </div>
-                                            @endif
-                                        </div>
-                                        @if(!$loop->last)
-                                            <div class="pet-separator"></div>
-                                        @endif
-                                    @empty
-                                        <p class="text-muted text-center">No pet information entered.</p>
-                                    @endforelse
-                                </div>
-
-                                {{-- Terms of Service Checkbox --}}
-                                <div class="my-4 form-check text-start">
-                                    <input type="checkbox" class="form-check-input" id="termsConsent" name="terms_consent" required>
-                                    <label class="form-check-label" for="termsConsent">I agree to the Terms of Service and Privacy
-                                        Policy</label>
-                                </div>
-
-                                {{-- Navigation Buttons --}}
-                                <div class="d-flex justify-content-between mt-4">
-                                    <a href="{{ route('pet_owner.register.pet') }}" class="btn btn-back">
-                                        <i class="fa-solid fa-arrow-left me-2"></i>Back
-                                    </a>
-                                    <button type="submit" class="btn btn-primary">
-                                        Complete Registration <i class="fa-solid fa-arrow-right ms-2"></i>
-                                    </button>
-                                </div>
-                            </form>
+                    {{-- Salon Code Section --}}
+                    <div class="info-section">
+                        <h5 class="text-start">Salon Code</h5>
+                        <div class="info-item">
+                            <div class="info-value full-width">{{ $salonCode }}</div>
                         </div>
                     </div>
-                </div>
+
+                    {{-- Personal Information Section --}}
+                    <div class="info-section">
+                        <h5 class="text-start">Personal Information</h5>
+                        {{-- name&Email --}}
+                        <div class="row info-item-row">
+                            <div class="col-6">
+                                <div class="info-pair">
+                                    <div class="info-label">Name</div>
+                                    <div class="info-value">{{ $petOwner['lastName'] }} {{ $petOwner['firstName'] }}</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="info-pair">
+                                    <div class="info-label">Email</div>
+                                    <div class="info-value">{{ $petOwner['email'] }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Phone&Location --}}
+                        <div class="row info-item-row">
+                            <div class="col-6">
+                                <div class="info-pair">
+                                    <div class="info-label">Phone</div>
+                                    <div class="info-value">{{ $petOwner['phoneNumber'] }}</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="info-pair">
+                                    <div class="info-label">Location</div>
+                                    <div class="info-value">{{ $petOwner['city'] }}, {{ $petOwner['prefecture'] }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Pet Information Section --}}
+                    <div class="info-section">
+                        <h5 class="text-start">Pet Information</h5>
+                        @forelse($pets as $index => $pet)
+                            <div class="pet-details-compact">
+                                <div class="pet-info-item">Pet {{ $index + 1 }} : {{ $pet['pet_name'] }}</div>
+                                <div class="pet-sub-info">
+                                    {{ $pet['breed'] }} • {{ $pet['age'] }} • {{ $pet['weight'] }} •
+                                    {{ $pet['gender'] }}
+                                </div>
+                                @if ($pet['special_notes'])
+                                    <div class="info-pair">
+                                        <div class="info-label">Special Notes:</div>
+                                        <div class="info-value">{{ $pet['special_notes'] }}</div>
+                                    </div>
+                                @endif
+                            </div>
+                            @if (!$loop->last)
+                                <div class="pet-separator"></div>
+                            @endif
+                        @empty
+                            <p class="text-muted text-center">No pet information entered.</p>
+                        @endforelse
+                    </div>
+
+                    {{-- Terms of Service Checkbox --}}
+                    <div class="my-4 form-check text-start">
+                        <input type="checkbox" class="form-check-input" id="termsConsent" name="terms_consent"
+                            {{ old('terms_consent') ? 'checked' : '' }} required>
+                        <label class="form-check-label" for="termsConsent">I agree to the Terms of Service and Privacy
+                            Policy</label>
+                    </div>
+
+                    {{-- Navigation Buttons --}}
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ route('pet_owner.register.pet') }}" class="btn btn-back">
+                            <i class="fa-solid fa-arrow-left me-2"></i>Back
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            Complete Registration <i class="fa-solid fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
+
     @endsection
