@@ -34,7 +34,7 @@
              
                 
 
-                    <form class="d-flex ms-lg-auto" action="#" method="POST">
+                    <form class="d-flex ms-lg-auto" action="{{ route('pet_owner.logout') }}" method="POST">
                         @csrf
                         <button class="btn btn-logout" type="submit">Logout</button>
                     </form>
