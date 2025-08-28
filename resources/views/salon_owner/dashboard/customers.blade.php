@@ -1,13 +1,3 @@
-{{-- =====================================================
-   * To do
-   *Need to modify icon place and UI 
-   * Horizen
-
-   ===================================================== --}}
-
-
-{{-- Question>> How many options appear when clicking the vertical ellipsis?--}}
-
 @extends('layouts.navigation')
 
 @section('title', 'Customers')
@@ -18,12 +8,9 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Base CSS Files -->
-   <!-- Base CSS Files -->
    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
    <link href="{{ asset('css/register-salon-owner.css') }}" rel="stylesheet">
    <link href="{{ asset('css/dashboard-salon-owner.css') }}" rel="stylesheet">
-    <!-- Page Specific CSS -->
-    <link href="{{ asset('css/dashboard-salon-owner.css') }}" rel="stylesheet">
 @endpush
 
 @section('content')
@@ -33,7 +20,7 @@
         <div class="card-body">
             <div class="owner-search-section">
                 <!-- Search Input -->
-                <div class="position-relative flex-grow-1" style="max-width: 400px;">
+                <div class="position-relative flex-grow-1 owner-customers-search-max-width">
                     <i class="fa-solid fa-magnifying-glass owner-search-icon"></i>
                     <input type="text" class="owner-search-input" placeholder="Search customers..." id="searchInput" />
                 </div>
@@ -48,10 +35,10 @@
             <div class="card">
                 <div class="card-body">
                     <!-- Customer Header -->
-                    <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="d-flex justify-content-between align-items-start mb-3 owner-customer-header">
                         <div>
                             <h5 class="mb-1">Sarah Johnson</h5>
-                            <p class="text-muted mb-0" style="font-size: 0.9rem;">Member since January 2023</p>
+                            <p class="text-muted owner-customer-member-since">Member since January 2023</p>
                         </div>
                         <div class="dropdown">
                             <button class="btn btn-ghost btn-sm owner-action-menu" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -64,46 +51,46 @@
                     </div>
 
                     <!-- Customer Contact Info -->
-                    <div class="mb-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fa-solid fa-envelope text-muted me-2" style="width: 16px;"></i>
-                            <span style="font-size: 0.9rem;">sarah@example.com</span>
+                    <div class="owner-customer-contact-info">
+                        <div class="owner-customer-contact-item">
+                            <i class="fa-solid fa-envelope text-muted"></i>
+                            <span>sarah@example.com</span>
                         </div>
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fa-solid fa-phone text-muted me-2" style="width: 16px;"></i>
-                            <span style="font-size: 0.9rem;">(555) 123-4567</span>
+                        <div class="owner-customer-contact-item">
+                            <i class="fa-solid fa-phone text-muted"></i>
+                            <span>(555) 123-4567</span>
                         </div>
-                        <div class="d-flex align-items-center">
-                            <i class="fa-solid fa-location-dot text-muted me-2" style="width: 16px;"></i>
-                            <span style="font-size: 0.9rem;">123 Oak Street, Downtown</span>
+                        <div class="owner-customer-contact-item">
+                            <i class="fa-solid fa-location-dot text-muted"></i>
+                            <span>123 Oak Street, Downtown</span>
                         </div>
                     </div>
             
                     <!-- Pet Information -->
-                    <div class="pet-section mb-3">
+                    <div class="owner-pet-section">
                         <h6 class="mb-2">Pets</h6>
                        
                         <div>
-                            <span class="fw-bold">Buddy</span><br>
-                            <span class="text-muted" style="font-size: 0.9rem;">Golden Retriever • 3 years • Large</span>
-                            <div class="text-muted" style="font-size: 0.85rem; ">Very friendly, loves treats</div>
+                            <span class="owner-pet-name">Buddy</span><br>
+                            <span class="text-muted owner-pet-details">Golden Retriever • 3 years • Large</span>
+                            <div class="text-muted owner-pet-notes">Very friendly, loves treats</div>
                         </div>
                     </div>
 
                     <!-- Customer Stats -->
-                    <div class="bg-light p-3 rounded">
-                        <div class="d-flex justify-content-around text-center">
-                            <div class="flex-fill">
-                                <div class="fw-bold" style="font-size: 0.9rem;">1</div>
-                                <div class="text-muted" style="font-size: 0.7rem; text-transform: uppercase; line-height: 1.2;">Total Visits</div>
+                    <div class="owner-customer-stats">
+                        <div class="owner-stats-grid">
+                            <div class="owner-stat-item">
+                                <div class="owner-stat-value">1</div>
+                                <div class="text-muted owner-stat-label">Total Visits</div>
                             </div>
-                            <div class="flex-fill">
-                                <div class="fw-bold" style="font-size: 0.9rem;">$85</div>
-                                <div class="text-muted" style="font-size: 0.7rem; text-transform: uppercase; line-height: 1.2;">Total Spent</div>
+                            <div class="owner-stat-item">
+                                <div class="owner-stat-value">$85</div>
+                                <div class="text-muted owner-stat-label">Total Spent</div>
                             </div>
-                            <div class="flex-fill">
-                                <div class="fw-bold" style="font-size: 0.9rem;">Today</div>
-                                <div class="text-muted" style="font-size: 0.7rem; text-transform: uppercase; line-height: 1.2;">Last Visit</div>
+                            <div class="owner-stat-item">
+                                <div class="owner-stat-value">Today</div>
+                                <div class="text-muted owner-stat-label">Last Visit</div>
                             </div>
                         </div>
                     </div>
@@ -116,10 +103,10 @@
             <div class="card">
                 <div class="card-body">
                     <!-- Customer Header -->
-                    <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="d-flex justify-content-between align-items-start mb-3 owner-customer-header">
                         <div>
                             <h5 class="mb-1">Mike Thompson</h5>
-                            <p class="text-muted mb-0" style="font-size: 0.9rem;">Member since March 2024</p>
+                            <p class="text-muted owner-customer-member-since">Member since March 2024</p>
                         </div>
                         <div class="dropdown">
                             <button class="btn btn-ghost btn-sm owner-action-menu" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -132,45 +119,45 @@
                     </div>
 
                     <!-- Customer Contact Info -->
-                    <div class="mb-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fa-solid fa-envelope text-muted me-2" style="width: 16px;"></i>
-                            <span style="font-size: 0.9rem;">mike@example.com</span>
+                    <div class="owner-customer-contact-info">
+                        <div class="owner-customer-contact-item">
+                            <i class="fa-solid fa-envelope text-muted"></i>
+                            <span>mike@example.com</span>
                         </div>
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fa-solid fa-phone text-muted me-2" style="width: 16px;"></i>
-                            <span style="font-size: 0.9rem;">(555) 987-6543</span>
+                        <div class="owner-customer-contact-item">
+                            <i class="fa-solid fa-phone text-muted"></i>
+                            <span>(555) 987-6543</span>
                         </div>
-                        <div class="d-flex align-items-center">
-                            <i class="fa-solid fa-location-dot text-muted me-2" style="width: 16px;"></i>
-                            <span style="font-size: 0.9rem;">456 Pine Avenue, Uptown</span>
+                        <div class="owner-customer-contact-item">
+                            <i class="fa-solid fa-location-dot text-muted"></i>
+                            <span>456 Pine Avenue, Uptown</span>
                         </div>
                     </div>
 
                     <!-- Pet Information -->
-                    <div class="pet-section mb-3">
+                    <div class="owner-pet-section">
                         <h6 class="mb-2">Pets</h6>
                         <div>
-                            <span class="fw-bold">Luna</span><br>
-                            <span class="text-muted" style="font-size: 0.9rem;">Toy Poodle • 5 years • Small</span>
-                            <div class="text-muted" style="font-size: 0.85rem; ">Sensitive around paws, prefers gentle handling</div>
+                            <span class="owner-pet-name">Luna</span><br>
+                            <span class="text-muted owner-pet-details">Toy Poodle • 5 years • Small</span>
+                            <div class="text-muted owner-pet-notes">Sensitive around paws, prefers gentle handling</div>
                         </div>
                     </div>
 
                     <!-- Customer Stats -->
-                    <div class="bg-light p-3 rounded">
-                        <div class="d-flex justify-content-around text-center">
-                            <div class="flex-fill">
-                                <div class="fw-bold" style="font-size: 0.9rem;">8</div>
-                                <div class="text-muted" style="font-size: 0.7rem; text-transform: uppercase; line-height: 1.2;">Total Visits</div>
+                    <div class="owner-customer-stats">
+                        <div class="owner-stats-grid">
+                            <div class="owner-stat-item">
+                                <div class="owner-stat-value">8</div>
+                                <div class="text-muted owner-stat-label">Total Visits</div>
                             </div>
-                            <div class="flex-fill">
-                                <div class="fw-bold" style="font-size: 0.9rem;">$520</div>
-                                <div class="text-muted" style="font-size: 0.7rem; text-transform: uppercase; line-height: 1.2;">Total Spent</div>
+                            <div class="owner-stat-item">
+                                <div class="owner-stat-value">$520</div>
+                                <div class="text-muted owner-stat-label">Total Spent</div>
                             </div>
-                            <div class="flex-fill">
-                                <div class="fw-bold" style="font-size: 0.9rem;">2 weeks ago</div>
-                                <div class="text-muted" style="font-size: 0.7rem; text-transform: uppercase; line-height: 1.2;">Last Visit</div>
+                            <div class="owner-stat-item">
+                                <div class="owner-stat-value">Yesterday</div>
+                                <div class="text-muted owner-stat-label">Last Visit</div>
                             </div>
                         </div>
                     </div>
@@ -179,7 +166,7 @@
         </div>
 
         <!-- Empty State (hidden by default) -->
-        <div id="emptyState" class="col-12 text-center" style="display: none;">
+        <div id="emptyState" class="col-12 text-center owner-empty-state-hidden">
             <div class="owner-empty-state">
                 <i class="fa-regular fa-address-book text-muted"></i>
                 <h5 class="text-muted">No customers found</h5>

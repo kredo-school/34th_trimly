@@ -78,7 +78,15 @@ body::before {
     content: "?";
     font-weight: bold;
 }
+/* Logo Image Styles */
+.owner-logo img {
+    max-width: 150px;
+}
 
+/* Back Link Center Alignment Fix */
+.owner-back-link-center {
+    text-align: center;
+}
 /* =====================================================
    Typography
    ===================================================== */

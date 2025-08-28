@@ -22,13 +22,13 @@
    <div class="container-fluid my-4">
        <div class="row justify-content-center">
            <div class="col-12">
-               <div class="register-container" style="max-width: 1200px; width: 98%; margin: auto;">
+               <div class="register-container owner-register-container">
    
                    <!-- Settings Card -->
                    <div class="owner-card p-4 owner-mb-4">
                        <div class="owner-card-body">
                            <h4 class="card-title text-start mb-3 fw-bold">
-                               <i class="fa-solid fa-gear me-2"></i>Salon Registration Details
+                               Salon Registration Details
                            </h4>
                            <p class="card-text text-muted text-start mb-4">Update your salon information and business details</p>
    
@@ -37,8 +37,8 @@
                                
                                <!-- Basic Information Section -->
                                <div class="mb-4">
-                                   <h4 class="mb-3 fw-bold" style="font-size: 1.5rem; color: #333;">Basic Information</h4>
-                                   <hr class="mb-4" style="border-color: #ddd; margin-top: 0.5rem;">
+                                   <h4 class="mb-3 fw-bold owner-section-header">Basic Information</h4>
+                                   <hr class="mb-4 owner-section-divider">
                                    
                                    <!-- Salon Name and Email Address -->
                                    <div class="row">
@@ -100,8 +100,8 @@
    
                                <!-- Business Address Section -->
                                <div class="mb-4">
-                                   <h4 class="mb-3 fw-bold" style="font-size: 1.5rem; color: #333;">Business Address</h4>
-                                   <hr class="mb-4" style="border-color: #ddd; margin-top: 0.5rem;">
+                                   <h4 class="mb-3 fw-bold owner-section-header">Business Address</h4>
+                                   <hr class="mb-4 owner-section-divider">
                                    
                                    <!-- Street Address -->
                                    <div class="row">
@@ -142,8 +142,8 @@
    
                                <!-- Security Section -->
                                <div class="mb-4">
-                                   <h4 class="mb-3 fw-bold" style="font-size: 1.5rem; color: #333;">Security</h4>
-                                   <hr class="mb-4" style="border-color: #ddd; margin-top: 0.5rem;">
+                                   <h4 class="mb-3 fw-bold owner-section-header">Security</h4>
+                                   <hr class="mb-4 owner-section-divider">
                                    
                                    <!-- New Password -->
                                    <div class="row">
@@ -153,7 +153,7 @@
                                                <span class="owner-input-group-text-custom">
                                                    <i class="fa-solid fa-lock"></i>
                                                </span>
-                                               <input type="password" class="form-control" id="password" placeholder="&nbsp;&nbsp;&nbsp; Enter new password">
+                                               <input type="password" class="form-control" id="password" placeholder="&nbsp;&nbsp;&nbsp; Create password" required>
                                                <button type="button" class="owner-password-toggle" onclick="toggleOwnerPassword('password')">
                                                    <i class="fa-solid fa-eye"></i>
                                                </button>
@@ -176,8 +176,8 @@
    
                                <!-- Business Hours Section -->
                                <div class="mb-4">
-                                   <h4 class="mb-3 fw-bold" style="font-size: 1.5rem; color: #333;">Business Hours</h4>
-                                   <hr class="mb-4" style="border-color: #ddd; margin-top: 0.5rem;">
+                                   <h4 class="mb-3 fw-bold owner-section-header">Business Hours</h4>
+                                   <hr class="mb-4 owner-section-divider">
                                    
                                    <!-- Operating Days -->
                                    <div class="mb-3">
@@ -233,13 +233,13 @@
                                        <div class="col-md-6 mb-3">
                                            <label for="startTime" class="owner-form-label">Start Time</label>
                                            <div class="position-relative">
-                                               <input type="time" class="form-control owner-search-input" id="startTime" value="09:00" style="padding-right: 40px;">
+                                               <input type="time" class="form-control owner-search-input owner-time-input" id="startTime" value="09:00">
                                            </div>
                                        </div>
                                        <div class="col-md-6 mb-3">
                                            <label for="endTime" class="owner-form-label">End Time</label>
                                            <div class="position-relative">
-                                               <input type="time" class="form-control owner-search-input" id="endTime" value="18:00" style="padding-right: 40px;">
+                                               <input type="time" class="form-control owner-search-input owner-time-input" id="endTime" value="18:00">
                                            </div>
                                        </div>
                                    </div>
@@ -247,8 +247,8 @@
    
                                <!-- Optional Information Section -->
                                <div class="mb-4">
-                                   <h4 class="mb-3 fw-bold" style="font-size: 1.5rem; color: #333;">Optional Information</h4>
-                                   <hr class="mb-4" style="border-color: #ddd; margin-top: 0.5rem;">
+                                   <h4 class="mb-3 fw-bold owner-section-header">Optional Information</h4>
+                                   <hr class="mb-4 owner-section-divider">
                                    
                                    <!-- Website -->
                                    <div class="row">
@@ -276,7 +276,7 @@
                                </div>
    
                                <!-- Action Buttons -->
-                               <div class="d-flex justify-content-end gap-3">
+                               <div class="d-flex justify-content-end owner-action-buttons">
                                 <button type="button" class="btn btn-salon-code d-none d-sm-flex btn-owner-back" id="cancelBtn">Cancel</button>
                                 
                                 <button type="submit" class="btn btn-owner-continue">

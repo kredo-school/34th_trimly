@@ -7,12 +7,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Base CSS Files -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/reservation.css') }}">
+    <!-- Salon Owner CSS Files Only -->
     <link href="{{ asset('css/register-salon-owner.css') }}" rel="stylesheet">
-    <!-- Page Specific CSS -->
     <link href="{{ asset('css/dashboard-salon-owner.css') }}" rel="stylesheet">
+
+    
 @endpush
 
 @section('content')
@@ -22,7 +21,7 @@
         <div class="card-body">
             <div class="owner-search-section">
                 <!-- Search Input -->
-                <div class="position-relative flex-grow-1" style="max-width: 400px;">
+                <div class="position-relative flex-grow-1 owner-search-max-width">
                     <i class="fa-solid fa-magnifying-glass owner-search-icon"></i>
                     <input type="text" class="owner-search-input" placeholder="Search appointments..." id="searchInput" />
                 </div>
@@ -206,7 +205,7 @@
                 </div>
 
                 <!-- Empty State (hidden by default) -->
-                <div id="emptyState" class="owner-empty-state text-center" style="display: none;">
+                <div id="emptyState" class="owner-empty-state text-center owner-empty-state-display-none">
                     <i class="fa-regular fa-calendar-xmark text-muted"></i>
                     <h5 class="text-muted">No appointments found</h5>
                     <p class="text-muted">Try adjusting your search or filter criteria.</p>
@@ -216,30 +215,9 @@
     </div>
 </div>
 
-<!-- Salon Code Modal -->
-<div class="modal fade" id="salonCodeModal" tabindex="-1" aria-labelledby="salonCodeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" style="border-radius: 15px; border: none;">
-            <div class="modal-header" style="border-bottom: none; padding: 2rem 2rem 1rem 2rem;">
-                <h5 class="modal-title" id="salonCodeModalLabel" style="color: #666; font-weight: 600;">Your Salon Code</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background: none; border: none; font-size: 1.5rem; color: #999;">&times;</button>
-            </div>
-            <div class="modal-body text-center" style="padding: 1rem 2rem 2rem 2rem;">
-                <div class="salon-code-display" style="background: linear-gradient(135deg, #d5c4b8 0%, #ab8b73 100%); color: white; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;" id="salonCodeDisplay">
-                    TRIMLY2024
-                </div>
-                <button class="btn" id="copyCodeBtn" style="background-color: #ab8b73; color: white; border: none; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 500; transition: all 0.2s ease; margin-bottom: 1rem; width: 100%;">
-                    <i class="fa-solid fa-copy me-2"></i>Copy Code
-                </button>
-                <p class="text-muted mb-0" style="font-size: 0.9rem;">Share this code with your customers to allow them to book appointments.</p>
-            </div>
-        </div>
-    </div>
-</div>
+
 @endsection
 
-<script src="{{ asset('js/owner/dashboard.js') }}" defer></script>
-
 @push('scripts')
-
+<script src="{{ asset('js/owner/dashboard.js') }}" defer></script>
 @endpush
