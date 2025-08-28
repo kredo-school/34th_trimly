@@ -4,10 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PetOwner\RegisterController;
 use App\Http\Controllers\PetOwner\LoginController;
-
 use App\Http\Controllers\PetOwner\Mypage\PetController;
-
 use App\Http\Controllers\PetOwner\Mypage\ProfileController;
+use App\Http\Controllers\PetOwner\Mypage\SalonController;
 
 
 Route::get('/', function () {
@@ -29,6 +28,10 @@ Route::prefix('petowner')->name('pet_owner.')->group(function () {
     Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
 });
+/* =====================================================
+   Pet Owner side  - Logout
+   ===================================================== */
+Route::post('/petowner/logout', [LoginController::class, 'logout'])->name('pet_owner.logout');
 
 /* =====================================================
    Pet Owner side  - Register
@@ -65,9 +68,6 @@ Route::middleware('auth:petowner')->group(function () {
     Route::get('/mypage/profile/edit', [ProfileController::class, 'editProfile'])->name('mypage.profile.edit');
     Route::patch('/mypage/profile', [ProfileController::class, 'updateProfile'])->name('mypage.profile.update');
 });
-
-
-
     /*Pets*/
 Route::middleware(['auth:petowner'])->group(function () {
     // show manage page
@@ -82,27 +82,14 @@ Route::middleware(['auth:petowner'])->group(function () {
     Route::patch('/mypage/pets/{pet}', [PetController::class, 'update'])->name('mypage.pets.update');
     // delete
     Route::delete('/mypage/pets/{pet}', [PetController::class, 'destroy'])->name('mypage.pets.destroy');
-
 });
-
-Route::get('/mypage/profile-edit', function () {
-    return view('mypage.profile-edit');
-
+    /*Salons*/
+Route::middleware(['auth:petowner'])->group(function () {
+    Route::get('/mypage/salon', [SalonController::class, 'index'])->name('mypage.salon');
+    Route::post('/mypage/salon', [SalonController::class, 'store'])->name('mypage.salon.store');
+    Route::delete('/mypage/salon/{salonCode}', [SalonController::class, 'destroy'])->name('mypage.salon.destroy');
 });
-
-
-Route::get('/mypage/pet', function () {
-    return view('mypage.pet');
-});
-Route::get('/mypage/pet-edit', function () {
-    return view('mypage.pet-edit');
-});
-Route::get('/mypage/add-pet', function () {
-    return view('mypage.add-pet');
-});
-Route::get('/mypage/salon', function () {
-    return view('mypage.salon');
-});
+    /*Reservations*/
 Route::get('/mypage/reserve', function () {
     return view('mypage.reservation');
 });

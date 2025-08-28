@@ -37,7 +37,6 @@
             color: #c8a882 !important;
         }
 
-        /* レスポンシブ対応の調整 */
         @media (max-width: 991.98px) {
             .navbar-collapse {
                 flex-direction: column;
@@ -72,17 +71,17 @@
                     <div class="d-flex flex-grow-1 justify-content-center">
                         <ul class="navbar-nav mb-2 mb-lg-0">
                             <li class="nav-item ">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('mypage.profile') }}">
                                     <i class="fa-solid fa-user me-1"></i> Profile
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('mypage.pets.index') }}">
                                     <i class="fa-solid fa-heart me-1"></i> My Pets
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('mypage.salon') }}">
                                     <i class="fa-solid fa-store me-1"></i> My Salons
                                 </a>
                             </li>
@@ -93,7 +92,7 @@
                             </li>
                         </ul>
                     </div>
-                    <form class="d-flex ms-auto" action="#" method="POST">
+                    <form class="d-flex ms-auto" action="{{ route('pet_owner.logout') }}" method="POST">
                         @csrf
                         <button class="btn btn-logout" type="submit">Logout</button>
                     </form>
