@@ -67,61 +67,62 @@
                                 <i class="fa-solid fa-check me-2"></i>Confirm Registration
                             </h4>
                             <p class="owner-card-text owner-text-muted text-start owner-mb-4">Please review your salon information</p>
-
-                            <!-- Salon Information Display -->
-                            <div class="owner-confirmation-section">
-                                <h4 class="owner-confirmation-title">Salon Information</h4>
+                    
+                            <form action="{{ route('salon.register.store') }}" method="POST">
+                                @csrf
                                 
-                                <div class="owner-info-row">
-                                    <div class="owner-info-item d-flex">
-                                        <div class="owner-info-label">Salon Name:</div>
-                                        <div class="owner-info-value"> A salon </div>
+                                <!-- Salon Information Display -->
+                                <div class="owner-confirmation-section">
+                                    <h4 class="owner-confirmation-title">Salon Information</h4>
+                                    
+                                    <div class="owner-info-row">
+                                        <div class="owner-info-item d-flex">
+                                            <div class="owner-info-label">Salon Name:</div>
+                                            <div class="owner-info-value">{{ $data['salonname'] }}</div>
+                                        </div>
+                                        <div class="owner-info-item d-flex">
+                                            <div class="owner-info-label">Owner:</div>
+                                            <div class="owner-info-value">{{ $data['firstname'] }} {{ $data['lastname'] }}</div>
+                                        </div>
                                     </div>
-                                    <div class="owner-info-item d-flex">
-                                        <div class="owner-info-label">Owner:</div>
-                                        <div class="owner-info-value">John Smith</div>
+                                    
+                                    <div class="owner-info-row d-flex">
+                                        <div class="owner-info-item">
+                                            <div class="owner-info-label">Email:</div>
+                                            <div class="owner-info-value">{{ $data['email_address'] }}</div>
+                                        </div>
+                                        <div class="owner-info-item d-flex">
+                                            <div class="owner-info-label">Phone:</div>
+                                            <div class="owner-info-value">{{ $data['phone'] }}</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="owner-info-row d-flex">
+                                        <div class="owner-info-item">
+                                            <div class="owner-info-label">Address:</div>
+                                            <div class="owner-info-value">{{ $data['businessAddress'] }}, {{ $data['city'] }}, {{ $data['state'] }}</div>
+                                        </div>
                                     </div>
                                 </div>
-                                
-                                <div class="owner-info-row d-flex">
-                                    <div class="owner-info-item">
-                                        <div class="owner-info-label">Email:</div>
-                                        <div class="owner-info-value">john@beautifulhair.com</div>
-                                    </div>
-                                    <div class="owner-info-item d-flex">
-                                        <div class="owner-info-label">Phone:</div>
-                                        <div class="owner-info-value">(555) 123-4567</div>
-                                    </div>
+                    
+                                <!-- Terms and Conditions -->
+                                <div class="owner-checkbox-container">
+                                    <input type="checkbox" class="owner-checkbox" id="termsCheckbox" required>
+                                    <label for="termsCheckbox" class="owner-checkbox-label">
+                                        I agree to the <a href="#" class="owner-link">Terms of Service</a> and <a href="#" class="owner-link">Privacy Policy</a>
+                                    </label>
                                 </div>
-                                
-                                <div class="owner-info-row d-flex">
-                                    <div class="owner-info-item">
-                                        <div class="owner-info-label">Address:</div>
-                                        <div class="owner-info-value">123 Main St, New York, NY 10001</div>
-                                    </div>
+                    
+                                <div class="owner-checkbox-container">
+                                    <input type="checkbox" class="owner-checkbox" id="authorityCheckbox" required>
+                                    <label for="authorityCheckbox" class="owner-checkbox-label">
+                                        I confirm that I have the authority to register this business and agree to business terms
+                                    </label>
                                 </div>
-                            </div>
-
-                            <!-- Terms and Conditions -->
-                            <div class="owner-checkbox-container">
-                                <input type="checkbox" class="owner-checkbox" id="termsCheckbox" checked>
-                                <label for="termsCheckbox" class="owner-checkbox-label">
-                                    I agree to the <a href="#" class="owner-link">Terms of Service</a> and <a href="#" class="owner-link">Privacy Policy</a>
-                                </label>
-                            </div>
-
-                            <div class="owner-checkbox-container">
-                                <input type="checkbox" class="owner-checkbox" id="authorityCheckbox" checked>
-                                <label for="authorityCheckbox" class="owner-checkbox-label">
-                                    I confirm that I have the authority to register this business and agree to business terms
-                                </label>
-                            </div>
-
-                            <form action="#" method="post"> 
-                                <!-- CSRF token will be handled by server-side template -->
+                    
                                 <div class="d-flex justify-content-between owner-mt-4">
                                     <!-- Left-aligned Back button -->
-                                    <button type="button" class="btn btn-owner-back"  onclick="goBack()">
+                                    <button type="button" class="btn btn-owner-back" onclick="goBack()">
                                         <i class="fa-solid fa-arrow-left me-2"></i> Back
                                     </button>
                                     
@@ -131,9 +132,9 @@
                                     </button>
                                 </div>
                             </form>
-                        
                         </div>
                     </div>
+
                 </div>
             </div>
         </div> 

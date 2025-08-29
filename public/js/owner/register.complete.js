@@ -1,9 +1,15 @@
-
 /**
  * Navigate to dashboard
  */
 function goToDashboard() {
-    // TODO: Add navigation to dashboard
-    alert('Redirecting to dashboard...');
-    // window.location.href = '/dashboard';
+    window.location.href = '/dashboard-salonowner/appointments';
 }
+
+// DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the dashboard button
+    const dashboardBtn = document.querySelector('.btn-owner-continue');
+    if (dashboardBtn) {
+        dashboardBtn.addEventListener('click', goToDashboard);
+    }
+});

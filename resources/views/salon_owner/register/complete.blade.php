@@ -96,8 +96,8 @@
                             </div>
 
                             <!-- Dashboard Button -->
-                            <button type="button" class="btn btn-owner-dashboard" onclick="goToDashboard()">
-                                Go to Dashboard <i class="fa-solid fa-arrow-right ms-2"></i>
+                            <button type="button" class="btn btn-owner-continue ">
+                                <i class="fa-solid fa-gauge me-2"></i>Go to Dashboard
                             </button>
                         </div>
                     </div>

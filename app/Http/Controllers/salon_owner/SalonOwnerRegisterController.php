@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\salon_owner;
 
 use App\Models\Salon;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
-class SalonOwnerController extends Controller
+class SalonOwnerRegisterController extends Controller
 {
     // Step 1: Show registration form
     public function create()

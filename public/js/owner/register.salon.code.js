@@ -1,10 +1,16 @@
-
 /**
  * Copy salon code to clipboard
  * Shows success message and handles fallback for older browsers
  */
 function copyCode() {
-    const code = 'G1P441219';
+    // Get the salon code from the DOM instead of hardcoding
+    const codeElement = document.querySelector('.owner-salon-code');
+    const code = codeElement ? codeElement.textContent.trim() : '';
+    
+    if (!code) {
+        console.error('Salon code not found');
+        return;
+    }
     
     // Try modern clipboard API first
     navigator.clipboard.writeText(code).then(() => {
@@ -70,7 +76,18 @@ function goBack() {
  * @param {Event} event - Form submit event
  */
 function handleContinue(event) {
-    event.preventDefault();
-    // TODO: Add navigation to registration complete page
-    alert('Proceeding to registration complete page...');
+    // Remove preventDefault to allow form submission
+    // The form will handle the navigation to the registration complete page
+    
+    // Optional: Add any validation or tracking here
+    console.log('Proceeding to registration complete page...');
+    
+    // Let the form submit naturally
+    return true;
 }
+
+// Optional: Initialize page functionality when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Add any initialization code here if needed
+    console.log('Salon code page loaded');
+});

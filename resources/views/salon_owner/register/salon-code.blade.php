@@ -91,28 +91,33 @@
                                 <div class="owner-code-generated-text">Salon Code Generated!</div>
                                 <!-- Generated Code -->
                                 <div class="owner-salon-code-wrapper">
-                                    <div class="owner-salon-code">G1P441219</div>
+                                    <div class="owner-salon-code">{{ $salonCode }}</div>
                                 </div>
+                                
                                 <br>
                                 <!-- Copy Button -->
                                 <button type="button" class="owner-copy-btn" onclick="copyCode()">
                                     <i class="fa-regular fa-copy"></i>
                                     Copy Code
                                 </button>
+                                
                             </div>
 
                             <!-- Form Section -->
-                            <form action="#" method="post"> 
-                                <input type="hidden" name="salon_code" value="G1P441219">
+                            <form action="{{ route('salon.register.complete') }}" method="GET">
+                                {{-- No @csrf needed for GET method --}}
+                                {{-- Hidden field to pass salon code to next page --}}
+                                <input type="hidden" name="salon_code" value="{{ $salonCode }}">
+                                
                                 <!-- Navigation Buttons -->
                                 <div class="d-flex justify-content-between owner-mt-4">
                                     <!-- Back Button -->
-                                    <button type="button" class="btn btn-owner-back " onclick="goBack()">
+                                    <button type="button" class="btn btn-owner-back" onclick="goBack()">
                                         <i class="fa-solid fa-arrow-left me-2"></i> Back
                                     </button>
-                                  
-                                    <!-- Continue Button -->
-                                    <button type="submit" class="btn btn-owner-continue" onclick="handleContinue(event)">
+                                    
+                                    <!-- Continue Button - No onclick handler -->
+                                    <button type="submit" class="btn btn-owner-continue">
                                         Continue<i class="fa-solid fa-arrow-right ms-2"></i>
                                     </button>
                                 </div>

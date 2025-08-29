@@ -69,7 +69,8 @@
                             </h4>
                             <p class="card-text text-muted text-start mb-4">Tell us about your salon and business</p>
 
-                            <form action="#" method="post"> 
+                            <form action="{{ route('salon.register.confirm') }}" method="post"> 
+                                @csrf
                                 <!-- CSRF token will be handled by server-side template -->
                                 
                                 <!-- Salon Name -->
@@ -79,7 +80,7 @@
                                         <span class="owner-input-group-text-custom">
                                             <i class="fa-solid fa-building"></i>
                                         </span>
-                                        <input type="text" class="form-control" id="salonName" placeholder="&nbsp;&nbsp;&nbsp; Enter your salon name" required>
+                                        <input type="text" class="form-control" id="salonName" name="salonname" placeholder="&nbsp;&nbsp;&nbsp; Enter your salon name" required>
                                     </div>
                                 </div>
 
@@ -91,7 +92,7 @@
                                             <span class="owner-input-group-text-custom">
                                                 <i class="fa-solid fa-user"></i>
                                             </span>
-                                            <input type="text" class="form-control" id="ownerFirstName" placeholder="&nbsp;&nbsp;&nbsp; Enter first name" required>
+                                            <input type="text" class="form-control" id="ownerFirstName" name="ownerFirstName" placeholder="&nbsp;&nbsp;&nbsp; Enter first name" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -100,7 +101,7 @@
                                             <span class="owner-input-group-text-custom">
                                                 <i class="fa-solid fa-user"></i>
                                             </span>
-                                            <input type="text" class="form-control" id="ownerLastName" placeholder="&nbsp;&nbsp;&nbsp; Enter last name" required>
+                                            <input type="text" class="form-control" id="ownerLastName" name="ownerLastName" placeholder="&nbsp;&nbsp;&nbsp; Enter last name" required>
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +114,7 @@
                                             <span class="owner-input-group-text-custom">
                                                 <i class="fa-regular fa-envelope"></i>
                                             </span>
-                                            <input type="email" class="form-control" id="emailAddress" placeholder="&nbsp;&nbsp;&nbsp; Enter email address" required>
+                                            <input type="email" class="form-control" id="emailAddress" name="emailAddress" placeholder="&nbsp;&nbsp;&nbsp; Enter email address" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -122,7 +123,7 @@
                                             <span class="owner-input-group-text-custom">
                                                 <i class="fa-solid fa-phone"></i>
                                             </span>
-                                            <input type="tel" class="form-control" id="phoneNumber" placeholder="&nbsp;&nbsp;&nbsp; (555) 123-4567" required>
+                                            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="&nbsp;&nbsp;&nbsp; (555) 123-4567" required>
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +135,7 @@
                                         <span class="owner-input-group-text-custom">
                                             <i class="fa-solid fa-location-dot"></i>
                                         </span>
-                                        <input type="text" class="form-control" id="businessAddress" placeholder="&nbsp;&nbsp;&nbsp; Enter street address" required>
+                                        <input type="text" class="form-control" id="businessAddress" name="businessAddress" placeholder="&nbsp;&nbsp;&nbsp; Enter street address" required>
                                     </div>
                                 </div>
 
@@ -143,13 +144,13 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="city" class="owner-form-label">City <span class="text-danger">*</span></label>
                                         <div class="owner-input-group owner-input-group-custom">
-                                            <input type="text" class="form-control" id="city" placeholder="&nbsp;&nbsp;&nbsp; Enter city" required>
+                                            <input type="text" class="form-control" id="city" name="city" placeholder="&nbsp;&nbsp;&nbsp; Enter city" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="state" class="owner-form-label">State <span class="text-danger">*</span></label>
                                         <div class="owner-input-group owner-input-group-custom">
-                                            <select class="form-control" id="state" required>
+                                            <select class="form-control" id="state" name="state" required>
                                                 <option value="">&nbsp;&nbsp;&nbsp;Select state</option>
                                                 <option value="CA">&nbsp;&nbsp;&nbsp;California</option>
                                                 <option value="NY">&nbsp;&nbsp;&nbsp;New York</option>
@@ -169,7 +170,7 @@
                                             <span class="owner-input-group-text-custom">
                                                 <i class="fa-solid fa-lock"></i>
                                             </span>
-                                            <input type="password" class="form-control" id="password" placeholder="&nbsp;&nbsp;&nbsp; Create password" required>
+                                            <input type="password" class="form-control" id="password" name="password" placeholder="&nbsp;&nbsp;&nbsp; Create password" required>
                                             <button type="button" class="owner-password-toggle" onclick="toggleOwnerPassword('password')">
                                                 <i class="fa-solid fa-eye"></i>
                                             </button>
@@ -181,19 +182,19 @@
                                             <span class="owner-input-group-text-custom">
                                                 <i class="fa-solid fa-lock"></i>
                                             </span>
-                                            <input type="password" class="form-control" id="confirmPassword" placeholder="&nbsp;&nbsp;&nbsp; Confirm password" required>
+                                            <input type="password" class="form-control" id="confirmPassword" name="password_confirmation" placeholder="&nbsp;&nbsp;&nbsp; Confirm password" required>
                                             <button type="button" class="owner-password-toggle" onclick="toggleOwnerPassword('confirmPassword')">
                                                 <i class="fa-solid fa-eye"></i>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-
+                                
                                 <!-- Website -->
                                 <div class="mb-3">
                                     <label for="website" class="owner-form-label">Website (optional)</label>
                                     <div class="owner-input-group owner-input-group-custom">
-                                        <input type="url" class="form-control" id="website" placeholder="&nbsp;&nbsp;&nbsp;https://yourwebsite.com">
+                                        <input type="url" class="form-control" id="website" name="website" placeholder="&nbsp;&nbsp;&nbsp;https://yourwebsite.com">
                                     </div>
                                 </div>
 
@@ -201,14 +202,14 @@
                                 <div class="mb-3">
                                     <label for="businessLicense" class="owner-form-label">Business License Number (optional)</label>
                                     <div class="owner-input-group owner-input-group-custom">
-                                        <input type="text" class="form-control" id="businessLicense" placeholder="&nbsp;&nbsp;&nbsp; Enter business license number">
+                                        <input type="text" class="form-control" id="businessLicense" name="businessLicense" placeholder="&nbsp;&nbsp;&nbsp; Enter business license number">
                                     </div>
                                 </div>
-
+                                
                                 <!-- Description -->
                                 <div class="mb-4">
                                     <label for="description" class="owner-form-label">Description</label>
-                                    <textarea class="form-control owner-textarea" id="description" rows="4" placeholder="Describe your salon, services, and what makes you special..."></textarea>
+                                    <textarea class="form-control owner-textarea" id="description" name="description" rows="4" placeholder="Describe your salon, services, and what makes you special..."></textarea>
                                 </div>
 
                                 <!-- Submit Button -->
