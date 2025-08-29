@@ -9,6 +9,7 @@ use App\Http\Controllers\PetOwner\Mypage\PetController;
 
 use App\Http\Controllers\PetOwner\Mypage\ProfileController;
 
+use App\Http\Controllers\salon_owner\SalonOwnerRegisterController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -122,22 +123,29 @@ Route::get('/login-salonowner', function () {
    Salon Owner side  -Register 
    ===================================================== */
 
-//Owner Register - confirm //
-Route::get('/register-salonowner/confirm', function () {
-    return view('salon_owner/register/confirm');
-});
+// //Owner Register - confirm //
+// Route::get('/register-salonowner/confirm', function () {
+//     return view('salon_owner/register/confirm');
+// });
 
-//Owner Register -saloninfo //
-Route::get('/register-salonowner/salon-info', function () {
-    return view('salon_owner/register/salon-info');
-});
-//Owner Register -saloncode //
-Route::get('/register-salonowner/salon-code', function () {
-    return view('salon_owner/register/salon-code');
-});
-//Owner Register -complete //
-Route::get('/register-salonowner/complete', function () {
-    return view('salon_owner/register/complete');
+// //Owner Register -saloninfo //
+// Route::get('/register-salonowner/salon-info', function () {
+//     return view('salon_owner/register/salon-info');
+// });
+// //Owner Register -saloncode //
+// Route::get('/register-salonowner/salon-code', function () {
+//     return view('salon_owner/register/salon-code');
+// });
+// //Owner Register -complete //
+// Route::get('/register-salonowner/complete', function () {
+//     return view('salon_owner/register/complete');
+// });
+
+Route::prefix('register-salonowner')->name('salon.register.')->group(function () {
+    Route::get('/', [SalonOwnerRegisterController::class, 'create'])->name('create');
+    Route::post('/confirm', [SalonOwnerRegisterController::class, 'confirm'])->name('confirm');
+    Route::post('/store', [SalonOwnerRegisterController::class, 'store'])->name('store');
+    Route::get('/complete', [SalonOwnerRegisterController::class, 'complete'])->name('complete');
 });
 
 //Owner Appointments Calendar //
