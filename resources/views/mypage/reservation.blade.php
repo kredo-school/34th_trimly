@@ -46,6 +46,8 @@
         .appointment-details {
             display: flex;
             flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
         }
 
         .appointment-title {
@@ -227,8 +229,10 @@
                     <div class="appointment-actions">
                         <span class="price">$85</span>
                         {{-- Rebook --}}
-                        <a href="#" class="btn btn-action btn-again" data-bs-toggle="modal"
-                            data-bs-target="#editReserveModal1">Book Again</a>
+                        <button type="button" class="btn btn-action btn-again" data-bs-toggle="modal"
+                            data-bs-target="#rebookReserveModal1">
+                            Book Again
+                        </button>
                     </div>
                 </div>
 
@@ -253,7 +257,7 @@
             {{-- Include the modal here --}}
             @include('mypage.modal.delete-reserve')
             @include('mypage.modal.edit-reserve')
-
+            @include('mypage.modal.rebook-reserve')
         </div>
     </div>
 @endsection
