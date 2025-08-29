@@ -12,19 +12,6 @@
             margin-bottom: 1.5rem;
         }
 
-        .section-header h2 {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #6c757d;
-            margin: 0;
-        }
-
-        .section-header p {
-            font-size: 0.9rem;
-            color: #6c757d;
-            margin: 0;
-        }
-
         /* appointment-card */
         .appointment-card {
             display: flex;
@@ -46,6 +33,8 @@
         .appointment-details {
             display: flex;
             flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
         }
 
         .appointment-title {
@@ -134,7 +123,7 @@
                 <div class="mb-2">
                     <div class="section-header">
                         <div>
-                            <h2>Upcoming Appointments</h2>
+                            <h4 class="fw-bold">Upcoming Appointments</h4>
                             <p>Your scheduled grooming appointments</p>
                         </div>
                         <a href="#" class="btn btn-primary">New Appointment</a>
@@ -205,8 +194,8 @@
             <div class="card p-4 mb-4 shadow-sm">
                 <div class="section-header">
                     <div>
-                        <h2 class="text-muted">Appointment History</h2>
-                        <p class="text-muted">Your past and cancelled appointments</p>
+                        <h4 class="fw-bold">Appointment History</h4>
+                        <p>Your past and cancelled appointments</p>
                     </div>
                 </div>
 
@@ -227,8 +216,10 @@
                     <div class="appointment-actions">
                         <span class="price">$85</span>
                         {{-- Rebook --}}
-                        <a href="#" class="btn btn-action btn-again" data-bs-toggle="modal"
-                            data-bs-target="#editReserveModal1">Book Again</a>
+                        <button type="button" class="btn btn-action btn-again" data-bs-toggle="modal"
+                            data-bs-target="#rebookReserveModal1">
+                            Book Again
+                        </button>
                     </div>
                 </div>
 
@@ -253,7 +244,7 @@
             {{-- Include the modal here --}}
             @include('mypage.modal.delete-reserve')
             @include('mypage.modal.edit-reserve')
-
+            @include('mypage.modal.rebook-reserve')
         </div>
     </div>
 @endsection

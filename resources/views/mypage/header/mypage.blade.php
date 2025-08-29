@@ -86,7 +86,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('mypage.reservation.index') }}">
                                     <i class="fa-solid fa-calendar-alt me-1"></i> Reservations
                                 </a>
                             </li>
