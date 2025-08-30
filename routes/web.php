@@ -9,7 +9,15 @@ use App\Http\Controllers\PetOwner\Mypage\PetController;
 
 use App\Http\Controllers\PetOwner\Mypage\ProfileController;
 
+
+/* =====================================================
+   Salon Owner side  
+   ===================================================== */
+//Register//
 use App\Http\Controllers\salon_owner\SalonOwnerRegisterController;
+//Dashborard - service//   
+use App\Http\Controllers\salon_owner\SalonOwnerServiceController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -167,9 +175,18 @@ Route::get('/salon-owner/calendar', function () {
 Route::get('dashboard-salonowner/settings', function () {
     return view('salon_owner/dashboard/settings');
 });
-// settings
+// services
 Route::get('dashboard-salonowner/services', function () {
     return view('salon_owner/dashboard/services');
 });
-
-
+// API routes for services (Ajax calls)
+Route::prefix('api/salon-owner')->middleware(['web'])->group(function () {
+    Route::prefix('dashboard-salonowner')->group(function () {
+        Route::get('/services', [SalonOwnerServiceController::class, 'index']);
+        Route::get('/services/features', [SalonOwnerServiceController::class, 'features']); // この行を追加
+        Route::get('/services/{id}', [SalonOwnerServiceController::class, 'show']);
+        Route::post('/services', [SalonOwnerServiceController::class, 'store']);
+        Route::put('/services/{id}', [SalonOwnerServiceController::class, 'update']);
+        Route::delete('/services/{id}', [SalonOwnerServiceController::class, 'destroy']);
+    });
+});
