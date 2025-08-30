@@ -387,7 +387,7 @@
             </div>
         </div>
 
-        <a href="/mypage" class="btn-another">
+        <a href="/mypage/reservation" class="btn-another">
             Book Another Appointment →
         </a>
     </div>

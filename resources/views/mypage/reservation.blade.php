@@ -126,7 +126,7 @@
                             <h4 class="fw-bold">Upcoming Appointments</h4>
                             <p>Your scheduled grooming appointments</p>
                         </div>
-                        <a href="#" class="btn btn-primary">New Appointment</a>
+                        <a href="/mypage/reservation/new" class="btn btn-primary">New Appointment</a>
                     </div>
 
                     {{-- 今後の予約情報を foreach ループで表示 --}}

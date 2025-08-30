@@ -349,22 +349,38 @@ class ReservationController extends Controller
             return view('mypage.reservation.new.complete', compact('bookingDetails'));
         }
         
+        // Get salon to get salon_code
+        $salon = Salon::find($request->input('salon_id'));
+        if (!$salon) {
+            return redirect()->back()->with('error', 'Invalid salon selected.');
+        }
+        
+        // Get service to calculate end time
+        $service = ServiceItem::find($request->input('service_id'));
+        if (!$service) {
+            return redirect()->back()->with('error', 'Invalid service selected.');
+        }
+        
+        // Calculate appointment times
+        $appointmentDateTime = Carbon::parse($request->input('date') . ' ' . $request->input('time'));
+        $appointmentEndTime = $appointmentDateTime->copy()->addMinutes($service->duration);
+        
+        // Generate confirmation number first
+        $confirmationNumber = 'TRM-' . date('Y') . '-' . str_pad(Appointment::max('id') + 1, 6, '0', STR_PAD_LEFT);
+        
         // Create appointment
         $appointment = new Appointment();
-        $appointment->salon_id = $request->input('salon_id');
+        $appointment->confirmation_number = $confirmationNumber;
+        $appointment->salon_code = $salon->salon_code;
         $appointment->pet_id = $request->input('pet_id');
         $appointment->service_item_id = $request->input('service_id');
-        $appointment->appointment_date = Carbon::parse($request->input('date') . ' ' . $request->input('time'));
+        $appointment->appointment_date = $appointmentDateTime->toDateString();
+        $appointment->appointment_time_start = $appointmentDateTime->toTimeString();
+        $appointment->appointment_time_end = $appointmentEndTime->toTimeString();
         $appointment->status = 1; // Pending status
-        $appointment->notes = '';
         $appointment->save();
         
-        // Generate confirmation number
-        $confirmationNumber = 'TRM-' . date('Y') . '-' . str_pad($appointment->id, 6, '0', STR_PAD_LEFT);
-        
-        // Get data for display
-        $salon = Salon::find($request->input('salon_id'));
-        $service = ServiceItem::find($request->input('service_id'));
+        // Get data for display (already fetched above)
         $pet = Pet::find($request->input('pet_id'));
         
         // Format duration
