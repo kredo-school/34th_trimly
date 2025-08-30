@@ -66,7 +66,7 @@
             </div>
 
             <div class="actions">
-                <a href="/mypage" class="btn btn-back">← Back</a>
+                <a href="/mypage/profile" class="btn btn-back">← Back</a>
                 <button class="btn btn-continue" id="continueBtn" disabled>Continue →</button>
             </div>
         </div>

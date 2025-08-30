@@ -141,13 +141,44 @@
                     // Submit form to complete booking
                     const form = document.createElement('form');
                     form.method = 'POST';
-                    form.action = '{{ route("reservation.complete") }}';
+                    form.action = '/mypage/reservation/new/complete';
                     
                     const csrfToken = document.createElement('input');
                     csrfToken.type = 'hidden';
                     csrfToken.name = '_token';
                     csrfToken.value = '{{ csrf_token() }}';
                     form.appendChild(csrfToken);
+                    
+                    // Add booking data to form
+                    const salonId = document.createElement('input');
+                    salonId.type = 'hidden';
+                    salonId.name = 'salon_id';
+                    salonId.value = '{{ $bookingData["salon_id"] }}';
+                    form.appendChild(salonId);
+                    
+                    const serviceId = document.createElement('input');
+                    serviceId.type = 'hidden';
+                    serviceId.name = 'service_id';
+                    serviceId.value = '{{ $bookingData["service_id"] }}';
+                    form.appendChild(serviceId);
+                    
+                    const petId = document.createElement('input');
+                    petId.type = 'hidden';
+                    petId.name = 'pet_id';
+                    petId.value = '{{ $bookingData["pet_id"] }}';
+                    form.appendChild(petId);
+                    
+                    const date = document.createElement('input');
+                    date.type = 'hidden';
+                    date.name = 'date';
+                    date.value = '{{ $bookingData["date"] }}';
+                    form.appendChild(date);
+                    
+                    const time = document.createElement('input');
+                    time.type = 'hidden';
+                    time.name = 'time';
+                    time.value = '{{ $bookingData["time"] }}';
+                    form.appendChild(time);
                     
                     document.body.appendChild(form);
                     form.submit();
