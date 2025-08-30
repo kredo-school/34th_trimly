@@ -88,7 +88,7 @@
        @section('content')
            <div class="card p-4 mb-4">
                <div class="d-flex justify-content-between align-items-center mb-4">
-                   <h4 class="card-title mb-0">Pet Owner Information</h4>
+                   <h4 class="mb-0"><i class="fa-solid fa-user me-1"></i>Pet Owner Information</h4>
                    {{-- edit button --}}
                    <a href="{{ route('mypage.profile.edit') }}" class="btn btn-primary">
                        <i class="fa-regular fa-pen-to-square"></i>
@@ -144,7 +144,7 @@
 
            {{--Password reset--}}
            <div class="card p-4">
-               <h4 class="card-title mb-4">Change Password</h4>
+               <h4 class="mb-4"><i class="fa-solid fa-lock me-2"></i>Change Password</h4>
 
                <form action="{{ route('mypage.password.update') }}" method="POST">
                    @csrf

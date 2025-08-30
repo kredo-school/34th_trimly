@@ -11,4 +11,10 @@ class SalonCode extends Model
     'petowner_id',
 ];
 
+// 追加：文字キー salon_code で Salon に紐づく
+    public function salon()
+    {
+        return $this->belongsTo(\App\Models\Salon::class, 'salon_code', 'salon_code');
+    }
+
 }

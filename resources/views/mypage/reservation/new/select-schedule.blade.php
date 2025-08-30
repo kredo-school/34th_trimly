@@ -76,7 +76,7 @@
                             @if($dayInfo === null)
                                 <div class="day-cell empty"></div>
                             @else
-                                <div class="day-cell{{ $dayInfo['isToday'] ? ' today' : '' }}" data-day="{{ $dayInfo['day'] }}">
+                                <div class="day-cell{{ $dayInfo['isToday'] ? ' today' : '' }}" data-day="{{ $year }}-{{ str_pad($month, 2, '0', STR_PAD_LEFT) }}-{{ str_pad($dayInfo['day'], 2, '0', STR_PAD_LEFT) }}">
                                     <div class="day-number">{{ $dayInfo['day'] }}</div>
                                     @if($dayInfo['isToday'])
                                         <div class="day-label">Today</div>
@@ -109,8 +109,45 @@
             const dayCells = document.querySelectorAll('.day-cell:not(.empty)');
             const timeSlots = document.querySelectorAll('.time-slot');
             const continueBtn = document.getElementById('continueBtn');
+            const prevBtn = document.querySelector('.nav-btn.prev');
+            const nextBtn = document.querySelector('.nav-btn.next');
             let selectedDate = null;
             let selectedTime = null;
+
+            // Month navigation
+            prevBtn.addEventListener('click', function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const currentMonth = {{ $month }};
+                const currentYear = {{ $year }};
+                let newMonth = currentMonth - 1;
+                let newYear = currentYear;
+                
+                if (newMonth < 1) {
+                    newMonth = 12;
+                    newYear = currentYear - 1;
+                }
+                
+                urlParams.set('month', newMonth);
+                urlParams.set('year', newYear);
+                window.location.href = window.location.pathname + '?' + urlParams.toString();
+            });
+
+            nextBtn.addEventListener('click', function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const currentMonth = {{ $month }};
+                const currentYear = {{ $year }};
+                let newMonth = currentMonth + 1;
+                let newYear = currentYear;
+                
+                if (newMonth > 12) {
+                    newMonth = 1;
+                    newYear = currentYear + 1;
+                }
+                
+                urlParams.set('month', newMonth);
+                urlParams.set('year', newYear);
+                window.location.href = window.location.pathname + '?' + urlParams.toString();
+            });
 
             dayCells.forEach(cell => {
                 cell.addEventListener('click', function() {

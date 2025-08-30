@@ -37,7 +37,6 @@
             color: #c8a882 !important;
         }
 
-        /* レスポンシブ対応の調整 */
         @media (max-width: 991.98px) {
             .navbar-collapse {
                 flex-direction: column;
@@ -62,7 +61,7 @@
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid d-flex align-items-center">
                 <a class="navbar-brand d-flex align-items-center p-0" href="#">
-                    <img src="{{ asset('images/Trimly Logo.png') }}" alt="Trimly Logo" class="me-2 logo">
+                    <img src="{{ asset('images/Trimly Logo.png') }}" alt="Trimly Logo" class="logo">
                     <p class="fw-bold text-muted mb-0 fs-5">Trimly</p>
                 </a>
                 <button class="navbar-toggler ms-auto d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,28 +71,28 @@
                     <div class="d-flex flex-grow-1 justify-content-center">
                         <ul class="navbar-nav mb-2 mb-lg-0">
                             <li class="nav-item ">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('mypage.profile') }}">
                                     <i class="fa-solid fa-user me-1"></i> Profile
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('mypage.pets.index') }}">
                                     <i class="fa-solid fa-heart me-1"></i> My Pets
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('mypage.salon') }}">
                                     <i class="fa-solid fa-store me-1"></i> My Salons
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('mypage.reservation.index') }}">
                                     <i class="fa-solid fa-calendar-alt me-1"></i> Reservations
                                 </a>
                             </li>
                         </ul>
                     </div>
-                    <form class="d-flex ms-auto" action="#" method="POST">
+                    <form class="d-flex ms-auto" action="{{ route('pet_owner.logout') }}" method="POST">
                         @csrf
                         <button class="btn btn-logout" type="submit">Logout</button>
                     </form>
@@ -101,6 +100,3 @@
             </div>
         </nav>
     </header>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>

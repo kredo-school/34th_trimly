@@ -84,6 +84,12 @@
                     <h2>Welcome Back!</h2>
                     <p>Sign in to manage your pets and book appointments</p>
                     <div class="bg-white shadow-sm rounded-5 p-4">
+                       
+                        @if (session('status'))
+                            <div class="alert alert-success mb-3">
+                                {{ session('status') }}
+                            </div>
+                        @endif
 
                         @if ($errors->has('email'))
                             <div class="alert alert-danger mb-3">
