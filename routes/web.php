@@ -15,6 +15,8 @@ use App\Http\Controllers\PetOwner\Mypage\ProfileController;
    ===================================================== */
 //Register//
 use App\Http\Controllers\salon_owner\SalonOwnerRegisterController;
+//Login//
+use App\Http\Controllers\salon_owner\SalonOwnerLoginController;
 //Dashborard - service//   
 use App\Http\Controllers\salon_owner\SalonOwnerServiceController;
 
@@ -118,14 +120,21 @@ Route::get('/mypage/reserve', function () {
 
 
 
+
 /* =====================================================
    Salon Owner side  - Login
    ===================================================== */
 
-//Owner Login//
+// Owner Login Page (View)
 Route::get('/login-salonowner', function () {
     return view('salon_owner/login');
 });
+
+// Owner Login API Routes
+Route::post('/salon-owner/login', [SalonOwnerLoginController::class, 'login']);
+Route::post('/salon-owner/logout', [SalonOwnerLoginController::class, 'logout']);
+Route::get('/salon-owner/profile', [SalonOwnerLoginController::class, 'profile']);
+Route::get('/salon-owner/check', [SalonOwnerLoginController::class, 'check']);
 
 /* =====================================================
    Salon Owner side  -Register 
