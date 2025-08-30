@@ -5,11 +5,19 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PetOwner\RegisterController;
 use App\Http\Controllers\PetOwner\LoginController;
 use App\Http\Controllers\PetOwner\Mypage\PetController;
-use App\Http\Controllers\PetOwner\Mypage\ProfileController;
+use App\Http\Controllers\PetOwner\Mypage\ProfileController; 
 use App\Http\Controllers\PetOwner\Mypage\SalonController;
 use App\Http\Controllers\PetOwner\Mypage\ReservationController as MypageReservationController;
-
+/* =====================================================
+   Salon Owner side  
+   ===================================================== */
+//Register//
 use App\Http\Controllers\salon_owner\SalonOwnerRegisterController;
+//Login//
+use App\Http\Controllers\salon_owner\SalonOwnerLoginController;
+//Dashborard - service//   
+use App\Http\Controllers\salon_owner\SalonOwnerServiceController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -85,14 +93,21 @@ Route::middleware(['auth:petowner'])->group(function () {
 
 
 
+
 /* =====================================================
    Salon Owner side  - Login
    ===================================================== */
 
-//Owner Login//
+// Owner Login Page (View)
 Route::get('/login-salonowner', function () {
     return view('salon_owner/login');
 });
+
+// Owner Login API Routes
+Route::post('/salon-owner/login', [SalonOwnerLoginController::class, 'login']);
+Route::post('/salon-owner/logout', [SalonOwnerLoginController::class, 'logout']);
+Route::get('/salon-owner/profile', [SalonOwnerLoginController::class, 'profile']);
+Route::get('/salon-owner/check', [SalonOwnerLoginController::class, 'check']);
 
 /* =====================================================
    Salon Owner side  -Register 
@@ -142,7 +157,18 @@ Route::get('dashboard-salonowner/customers', function () {
 Route::get('dashboard-salonowner/settings', function () {
     return view('salon_owner/dashboard/settings');
 });
-// settings
+// services
 Route::get('dashboard-salonowner/services', function () {
     return view('salon_owner/dashboard/services');
+});
+// API routes for services (Ajax calls)
+Route::prefix('api/salon-owner')->middleware(['web'])->group(function () {
+    Route::prefix('dashboard-salonowner')->group(function () {
+        Route::get('/services', [SalonOwnerServiceController::class, 'index']);
+        Route::get('/services/features', [SalonOwnerServiceController::class, 'features']); // この行を追加
+        Route::get('/services/{id}', [SalonOwnerServiceController::class, 'show']);
+        Route::post('/services', [SalonOwnerServiceController::class, 'store']);
+        Route::put('/services/{id}', [SalonOwnerServiceController::class, 'update']);
+        Route::delete('/services/{id}', [SalonOwnerServiceController::class, 'destroy']);
+    });
 });

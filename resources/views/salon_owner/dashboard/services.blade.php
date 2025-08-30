@@ -401,5 +401,6 @@
    
    @push('scripts')
    <script src="{{ asset('js/owner/dashboard.js') }}" defer></script>
-  
+   <script src="{{ asset('js/owner/service-api.js') }}" defer></script>
+
    @endpush

@@ -34,6 +34,38 @@ function toggleMobileMenu() {
         }
     }
  });
+
+ // Handle logout
+document.addEventListener('DOMContentLoaded', function() {
+    const logoutForm = document.getElementById('logoutForm');
+    if (logoutForm) {
+        logoutForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            try {
+                const response = await fetch('/salon-owner/logout', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': getCsrfToken(),
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    window.location.href = '/login-salonowner';
+                }
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        });
+    }
+});
+
+// Get CSRF token function
+function getCsrfToken() {
+    const token = document.querySelector('meta[name="csrf-token"]');
+    return token ? token.getAttribute('content') : '';
+}
  
  // =====================================================
  // Salon Code Functions

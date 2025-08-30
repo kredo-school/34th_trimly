@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Dashboard') - Trimly Admin</title>
     
     <!-- Bootstrap CSS -->
@@ -75,11 +76,15 @@
                         <span>Salon Code</span>
                     </a>
                     
-                    <a href="/login-salonowner" class="btn-salon-code d-none d-sm-flex btn-owner-back">
-                        <i class="fa-solid fa-right-from-bracket me-2"></i>
-                        <span class="d-none d-sm-inline">Logout</span>
-                    </a>
-                </div>
+                  <!-- Logout Form -->
+             <form id="logoutForm" action="/salon-owner/logout" method="POST" style="display: inline;">
+                 @csrf
+                   <button type="submit" class="btn-salon-code d-none d-sm-flex btn-owner-back" style="border: none;">
+                     <i class="fa-solid fa-right-from-bracket me-2"></i>
+                  <span class="d-none d-sm-inline">Logout</span>
+                </button>
+    </form>
+</div>
             </div>
         </nav>
     </header>
