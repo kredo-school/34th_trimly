@@ -56,7 +56,7 @@
                         <a href="/dashboard-salonowner/customers" class="menu-dropdown-item {{ request()->is('dashboard-salonowner/customers') ? 'active' : '' }}">
                             <i class="fa-regular fa-user"></i> Customers
                         </a>
-                        <a href="/dashboard-salonowner/calendar" class="menu-dropdown-item {{ request()->is('dashboard-salonowner/calendar') ? 'active' : '' }}">
+                        <a href="/salon-owner/calendar" class="menu-dropdown-item {{ request()->is('salon-owner/calendar') ? 'active' : '' }}">
                             <i class="fa-regular fa-calendar-days"></i> Calendar
                         </a>
                         <a href="/dashboard-salonowner/services" class="menu-dropdown-item {{ request()->is('dashboard-salonowner/services') ? 'active' : '' }}">
