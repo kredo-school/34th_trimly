@@ -41,7 +41,7 @@ class SalonOwnerLoginController extends Controller
             // Since we don't have auth guard configured, we'll use session
             $request->session()->put('salon_owner_id', $salon->id);
             $request->session()->put('salon_code', $salon->salon_code);
-
+            $request->session()->put('salon_name', $salon->salonname);
             return response()->json([
                 'success' => true,
                 'message' => 'Login successful',
@@ -161,3 +161,9 @@ class SalonOwnerLoginController extends Controller
         ], 200);
     }
 }
+/**
+ * Get navigation data for authenticated salon owner
+ *
+ * @param Request $request
+ * @return array
+ */
