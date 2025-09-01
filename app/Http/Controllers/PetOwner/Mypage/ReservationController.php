@@ -62,15 +62,37 @@ class ReservationController extends Controller
             'service_item_id' => 'required|exists:service_items,id',
         ]);
 
-        $appointmentDateTime = \Carbon\Carbon::parse($request->appointment_date . ' ' . $request->appointment_time_start);
-        $service = $appointment->salon->serviceItems()->find($request->service_item_id);
-        $appointmentEndTime = $appointmentDateTime->copy()->addMinutes($service->duration);
+        $salon = $appointment->salon;
+        $service = $salon->serviceItems()->find($request->service_item_id);
 
+        if (!$salon || !$service) {
+            return back()->with('error', 'Salon or service not found.');
+        }
+
+        // 🔹 新しい日時を Carbon で生成
+        $appointmentDateTime = \Carbon\Carbon::parse($request->appointment_date . ' ' . $request->appointment_time_start);
+        $appointmentEndTime  = $appointmentDateTime->copy()->addMinutes($service->duration);
+
+        // 🔹 営業曜日チェック
+        $dayName = $appointmentDateTime->format('l'); // Monday, Tuesday...
+        if (!$salon->openDays->pluck('day_of_week')->contains($dayName)) {
+            return back()->with('error', 'The salon is closed on the selected day.');
+        }
+
+        // 🔹 営業時間チェック
+        $openTime  = Carbon::parse($request->appointment_date . ' ' . $salon->open_time);
+        $closeTime = Carbon::parse($request->appointment_date . ' ' . $salon->close_time);
+
+        if ($appointmentDateTime->lt($openTime) || $appointmentEndTime->gt($closeTime)) {
+            return back()->with('error', 'The selected time is outside salon business hours.');
+        }
+
+        // 🔹 更新
         $appointment->update([
-            'appointment_date' => $appointmentDateTime,
+            'appointment_date'       => $appointmentDateTime,
             'appointment_time_start' => $appointmentDateTime->toTimeString(),
-            'appointment_time_end' => $appointmentEndTime->toTimeString(),
-            'service_item_id' => $request->service_item_id,
+            'appointment_time_end'   => $appointmentEndTime->toTimeString(),
+            'service_item_id'        => $service->id,
         ]);
 
         return back()->with('success', 'Appointment updated successfully.');
