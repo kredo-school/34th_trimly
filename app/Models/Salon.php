@@ -52,6 +52,6 @@ class Salon extends Model
 
     public function serviceItems()
     {
-        return $this->hasMany(ServiceItem::class);
+        return $this->hasMany(ServiceItem::class, 'salon_code', 'salon_code');
     }
 }

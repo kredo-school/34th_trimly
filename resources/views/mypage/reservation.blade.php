@@ -82,8 +82,9 @@
         /* actions */
         .appointment-actions {
             display: flex;
-            align-items: center;
-            gap: 10px;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
         }
 
         .appointment-actions .price {
@@ -117,9 +118,20 @@
 
 @section('content')
     <div class="container my-4">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="row justify-content-center">
             <div class="card p-4 mb-4 shadow-sm">
-                {{-- Upcoming Appointments セクション --}}
+                {{-- Upcoming Appointments --}}
                 <div class="mb-2">
                     <div class="section-header">
                         <div>
@@ -129,68 +141,51 @@
                         <a href="/mypage/reservation/new" class="btn btn-primary">New Appointment</a>
                     </div>
 
-                    {{-- 今後の予約情報を foreach ループで表示 --}}
-                    {{-- @foreach ($upcomingAppointments as $appointment) --}}
-
-                    {{-- ダミーデータ1 (Upcoming) --}}
-                    <div class="appointment-card">
-                        <div class="appointment-info">
-                            <span class="status-badge status-upcoming"><i
-                                    class="fa-regular fa-clock me-2"></i>Upcoming</span>
-                            <div class="appointment-details">
-                                <div class="appointment-title">Full Grooming Package - Bella</div>
-                                <div class="appointment-subtitle">Puppy Palace Downtown</div>
-                                <div class="appointment-date">07/19/2024 at 10:00 AM</div>
+                    {{-- Upcoming --}}
+                    @foreach ($upcomingAppointments as $appointment)
+                        <div class="appointment-card">
+                            <div class="appointment-info">
+                                <span class="status-badge status-upcoming">
+                                    <i class="fa-regular fa-clock me-2"></i>
+                                    {{ $appointment->appointmentStatus->display_name }}
+                                </span>
+                                <div class="appointment-details">
+                                    <div class="appointment-title">
+                                        {{ $appointment->serviceItem->servicename }} - {{ $appointment->pet->name }}
+                                    </div>
+                                    <div class="appointment-subtitle">
+                                        {{ $appointment->salon->salonname }}
+                                    </div>
+                                    <div class="appointment-date">
+                                        {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('m/d/Y') }}
+                                        at
+                                        {{ \Carbon\Carbon::parse($appointment->appointment_time_start)->format('g:i A') }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="appointment-actions">
+                                <span class="price">${{ $appointment->serviceItem->price }}</span>
+                                <div class="pet-actions">
+                                    {{-- edit-button --}}
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#editReserveModal{{ $appointment->id }}">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </button>
+                                    {{-- delete-button --}}
+                                    <button type="button" class="btn pet-action-btn text-danger" data-bs-toggle="modal"
+                                        data-bs-target="#deleteReserveModal{{ $appointment->id }}">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div class="appointment-actions">
-                            <span class="price">$85</span>
-                            <div class="pet-actions">
-                                {{-- edit-button --}}
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#editReserveModal1">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                {{-- delete-button --}}
-                                <button type="button" class="btn pet-action-btn text-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteReserveModal1">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- ダミーデータ2 (Upcoming) --}}
-                    <div class="appointment-card">
-                        <div class="appointment-info">
-                            <span class="status-badge status-upcoming"><i
-                                    class="fa-regular fa-clock me-2"></i>Upcoming</span>
-                            <div class="appointment-details">
-                                <div class="appointment-title">Basic Trim - Max</div>
-                                <div class="appointment-subtitle">Furry Friends Salon</div>
-                                <div class="appointment-date">07/09/2024 at 2:00 PM</div>
-                            </div>
-                        </div>
-                        <div class="appointment-actions">
-                            <span class="price">$45</span>
-                            <div class="pet-actions">
-                                {{-- edit-button --}}
-                                <button type="button" class="btn btn-primary">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                {{-- delete-button --}}
-                                <button type="button" class="btn pet-action-btn text-danger">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- @endforeach --}}
+                        @include('mypage.modal.edit-reserve', ['appointment' => $appointment])
+                        @include('mypage.modal.delete-reserve', ['appointment' => $appointment])
+                    @endforeach
                 </div>
             </div>
 
-            {{-- Appointment History セクション --}}
+            {{-- Appointment History --}}
             <div class="card p-4 mb-4 shadow-sm">
                 <div class="section-header">
                     <div>
@@ -199,52 +194,49 @@
                     </div>
                 </div>
 
-                {{-- 過去の予約情報を foreach ループで表示 --}}
-                {{-- @foreach ($historyAppointments as $appointment) --}}
+                @foreach ($historyAppointments as $appointment)
+                    <div class="appointment-card">
+                        <div class="appointment-info">
+                            <span
+                                class="status-badge {{ $appointment->status == 2 ? 'status-cancelled' : 'status-completed' }}">
+                                <i class="fa-regular fa-circle-check me-2"></i>
+                                {{ $appointment->status == 1 && \Carbon\Carbon::parse($appointment->appointment_date)->lt(now())
+                                    ? 'Completed'
+                                    : $appointment->appointmentStatus->display_name }}
+                            </span>
+                            <div class="appointment-details">
+                                <div class="appointment-title">
+                                    {{ $appointment->serviceItem->servicename }} - {{ $appointment->pet->name }}
+                                </div>
+                                <div class="appointment-subtitle">
+                                    {{ $appointment->salon->salonname }}
+                                </div>
+                                <div class="appointment-date">
+                                    {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('m/d/Y') }}
+                                    at {{ \Carbon\Carbon::parse($appointment->appointment_time_start)->format('g:i A') }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="appointment-actions">
+                            <span class="price">${{ $appointment->serviceItem->price }}</span>
+                            @if (
+                                $appointment->status == 3 ||
+                                    ($appointment->status == 1 && \Carbon\Carbon::parse($appointment->appointment_date)->lt(now())))
+                                {{-- completed または 過去日の confirmed のみ再予約 --}}
+                                <button type="button" class="btn btn-action btn-again" data-bs-toggle="modal"
+                                    data-bs-target="#rebookReserveModal{{ $appointment->id }}">
+                                    Book Again
+                                </button>
+                            @endif
 
-                {{-- ダミーデータ3 (Completed) --}}
-                <div class="appointment-card">
-                    <div class="appointment-info">
-                        <span class="status-badge status-completed"><i
-                                class="fa-regular fa-circle-check me-2"></i>Completed</span>
-                        <div class="appointment-details">
-                            <div class="appointment-title">Full Grooming Package - Bella</div>
-                            <div class="appointment-subtitle">Puppy Palace Downtown</div>
-                            <div class="appointment-date">12/15/2023 at 11:00 AM</div>
                         </div>
                     </div>
-                    <div class="appointment-actions">
-                        <span class="price">$85</span>
-                        {{-- Rebook --}}
-                        <button type="button" class="btn btn-action btn-again" data-bs-toggle="modal"
-                            data-bs-target="#rebookReserveModal1">
-                            Book Again
-                        </button>
-                    </div>
-                </div>
-
-                {{-- ダミーデータ4 (Cancelled) --}}
-                <div class="appointment-card">
-                    <div class="appointment-info">
-                        <span class="status-badge status-cancelled"><i class="fa-solid fa-xmark me-2"></i>Cancelled</span>
-                        <div class="appointment-details">
-                            <div class="appointment-title">Nail Trimming - Max</div>
-                            <div class="appointment-subtitle">Quick Paws Express</div>
-                            <div class="appointment-date">12/10/2023 at 3:00 PM</div>
-                        </div>
-                    </div>
-                    <div class="appointment-actions">
-                        <span class="price">$25</span>
-                    </div>
-                </div>
-
-                {{-- @endforeach --}}
+                    @include('mypage.modal.rebook-reserve', [
+                        'appointment' => $appointment,
+                        'slots' => $availableSlots[$appointment->id] ?? [],
+                    ])
+                @endforeach
             </div>
-
-            {{-- Include the modal here --}}
-            @include('mypage.modal.delete-reserve')
-            @include('mypage.modal.edit-reserve')
-            @include('mypage.modal.rebook-reserve')
         </div>
     </div>
 @endsection
