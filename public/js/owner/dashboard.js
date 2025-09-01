@@ -742,12 +742,12 @@ function initializeAppointmentsPage() {
             // Clean up other modals first
             cleanupModals();
             
-            // Generate code
-            const code = generateSalonCode();
-            const codeDisplay = document.getElementById('salonCodeDisplay');
-            if (codeDisplay) {
-                codeDisplay.textContent = code;
-            }
+            // // Generate code
+            // const code = generateSalonCode();
+            // const codeDisplay = document.getElementById('salonCodeDisplay');
+            // if (codeDisplay) {
+            //     codeDisplay.textContent = code;
+            // }
             
             // Ensure proper z-index
             this.style.zIndex = '1060';
@@ -829,12 +829,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Before modal shows
         salonCodeModal.addEventListener('show.bs.modal', function(event) {
             console.log('Modal showing');
-            // Generate code
-            const code = generateSalonCode();
-            const codeDisplay = document.getElementById('salonCodeDisplay');
-            if (codeDisplay) {
-                codeDisplay.textContent = code;
-            }
+            // // Generate code
+            // const code = generateSalonCode();
+            // const codeDisplay = document.getElementById('salonCodeDisplay');
+            // if (codeDisplay) {
+            //     codeDisplay.textContent = code;
+            // }
         });
         
         // After modal is shown

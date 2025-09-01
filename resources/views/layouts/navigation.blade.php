@@ -29,18 +29,26 @@
 </head>
 
 <body class="body-layout">
+
+    @php
+    echo "<!-- Debug: Session Data -->";
+    echo "<!-- salon_code: " . session('salon_code', 'EMPTY') . " -->";
+    echo "<!-- salon_name: " . session('salon_name', 'EMPTY') . " -->";
+    echo "<!-- salon_owner_id: " . session('salon_owner_id', 'EMPTY') . " -->";
+@endphp
+
     <!-- Header Section -->
     <header class="bg-white shadow-sm mb-2"> 
         <nav class="navbar navbar-light">
             <div class="container-fluid">
                 <!-- Left side: Logo and Brand -->
-                <a class="navbar-brand" href="/admin/dashboard"> 
+                <a class="navbar-brand"> 
                     <div class="logo me-1">
                         <img src="{{ asset('images/Trimly Logo.png') }}" alt="Trimly Logo" class="img-fluid logo-image">
                     </div>
                     <div class="brand-text">
                         <p class="main-title fw-bold text-muted mb-0 fs-5">Trimly Admin</p>
-                        <p class="subtitle text-muted mb-0 subtitle-text">Puppy Palace Downtown</p>
+                        <p class="subtitle text-muted mb-0 subtitle-text">{{ session('salon_name', 'Salon Name') }}</p>
                     </div>
                 </a>
 
@@ -94,19 +102,19 @@
         @yield('content')
     </main>
 
-    <!-- Salon Code Modal -->
-    <div class="modal fade" id="salonCodeModal" tabindex="-1" aria-labelledby="salonCodeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="salonCodeModalLabel">Your Salon Code</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+   <!-- Salon Code Modal -->
+<div class="modal fade" id="salonCodeModal" tabindex="-1" aria-labelledby="salonCodeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="salonCodeModalLabel">Your Salon Code</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Salon Code Display -->
+                <div class="salon-code-display" id="salonCodeDisplay">
+                    {{ session('salon_code', 'NO CODE') }}
                 </div>
-                <div class="modal-body">
-                    <!-- Salon Code Display -->
-                    <div class="salon-code-display" id="salonCodeDisplay">
-                        TRIMLY2025
-                    </div>
                     
                     <!-- Copy Button -->
                     <button class="btn btn-copy-code" id="copyCodeBtn">
