@@ -3,120 +3,154 @@
  * Handles all API communications for service management
  */
 
-// API Configuration
-const ServiceAPI = {
-    baseUrl: '/api/salon-owner/dashboard-salonowner/services',
+// API Configuration - Using IIFE pattern to avoid 'this' binding issues
+const ServiceAPI = (function() {
+    const baseUrl = '/api/salon-owner/dashboard-salonowner/services';
     
-    // Headers configuration
-    getHeaders() {
+    /**
+     * Get CSRF token from meta tag
+     * @returns {string} CSRF token value
+     */
+    function getCsrfToken() {
+        const token = document.querySelector('meta[name="csrf-token"]');
+        return token ? token.getAttribute('content') : '';
+    }
+    
+    /**
+     * Get request headers with CSRF token
+     * @returns {Object} Headers object for fetch requests
+     */
+    function getHeaders() {
         return {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'X-CSRF-TOKEN': this.getCsrfToken(),
+            'X-CSRF-TOKEN': getCsrfToken(),
             'X-Requested-With': 'XMLHttpRequest'
         };
-    },
-
-    // Get CSRF token
-    getCsrfToken() {
-        const token = document.querySelector('meta[name="csrf-token"]');
-        return token ? token.getAttribute('content') : '';
-    },
-
-    // Get all services
-    async getAll() {
-        const response = await fetch(this.baseUrl, {
-            method: 'GET',
-            headers: this.getHeaders()
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        return await response.json();
-    },
-
-    // Get single service
-    async get(id) {
-        const response = await fetch(`${this.baseUrl}/${id}`, {
-            method: 'GET',
-            headers: this.getHeaders()
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        return await response.json();
-    },
-
-    // Create service
-    async create(data) {
-        const response = await fetch(this.baseUrl, {
-            method: 'POST',
-            headers: this.getHeaders(),
-            body: JSON.stringify(data)
-        });
-        
-        const result = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(result.message || 'Failed to create service');
-        }
-        
-        return result;
-    },
-
-    // Update service
-    async update(id, data) {
-        const response = await fetch(`${this.baseUrl}/${id}`, {
-            method: 'PUT',
-            headers: this.getHeaders(),
-            body: JSON.stringify(data)
-        });
-        
-        const result = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(result.message || 'Failed to update service');
-        }
-        
-        return result;
-    },
-
-    // Delete service
-    async delete(id) {
-        const response = await fetch(`${this.baseUrl}/${id}`, {
-            method: 'DELETE',
-            headers: this.getHeaders()
-        });
-        
-        const result = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(result.message || 'Failed to delete service');
-        }
-        
-        return result;
-    },
-
-    // Get available features
-    async getFeatures() {
-        const response = await fetch(`${this.baseUrl}/features`, {
-            method: 'GET',
-            headers: this.getHeaders()
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        return await response.json();
     }
-};
+    
+    return {
+        /**
+         * Get all services
+         * @returns {Promise<Object>} API response with services list
+         */
+        async getAll() {
+            const response = await fetch(baseUrl, {
+                method: 'GET',
+                headers: getHeaders()
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            return await response.json();
+        },
 
-// Service Manager Class
+        /**
+         * Get single service by ID
+         * @param {number} id - Service ID
+         * @returns {Promise<Object>} API response with service details
+         */
+        async get(id) {
+            const response = await fetch(`${baseUrl}/${id}`, {
+                method: 'GET',
+                headers: getHeaders()
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            return await response.json();
+        },
+
+        /**
+         * Create new service
+         * @param {Object} data - Service data
+         * @returns {Promise<Object>} API response with created service
+         */
+        async create(data) {
+            const response = await fetch(baseUrl, {
+                method: 'POST',
+                headers: getHeaders(),
+                body: JSON.stringify(data)
+            });
+            
+            const result = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(result.message || 'Failed to create service');
+            }
+            
+            return result;
+        },
+
+        /**
+         * Update existing service
+         * @param {number} id - Service ID
+         * @param {Object} data - Updated service data
+         * @returns {Promise<Object>} API response with updated service
+         */
+        async update(id, data) {
+            const response = await fetch(`${baseUrl}/${id}`, {
+                method: 'PUT',
+                headers: getHeaders(),
+                body: JSON.stringify(data)
+            });
+            
+            const result = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(result.message || 'Failed to update service');
+            }
+            
+            return result;
+        },
+
+        /**
+         * Delete service
+         * @param {number} id - Service ID
+         * @returns {Promise<Object>} API response confirming deletion
+         */
+        async delete(id) {
+            const response = await fetch(`${baseUrl}/${id}`, {
+                method: 'DELETE',
+                headers: getHeaders()
+            });
+            
+            const result = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(result.message || 'Failed to delete service');
+            }
+            
+            return result;
+        },
+
+        /**
+         * Get available service features
+         * @returns {Promise<Object>} API response with features list
+         */
+        async getFeatures() {
+            const response = await fetch(`${baseUrl}/features`, {
+                method: 'GET',
+                headers: getHeaders()
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            return await response.json();
+        }
+    };
+})();
+
+/**
+ * Service Manager Class
+ * Handles UI interactions and state management for services
+ */
 class ServiceManager {
     constructor() {
         this.currentEditId = null;
@@ -126,6 +160,9 @@ class ServiceManager {
         this.init();
     }
 
+    /**
+     * Initialize the service manager
+     */
     init() {
         this.setupEventListeners();
         this.loadFeatures().then(() => {
@@ -133,6 +170,9 @@ class ServiceManager {
         });
     }
 
+    /**
+     * Load service features from API
+     */
     async loadFeatures() {
         try {
             const response = await ServiceAPI.getFeatures();
@@ -151,8 +191,11 @@ class ServiceManager {
         }
     }
 
+    /**
+     * Update checkbox values with database IDs
+     */
     updateFeatureCheckboxes() {
-        // Update existing checkboxes with database IDs
+        // Mapping between HTML element IDs and database feature IDs
         const featureMapping = {
             'bathShampoo': 1,
             'professionalCut': 2,
@@ -185,23 +228,27 @@ class ServiceManager {
         });
     }
 
+    /**
+     * Setup event listeners for UI interactions
+     */
     setupEventListeners() {
-        // Override save button for add service
+        // Save button for add service modal
         const saveBtn = document.getElementById('saveServiceBtn');
         if (saveBtn) {
             saveBtn.removeEventListener('click', this.handleSaveService);
             saveBtn.addEventListener('click', () => this.handleSaveService());
         }
 
-        // Override save button for edit service
+        // Save button for edit service modal
         const saveEditBtn = document.getElementById('saveEditServiceBtn');
         if (saveEditBtn) {
             saveEditBtn.removeEventListener('click', this.handleUpdateService);
             saveEditBtn.addEventListener('click', () => this.handleUpdateService());
         }
 
-        // Override edit buttons
+        // Global click handler for edit and delete buttons
         document.addEventListener('click', (e) => {
+            // Handle edit button clicks
             const editBtn = e.target.closest('.btn-salon-code[data-service]');
             if (editBtn) {
                 e.preventDefault();
@@ -210,7 +257,7 @@ class ServiceManager {
                 this.handleEditService(serviceId);
             }
 
-            // Override delete buttons
+            // Handle delete button clicks
             const deleteBtn = e.target.closest('.service-card .delete-btn');
             if (deleteBtn) {
                 e.preventDefault();
@@ -224,6 +271,9 @@ class ServiceManager {
         });
     }
 
+    /**
+     * Load services from API and render
+     */
     async loadServices() {
         try {
             this.showLoading();
@@ -241,6 +291,9 @@ class ServiceManager {
         }
     }
 
+    /**
+     * Render services to the DOM
+     */
     renderServices() {
         const servicesGrid = document.getElementById('servicesGrid');
         const emptyState = document.getElementById('emptyState');
@@ -255,6 +308,11 @@ class ServiceManager {
         servicesGrid.innerHTML = this.services.map(service => this.createServiceCard(service)).join('');
     }
 
+    /**
+     * Create HTML for service card
+     * @param {Object} service - Service data
+     * @returns {string} HTML string for service card
+     */
     createServiceCard(service) {
         const features = service.features || [];
         const featuresHTML = features.map(feature => 
@@ -301,6 +359,9 @@ class ServiceManager {
         `;
     }
 
+    /**
+     * Handle save new service
+     */
     async handleSaveService() {
         const form = document.getElementById('addServiceForm');
         if (!form.checkValidity()) {
@@ -327,6 +388,10 @@ class ServiceManager {
         }
     }
 
+    /**
+     * Handle edit service click
+     * @param {number} serviceId - ID of service to edit
+     */
     async handleEditService(serviceId) {
         try {
             this.showLoading();
@@ -344,6 +409,9 @@ class ServiceManager {
         }
     }
 
+    /**
+     * Handle update existing service
+     */
     async handleUpdateService() {
         const form = document.getElementById('editServiceForm');
         if (!form.checkValidity()) {
@@ -369,6 +437,10 @@ class ServiceManager {
         }
     }
 
+    /**
+     * Handle delete service
+     * @param {number} serviceId - ID of service to delete
+     */
     async handleDeleteService(serviceId) {
         const card = document.querySelector(`[data-service-id="${serviceId}"]`);
         const serviceName = card.querySelector('h5').textContent;
@@ -392,6 +464,11 @@ class ServiceManager {
         }
     }
 
+    /**
+     * Collect form data for submission
+     * @param {string} formType - 'add' or 'edit'
+     * @returns {Object} Form data object
+     */
     collectFormData(formType) {
         const prefix = formType === 'edit' ? 'edit' : '';
         const selectedFeatures = [];
@@ -413,6 +490,10 @@ class ServiceManager {
         };
     }
 
+    /**
+     * Populate edit form with service data
+     * @param {Object} service - Service data
+     */
     populateEditForm(service) {
         document.getElementById('editServiceName').value = service.servicename;
         document.getElementById('editServiceCategory').value = service.category;
@@ -436,13 +517,20 @@ class ServiceManager {
         }
     }
 
-    // UI Helper Methods
+    /**
+     * Show modal dialog
+     * @param {string} modalId - Modal element ID
+     */
     showModal(modalId) {
         cleanupModals();
         const modal = new bootstrap.Modal(document.getElementById(modalId));
         modal.show();
     }
 
+    /**
+     * Close modal dialog
+     * @param {string} modalId - Modal element ID
+     */
     closeModal(modalId) {
         const modalElement = document.getElementById(modalId);
         const modal = bootstrap.Modal.getInstance(modalElement);
@@ -452,6 +540,9 @@ class ServiceManager {
         cleanupModals();
     }
 
+    /**
+     * Show loading spinner
+     */
     showLoading() {
         if (!document.getElementById('apiLoader')) {
             const loader = document.createElement('div');
@@ -463,11 +554,19 @@ class ServiceManager {
         }
     }
 
+    /**
+     * Hide loading spinner
+     */
     hideLoading() {
         const loader = document.getElementById('apiLoader');
         if (loader) loader.remove();
     }
 
+    /**
+     * Show notification message
+     * @param {string} message - Message to display
+     * @param {string} type - Alert type (info, success, danger, etc.)
+     */
     showNotification(message, type = 'info') {
         const alert = document.createElement('div');
         alert.className = `alert alert-${type} alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3`;
@@ -481,6 +580,11 @@ class ServiceManager {
         setTimeout(() => alert.remove(), 5000);
     }
 
+    /**
+     * Escape HTML special characters
+     * @param {string} text - Text to escape
+     * @returns {string} Escaped text
+     */
     escapeHtml(text) {
         const map = {
             '&': '&amp;',

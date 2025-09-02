@@ -19,6 +19,7 @@ use App\Http\Controllers\salon_owner\SalonOwnerLoginController;
 use App\Http\Controllers\salon_owner\SalonOwnerServiceController;
 
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -158,14 +159,16 @@ Route::get('dashboard-salonowner/settings', function () {
     return view('salon_owner/dashboard/settings');
 });
 // services
-Route::get('dashboard-salonowner/services', function () {
-    return view('salon_owner/dashboard/services');
-});
+// Route::get('dashboard-salonowner/services', function () {
+//     return view('salon_owner/dashboard/services');
+    // services - Changed to pass feature data
+Route::get('dashboard-salonowner/services', [SalonOwnerServiceController::class, 'showServicesPage']);
+    
 // API routes for services (Ajax calls)
 Route::prefix('api/salon-owner')->middleware(['web'])->group(function () {
     Route::prefix('dashboard-salonowner')->group(function () {
         Route::get('/services', [SalonOwnerServiceController::class, 'index']);
-        Route::get('/services/features', [SalonOwnerServiceController::class, 'features']); // この行を追加
+        Route::get('/services/features', [SalonOwnerServiceController::class, 'getFeatures']); 
         Route::get('/services/{id}', [SalonOwnerServiceController::class, 'show']);
         Route::post('/services', [SalonOwnerServiceController::class, 'store']);
         Route::put('/services/{id}', [SalonOwnerServiceController::class, 'update']);

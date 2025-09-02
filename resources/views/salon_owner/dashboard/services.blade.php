@@ -12,19 +12,19 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
        crossorigin="anonymous" referrerpolicy="no-referrer" />
-       <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-       <link href="{{ asset('css/register-salon-owner.css') }}" rel="stylesheet">
-       <link href="{{ asset('css/dashboard-salon-owner.css') }}" rel="stylesheet">
-@endpush
+   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+   <link href="{{ asset('css/register-salon-owner.css') }}" rel="stylesheet">
+   <link href="{{ asset('css/dashboard-salon-owner.css') }}" rel="stylesheet">
+   @endpush
    
-@section('content')
-<div class="container">
-    <!-- Add Service Button - positioned at the very top, right aligned -->
-    <div class="owner-add-service-container">
-        <button class="btn btn-owner-continue" id="addServiceBtn">
-            <i class="fa-solid fa-plus me-2"></i><span>Add Service</span>
-        </button>
-    </div>
+   @section('content')
+   <div class="container">
+       <!-- Add Service Button - positioned at the very top, right aligned -->
+       <div class="owner-add-service-container">
+           <button class="btn btn-owner-continue" id="addServiceBtn">
+               <i class="fa-solid fa-plus me-2"></i><span>Add Service</span>
+           </button>
+       </div>
    
        <!-- Current Services Card Container -->
        <div class="card">
@@ -178,229 +178,156 @@
    </div>
    
    <!-- Add Service Modal -->
-<div class="modal fade" id="addServiceModal" tabindex="-1" aria-labelledby="addServiceModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addServiceModalLabel">Add New Service</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addServiceForm">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="serviceName" class="form-label">Service Name *</label>
-                            <input type="text" class="form-control" id="serviceName" placeholder="e.g. Full Grooming Package" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="serviceCategory" class="form-label">Category</label>
-                            <input type="text" class="form-control" id="serviceCategory" placeholder="e.g. Complete Service">
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="serviceDuration" class="form-label">Duration (minutes) *</label>
-                            <input type="number" class="form-control" id="serviceDuration" placeholder="60" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="servicePrice" class="form-label">Price ($) *</label>
-                            <input type="number" class="form-control" id="servicePrice" placeholder="0" step="0.01" required>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="serviceDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="serviceDescription" rows="3" placeholder="Describe your service..."></textarea>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label class="form-label">Service Features</label>
-                        <div class="row mt-2 operating-days">
-                            <div class="col-md-4">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="bathShampoo">
-                                    <label class="form-check-label" for="bathShampoo">Bath & Shampoo</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="nailTrim">
-                                    <label class="form-check-label" for="nailTrim">Nail Trim</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="desheddingTreatment">
-                                    <label class="form-check-label" for="desheddingTreatment">De-shedding Treatment</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="nailPolish">
-                                    <label class="form-check-label" for="nailPolish">Nail Polish</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="professionalCut" checked>
-                                    <label class="form-check-label" for="professionalCut">Professional Cut</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="earCleaning" checked>
-                                    <label class="form-check-label" for="earCleaning">Ear Cleaning</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="fleaTickTreatment">
-                                    <label class="form-check-label" for="fleaTickTreatment">Flea & Tick Treatment</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="bowBandana">
-                                    <label class="form-check-label" for="bowBandana">Bow/Bandana</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="blowDry">
-                                    <label class="form-check-label" for="blowDry">Blow Dry</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="teethCleaning">
-                                    <label class="form-check-label" for="teethCleaning">Teeth Cleaning</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="aromatherapy">
-                                    <label class="form-check-label" for="aromatherapy">Aromatherapy</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="gentleHandling">
-                                    <label class="form-check-label" for="gentleHandling">Gentle Handling</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-owner-back" data-bs-dismiss="modal">
-                    Cancel
-                </button>
-                <button type="button" class="btn btn-owner-continue" id="saveServiceBtn">
-                    <i class="fa-solid fa-save me-2"></i>Save Service
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Edit Service Modal -->
-<div class="modal fade" id="editServiceModal" tabindex="-1" aria-labelledby="editServiceModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editServiceModalLabel">Edit Service</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editServiceForm">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="editServiceName" class="form-label">Service Name *</label>
-                            <input type="text" class="form-control" id="editServiceName" value="Full Grooming Package" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="editServiceCategory" class="form-label">Category</label>
-                            <input type="text" class="form-control" id="editServiceCategory" value="Complete Service">
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="editServiceDuration" class="form-label">Duration (minutes) *</label>
-                            <input type="number" class="form-control" id="editServiceDuration" value="90" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="editServicePrice" class="form-label">Price ($) *</label>
-                            <input type="number" class="form-control" id="editServicePrice" value="85.00" step="0.01" required>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="editServiceDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="editServiceDescription" rows="3">Complete grooming service including bath, haircut, nail trim, and ear cleaning for a full spa experience.</textarea>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label class="form-label">Service Features</label>
-                        <div class="row mt-2 operating-days">
-                            <div class="col-md-4">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="editBathShampoo" checked>
-                                    <label class="form-check-label" for="editBathShampoo">Bath & Shampoo</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="editNailTrim" checked>
-                                    <label class="form-check-label" for="editNailTrim">Nail Trim</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="editDesheddingTreatment" checked>
-                                    <label class="form-check-label" for="editDesheddingTreatment">De-shedding Treatment</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="editNailPolish" checked>
-                                    <label class="form-check-label" for="editNailPolish">Nail Polish</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="editProfessionalCut" checked>
-                                    <label class="form-check-label" for="editProfessionalCut">Professional Cut</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="editEarCleaning" checked>
-                                    <label class="form-check-label" for="editEarCleaning">Ear Cleaning</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="editFleaTickTreatment" checked>
-                                    <label class="form-check-label" for="editFleaTickTreatment">Flea & Tick Treatment</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="editBowBandana">
-                                    <label class="form-check-label" for="editBowBandana">Bow/Bandana</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="editBlowDry" checked>
-                                    <label class="form-check-label" for="editBlowDry">Blow Dry</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="editTeethCleaning">
-                                    <label class="form-check-label" for="editTeethCleaning">Teeth Cleaning</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="editAromatherapy" checked>
-                                    <label class="form-check-label" for="editAromatherapy">Aromatherapy</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="editGentleHandling" checked>
-                                    <label class="form-check-label" for="editGentleHandling">Gentle Handling</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-salon-code" data-bs-dismiss="modal">
-                    <i class="fa-solid fa-times me-2"></i>Cancel
-                </button>
-                <button type="button" class="btn btn-owner-continue" id="saveEditServiceBtn">
-                    <i class="fa-solid fa-save me-2"></i>Save Service
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
+   <div class="modal fade" id="addServiceModal" tabindex="-1" aria-labelledby="addServiceModalLabel" aria-hidden="true">
+       <div class="modal-dialog modal-lg">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h5 class="modal-title" id="addServiceModalLabel">Add New Service</h5>
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <div class="modal-body">
+                   <form id="addServiceForm">
+                       <div class="row">
+                           <div class="col-md-6 mb-3">
+                               <label for="serviceName" class="form-label">Service Name *</label>
+                               <input type="text" class="form-control" id="serviceName" placeholder="e.g. Full Grooming Package" required>
+                           </div>
+                           <div class="col-md-6 mb-3">
+                               <label for="serviceCategory" class="form-label">Category</label>
+                               <input type="text" class="form-control" id="serviceCategory" placeholder="e.g. Complete Service">
+                           </div>
+                       </div>
+                       
+                       <div class="row">
+                           <div class="col-md-6 mb-3">
+                               <label for="serviceDuration" class="form-label">Duration (minutes) *</label>
+                               <input type="number" class="form-control" id="serviceDuration" placeholder="60" required>
+                           </div>
+                           <div class="col-md-6 mb-3">
+                               <label for="servicePrice" class="form-label">Price ($) *</label>
+                               <input type="number" class="form-control" id="servicePrice" placeholder="0" step="0.01" required>
+                           </div>
+                       </div>
+                       
+                       <div class="mb-3">
+                           <label for="serviceDescription" class="form-label">Description</label>
+                           <textarea class="form-control" id="serviceDescription" rows="3" placeholder="Describe your service..."></textarea>
+                       </div>
+                       
+                       <div class="mb-3">
+                           <label class="form-label">Service Features</label>
+                           <div class="row mt-2 operating-days">
+                               @php
+                                   $chunks = $serviceFeatures->chunk(ceil($serviceFeatures->count() / 3));
+                               @endphp
+                               @foreach($chunks as $chunkIndex => $chunk)
+                                   <div class="col-md-4">
+                                       @foreach($chunk as $feature)
+                                           <div class="form-check mb-2">
+                                               <input class="form-check-input" type="checkbox" 
+                                                      id="feature_{{ $feature->id }}"
+                                                      name="features[]" 
+                                                      value="{{ $feature->id }}">
+                                               <label class="form-check-label" for="feature_{{ $feature->id }}">
+                                                   {{ $feature->display_name }}
+                                               </label>
+                                           </div>
+                                       @endforeach
+                                   </div>
+                               @endforeach
+                           </div>
+                       </div>
+                   </form>
+               </div>
+               <div class="modal-footer">
+                   <button type="button" class="btn btn-owner-back" data-bs-dismiss="modal">
+                       Cancel
+                   </button>
+                   <button type="button" class="btn btn-owner-continue" id="saveServiceBtn">
+                       <i class="fa-solid fa-save me-2"></i>Save Service
+                   </button>
+               </div>
+           </div>
+       </div>
+   </div>
+   
+   <!-- Edit Service Modal -->
+   <div class="modal fade" id="editServiceModal" tabindex="-1" aria-labelledby="editServiceModalLabel" aria-hidden="true">
+       <div class="modal-dialog modal-lg">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h5 class="modal-title" id="editServiceModalLabel">Edit Service</h5>
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <div class="modal-body">
+                   <form id="editServiceForm">
+                       <div class="row">
+                           <div class="col-md-6 mb-3">
+                               <label for="editServiceName" class="form-label">Service Name *</label>
+                               <input type="text" class="form-control" id="editServiceName" value="Full Grooming Package" required>
+                           </div>
+                           <div class="col-md-6 mb-3">
+                               <label for="editServiceCategory" class="form-label">Category</label>
+                               <input type="text" class="form-control" id="editServiceCategory" value="Complete Service">
+                           </div>
+                       </div>
+                       
+                       <div class="row">
+                           <div class="col-md-6 mb-3">
+                               <label for="editServiceDuration" class="form-label">Duration (minutes) *</label>
+                               <input type="number" class="form-control" id="editServiceDuration" value="90" required>
+                           </div>
+                           <div class="col-md-6 mb-3">
+                               <label for="editServicePrice" class="form-label">Price ($) *</label>
+                               <input type="number" class="form-control" id="editServicePrice" value="85.00" step="0.01" required>
+                           </div>
+                       </div>
+                       
+                       <div class="mb-3">
+                           <label for="editServiceDescription" class="form-label">Description</label>
+                           <textarea class="form-control" id="editServiceDescription" rows="3">Complete grooming service including bath, haircut, nail trim, and ear cleaning for a full spa experience.</textarea>
+                       </div>
+                       
+                       <div class="mb-3">
+                           <label class="form-label">Service Features</label>
+                           <div class="row mt-2 operating-days">
+                               @php
+                                   $chunks = $serviceFeatures->chunk(ceil($serviceFeatures->count() / 3));
+                               @endphp
+                               @foreach($chunks as $chunkIndex => $chunk)
+                                   <div class="col-md-4">
+                                       @foreach($chunk as $feature)
+                                           <div class="form-check mb-2">
+                                               <input class="form-check-input" type="checkbox" 
+                                                      id="edit_feature_{{ $feature->id }}"
+                                                      name="edit_features[]" 
+                                                      value="{{ $feature->id }}">
+                                               <label class="form-check-label" for="edit_feature_{{ $feature->id }}">
+                                                   {{ $feature->display_name }}
+                                               </label>
+                                           </div>
+                                       @endforeach
+                                   </div>
+                               @endforeach
+                           </div>
+                       </div>
+                   </form>
+               </div>
+               <div class="modal-footer">
+                   <button type="button" class="btn btn-salon-code" data-bs-dismiss="modal">
+                       <i class="fa-solid fa-times me-2"></i>Cancel
+                   </button>
+                   <button type="button" class="btn btn-owner-continue" id="saveEditServiceBtn">
+                       <i class="fa-solid fa-save me-2"></i>Save Service
+                   </button>
+               </div>
+           </div>
+       </div>
+   </div>
+   
    @endsection
    
    @push('scripts')
    <script src="{{ asset('js/owner/dashboard.js') }}" defer></script>
    <script src="{{ asset('js/owner/service-api.js') }}" defer></script>
-
    @endpush

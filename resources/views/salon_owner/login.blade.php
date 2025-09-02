@@ -11,7 +11,8 @@
        <meta charset="UTF-8">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-       <meta name="csrf-token" content="{{ csrf_token() }}"> 
+       <meta name="csrf-token" content="{{ csrf_token() }}">
+
        <title>Salon Portal - Sign In</title>
        <!-- Font Awesome Icons -->
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -91,7 +92,6 @@
    
                    <!-- Sign In Button -->
                    <button type="submit" class="owner-btn-signin">Sign In</button>
-                  
                    
                    <!-- Divider -->
                    <div class="owner-divider"></div>
@@ -107,8 +107,8 @@
    
                <!-- Back to Customer Login -->
                <div class="owner-divider"></div>
-               <a href="#" class="owner-back-link owner-back-link-center">
-                   <i class="fa-solid fa-arrow-left"></i> Back to Customer Login
+               <a href="{{ route('pet_owner.login') }}" class="owner-back-link owner-back-link-center">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Customer Login
                </a>
            </div>
    
@@ -125,6 +125,5 @@
        </div>
    
        <script src="{{ asset('js/owner/login.js') }}" defer></script>
-     
    </body>
    </html>
