@@ -130,7 +130,7 @@
             background-color: white;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
+            overflow: visible;
         }
 
         .schedule-header {
@@ -153,6 +153,7 @@
             border-bottom: 1px solid #F0F0F0;
             transition: background-color 0.2s;
             cursor: pointer;
+            overflow: visible;
         }
 
         .appointment-card:hover {
@@ -246,15 +247,26 @@
             padding: 8px 0;
             min-width: 250px;
             z-index: 9999;
-            display: none;
+            visibility: hidden;
             opacity: 0;
             transform: translateY(-10px);
-            transition: opacity 0.2s ease, transform 0.2s ease;
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
         }
 
         .action-menu.show {
-            display: block;
+            visibility: visible;
             opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Drop-up style for menus near bottom */
+        .action-menu.drop-up {
+            top: auto;
+            bottom: 35px;
+            transform: translateY(10px);
+        }
+        
+        .action-menu.drop-up.show {
             transform: translateY(0);
         }
 
@@ -296,6 +308,11 @@
 
         .appointment-actions {
             position: relative;
+            z-index: 10;
+        }
+        
+        .appointment-card {
+            position: relative;
         }
 
         @media (max-width: 768px) {
@@ -328,12 +345,23 @@
 
 @section('content')
     <div class="container">
+        @if(session('success'))
+            <div style="background-color: #4CAF50; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                {{ session('success') }}
+            </div>
+        @endif
+        
+        @if(session('error'))
+            <div style="background-color: #f44336; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="calendar-wrapper">
             <div class="calendar-header">
                 <h2 class="calendar-title">Calendar View</h2>
                 <div class="calendar-nav">
                     <button class="nav-btn" onclick="previousMonth()">‹</button>
-                    <span class="current-month" id="currentMonth">July 2025</span>
+                    <span class="current-month" id="currentMonth">{{ $monthName }} {{ $year }}</span>
                     <button class="nav-btn" onclick="nextMonth()">›</button>
                 </div>
             </div>
@@ -348,28 +376,39 @@
                 <div class="day-header">Sat</div>
 
                 @php
-                    $daysInMonth = 31;
-                    $firstDayOfWeek = 2; // Tuesday
-                    $totalCells = 35;
                     $dayCounter = 1;
                 @endphp
 
                 @for ($i = 0; $i < $totalCells; $i++)
-                    @if ($i < $firstDayOfWeek - 1)
+                    @if ($i < $firstDayOfWeek)
                         <div class="calendar-day empty"></div>
                     @elseif ($dayCounter <= $daysInMonth)
-                        <div class="calendar-day">
-                            <div class="day-number {{ $dayCounter == 25 ? 'active' : '' }}">{{ $dayCounter }}</div>
+                        @php
+                            $currentDate = sprintf('%04d-%02d-%02d', $year, $month, $dayCounter);
+                            $isToday = $currentDate == date('Y-m-d');
+                            $isSelected = $currentDate == $selectedDate;
+                            $hasAppointments = isset($appointmentsByDate[$currentDate]);
+                        @endphp
+                        <div class="calendar-day" onclick="selectDate('{{ $currentDate }}')">
+                            <div class="day-number {{ $isToday ? 'active' : '' }} {{ $isSelected ? 'selected' : '' }}">{{ $dayCounter }}</div>
                             
-                            @if ($dayCounter == 25)
-                                <div class="appointment">09:00 Sarah J.</div>
-                                <div class="appointment">11:30 Mike T.</div>
-                                <div class="appointment more">1 more...</div>
-                            @elseif ($dayCounter == 26)
-                                <div class="appointment">10:00 John D.</div>
-                                <div class="appointment">03:00 Lisa M.</div>
-                            @elseif ($dayCounter == 27)
-                                <div class="appointment">09:30 Alex P.</div>
+                            @if ($hasAppointments)
+                                @php
+                                    $dayAppointments = $appointmentsByDate[$currentDate];
+                                    $displayCount = min(2, count($dayAppointments));
+                                @endphp
+                                @for ($j = 0; $j < $displayCount; $j++)
+                                    @php
+                                        $appointment = $dayAppointments[$j];
+                                        $time = Carbon\Carbon::parse($appointment->appointment_time_start)->format('h:i A');
+                                        $petOwner = $appointment->pet->owner ?? null;
+                                        $ownerName = $petOwner ? substr($petOwner->firstname, 0, 1) . '. ' . substr($petOwner->lastname, 0, 1) . '.' : 'Unknown';
+                                    @endphp
+                                    <div class="appointment">{{ $time }} {{ $ownerName }}</div>
+                                @endfor
+                                @if (count($dayAppointments) > 2)
+                                    <div class="appointment more">{{ count($dayAppointments) - 2 }} more...</div>
+                                @endif
                             @endif
                         </div>
                         @php $dayCounter++; @endphp
@@ -381,83 +420,55 @@
         </div>
 
         <div class="schedule-wrapper">
-            <h3 class="schedule-header">Schedule for Friday, July 25, 2025</h3>
+            <h3 class="schedule-header">Schedule for {{ $selectedDateFormatted ?: 'Select a date' }}</h3>
             
             <div class="appointment-list">
-                <div class="appointment-card">
-                    <div class="appointment-avatar">S</div>
-                    <div class="appointment-details">
-                        <div class="client-info">
-                            <span class="client-name">Sarah Johnson</span>
-                            <span class="service-type">Full Grooming • Buddy</span>
+                @forelse ($selectedAppointments as $index => $appointment)
+                    @php
+                        $petOwner = $appointment->pet->owner ?? null;
+                        $ownerFullName = $petOwner ? $petOwner->firstname . ' ' . $petOwner->lastname : 'Unknown';
+                        $ownerInitial = $petOwner ? strtoupper(substr($petOwner->firstname, 0, 1)) : '?';
+                        $serviceName = $appointment->serviceItem->servicename ?? 'Service';
+                        $petName = $appointment->pet->name ?? 'Pet';
+                        $petBreed = $appointment->pet->breed ?? 'Unknown breed';
+                        $appointmentTime = Carbon\Carbon::parse($appointment->appointment_time_start)->format('h:i A');
+                        $statusClass = $appointment->status == 1 ? 'status-confirmed' : ($appointment->status == 2 ? 'status-cancelled' : 'status-confirmed');
+                        $statusText = $appointment->status == 1 ? 'confirmed' : ($appointment->status == 2 ? 'cancelled' : 'pending');
+                    @endphp
+                    <div class="appointment-card">
+                        <div class="appointment-avatar">{{ $ownerInitial }}</div>
+                        <div class="appointment-details">
+                            <div class="client-info">
+                                <span class="client-name">{{ $ownerFullName }}</span>
+                                <span class="service-type">{{ $serviceName }} • {{ $petName }}</span>
+                            </div>
+                            <div class="appointment-meta">{{ $appointmentTime }} • {{ $petBreed }}</div>
                         </div>
-                        <div class="appointment-meta">09:00 AM • Golden Retriever</div>
-                    </div>
-                    <span class="appointment-status status-confirmed">confirmed</span>
-                    <div class="appointment-actions">
-                        <button class="action-btn" onclick="toggleMenu(event, 'menu1')">⋯</button>
-                        <div class="action-menu" id="menu1">
-                            <button class="action-menu-item">
-                                <i class="fas fa-edit"></i>
-                                Edit Appointment
-                            </button>
-                            <button class="action-menu-item cancel">
-                                <i class="fas fa-trash"></i>
-                                Cancel Appointment
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="appointment-card">
-                    <div class="appointment-avatar">M</div>
-                    <div class="appointment-details">
-                        <div class="client-info">
-                            <span class="client-name">Mike Thompson</span>
-                            <span class="service-type">Trim & Style • Luna</span>
-                        </div>
-                        <div class="appointment-meta">11:30 AM • Poodle</div>
-                    </div>
-                    <span class="appointment-status status-confirmed">confirmed</span>
-                    <div class="appointment-actions">
-                        <button class="action-btn" onclick="toggleMenu(event, 'menu2')">⋯</button>
-                        <div class="action-menu" id="menu2">
-                            <button class="action-menu-item">
-                                <i class="fas fa-edit"></i>
-                                Edit Appointment
-                            </button>
-                            <button class="action-menu-item cancel">
-                                <i class="fas fa-trash"></i>
-                                Cancel Appointment
-                            </button>
+                        <span class="appointment-status {{ $statusClass }}">{{ $statusText }}</span>
+                        <div class="appointment-actions">
+                            <button type="button" class="action-btn" onclick="toggleActionMenu(event, 'menu{{ $appointment->id }}')">⋯</button>
+                            <div class="action-menu" id="menu{{ $appointment->id }}">
+                                <button class="action-menu-item">
+                                    <i class="fas fa-edit"></i>
+                                    Edit Appointment
+                                </button>
+                                @if($appointment->status != 2)
+                                <form action="{{ route('salon-owner.appointments.cancel', $appointment->id) }}" method="POST" style="margin: 0;">
+                                    @csrf
+                                    <button type="submit" class="action-menu-item cancel" onclick="return confirm('Are you sure you want to cancel this appointment?')">
+                                        <i class="fas fa-trash"></i>
+                                        Cancel Appointment
+                                    </button>
+                                </form>
+                                @endif
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="appointment-card">
-                    <div class="appointment-avatar">E</div>
-                    <div class="appointment-details">
-                        <div class="client-info">
-                            <span class="client-name">Emma Davis</span>
-                            <span class="service-type">Breed Cut • Max</span>
-                        </div>
-                        <div class="appointment-meta">02:00 PM • German Shepherd</div>
+                @empty
+                    <div style="padding: 40px; text-align: center; color: #999;">
+                        <p>No appointments scheduled for this date.</p>
                     </div>
-                    <span class="appointment-status status-cancelled">cancelled</span>
-                    <div class="appointment-actions">
-                        <button class="action-btn" onclick="toggleMenu(event, 'menu3')">⋯</button>
-                        <div class="action-menu" id="menu3">
-                            <button class="action-menu-item">
-                                <i class="fas fa-edit"></i>
-                                Edit Appointment
-                            </button>
-                            <button class="action-menu-item cancel">
-                                <i class="fas fa-trash"></i>
-                                Cancel Appointment
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </div>
@@ -465,44 +476,77 @@
 
 @push('scripts')
     <script>
-        let currentDate = new Date(2025, 6, 1); // July 2025
-
-        function updateCalendarHeader() {
-            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
-                          'July', 'August', 'September', 'October', 'November', 'December'];
-            const month = months[currentDate.getMonth()];
-            const year = currentDate.getFullYear();
-            document.getElementById('currentMonth').textContent = `${month} ${year}`;
-        }
+        let currentMonth = {{ $month }};
+        let currentYear = {{ $year }};
 
         function previousMonth() {
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            updateCalendarHeader();
+            currentMonth--;
+            if (currentMonth < 1) {
+                currentMonth = 12;
+                currentYear--;
+            }
+            window.location.href = `/salon-owner/calendar?month=${currentMonth}&year=${currentYear}`;
         }
 
         function nextMonth() {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            updateCalendarHeader();
+            currentMonth++;
+            if (currentMonth > 12) {
+                currentMonth = 1;
+                currentYear++;
+            }
+            window.location.href = `/salon-owner/calendar?month=${currentMonth}&year=${currentYear}`;
         }
 
-        updateCalendarHeader();
+        function selectDate(date) {
+            window.location.href = `/salon-owner/calendar?month=${currentMonth}&year=${currentYear}&date=${date}`;
+        }
 
-        function toggleMenu(event, menuId) {
+        // Use a unique name to avoid clashing with global toggleMenu() in dashboard.js
+        function toggleActionMenu(event, menuId) {
             event.stopPropagation();
             event.preventDefault();
             
-            // Close all other menus
+            console.log('Toggle menu called for:', menuId);
+            
+            // Close all other menus first
             document.querySelectorAll('.action-menu').forEach(menu => {
                 if (menu.id !== menuId) {
-                    menu.classList.remove('show');
+                    menu.classList.remove('show', 'drop-up');
+                    menu.style.visibility = 'hidden';
+                    menu.style.opacity = '0';
                 }
             });
             
             // Toggle current menu
             const menu = document.getElementById(menuId);
             if (menu) {
-                menu.classList.toggle('show');
-                console.log('Menu toggled:', menuId, menu.classList.contains('show'));
+                const isCurrentlyShown = menu.classList.contains('show');
+                
+                if (isCurrentlyShown) {
+                    // Hide menu
+                    menu.classList.remove('show', 'drop-up');
+                    menu.style.visibility = 'hidden';
+                    menu.style.opacity = '0';
+                } else {
+                    // Show menu and check position
+                    menu.classList.add('show');
+                    menu.style.visibility = 'visible';
+                    menu.style.opacity = '1';
+                    menu.classList.remove('drop-up');
+                    
+                    // Check if menu would go off bottom of container or viewport
+                    const wrapperEl = menu.closest('.schedule-wrapper') || document.querySelector('.schedule-wrapper');
+                    const boundaryBottom = wrapperEl ? wrapperEl.getBoundingClientRect().bottom : window.innerHeight;
+                    const menuRect = menu.getBoundingClientRect();
+                    
+                    // If menu extends beyond boundary, show it upward
+                    if (menuRect.bottom > boundaryBottom - 8) {
+                        menu.classList.add('drop-up');
+                        console.log('Menu positioned upward for:', menuId);
+                    }
+                }
+                
+                console.log('Menu toggled:', menuId, !isCurrentlyShown);
             } else {
                 console.error('Menu not found:', menuId);
             }
@@ -510,26 +554,31 @@
 
         // Close menu when clicking outside
         document.addEventListener('click', function(event) {
-            console.log('Document clicked, closing menus');
-            document.querySelectorAll('.action-menu').forEach(menu => {
-                if (menu.classList.contains('show')) {
-                    console.log('Closing menu:', menu.id);
-                    menu.classList.remove('show');
-                }
-            });
-        });
-
-        // Prevent menu from closing when clicking inside it
-        document.querySelectorAll('.action-menu').forEach(menu => {
-            menu.addEventListener('click', function(event) {
-                console.log('Menu clicked, preventing close:', menu.id);
-                event.stopPropagation();
-            });
+            // Check if click is not on action button or menu
+            if (!event.target.closest('.action-btn') && !event.target.closest('.action-menu')) {
+                console.log('Document clicked, closing menus');
+                document.querySelectorAll('.action-menu').forEach(menu => {
+                    if (menu.classList.contains('show')) {
+                        console.log('Closing menu:', menu.id);
+                        menu.classList.remove('show', 'drop-up');
+                        menu.style.visibility = 'hidden';
+                        menu.style.opacity = '0';
+                    }
+                });
+            }
         });
 
         // Initialize after DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Calendar initialized, menus available:', document.querySelectorAll('.action-menu').length);
+            
+            // Prevent menu from closing when clicking inside it
+            document.querySelectorAll('.action-menu').forEach(menu => {
+                menu.addEventListener('click', function(event) {
+                    console.log('Menu clicked, preventing close:', menu.id);
+                    event.stopPropagation();
+                });
+            });
         });
     </script>
 @endpush

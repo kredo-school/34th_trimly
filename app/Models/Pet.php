@@ -25,6 +25,12 @@ class Pet extends Model
         return $this->belongsTo(PetOwner::class);
     }
 
+    // Alias for petOwner relationship
+    public function owner()
+    {
+        return $this->belongsTo(PetOwner::class, 'pet_owner_id');
+    }
+
     #Pet=Appointment
     #Pet has many appointments
 

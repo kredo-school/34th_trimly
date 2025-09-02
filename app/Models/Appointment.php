@@ -3,15 +3,35 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Appointment extends Model
 {
+
+    protected $fillable = [
+        'appointment_date',
+        'appointment_time_start',
+        'appointment_time_end',
+        'service_item_id',
+        'status',
+        'confirmation_number',
+        'salon_code',
+        'pet_id',
+    ];
+
+    protected $casts = [
+        'appointment_date' => 'datetime',
+    ];
+
+
+    use SoftDeletes;
+
     #Appointment=Salon
     #Appointment belongs to salon
 
     public function salon()
     {
-        return $this->belongsTo(Salon::class);
+        return $this->belongsTo(Salon::class, 'salon_code', 'salon_code');
     }
 
     #Appointment=Pet
