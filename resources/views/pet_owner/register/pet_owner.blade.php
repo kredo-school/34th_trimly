@@ -213,9 +213,9 @@
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                    <button type="button" class="btn btn-back">
+                    <a href="{{ route('pet_owner.register.saloncode') }}" class="btn btn-back">
                         <i class="fa-solid fa-arrow-left me-2"></i>Back
-                    </button>
+                    </a>
                     <button type="submit" class="btn btn-primary">
                         Continue <i class="fa-solid fa-arrow-right ms-2"></i>
                     </button>

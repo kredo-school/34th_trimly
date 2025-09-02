@@ -44,7 +44,7 @@ class RegisterController extends Controller
                 ->with('success', 'Valid salon code');
         }
 
-        // f it fails, return to the original page with an error message.
+        // If it fails, return to the original page with an error message.
         return back()->withErrors(['salonCode' => 'Invalid salon code. Please check with your salon.'])->withInput();
     }
 
