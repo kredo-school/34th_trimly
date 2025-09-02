@@ -144,10 +144,10 @@
                                 <span>or</span>
                             </div>
 
-                            <a href="#" class="btn btn-outline-secondary w-100 mb-3" role="button">
+                            <a href="{{ route('salonowner.login') }}" class="btn btn-outline-secondary w-100 mb-3" role="button">
                                 For Salons - Sign In
                             </a>
-                            <p>New Salon? <a href="#" class="text-decoration-none">Register Here</a></p>
+                            <p>New Salon? <a href="{{ route('salon.register.create') }}" class="text-decoration-none">Register Here</a></p>
                         </form>
                     </div>
                 </div>

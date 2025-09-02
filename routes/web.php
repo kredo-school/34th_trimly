@@ -101,7 +101,7 @@ Route::middleware(['auth:petowner'])->group(function () {
 // Owner Login Page (View)
 Route::get('/login-salonowner', function () {
     return view('salon_owner/login');
-});
+})->name('salonowner.login');
 
 // Owner Login API Routes
 Route::post('/salon-owner/login', [SalonOwnerLoginController::class, 'login']);
