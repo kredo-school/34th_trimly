@@ -15,21 +15,22 @@
  
  /* Logo image sizing */
  .logo-image {
-    max-width: 80px !important;
+    max-width: 48px !important;
  }
  
  /* Subtitle text sizing */
  .subtitle-text {
-    font-size: 0.9rem !important;
+    font-size: 0.875rem !important;
+    color: #6c757d !important;
  }
  
  /* Main content area - Pure white background */
  .main-content {
-    padding: 20px !important;
+    padding: 16px !important;
     background-color: #ffffff !important;
     background: #ffffff !important;
     background-image: none !important;
-    min-height: calc(100vh - 80px) !important;
+    min-height: calc(100vh - 56px) !important;
  }
  
  /* Modal description text */
@@ -51,7 +52,7 @@
  }
  
  .logo img {
-    max-width: 80px;
+    max-width: 48px;
     height: auto;
  }
  
@@ -102,7 +103,7 @@
     background-color: #ffffff !important;
     background-image: none !important;
     height: auto;
-    padding: 1rem 1.5rem;
+    padding: 0.25rem 1rem;
  }
  
  /* Bootstrap row/column structure - PURE WHITE */
@@ -164,21 +165,21 @@
  }
  
  header .navbar-brand .main-title {
-    font-size: 1.25rem;
-    font-weight: bold;
+    font-size: 1rem !important;
+    font-weight: 600;
     color: #6c757d;
     margin: 0;
-    line-height: 1.2;
+    line-height: 1.1;
     background: #ffffff !important;
     background-color: #ffffff !important;
     background-image: none !important;
  }
  
  header .navbar-brand .subtitle {
-    font-size: 0.9rem;
-    color: #666;
+    font-size: 0.875rem !important;
+    color: #6c757d;
     margin: 0;
-    line-height: 1.2;
+    line-height: 1.1;
     background: #ffffff !important;
     background-color: #ffffff !important;
     background-image: none !important;
@@ -198,25 +199,25 @@
  
  /* Menu button - rounded */
  .menu-btn {
-    background: #ffffff !important;
-    background-color: #ffffff !important;
+    background: #FEFCF1 !important; /* align to pet owner palette */
+    background-color: #FEFCF1 !important;
     background-image: none !important;
-    border: none;
-    color: #666;
-    font-size: 0.9rem;
-    padding: 8px 12px;
+    border: 1px solid #e0e0e0 !important;
+    color: #333;
+    font-size: 0.875rem;
+    padding: 4px 10px;
     cursor: pointer;
-    border-radius: 12px !important;
+    border-radius: 8px !important;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
  }
  
  .menu-btn:hover {
     color: #333;
-    background: #f8f9fa !important;
-    background-color: #f8f9fa !important;
+    background: #e9ecef !important;
+    background-color: #e9ecef !important;
     background-image: none !important;
  }
  
@@ -247,10 +248,10 @@
  /* Dropdown items - rounded with white background */
  .menu-dropdown-item {
     display: block;
-    padding: 10px 16px;
+    padding: 8px 14px;
     color: #666;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     transition: all 0.2s ease;
     border-radius: 8px !important;
     margin: 2px 8px;
@@ -268,10 +269,10 @@
  }
  
  .menu-dropdown-item.active {
-    background: #c9b896 !important;
-    background-color: #c9b896 !important;
+    background: #c8a882 !important; /* pet owner accent */
+    background-color: #c8a882 !important;
     background-image: none !important;
-    color: black;
+    color: #fff !important;
     border-radius: 8px !important;
  }
  
@@ -289,7 +290,7 @@
  .header-actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     background: #ffffff !important;
     background-color: #ffffff !important;
     background-image: none !important;
@@ -297,14 +298,14 @@
  
  /* Salon Code button - consistent radius */
  .btn-salon-code {
-    background-color: #f8f9fa !important;
-    background: #f8f9fa !important;
+    background-color: #FEFCF1 !important; /* match pet owner .btn-back */
+    background: #FEFCF1 !important;
     background-image: none !important;
-    border: 1px solid #dee2e6;
-    color: #666;
-    padding: 8px 16px !important;
+    border: 1px solid #e0e0e0 !important;
+    color: #333 !important;
+    padding: 6px 12px !important;
     border-radius: 8px !important;
-    font-size: 0.85rem;
+    font-size: 0.875rem;
     font-weight: 500 !important;
     text-decoration: none;
     display: flex;
@@ -318,7 +319,7 @@
     background-color: #e9ecef !important;
     background: #e9ecef !important;
     background-image: none !important;
-    color: #495057;
+    color: #333 !important;
     text-decoration: none;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
  }
