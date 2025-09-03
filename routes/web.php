@@ -162,16 +162,15 @@ Route::get('dashboard-salonowner/settings', function () {
 // Route::get('dashboard-salonowner/services', function () {
 //     return view('salon_owner/dashboard/services');
     // services - Changed to pass feature data
-Route::get('dashboard-salonowner/services', [SalonOwnerServiceController::class, 'showServicesPage']);
+Route::get('dashboard-salonowner/services', [SalonOwnerServiceController::class, 'showServicesPage'])->name('salonowner.dashboard.services.get');
     
 // API routes for services (Ajax calls)
 Route::prefix('api/salon-owner')->middleware(['web'])->group(function () {
-    Route::prefix('dashboard-salonowner')->group(function () {
-        Route::get('/services', [SalonOwnerServiceController::class, 'index']);
-        Route::get('/services/features', [SalonOwnerServiceController::class, 'getFeatures']); 
-        Route::get('/services/{id}', [SalonOwnerServiceController::class, 'show']);
-        Route::post('/services', [SalonOwnerServiceController::class, 'store']);
-        Route::put('/services/{id}', [SalonOwnerServiceController::class, 'update']);
-        Route::delete('/services/{id}', [SalonOwnerServiceController::class, 'destroy']);
-    });
+    Route::get('/services', [SalonOwnerServiceController::class, 'index']);
+    Route::get('/services/features', [SalonOwnerServiceController::class, 'getFeatures']); 
+    Route::get('/services/{id}', [SalonOwnerServiceController::class, 'show']);
+    Route::post('/services/create', [SalonOwnerServiceController::class, 'store'])->name('salonowner.services.post');
+    Route::put('/services/{id}', [SalonOwnerServiceController::class, 'update']);
+    Route::delete('/services/{id}', [SalonOwnerServiceController::class, 'destroy']);
+
 });
