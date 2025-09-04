@@ -45,12 +45,15 @@ return [
             'driver' => 'session',
             'provider' => 'petowners',
         ],
-        // サロンオーナー用のガードを追加したい場合は下記を有効化
-        // 'salonowner' => [
-        //     'driver' => 'session',
-        //     'provider' => 'salons',
-        // ],
-    ],
+
+        // サロンオーナー用のガードを追加
+        'salonowner' => [
+            'driver' => 'session',
+            'provider' => 'salons',
+        ],
+      
+     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -81,11 +84,11 @@ return [
             'model' => App\Models\PetOwner::class,
         ],
 
-        // サロンオーナー用のプロバイダー（必要なら有効化）
-        // 'salons' => [
-        //     'driver' => 'eloquent',
-        //     'model' => App\Models\Salon::class,
-        // ],
+        // サロンオーナー用のプロバイダー
+        'salons' => [ 
+            'driver' => 'eloquent',
+            'model' => App\Models\Salon::class, 
+        ],
 
         // Database プロバイダー例
         // 'users' => [

@@ -1,24 +1,16 @@
-    
-    <header class="header">
-        <div class="logo">
-            <img src="{{ asset('images/Trimly Logo.png') }}" alt="Trimly Logo">
-            <span class="logo-text">Trimly</span>
-        </div>
-        <div class="col-6 text-end">
-            <p class="text-muted mb-0 me-2 fs-6">Pet Owner Registration</p>
+    <header class="bg-white shadow-sm mb-2 custom-app-header">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="logo">
+                <img src="{{ asset('images/Trimly Logo.png') }}" alt="Trimly Logo">
+                <p class="fw-bold text-muted mb-0 fs-5">Trimly</p>
+            </div>
+            <div class="text-end">
+                <p class="text-muted mb-0 me-2 fs-6">Pet Owner Registration</p>
+            </div>
         </div>
     </header>
 
     <style>
-        .header {
-            background-color: white;
-            padding: 16px 20px;
-            border-bottom: 1px solid #e0e0e0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
         .logo {
             display: flex;
             align-items: center;
@@ -34,5 +26,4 @@
             font-size: 20px;
             font-weight: 700;
         }
-
     </style>
