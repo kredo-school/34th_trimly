@@ -371,7 +371,7 @@ class SalonOwnerServiceController extends Controller
     {
         // Check if logged in
         if (!$request->session()->has('salon_owner_id')) {
-            return redirect('/salon-owner/login');
+            return redirect()->route('salonowner.login');
         }
         
         // Get all service features
