@@ -1,9 +1,16 @@
     <style>
-        /* ロゴ画像のサイズ調整 */
-        .logo {
-            width: 80px;
-            height: 80px;
+        /* ヘッダー寸法: users.profile.header に合わせる */
+        .custom-app-header {
+            background-color: #ffffff;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e0e0e0;
         }
+
+        /* ロゴ（users.profile.header と統一） */
+        .custom-app-header .navbar-brand { padding: 0 !important; margin: 0 !important; line-height: 1; font-size: 1rem; }
+        .custom-app-header .logo { display: flex; align-items: center; gap: 10px; }
+        .custom-app-header .logo img { height: 40px; width: auto; display: block; }
+        .custom-app-header .logo-text { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700; color: #333; display: inline-block; line-height: 1; }
 
         /* ログアウトボタンのスタイル */
         .btn-logout {
@@ -21,9 +28,9 @@
         /* ナビゲーションリンクのスタイル */
         .navbar-nav .nav-item .nav-link {
             color: #666 !important;
-            font-weight: bold;
-            margin-right: 20px;
-            font-size: 1rem;
+            font-weight: 600;
+            margin-right: 16px;
+            font-size: 14px; /* users.profile.header のテキスト感に寄せる */
             padding-top: 8px;
             padding-bottom: 8px;
         }
@@ -54,15 +61,28 @@
                 justify-content: center;
             }
         }
+        /* グローバル .navbar の影を打ち消す */
+        .custom-app-header .navbar {
+            box-shadow: none !important;
+            background-color: transparent;
+            position: static; /* disable sticky from global */
+            padding-top: 0;   /* remove bootstrap default 0.5rem */
+            padding-bottom: 0;/* remove bootstrap default 0.5rem */
+            padding-left: 0;
+            padding-right: 0;
+            min-height: auto;
+        }
     </style>
 
 
-    <header class="bg-white shadow-sm mb-2 custom-app-header">
+    <header class="bg-white mb-2 custom-app-header">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container-fluid d-flex align-items-center">
+            <div class="d-flex align-items-center w-100" style="padding-left:0;padding-right:0;">
                 <a class="navbar-brand d-flex align-items-center p-0" href="#">
-                    <img src="{{ asset('images/Trimly Logo.png') }}" alt="Trimly Logo" class="logo">
-                    <p class="fw-bold text-muted mb-0 fs-5">Trimly</p>
+                    <div class="logo">
+                        <img src="{{ asset('images/Trimly Logo.png') }}" alt="Trimly Logo">
+                        <span class="logo-text">Trimly</span>
+                    </div>
                 </a>
                 <button class="navbar-toggler ms-auto d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
