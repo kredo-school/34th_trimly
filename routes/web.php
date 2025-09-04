@@ -24,6 +24,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Compatibility aliases for default Laravel auth route names
+Route::get('/login', function () {
+    return redirect()->route('pet_owner.login');
+})->name('login');
+Route::get('/register', function () {
+    return redirect()->route('pet_owner.register.saloncode');
+})->name('register');
+
 //add Juri
 Route::get('/mypage/reservation/new', [ReservationController::class, 'selectSalon'])->name('reservation.select-salon');
 Route::get('/mypage/reservation/new/service', [ReservationController::class, 'selectService'])->name('reservation.select-service');
