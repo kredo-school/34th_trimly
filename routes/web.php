@@ -112,6 +112,11 @@ Route::get('/login-salonowner', function () {
     return view('salon_owner/login');
 })->name('salonowner.login');
 
+// Backward compatibility: GET /salon-owner/login -> login page (301)
+Route::get('/salon-owner/login', function () {
+    return redirect()->route('salonowner.login', [], 301);
+});
+
 // Owner Login API Routes
 Route::post('/salon-owner/login', [SalonOwnerLoginController::class, 'login']);
 Route::post('/salon-owner/logout', [SalonOwnerLoginController::class, 'logout']);
