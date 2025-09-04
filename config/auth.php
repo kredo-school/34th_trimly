@@ -40,17 +40,20 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        // ペットオーナー用のガードを追加
+        // ペットオーナー用のガード
         'petowner' => [
             'driver' => 'session',
             'provider' => 'petowners',
         ],
-    //     // サロンオーナー用のガードを追加
-    //     'salonowner' => [
-    //         'driver' => 'session',
-    //         'provider' => 'salons',
-    //     ],
-    // ],
+
+        // サロンオーナー用のガードを追加
+        'salonowner' => [
+            'driver' => 'session',
+            'provider' => 'salons',
+        ],
+      
+     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -80,12 +83,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\PetOwner::class,
         ],
-        // // サロンオーナー用のプロバイダー
-        // 'salons' => [ 
-        //     'driver' => 'eloquent',
-        //     'model' => App\Models\Salon::class, 
+
+        // サロンオーナー用のプロバイダー
+        'salons' => [ 
+            'driver' => 'eloquent',
+            'model' => App\Models\Salon::class, 
         ],
 
+        // Database プロバイダー例
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

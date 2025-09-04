@@ -552,4 +552,130 @@ class SalonOwnerServiceController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Display the services page with features list
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     */
+    // public function showServicesPage(Request $request)
+    // {
+    //     // Check if logged in
+    //     if (!$request->session()->has('salon_owner_id')) {
+    //         return redirect()->route('salonowner.login');
+    //     }
+        
+    //     // Get all service features
+    //     $serviceFeatures = DB::table('servicefeatures_statuses')
+    //         ->whereNull('deleted_at')
+    //         ->orderBy('id')
+    //         ->get();
+        
+    //     // Return view with features data
+    //     return view('salon_owner.dashboard.services', compact('serviceFeatures'));
+    // }
+
+    /**
+     * Get all service features
+     *
+     * @return JsonResponse
+     */
+    // public function getFeatures(): JsonResponse
+    // {
+    //     try {
+    //         $features = DB::table('servicefeatures_statuses')
+    //             ->whereNull('deleted_at')
+    //             ->orderBy('id')
+    //             ->get();
+            
+    //         return response()->json([
+    //             'success' => true,
+    //             'data' => $features
+    //         ]);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Failed to fetch features',
+    //             'error' => config('app.debug') ? $e->getMessage() : null
+    //         ], 500);
+    //     }
+    // }
+
+    /**
+     * Parse features from servicefeatures field
+     *
+     * @param mixed $features
+     * @return array
+     */
+    // private function parseFeatures($features): array
+    // {
+    //     // If features is stored as comma-separated IDs
+    //     if (is_string($features) && strpos($features, ',') !== false) {
+    //         $featureIds = explode(',', $features);
+    //         $featureData = DB::table('servicefeatures_statuses')
+    //             ->whereIn('id', $featureIds)
+    //             ->pluck('display_name')
+    //             ->toArray();
+    //         return $featureData;
+    //     }
+        
+    //     // If features is stored as JSON
+    //     if (is_string($features) && $this->isJson($features)) {
+    //         $featureIds = json_decode($features, true);
+    //         $featureData = DB::table('servicefeatures_statuses')
+    //             ->whereIn('id', $featureIds)
+    //             ->pluck('display_name')
+    //             ->toArray();
+    //         return $featureData;
+    //     }
+        
+    //     // If features is a number representing feature count
+    //     if (is_numeric($features)) {
+    //         // Return default features based on count
+    //         $allFeatures = DB::table('servicefeatures_statuses')
+    //             ->whereNull('deleted_at')
+    //             ->orderBy('id')
+    //             ->limit($features)
+    //             ->pluck('display_name')
+    //             ->toArray();
+            
+    //         return $allFeatures;
+    //     }
+        
+    //     return [];
+    // }
+
+    /**
+     * Format duration for display
+     *
+     * @param int $duration
+     * @return string
+     */
+    // private function formatDuration(int $duration): string
+    // {
+    //     if ($duration >= 60) {
+    //         $hours = floor($duration / 60);
+    //         $minutes = $duration % 60;
+            
+    //         if ($minutes > 0) {
+    //             return "{$hours}h {$minutes} minutes";
+    //         }
+    //         return "{$hours}h";
+    //     }
+        
+    //     return "{$duration} minutes";
+    // }
+
+    /**
+     * Check if string is JSON
+     *
+     * @param string $string
+     * @return bool
+     */
+    private function isJson($string): bool
+    {
+        json_decode($string);
+        return (json_last_error() == JSON_ERROR_NONE);
+    }
 }

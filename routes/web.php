@@ -27,6 +27,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Compatibility aliases for default Laravel auth route names
+Route::get('/login', function () {
+    return redirect()->route('pet_owner.login');
+})->name('login');
+Route::get('/register', function () {
+    return redirect()->route('pet_owner.register.saloncode');
+})->name('register');
+
 //add Juri
 Route::get('/mypage/reservation/new', [ReservationController::class, 'selectSalon'])->name('reservation.select-salon');
 Route::get('/mypage/reservation/new/service', [ReservationController::class, 'selectService'])->name('reservation.select-service');
@@ -106,6 +114,11 @@ Route::middleware(['auth:petowner'])->group(function () {
 Route::get('/login-salonowner', function () {
     return view('salon_owner/login');
 })->name('salonowner.login');
+
+// Backward compatibility: GET /salon-owner/login -> login page (301)
+Route::get('/salon-owner/login', function () {
+    return redirect()->route('salonowner.login', [], 301);
+});
 
 // Owner Login API Routes
 Route::post('/salon-owner/login', [SalonOwnerLoginController::class, 'login']);
