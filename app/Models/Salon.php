@@ -13,6 +13,8 @@ class Salon extends Model
         'lastname',
         'email_address',
         'phone',
+        'business_address',  // add
+        'city',              //add
         'state',
         'password',
         'website',

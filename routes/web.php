@@ -2,23 +2,26 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
-use App\Http\Controllers\PetOwner\RegisterController;
 use App\Http\Controllers\PetOwner\LoginController;
+use App\Http\Controllers\PetOwner\RegisterController;
 use App\Http\Controllers\PetOwner\Mypage\PetController;
-use App\Http\Controllers\PetOwner\Mypage\ProfileController; 
 use App\Http\Controllers\PetOwner\Mypage\SalonController;
-use App\Http\Controllers\PetOwner\Mypage\ReservationController as MypageReservationController;
+use App\Http\Controllers\PetOwner\Mypage\ProfileController; 
 /* =====================================================
    Salon Owner side  
    ===================================================== */
 //Register//
-use App\Http\Controllers\salon_owner\SalonOwnerRegisterController;
-//Login//
 use App\Http\Controllers\salon_owner\SalonOwnerLoginController;
-//Dashborard - service//   
+//Login//
 use App\Http\Controllers\salon_owner\SalonOwnerServiceController;
+//Dashborard - service//   
+use App\Http\Controllers\salon_owner\SalonOwnerRegisterController;
+//Dashborard - setting// 
+use App\Http\Controllers\salon_owner\SalonOwnerSettingsController;
+use App\Http\Controllers\PetOwner\Mypage\ReservationController as MypageReservationController;
 
-
+//Dashborard - calendar// 
+use App\Http\Controllers\SalonOwner\CalendarController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -141,8 +144,8 @@ Route::prefix('register-salonowner')->name('salon.register.')->group(function ()
 
 //Owner Appointments Calendar //
 // Juri - 2025-08-30 - Implemented salon owner calendar backend to fetch and display appointments from DB
-Route::get('/salon-owner/calendar', [App\Http\Controllers\SalonOwner\CalendarController::class, 'index'])->name('salon-owner.calendar');
-Route::post('/salon-owner/appointments/{id}/cancel', [App\Http\Controllers\SalonOwner\CalendarController::class, 'cancelAppointment'])->name('salon-owner.appointments.cancel');
+Route::get('/salon-owner/calendar', [CalendarController::class, 'index'])->name('salon-owner.calendar');
+Route::post('/salon-owner/appointments/{id}/cancel', [CalendarController::class, 'cancelAppointment'])->name('salon-owner.appointments.cancel');
 /* =====================================================
    Salon Owner side  - Dashborard   
    ===================================================== */
@@ -154,9 +157,19 @@ Route::get('dashboard-salonowner/appointments', function () {
 Route::get('dashboard-salonowner/customers', function () {
     return view('salon_owner/dashboard/customers');
 });
-// settings
-Route::get('dashboard-salonowner/settings', function () {
-    return view('salon_owner/dashboard/settings');
+// // settings
+// Route::get('dashboard-salonowner/settings', function () {
+//     return view('salon_owner/dashboard/settings');
+// });
+
+// Settings page route
+Route::get('dashboard-salonowner/settings', [SalonOwnerSettingsController::class, 'showSettingsPage'])
+    ->name('salon-owner.settings');
+
+// API routes for settings
+Route::prefix('api/salon-owner')->middleware(['web'])->group(function () {
+    Route::get('/settings', [SalonOwnerSettingsController::class, 'index']);
+    Route::put('/settings', [SalonOwnerSettingsController::class, 'update']);
 });
 // services
 // Route::get('dashboard-salonowner/services', function () {
