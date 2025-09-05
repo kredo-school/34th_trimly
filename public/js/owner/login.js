@@ -66,7 +66,7 @@ function showError(message) {
 }
 
 /**
- * Handle form submission
+ * Handle form submission with API call
  */
 document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('loginForm');
