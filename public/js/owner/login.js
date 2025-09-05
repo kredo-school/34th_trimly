@@ -22,21 +22,43 @@ function goToRegister() {
 }
 
 /**
- * Handle form submission
+ * Handle form submission with API call
  */
 document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+    if (!loginForm) return;
 
-            if (email && password) {
-                // TODO: Add actual login logic
-                alert(`Login attempt for: ${email}`);
-                // window.location.href = '/salon/dashboard';
+    loginForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const tokenInput = loginForm.querySelector('input[name="_token"]');
+        const csrfToken = tokenInput ? tokenInput.value : '';
+
+        if (!email || !password) return;
+
+        try {
+            const response = await fetch('/salon-owner/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json().catch(() => ({}));
+
+            if (response.ok && data && data.success) {
+                window.location.href = '/salon-owner/calendar';
+            } else {
+                const message = (data && data.message) ? data.message : 'Login failed';
+                alert(message);
             }
-        });
-    }
+        } catch (err) {
+            console.error('Login error', err);
+            alert('Network error. Please try again.');
+        }
+    });
 });

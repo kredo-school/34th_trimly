@@ -18,6 +18,11 @@ class CalendarController extends Controller
 {
     public function index(Request $request)
     {
+        // Require salon owner session
+        if (!$request->session()->has('salon_owner_id')) {
+            return redirect()->route('salonowner.login');
+        }
+
         // Get month and year from request or use current
         $year = $request->input('year', date('Y'));
         $month = $request->input('month', date('n'));
@@ -26,8 +31,12 @@ class CalendarController extends Controller
         $month = max(1, min(12, intval($month)));
         $year = max(2020, min(2030, intval($year)));
         
-        // For now, using hardcoded salon_code. In production, get from authenticated salon owner
-        $salonCode = 'TEST_SALON_001';
+        // Use logged-in salon owner's salon_code from session
+        $salonCode = $request->session()->get('salon_code');
+        if (!$salonCode) {
+            // Fallback: redirect to login if salon_code missing
+            return redirect()->route('salonowner.login');
+        }
         
         // Get first and last day of the month
         $firstDay = Carbon::create($year, $month, 1);
