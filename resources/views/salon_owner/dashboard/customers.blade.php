@@ -30,147 +30,39 @@
 
     <!-- Customers Grid -->
     <div class="row" id="customersGrid">
-        <!-- Customer Card 1 - Sarah Johnson -->
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <!-- Customer Header -->
-                    <div class="d-flex justify-content-between align-items-start mb-3 owner-customer-header">
-                        <div>
-                            <h5 class="mb-1">Sarah Johnson</h5>
-                            <p class="text-muted owner-customer-member-since">Member since January 2023</p>
-                        </div>
-                        <div class="dropdown">
-                            <button class="btn btn-ghost btn-sm owner-action-menu" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-trash-can me-2"></i>Delete Customer</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Customer Contact Info -->
-                    <div class="owner-customer-contact-info">
-                        <div class="owner-customer-contact-item">
-                            <i class="fa-solid fa-envelope text-muted"></i>
-                            <span>sarah@example.com</span>
-                        </div>
-                        <div class="owner-customer-contact-item">
-                            <i class="fa-solid fa-phone text-muted"></i>
-                            <span>(555) 123-4567</span>
-                        </div>
-                        <div class="owner-customer-contact-item">
-                            <i class="fa-solid fa-location-dot text-muted"></i>
-                            <span>123 Oak Street, Downtown</span>
-                        </div>
-                    </div>
-            
-                    <!-- Pet Information -->
-                    <div class="owner-pet-section">
-                        <h6 class="mb-2">Pets</h6>
-                       
-                        <div>
-                            <span class="owner-pet-name">Buddy</span><br>
-                            <span class="text-muted owner-pet-details">Golden Retriever • 3 years • Large</span>
-                            <div class="text-muted owner-pet-notes">Very friendly, loves treats</div>
-                        </div>
-                    </div>
-
-                    <!-- Customer Stats -->
-                    <div class="owner-customer-stats">
-                        <div class="owner-stats-grid">
-                            <div class="owner-stat-item">
-                                <div class="owner-stat-value">1</div>
-                                <div class="text-muted owner-stat-label">Total Visits</div>
-                            </div>
-                            <div class="owner-stat-item">
-                                <div class="owner-stat-value">$85</div>
-                                <div class="text-muted owner-stat-label">Total Spent</div>
-                            </div>
-                            <div class="owner-stat-item">
-                                <div class="owner-stat-value">Today</div>
-                                <div class="text-muted owner-stat-label">Last Visit</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- Loading spinner -->
+        <div class="col-12 text-center" id="loadingSpinner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
             </div>
         </div>
+    </div>
 
-        <!-- Customer Card 2 - Mike Thompson -->
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <!-- Customer Header -->
-                    <div class="d-flex justify-content-between align-items-start mb-3 owner-customer-header">
-                        <div>
-                            <h5 class="mb-1">Mike Thompson</h5>
-                            <p class="text-muted owner-customer-member-since">Member since March 2024</p>
-                        </div>
-                        <div class="dropdown">
-                            <button class="btn btn-ghost btn-sm owner-action-menu" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-trash-can me-2"></i>Delete Customer</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Customer Contact Info -->
-                    <div class="owner-customer-contact-info">
-                        <div class="owner-customer-contact-item">
-                            <i class="fa-solid fa-envelope text-muted"></i>
-                            <span>mike@example.com</span>
-                        </div>
-                        <div class="owner-customer-contact-item">
-                            <i class="fa-solid fa-phone text-muted"></i>
-                            <span>(555) 987-6543</span>
-                        </div>
-                        <div class="owner-customer-contact-item">
-                            <i class="fa-solid fa-location-dot text-muted"></i>
-                            <span>456 Pine Avenue, Uptown</span>
-                        </div>
-                    </div>
-
-                    <!-- Pet Information -->
-                    <div class="owner-pet-section">
-                        <h6 class="mb-2">Pets</h6>
-                        <div>
-                            <span class="owner-pet-name">Luna</span><br>
-                            <span class="text-muted owner-pet-details">Toy Poodle • 5 years • Small</span>
-                            <div class="text-muted owner-pet-notes">Sensitive around paws, prefers gentle handling</div>
-                        </div>
-                    </div>
-
-                    <!-- Customer Stats -->
-                    <div class="owner-customer-stats">
-                        <div class="owner-stats-grid">
-                            <div class="owner-stat-item">
-                                <div class="owner-stat-value">8</div>
-                                <div class="text-muted owner-stat-label">Total Visits</div>
-                            </div>
-                            <div class="owner-stat-item">
-                                <div class="owner-stat-value">$520</div>
-                                <div class="text-muted owner-stat-label">Total Spent</div>
-                            </div>
-                            <div class="owner-stat-item">
-                                <div class="owner-stat-value">Yesterday</div>
-                                <div class="text-muted owner-stat-label">Last Visit</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Empty State (hidden by default) -->
+    <div id="emptyState" class="col-12 text-center owner-empty-state-hidden" style="display: none;">
+        <div class="owner-empty-state">
+            <i class="fa-regular fa-address-book text-muted"></i>
+            <h5 class="text-muted">No customers found</h5>
+            <p class="text-muted">Try adjusting your search criteria.</p>
         </div>
+    </div>
+</div>
 
-        <!-- Empty State (hidden by default) -->
-        <div id="emptyState" class="col-12 text-center owner-empty-state-hidden">
-            <div class="owner-empty-state">
-                <i class="fa-regular fa-address-book text-muted"></i>
-                <h5 class="text-muted">No customers found</h5>
-                <p class="text-muted">Try adjusting your search criteria.</p>
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove this customer? This action cannot be undone.</p>
+                <input type="hidden" id="deleteCustomerId">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Remove Customer</button>
             </div>
         </div>
     </div>
@@ -179,4 +71,5 @@
 
 @push('scripts')
 <script src="{{ asset('js/owner/dashboard.js') }}" defer></script>
+<script src="{{ asset('js/owner/customers.js') }}" defer></script>
 @endpush
