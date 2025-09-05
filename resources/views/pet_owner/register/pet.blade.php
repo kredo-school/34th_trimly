@@ -4,53 +4,7 @@
 
 @push('styles')
     <style>
-        /* InputForm */
-        .input-group-custom {
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-        }
-
-        .input-group-text-custom {
-            background-color: var(--color-background);
-            border: none;
-            color: var(--color-text-secondary);
-            padding-right: var(--spacing-sm);
-        }
-
-        .input-group .form-control {
-            background-color: var(--color-background);
-            border: none;
-            border-radius: 0;
-            padding-left: 0;
-        }
-
-        /* Add pet Button */
-        .btn-add-pet {
-            background-color: #FEFCF1;
-            color: #666;
-            font-weight: bold;
-            border: 2px solid #e0e0e0;
-        }
-
-        .btn-add-pet:hover {
-            background-color: #f5f5f5;
-        }
-
-        /* PetCard */
-        .pet-card {
-            background-color: #f9f5f2;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 30px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            text-align: left;
-        }
-
-        /* placeholder */
-        .input-group-custom .form-control {
-            padding-left: 10px;
-        }
+   
     </style>
 @endpush
 

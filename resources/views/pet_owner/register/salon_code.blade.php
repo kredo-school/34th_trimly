@@ -4,26 +4,7 @@
 
 @push('styles')
     <style>
-        /* Input Form */
-        .input-group-custom {
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-        }
-
-        .input-group-text-custom {
-            background-color: var(--color-background);
-            border: none;
-            color: var(--color-text-secondary);
-            padding-right: var(--spacing-sm);
-        }
-
-        .input-group .form-control {
-            background-color: var(--color-background);
-            border: none;
-            border-radius: 0;
-            padding-left: 0;
-        }
+     
     </style>
 @endpush
 
@@ -81,7 +62,7 @@
             <form action="{{ route('pet_owner.register.saloncode.post') }}" method="post">
                 @csrf
 
-                {{-- ▼ 追加：共通エラー表示 --}}
+               
                 @if ($errors->any())
                     <div class="alert alert-danger" role="alert">
                         <ul class="mb-0">
@@ -91,9 +72,8 @@
                             /ul>
                     </div>
                 @endif
-                {{-- ▲ 追加ここまで --}}
-
-                {{-- success --}}
+              
+                
                 @if (session('success'))
                     <div class="alert alert-success" role="alert">
                         {{ session('success') }}

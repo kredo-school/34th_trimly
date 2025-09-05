@@ -4,31 +4,7 @@
 
 @push('styles')
     <style>
-        /* InputForm */
-        .input-group-custom {
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-        }
-
-        .input-group-text-custom {
-            background-color: var(--color-background);
-            border: none;
-            color: var(--color-text-secondary);
-            padding-right: var(--spacing-sm);
-        }
-
-        .input-group .form-control {
-            background-color: var(--color-background);
-            border: none;
-            border-radius: 0;
-            padding-left: 0;
-        }
-
-        /*Toggle icon */
-        .toggle-password {
-            cursor: pointer;
-        }
+    
     </style>
 @endpush
 
@@ -86,7 +62,7 @@
 
             <form action="{{ route('pet_owner.register.petowner.post') }}" method="post">
                 @csrf
-                {{-- ▼ 追加：共通エラー表示 --}}
+              
                 @if ($errors->any())
                     <div class="alert alert-danger" role="alert">
                         <ul class="mb-0">
@@ -96,8 +72,7 @@
                         </ul>
                     </div>
                 @endif
-                {{-- ▲ 追加ここまで --}}
-
+              
                 <div class="row">
                     <div class="col-md-6 mb-3 text-start">
                         <label for="firstName" class="form-label ">First Name <span class="text-danger">*</span></label>
