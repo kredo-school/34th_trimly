@@ -42,6 +42,21 @@ class CalendarController extends Controller
         $firstDay = Carbon::create($year, $month, 1);
         $lastDay = $firstDay->copy()->endOfMonth();
         
+        // Auto-complete past appointments for this salon
+        $today = Carbon::today()->toDateString();
+        $nowTime = Carbon::now()->format('H:i:s');
+        
+        Appointment::where('salon_code', $salonCode)
+            ->whereNotIn('status', [2, 3]) // exclude cancelled(2) and completed(3)
+            ->where(function($q) use ($today, $nowTime) {
+                $q->whereDate('appointment_date', '<', $today)
+                  ->orWhere(function($q) use ($today, $nowTime) {
+                      $q->whereDate('appointment_date', $today)
+                        ->where('appointment_time_end', '<=', $nowTime);
+                  });
+            })
+            ->update(['status' => 3]);
+        
         // Get appointments for this month
         $appointments = Appointment::where('salon_code', $salonCode)
             ->whereBetween('appointment_date', [$firstDay->toDateString(), $lastDay->toDateString()])
