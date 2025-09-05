@@ -71,24 +71,7 @@
 /* =====================================================
    Pet Owner side  - Header
    ===================================================== */
-/* 1. Register Page */
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
 
-.logo img {
-    height: 80px;
-    width: auto;
-}
-
-.logo-text {
-    font-size: 20px;
-    font-weight: 700;
-}
-
-/* 2. Mypage Page */
 /* ヘッダー寸法: users.profile.header に合わせる */
 .custom-app-header {
     background-color: #ffffff;
@@ -197,25 +180,24 @@
     min-height: auto;
 }
 
-/* 3. Add-pet Page */
-
 
 
 /* =====================================================
    Pet Owner side  - Register
    ===================================================== */
 /* 1. SalonCode Page */
-/* Input Form */
+/* Input Form　Same as above */
+
 
 /* 2. PetOwner Page */
-/* InputForm */
+/* InputForm　Same as above */
 /*Toggle icon */
 .toggle-password {
     cursor: pointer;
 }
 
 /* 3. Pet Page */
-/* InputForm */
+/* InputForm 　Same as above*/
 /* Add pet Button */
 .btn-add-pet {
     background-color: #FEFCF1;
@@ -468,7 +450,7 @@
 }
 
 /* 3.Pet Page */
-/* Input field */
+/* Input field　Same as above */
 
 /* 4.Pet-edit Page */
 .form-control-inline {
