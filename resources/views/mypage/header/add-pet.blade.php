@@ -1,6 +1,3 @@
-<style>
-    
-</style>
 
 <header class="bg-white mb-2 custom-app-header">
     <div class="d-flex align-items-center w-100" style="padding-left:0;padding-right:0;">
