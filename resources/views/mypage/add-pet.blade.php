@@ -4,57 +4,6 @@
 
 @push('styles')
     <style>
-        /*入力フォームのデザイン*/
-
-        /* input-group自体にボーダーと角丸を適用 */
-        .input-group-custom {
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        /* input-group-textの背景色とボーダーを調整 */
-        .input-group-text-custom {
-            background-color: #FEFCF1;
-            border: none;
-            color: #6c757d;
-            padding-right: 8px;
-            padding: 0.75rem 1rem;
-            /* アイコン側のパディングも調整して高さを揃える */
-        }
-
-        /* input-group内のform-controlのボーダーと角丸を調整 */
-        .input-group .form-control {
-            background-color: #FEFCF1;
-            border: none;
-            border-radius: 0;
-            /* 角丸を削除 (input-group-customに任せる) */
-
-        }
-
-        /*カード詳細背景のデザイン*/
-        .pet-card {
-            background-color: #f9f5f2;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 30px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            text-align: left;
-        }
-
-        /* キャンセルボタンのスタイル */
-        .btn-cancel {
-            background-color: #FEFCF1 !important;
-            color: #666;
-            border: 1px solid #e0e0e0;
-            height: 40px;
-            padding: 0 20px;
-        }
-
-        .btn-cancel:hover {
-            background-color: #e0e0e0;
-            color: #6c757d;
-        }
     </style>
 @endpush
 

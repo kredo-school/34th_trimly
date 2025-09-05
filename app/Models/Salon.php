@@ -13,6 +13,8 @@ class Salon extends Model
         'lastname',
         'email_address',
         'phone',
+        'business_address',  // add
+        'city',              //add
         'state',
         'password',
         'website',
@@ -52,6 +54,6 @@ class Salon extends Model
 
     public function serviceItems()
     {
-        return $this->hasMany(ServiceItem::class);
+        return $this->hasMany(ServiceItem::class, 'salon_code', 'salon_code');
     }
 }

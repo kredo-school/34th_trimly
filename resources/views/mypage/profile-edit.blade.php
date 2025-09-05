@@ -4,141 +4,6 @@
 
        @push('styles')
            <style>
-               /* InputField */
-               .form-control-readonly {
-                   background-color: #FEFCF1;
-                   border: 1px solid #e0e0e0;
-                   border-radius: 10px;
-                   padding: 12px 15px;
-                   color: #333;
-                   font-size: 1rem;
-                   display: flex;
-                   align-items: center;
-                   min-height: calc(2.25rem + 2px);
-                   /* Bootstrap form-control の高さに合わせる */
-               }
-
-               .form-control-readonly .fa-solid {
-                   color: #a68c76;
-                   margin-right: 10px;
-               }
-
-               .form-control-readonly .value-text {
-                   flex-grow: 1;
-                   /* テキストが残りのスペースを占める */
-                   color: #adb5bd;
-               }
-
-               .input-group-custom-edit {
-                   display: flex;
-                   align-items: center;
-                   border: 1px solid #e0e0e0;
-                   /* form-control-readonly と同じボーダー */
-                   border-radius: 10px;
-                   /* form-control-readonly と同じ角丸 */
-                   background-color: #FEFCF1;
-                   /* form-control-readonly と同じ背景色 */
-                   min-height: calc(2.25rem + 2px);
-                   /* Bootstrap form-control の高さに合わせる */
-                   overflow: hidden;
-                   /* 角丸からはみ出さないように */
-               }
-
-               .input-group-custom-edit .input-group-text-custom-edit {
-                   background-color: transparent;
-                   border: none;
-                   color: #a68c76;
-                   padding-left: 15px;
-                   padding-right: 0;
-                   display: flex;
-                   align-items: center;
-               }
-
-               .input-group-custom-edit .form-control-inline {
-                   background-color: transparent;
-                   border: none;
-                   box-shadow: none;
-                   padding-left: 5px;
-                   padding-right: 15px;
-                   color: #333;
-                   height: auto;
-                   flex-grow: 1;
-               }
-
-               .input-group-custom-edit .form-control-inline-select {
-                   background-color: transparent;
-                   border: none;
-                   box-shadow: none;
-                   padding-left: 5px;
-                   padding-right: 15px;
-                   color: #333;
-                   height: auto;
-                   flex-grow: 1;
-               }
-
-               /* 目玉アイコン */
-               .input-group-custom .toggle-password {
-                   background-color: #FEFCF1;
-                   border-left: none;
-                   /* input との間のボーダーは不要 */
-                   color: #a68c76;
-                   /* アイコンの色 (画像に合わせて) */
-                   cursor: pointer;
-                   height: calc(2.25rem + 2px);
-                   /* Bootstrap form-control の高さに合わせる */
-                   display: flex;
-                   align-items: center;
-                   justify-content: center;
-                   padding-left: 10px;
-                   padding-right: 15px;
-               }
-
-               /* input がフォーカスされた時の .toggle-password のボーダースタイル */
-               .input-group-custom .form-control:focus+.toggle-password {
-                   border-color: #a68c76;
-                   /* フォーカス時の枠線色を合わせる */
-                   box-shadow: 0 0 0 0.25rem rgba(166, 140, 118, 0.25);
-                   /* フォーカス時の影を合わせる */
-               }
-
-               /* input-group自体にボーダーと角丸を適用 */
-               .input-group-custom {
-                   border: 1px solid #e0e0e0;
-                   border-radius: 8px;
-                   overflow: hidden;
-               }
-
-               /* input-group-textの背景色とボーダーを調整 */
-               .input-group-text-custom {
-                   background-color: #FEFCF1;
-                   border: none;
-                   color: #6c757d;
-                   padding-right: 8px;
-                   padding: 0.75rem 1rem;
-                   /* アイコン側のパディングも調整して高さを揃える */
-               }
-
-               /* input-group内のform-controlのボーダーと角丸を調整 */
-               .input-group .form-control {
-                   background-color: #FEFCF1;
-                   border: none;
-                   border-radius: 0;
-                   /* 角丸を削除 (input-group-customに任せる) */
-               }
-
-               /* Cancelbutton */
-               .btn-cancel {
-                   background-color: #FEFCF1 !important;
-                   color: #666;
-                   border: 1px solid #e0e0e0;
-                   height: 40px;
-                   padding: 0 20px;
-               }
-
-               .btn-cancel:hover {
-                   background-color: #e0e0e0;
-                   color: #6c757d;
-               }
            </style>
        @endpush
 
@@ -211,8 +76,7 @@
                                <span class="input-group-text input-group-text-custom-edit">
                                    <i class="fa-solid fa-phone"></i>
                                </span>
-                               <input type="tel" name="phone" id="phone"
-                                   class="form-control form-control-inline"
+                               <input type="tel" name="phone" id="phone" class="form-control form-control-inline"
                                    value="{{ old('phone', $petOwner->phone) }}" autofocus>
                            </div>
                            @error('phoneNumber')
@@ -256,7 +120,9 @@
                        </div>
 
                        <div class="d-flex justify-content-end mt-4">
-                           <button type="button" class="btn btn-cancel me-2">Cancel</button>
+                           <a href="{{ route('mypage.profile') }}" class="btn btn-cancel me-2">
+                               <i class="fa-solid fa-arrow-left me-2"></i>Cancel
+                           </a>
                            <button type="submit" class="btn btn-primary"><i class="fa-regular fa-floppy-disk me-2"></i>Save
                                Changes</button>
                        </div>
