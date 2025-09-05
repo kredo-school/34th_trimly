@@ -2,23 +2,27 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
-use App\Http\Controllers\PetOwner\RegisterController;
 use App\Http\Controllers\PetOwner\LoginController;
+use App\Http\Controllers\PetOwner\RegisterController;
 use App\Http\Controllers\PetOwner\Mypage\PetController;
-use App\Http\Controllers\PetOwner\Mypage\ProfileController; 
 use App\Http\Controllers\PetOwner\Mypage\SalonController;
+use App\Http\Controllers\PetOwner\Mypage\ProfileController; 
 use App\Http\Controllers\PetOwner\Mypage\ReservationController as MypageReservationController;
 /* =====================================================
    Salon Owner side  
    ===================================================== */
 //Register//
-use App\Http\Controllers\salon_owner\SalonOwnerRegisterController;
-//Login//
 use App\Http\Controllers\salon_owner\SalonOwnerLoginController;
-//Dashborard - service//   
+//Login//
 use App\Http\Controllers\salon_owner\SalonOwnerServiceController;
-
-
+//Dashborard - service//   
+use App\Http\Controllers\salon_owner\SalonOwnerRegisterController;
+//Dashborard - setting// 
+use App\Http\Controllers\salon_owner\SalonOwnerSettingsController;
+//Dashborard - customer// 
+use App\Http\Controllers\salon_owner\SalonOwnerCustomerController;
+//Dashborard - calendar// 
+use App\Http\Controllers\SalonOwner\CalendarController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -154,8 +158,8 @@ Route::prefix('register-salonowner')->name('salon.register.')->group(function ()
 
 //Owner Appointments Calendar //
 // Juri - 2025-08-30 - Implemented salon owner calendar backend to fetch and display appointments from DB
-Route::get('/salon-owner/calendar', [App\Http\Controllers\SalonOwner\CalendarController::class, 'index'])->name('salon-owner.calendar');
-Route::post('/salon-owner/appointments/{id}/cancel', [App\Http\Controllers\SalonOwner\CalendarController::class, 'cancelAppointment'])->name('salon-owner.appointments.cancel');
+Route::get('/salon-owner/calendar', [CalendarController::class, 'index'])->name('salon-owner.calendar');
+Route::post('/salon-owner/appointments/{id}/cancel', [CalendarController::class, 'cancelAppointment'])->name('salon-owner.appointments.cancel');
 /* =====================================================
    Salon Owner side  - Dashborard   
    ===================================================== */
@@ -163,28 +167,43 @@ Route::post('/salon-owner/appointments/{id}/cancel', [App\Http\Controllers\Salon
 Route::get('dashboard-salonowner/appointments', function () {
     return view('salon_owner/dashboard/appointments');
 });
-// customers
-Route::get('dashboard-salonowner/customers', function () {
-    return view('salon_owner/dashboard/customers');
+// customers// Customer page
+Route::get('dashboard-salonowner/customers', [SalonOwnerCustomerController::class, 'index'])
+->name('salonowner.customers');
+
+// API routes for customers
+Route::prefix('api/salon-owner')->middleware(['web'])->group(function () {
+Route::get('/customers', [SalonOwnerCustomerController::class, 'getCustomers']);
+Route::get('/customers/{id}', [SalonOwnerCustomerController::class, 'show']);
+Route::delete('/customers/{id}', [SalonOwnerCustomerController::class, 'destroy']);
 });
-// settings
-Route::get('dashboard-salonowner/settings', function () {
-    return view('salon_owner/dashboard/settings');
+// // settings
+// Route::get('dashboard-salonowner/settings', function () {
+//     return view('salon_owner/dashboard/settings');
+// });
+
+// Settings page route
+Route::get('dashboard-salonowner/settings', [SalonOwnerSettingsController::class, 'showSettingsPage'])
+    ->name('salon-owner.settings');
+
+// API routes for settings
+Route::prefix('api/salon-owner')->middleware(['web'])->group(function () {
+    Route::get('/settings', [SalonOwnerSettingsController::class, 'index']);
+    Route::put('/settings', [SalonOwnerSettingsController::class, 'update']);
 });
 // services
 // Route::get('dashboard-salonowner/services', function () {
 //     return view('salon_owner/dashboard/services');
     // services - Changed to pass feature data
-Route::get('dashboard-salonowner/services', [SalonOwnerServiceController::class, 'showServicesPage']);
+Route::get('dashboard-salonowner/services', [SalonOwnerServiceController::class, 'showServicesPage'])->name('salonowner.dashboard.services.get');
     
 // API routes for services (Ajax calls)
 Route::prefix('api/salon-owner')->middleware(['web'])->group(function () {
-    Route::prefix('dashboard-salonowner')->group(function () {
-        Route::get('/services', [SalonOwnerServiceController::class, 'index']);
-        Route::get('/services/features', [SalonOwnerServiceController::class, 'getFeatures']); 
-        Route::get('/services/{id}', [SalonOwnerServiceController::class, 'show']);
-        Route::post('/services', [SalonOwnerServiceController::class, 'store']);
-        Route::put('/services/{id}', [SalonOwnerServiceController::class, 'update']);
-        Route::delete('/services/{id}', [SalonOwnerServiceController::class, 'destroy']);
-    });
+    Route::get('/services', [SalonOwnerServiceController::class, 'index']);
+    Route::get('/services/features', [SalonOwnerServiceController::class, 'getFeatures']); 
+    Route::get('/services/{id}', [SalonOwnerServiceController::class, 'show']);
+    Route::post('/services/create', [SalonOwnerServiceController::class, 'store'])->name('salonowner.services.post');
+    Route::put('/services/{id}', [SalonOwnerServiceController::class, 'update']);
+    Route::delete('/services/{id}', [SalonOwnerServiceController::class, 'destroy']);
+
 });

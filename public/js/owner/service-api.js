@@ -3,9 +3,9 @@
  * Handles all API communications for service management
  */
 
-// API Configuration - Using IIFE pattern to avoid 'this' binding issues
+// API Configuration
 const ServiceAPI = (function() {
-    const baseUrl = '/api/salon-owner/dashboard-salonowner/services';
+    const baseUrl = '/api/salon-owner/services';
     
     /**
      * Get CSRF token from meta tag
@@ -133,7 +133,7 @@ const ServiceAPI = (function() {
          * @returns {Promise<Object>} API response with features list
          */
         async getFeatures() {
-            const response = await fetch(`${baseUrl}/features`, {
+            const response = await fetch('/api/salon-owner/services/features', {
                 method: 'GET',
                 headers: getHeaders()
             });
@@ -165,67 +165,7 @@ class ServiceManager {
      */
     init() {
         this.setupEventListeners();
-        this.loadFeatures().then(() => {
-            this.loadServices();
-        });
-    }
-
-    /**
-     * Load service features from API
-     */
-    async loadFeatures() {
-        try {
-            const response = await ServiceAPI.getFeatures();
-            
-            if (response.success && response.data) {
-                this.features = response.data;
-                // Create a map for quick lookup
-                this.features.forEach(feature => {
-                    this.featureMap.set(feature.id.toString(), feature.name);
-                });
-                this.updateFeatureCheckboxes();
-            }
-        } catch (error) {
-            console.error('Error loading features:', error);
-            // Fall back to using existing HTML checkboxes
-        }
-    }
-
-    /**
-     * Update checkbox values with database IDs
-     */
-    updateFeatureCheckboxes() {
-        // Mapping between HTML element IDs and database feature IDs
-        const featureMapping = {
-            'bathShampoo': 1,
-            'professionalCut': 2,
-            'nailTrim': 5,
-            'earCleaning': 6,
-            'teethCleaning': 7,
-            'blowDry': 9,
-            'desheddingTreatment': 11,
-            'fleaTickTreatment': null, // Not in database
-            'nailPolish': null, // Not in database
-            'bowBandana': null, // Not in database
-            'aromatherapy': null, // Not in database
-            'gentleHandling': null // Not in database
-        };
-
-        // Update add form checkboxes
-        Object.entries(featureMapping).forEach(([elementId, dbId]) => {
-            const checkbox = document.getElementById(elementId);
-            if (checkbox && dbId) {
-                checkbox.value = dbId;
-            }
-        });
-
-        // Update edit form checkboxes
-        Object.entries(featureMapping).forEach(([elementId, dbId]) => {
-            const checkbox = document.getElementById('edit' + elementId.charAt(0).toUpperCase() + elementId.slice(1));
-            if (checkbox && dbId) {
-                checkbox.value = dbId;
-            }
-        });
+        this.loadServices();
     }
 
     /**
@@ -235,34 +175,35 @@ class ServiceManager {
         // Save button for add service modal
         const saveBtn = document.getElementById('saveServiceBtn');
         if (saveBtn) {
-            saveBtn.removeEventListener('click', this.handleSaveService);
             saveBtn.addEventListener('click', () => this.handleSaveService());
         }
 
         // Save button for edit service modal
         const saveEditBtn = document.getElementById('saveEditServiceBtn');
         if (saveEditBtn) {
-            saveEditBtn.removeEventListener('click', this.handleUpdateService);
             saveEditBtn.addEventListener('click', () => this.handleUpdateService());
+        }
+
+        // Confirm delete button
+        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+        if (confirmDeleteBtn) {
+            confirmDeleteBtn.addEventListener('click', () => this.confirmDelete());
         }
 
         // Global click handler for edit and delete buttons
         document.addEventListener('click', (e) => {
             // Handle edit button clicks
-            const editBtn = e.target.closest('.btn-salon-code[data-service]');
-            if (editBtn) {
+            if (e.target.closest('.btn-salon-code[data-service]')) {
                 e.preventDefault();
-                e.stopPropagation();
-                const serviceId = editBtn.getAttribute('data-service');
+                const btn = e.target.closest('.btn-salon-code[data-service]');
+                const serviceId = btn.getAttribute('data-service');
                 this.handleEditService(serviceId);
             }
 
             // Handle delete button clicks
-            const deleteBtn = e.target.closest('.service-card .delete-btn');
-            if (deleteBtn) {
+            if (e.target.closest('.delete-btn')) {
                 e.preventDefault();
-                e.stopPropagation();
-                const card = deleteBtn.closest('.service-card');
+                const card = e.target.closest('.service-card');
                 const serviceId = card.getAttribute('data-service-id');
                 if (serviceId) {
                     this.handleDeleteService(serviceId);
@@ -280,7 +221,7 @@ class ServiceManager {
             const response = await ServiceAPI.getAll();
             
             if (response.success && response.data) {
-                this.services = response.data.data || [];
+                this.services = response.data;
                 this.renderServices();
             }
         } catch (error) {
@@ -298,13 +239,20 @@ class ServiceManager {
         const servicesGrid = document.getElementById('servicesGrid');
         const emptyState = document.getElementById('emptyState');
         
-        if (!this.services.length) {
+        if (!servicesGrid) return;
+        
+        if (!this.services || this.services.length === 0) {
             servicesGrid.innerHTML = '';
-            emptyState.classList.remove('owner-empty-state-hidden');
+            if (emptyState) {
+                emptyState.style.display = 'block';
+            }
             return;
         }
 
-        emptyState.classList.add('owner-empty-state-hidden');
+        if (emptyState) {
+            emptyState.style.display = 'none';
+        }
+        
         servicesGrid.innerHTML = this.services.map(service => this.createServiceCard(service)).join('');
     }
 
@@ -316,7 +264,7 @@ class ServiceManager {
     createServiceCard(service) {
         const features = service.features || [];
         const featuresHTML = features.map(feature => 
-            `<span class="badge feature-badge">${this.escapeHtml(feature)}</span>`
+            `<span class="badge feature-badge">${this.escapeHtml(feature.name || feature)}</span>`
         ).join('');
 
         return `
@@ -341,19 +289,21 @@ class ServiceManager {
                         <i class="fa-regular fa-clock me-2"></i>
                         <span class="me-4">${service.formatted_duration || service.duration + ' minutes'}</span>
                         <i class="fa-solid fa-dollar-sign me-2"></i>
-                        <span class="me-4">${service.formatted_price || service.price}</span>
+                        <span class="me-4">$${service.formatted_price || service.price}</span>
                         <i class="fa-solid fa-scissors me-2"></i>
                         <span>${service.features_count || features.length} features</span>
                     </div>
                     
                     <p class="text-muted mb-3 owner-service-description">${this.escapeHtml(service.description)}</p>
                     
+                    ${features.length > 0 ? `
                     <div class="mb-0">
                         <h6 class="text-dark mb-2 fw-bold owner-features-header">INCLUDED FEATURES:</h6>
                         <div class="d-flex flex-wrap gap-2">
                             ${featuresHTML}
                         </div>
                     </div>
+                    ` : ''}
                 </div>
             </div>
         `;
@@ -441,20 +391,28 @@ class ServiceManager {
      * Handle delete service
      * @param {number} serviceId - ID of service to delete
      */
-    async handleDeleteService(serviceId) {
-        const card = document.querySelector(`[data-service-id="${serviceId}"]`);
-        const serviceName = card.querySelector('h5').textContent;
+    handleDeleteService(serviceId) {
+        // Store the service ID for deletion
+        document.getElementById('deleteServiceId').value = serviceId;
         
-        if (!confirm(`Are you sure you want to delete "${serviceName}"?`)) {
-            return;
-        }
+        // Show confirmation modal
+        const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+        modal.show();
+    }
 
+    /**
+     * Confirm and execute deletion
+     */
+    async confirmDelete() {
+        const serviceId = document.getElementById('deleteServiceId').value;
+        
         try {
             this.showLoading();
             const response = await ServiceAPI.delete(serviceId);
             
             if (response.success) {
                 this.showNotification('Service deleted successfully!', 'success');
+                this.closeModal('deleteConfirmModal');
                 await this.loadServices();
             }
         } catch (error) {
@@ -471,22 +429,21 @@ class ServiceManager {
      */
     collectFormData(formType) {
         const prefix = formType === 'edit' ? 'edit' : '';
+        const capitalizedPrefix = formType === 'edit' ? 'Edit' : '';
         const selectedFeatures = [];
         
-        // Collect checked features with their IDs
-        document.querySelectorAll(`#${formType}ServiceForm input[type="checkbox"]:checked`).forEach(checkbox => {
-            if (checkbox.value) {
-                selectedFeatures.push(checkbox.value);
-            }
+        // Collect checked features
+        document.querySelectorAll(`#${formType}ServiceForm input[name="${formType === 'edit' ? 'edit_' : ''}features[]"]:checked`).forEach(checkbox => {
+            selectedFeatures.push(checkbox.value);
         });
 
         return {
             servicename: document.getElementById(`${prefix}ServiceName`).value.trim(),
-            category: document.getElementById(`${prefix}ServiceCategory`).value.trim() || 'General',
+            category: document.getElementById(`${prefix}ServiceCategory`).value.trim(),
             duration: parseInt(document.getElementById(`${prefix}ServiceDuration`).value),
             price: parseFloat(document.getElementById(`${prefix}ServicePrice`).value),
             description: document.getElementById(`${prefix}ServiceDescription`).value.trim(),
-            servicefeatures: selectedFeatures.join(',') // Store as comma-separated IDs
+            features: selectedFeatures // Send as array, controller will process
         };
     }
 
@@ -504,17 +461,8 @@ class ServiceManager {
         // Clear all checkboxes
         document.querySelectorAll('#editServiceForm input[type="checkbox"]').forEach(cb => cb.checked = false);
 
-        // Check features based on stored IDs
-        if (service.servicefeatures) {
-            const featureIds = service.servicefeatures.toString().split(',');
-            featureIds.forEach(id => {
-                // Find checkbox by value
-                const checkbox = document.querySelector(`#editServiceForm input[type="checkbox"][value="${id.trim()}"]`);
-                if (checkbox) {
-                    checkbox.checked = true;
-                }
-            });
-        }
+        // For now, we can't restore features since they're stored as count only
+        // This would need to be improved with proper feature storage
     }
 
     /**
@@ -522,7 +470,6 @@ class ServiceManager {
      * @param {string} modalId - Modal element ID
      */
     showModal(modalId) {
-        cleanupModals();
         const modal = new bootstrap.Modal(document.getElementById(modalId));
         modal.show();
     }
@@ -537,16 +484,16 @@ class ServiceManager {
         if (modal) {
             modal.hide();
         }
-        cleanupModals();
     }
 
     /**
      * Show loading spinner
      */
     showLoading() {
-        if (!document.getElementById('apiLoader')) {
+        const existingLoader = document.getElementById('serviceLoadingSpinner');
+        if (!existingLoader) {
             const loader = document.createElement('div');
-            loader.id = 'apiLoader';
+            loader.id = 'serviceLoadingSpinner';
             loader.className = 'position-fixed top-50 start-50 translate-middle';
             loader.style.zIndex = '9999';
             loader.innerHTML = '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>';
@@ -558,8 +505,10 @@ class ServiceManager {
      * Hide loading spinner
      */
     hideLoading() {
-        const loader = document.getElementById('apiLoader');
-        if (loader) loader.remove();
+        const loader = document.getElementById('serviceLoadingSpinner');
+        if (loader) {
+            loader.remove();
+        }
     }
 
     /**
@@ -568,16 +517,27 @@ class ServiceManager {
      * @param {string} type - Alert type (info, success, danger, etc.)
      */
     showNotification(message, type = 'info') {
+        // Remove existing notifications
+        const existingAlerts = document.querySelectorAll('.alert.service-notification');
+        existingAlerts.forEach(alert => alert.remove());
+        
         const alert = document.createElement('div');
-        alert.className = `alert alert-${type} alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3`;
+        alert.className = `alert alert-${type} alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3 service-notification`;
         alert.style.zIndex = '9999';
+        alert.style.minWidth = '300px';
         alert.innerHTML = `
             ${message}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         `;
         
         document.body.appendChild(alert);
-        setTimeout(() => alert.remove(), 5000);
+        
+        // Auto-dismiss after 5 seconds
+        setTimeout(() => {
+            if (alert.parentNode) {
+                alert.remove();
+            }
+        }, 5000);
     }
 
     /**
@@ -586,6 +546,7 @@ class ServiceManager {
      * @returns {string} Escaped text
      */
     escapeHtml(text) {
+        if (!text) return '';
         const map = {
             '&': '&amp;',
             '<': '&lt;',
@@ -593,19 +554,16 @@ class ServiceManager {
             '"': '&quot;',
             "'": '&#039;'
         };
-        return text.replace(/[&<>"']/g, m => map[m]);
+        return text.toString().replace(/[&<>"']/g, m => map[m]);
     }
 }
 
 // Initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        if (window.location.pathname.includes('services')) {
-            window.serviceManager = new ServiceManager();
-        }
-    });
-} else {
-    if (window.location.pathname.includes('services')) {
+document.addEventListener('DOMContentLoaded', function() {
+    // Only initialize on services page
+    if (window.location.pathname.includes('/dashboard-salonowner/services') || 
+        window.location.pathname.includes('/salon-owner/services')) {
         window.serviceManager = new ServiceManager();
     }
-}
+});
+
