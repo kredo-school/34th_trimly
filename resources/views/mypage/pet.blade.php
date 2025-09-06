@@ -30,9 +30,11 @@
                     <div class="col-12 col-md-6">
                         <div class="card p-4">
                             <div class="pet-card-header d-flex justify-content-between align-items-center mb-4">
-                                <div class="pet-name-display fs-3 d-flex align-items-center">
-                                    <i class="fa-solid fa-heart me-2"></i>
-                                    <p class="mb-0">{{ $pet->name }}</p>
+                                <div class="pet-name-display d-flex align-items-center">
+                                    <h5 class="mb-0 fw-bold d-flex align-items-center">
+                                        <i class="fa-solid fa-heart me-2 fs-3"></i>
+                                        {{ $pet->name }}
+                                    </h5>
                                 </div>
                                 <div class="pet-actions">
                                     {{-- edit-button --}}

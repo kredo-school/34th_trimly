@@ -20,7 +20,7 @@
            @endif
 
            <div class="card p-4 mb-4">
-               <h4 class="mb-4"><i class="fa-solid fa-user me-1"></i>Pet Owner Information</h4>
+               <h4 class="mb-4 fw-bold "><i class="fa-solid fa-user me-1"></i>Pet Owner Information</h4>
 
                {{-- Edit profile --}}
                <form action="{{ route('mypage.profile.update') }}" method="POST">
@@ -132,7 +132,7 @@
 
            {{-- Password reset --}}
            <div class="card p-4">
-               <h4 class="mb-4"><i class="fa-solid fa-lock me-2"></i>Change Password</h4>
+               <h4 class="mb-4 fw-bold"><i class="fa-solid fa-lock me-2"></i>Change Password</h4>
                <form action="{{ route('mypage.password.update') }}" method="POST">
                    @csrf
 
