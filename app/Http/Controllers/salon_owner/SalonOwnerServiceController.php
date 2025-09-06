@@ -56,6 +56,15 @@ class SalonOwnerServiceController extends Controller
             $formattedServices = $services->map(function ($service) {
                 $features = $this->parseFeatures($service->servicefeatures);
                 
+                // Handle servicefeatures based on type
+                $servicefeaturesArray = [];
+                if (is_array($service->servicefeatures)) {
+                    $servicefeaturesArray = $service->servicefeatures;
+                } elseif (is_numeric($service->servicefeatures) && $service->servicefeatures !== null) {
+                    // If still integer, convert to array
+                    $servicefeaturesArray = [$service->servicefeatures];
+                }
+                
                 return [
                     'id' => $service->id,
                     'salon_code' => $service->salon_code,
@@ -66,7 +75,8 @@ class SalonOwnerServiceController extends Controller
                     'price' => $service->price,
                     'formatted_price' => number_format($service->price, 2),
                     'description' => $service->description,
-                    'servicefeatures' => $service->servicefeatures,
+                    'servicefeatures' => $servicefeaturesArray,
+                    'servicefeatures_display' => !empty($servicefeaturesArray) ? implode(',', $servicefeaturesArray) : '',
                     'features' => $features,
                     'features_count' => count($features),
                     'created_at' => $service->created_at->format('Y-m-d H:i:s'),
@@ -120,6 +130,14 @@ class SalonOwnerServiceController extends Controller
             }
 
             $features = $this->parseFeatures($service->servicefeatures);
+            
+            // Handle servicefeatures based on type
+            $servicefeaturesArray = [];
+            if (is_array($service->servicefeatures)) {
+                $servicefeaturesArray = $service->servicefeatures;
+            } elseif (is_numeric($service->servicefeatures) && $service->servicefeatures !== null) {
+                $servicefeaturesArray = [$service->servicefeatures];
+            }
 
             return response()->json([
                 'success' => true,
@@ -133,7 +151,8 @@ class SalonOwnerServiceController extends Controller
                     'price' => $service->price,
                     'formatted_price' => number_format($service->price, 2),
                     'description' => $service->description,
-                    'servicefeatures' => $service->servicefeatures,
+                    'servicefeatures' => $servicefeaturesArray,
+                    'servicefeatures_display' => !empty($servicefeaturesArray) ? implode(',', $servicefeaturesArray) : '',
                     'features' => $features,
                     'features_count' => count($features),
                     'created_at' => $service->created_at->format('Y-m-d H:i:s'),
@@ -157,17 +176,16 @@ class SalonOwnerServiceController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request)
-    {
-        Log::info('This is some useful information.');
-        return redirect()->route('salonowner.dashboard.services.get');
-        dd($request);
+    public function store(Request $request): JsonResponse
+    { Log::info('start store function' );
         $validated = $request->validate([
             'servicename' => 'required|string|max:100',
             'category' => 'required|string|max:100',
             'duration' => 'required|integer|min:15',
             'price' => 'required|numeric|min:0',
             'description' => 'required|string',
+            'features' => 'array',
+            'features.*' => 'exists:servicefeatures_statuses,id'
         ]);
 
         try {
@@ -180,35 +198,21 @@ class SalonOwnerServiceController extends Controller
                 ], 401);
             }
 
-            // Process features (count selected features for integer field)
-            $servicefeatures = 0;
-            if ($request->has('features') && is_array($request->features)) {
-                // Store count of selected features
-                $servicefeatures = count($request->features);
-            }
+            // Process features - save as JSON array
+            $servicefeatures = $request->has('features') ? array_map('intval', $request->features) : [];
 
             $serviceData = array_merge($validated, [
                 'salon_code' => $salon->salon_code,
                 'servicefeatures' => $servicefeatures
             ]);
 
+            // Remove features from data (it's not a column)
+            unset($serviceData['features']);
+
             $service = ServiceItem::create($serviceData);
 
             // Get feature details for response
-            $features = [];
-            if ($request->has('features') && is_array($request->features)) {
-                $features = DB::table('servicefeatures_statuses')
-                    ->whereIn('id', $request->features)
-                    ->whereNull('deleted_at')
-                    ->get()
-                    ->map(function ($feature) {
-                        return [
-                            'id' => $feature->id,
-                            'name' => $feature->display_name
-                        ];
-                    })
-                    ->toArray();
-            }
+            $features = $this->parseFeatures($service->servicefeatures);
 
             return response()->json([
                 'success' => true,
@@ -224,6 +228,7 @@ class SalonOwnerServiceController extends Controller
                     'formatted_price' => number_format($service->price, 2),
                     'description' => $service->description,
                     'servicefeatures' => $service->servicefeatures,
+                    'servicefeatures_display' => !empty($service->servicefeatures) ? implode(',', $service->servicefeatures) : '',
                     'features' => $features,
                     'features_count' => count($features),
                     'created_at' => $service->created_at->format('Y-m-d H:i:s'),
@@ -255,6 +260,8 @@ class SalonOwnerServiceController extends Controller
             'duration' => 'sometimes|integer|min:15',
             'price' => 'sometimes|numeric|min:0',
             'description' => 'sometimes|string',
+            'features' => 'sometimes|array',
+            'features.*' => 'exists:servicefeatures_statuses,id'
         ]);
 
         try {
@@ -278,33 +285,18 @@ class SalonOwnerServiceController extends Controller
                 ], 404);
             }
 
-            // Update features count if provided
+            // Update features if provided
             if ($request->has('features')) {
-                if (is_array($request->features)) {
-                    $validated['servicefeatures'] = count($request->features);
-                }
+                $validated['servicefeatures'] = array_map('intval', $request->features);
             }
+
+            // Remove features from validated data (it's not a column)
+            unset($validated['features']);
 
             $service->update($validated);
 
             // Get feature details for response
-            $features = [];
-            if ($request->has('features') && is_array($request->features)) {
-                $features = DB::table('servicefeatures_statuses')
-                    ->whereIn('id', $request->features)
-                    ->whereNull('deleted_at')
-                    ->get()
-                    ->map(function ($feature) {
-                        return [
-                            'id' => $feature->id,
-                            'name' => $feature->display_name
-                        ];
-                    })
-                    ->toArray();
-            } else {
-                // Get existing features based on count
-                $features = $this->parseFeatures($service->servicefeatures);
-            }
+            $features = $this->parseFeatures($service->servicefeatures);
 
             return response()->json([
                 'success' => true,
@@ -320,6 +312,7 @@ class SalonOwnerServiceController extends Controller
                     'formatted_price' => number_format($service->price, 2),
                     'description' => $service->description,
                     'servicefeatures' => $service->servicefeatures,
+                    'servicefeatures_display' => !empty($service->servicefeatures) ? implode(',', $service->servicefeatures) : '',
                     'features' => $features,
                     'features_count' => count($features),
                     'updated_at' => $service->updated_at->format('Y-m-d H:i:s'),
@@ -451,37 +444,39 @@ class SalonOwnerServiceController extends Controller
 
     /**
      * Parse features from servicefeatures field
-     * servicefeatures is treated as an integer representing the count of features
+     * servicefeatures is now stored as JSON array
      *
      * @param mixed $features
      * @return array
      */
     private function parseFeatures($features): array
     {
-        if (empty($features) || !is_numeric($features)) {
+        $featureIds = [];
+        
+        // Handle different data types
+        if (is_array($features) && !empty($features)) {
+            $featureIds = $features;
+        } elseif (is_numeric($features) && $features > 0) {
+            // Legacy support: if still integer, treat as single feature
+            $featureIds = [$features];
+        } else {
             return [];
         }
-
-        // Get default features based on count
-        $featureCount = intval($features);
-        if ($featureCount <= 0) {
-            return [];
-        }
-
-        $allFeatures = DB::table('servicefeatures_statuses')
+        
+        // Get feature details from database
+        $featureData = DB::table('servicefeatures_statuses')
+            ->whereIn('id', $featureIds)
             ->whereNull('deleted_at')
-            ->orderBy('id')
-            ->limit($featureCount)
             ->get()
             ->map(function ($feature) {
                 return [
                     'id' => $feature->id,
-                    'name' => $feature->display_name
+                    'name' => $feature->display_name ?? $feature->servicefeature_name
                 ];
             })
             ->toArray();
         
-        return $allFeatures;
+        return $featureData;
     }
 
     /**
@@ -551,131 +546,5 @@ class SalonOwnerServiceController extends Controller
                 'error' => config('app.debug') ? $e->getMessage() : null
             ], 500);
         }
-    }
-
-    /**
-     * Display the services page with features list
-     *
-     * @param Request $request
-     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
-     */
-    // public function showServicesPage(Request $request)
-    // {
-    //     // Check if logged in
-    //     if (!$request->session()->has('salon_owner_id')) {
-    //         return redirect()->route('salonowner.login');
-    //     }
-        
-    //     // Get all service features
-    //     $serviceFeatures = DB::table('servicefeatures_statuses')
-    //         ->whereNull('deleted_at')
-    //         ->orderBy('id')
-    //         ->get();
-        
-    //     // Return view with features data
-    //     return view('salon_owner.dashboard.services', compact('serviceFeatures'));
-    // }
-
-    /**
-     * Get all service features
-     *
-     * @return JsonResponse
-     */
-    // public function getFeatures(): JsonResponse
-    // {
-    //     try {
-    //         $features = DB::table('servicefeatures_statuses')
-    //             ->whereNull('deleted_at')
-    //             ->orderBy('id')
-    //             ->get();
-            
-    //         return response()->json([
-    //             'success' => true,
-    //             'data' => $features
-    //         ]);
-    //     } catch (\Exception $e) {
-    //         return response()->json([
-    //             'success' => false,
-    //             'message' => 'Failed to fetch features',
-    //             'error' => config('app.debug') ? $e->getMessage() : null
-    //         ], 500);
-    //     }
-    // }
-
-    /**
-     * Parse features from servicefeatures field
-     *
-     * @param mixed $features
-     * @return array
-     */
-    // private function parseFeatures($features): array
-    // {
-    //     // If features is stored as comma-separated IDs
-    //     if (is_string($features) && strpos($features, ',') !== false) {
-    //         $featureIds = explode(',', $features);
-    //         $featureData = DB::table('servicefeatures_statuses')
-    //             ->whereIn('id', $featureIds)
-    //             ->pluck('display_name')
-    //             ->toArray();
-    //         return $featureData;
-    //     }
-        
-    //     // If features is stored as JSON
-    //     if (is_string($features) && $this->isJson($features)) {
-    //         $featureIds = json_decode($features, true);
-    //         $featureData = DB::table('servicefeatures_statuses')
-    //             ->whereIn('id', $featureIds)
-    //             ->pluck('display_name')
-    //             ->toArray();
-    //         return $featureData;
-    //     }
-        
-    //     // If features is a number representing feature count
-    //     if (is_numeric($features)) {
-    //         // Return default features based on count
-    //         $allFeatures = DB::table('servicefeatures_statuses')
-    //             ->whereNull('deleted_at')
-    //             ->orderBy('id')
-    //             ->limit($features)
-    //             ->pluck('display_name')
-    //             ->toArray();
-            
-    //         return $allFeatures;
-    //     }
-        
-    //     return [];
-    // }
-
-    /**
-     * Format duration for display
-     *
-     * @param int $duration
-     * @return string
-     */
-    // private function formatDuration(int $duration): string
-    // {
-    //     if ($duration >= 60) {
-    //         $hours = floor($duration / 60);
-    //         $minutes = $duration % 60;
-            
-    //         if ($minutes > 0) {
-    //             return "{$hours}h {$minutes} minutes";
-    //         }
-    //         return "{$hours}h";
-    //     }
-        
-    //     return "{$duration} minutes";
-    // }
-
-    /**
-     * Check if string is JSON
-     *
-     * @param string $string
-     * @return bool
-     */
-    private function isJson($string): bool
-    {
-        json_decode($string);
-        return (json_last_error() == JSON_ERROR_NONE);
     }
 }

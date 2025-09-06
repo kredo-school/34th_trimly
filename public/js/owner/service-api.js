@@ -108,25 +108,25 @@ const ServiceAPI = (function() {
             return result;
         },
 
-        /**
-         * Delete service
-         * @param {number} id - Service ID
-         * @returns {Promise<Object>} API response confirming deletion
-         */
-        async delete(id) {
-            const response = await fetch(`${baseUrl}/${id}`, {
-                method: 'DELETE',
-                headers: getHeaders()
-            });
+        // /**
+        //  * Delete service
+        //  * @param {number} id - Service ID
+        //  * @returns {Promise<Object>} API response confirming deletion
+        //  */
+        // async delete(id) {
+        //     const response = await fetch(`${baseUrl}/${id}`, {
+        //         method: 'DELETE',
+        //         headers: getHeaders()
+        //     });
             
-            const result = await response.json();
+        //     const result = await response.json();
             
-            if (!response.ok) {
-                throw new Error(result.message || 'Failed to delete service');
-            }
+        //     if (!response.ok) {
+        //         throw new Error(result.message || 'Failed to delete service');
+        //     }
             
-            return result;
-        },
+        //     return result;
+        // },
 
         /**
          * Get available service features
@@ -210,6 +210,15 @@ class ServiceManager {
                 }
             }
         });
+
+        // Handle form submission via Enter key
+        const addServiceForm = document.getElementById('addServiceForm');
+        if (addServiceForm) {
+            addServiceForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleSaveService();
+            });
+        }
     }
 
     /**
@@ -219,6 +228,8 @@ class ServiceManager {
         try {
             this.showLoading();
             const response = await ServiceAPI.getAll();
+            
+            console.log('Services loaded:', response); // Debug log
             
             if (response.success && response.data) {
                 this.services = response.data;
@@ -262,10 +273,15 @@ class ServiceManager {
      * @returns {string} HTML string for service card
      */
     createServiceCard(service) {
+        // Handle features display
         const features = service.features || [];
         const featuresHTML = features.map(feature => 
             `<span class="badge feature-badge">${this.escapeHtml(feature.name || feature)}</span>`
         ).join('');
+
+        // Get features display string (e.g., "1,2,3")
+        const featuresDisplay = service.servicefeatures_display || 
+                               (service.servicefeatures ? service.servicefeatures.join(',') : '');
 
         return `
             <div class="card service-card mb-3" data-service-id="${service.id}">
@@ -291,7 +307,7 @@ class ServiceManager {
                         <i class="fa-solid fa-dollar-sign me-2"></i>
                         <span class="me-4">$${service.formatted_price || service.price}</span>
                         <i class="fa-solid fa-scissors me-2"></i>
-                        <span>${service.features_count || features.length} features</span>
+                        <span>${service.features_count || features.length} features${featuresDisplay ? ' (' + featuresDisplay + ')' : ''}</span>
                     </div>
                     
                     <p class="text-muted mb-3 owner-service-description">${this.escapeHtml(service.description)}</p>
@@ -434,7 +450,7 @@ class ServiceManager {
         
         // Collect checked features
         document.querySelectorAll(`#${formType}ServiceForm input[name="${formType === 'edit' ? 'edit_' : ''}features[]"]:checked`).forEach(checkbox => {
-            selectedFeatures.push(checkbox.value);
+            selectedFeatures.push(parseInt(checkbox.value));
         });
 
         return {
@@ -443,7 +459,7 @@ class ServiceManager {
             duration: parseInt(document.getElementById(`${prefix}ServiceDuration`).value),
             price: parseFloat(document.getElementById(`${prefix}ServicePrice`).value),
             description: document.getElementById(`${prefix}ServiceDescription`).value.trim(),
-            features: selectedFeatures // Send as array, controller will process
+            features: selectedFeatures // Send as array of integers
         };
     }
 
@@ -458,11 +474,18 @@ class ServiceManager {
         document.getElementById('editServicePrice').value = service.price;
         document.getElementById('editServiceDescription').value = service.description;
 
-        // Clear all checkboxes
+        // Clear all checkboxes first
         document.querySelectorAll('#editServiceForm input[type="checkbox"]').forEach(cb => cb.checked = false);
 
-        // For now, we can't restore features since they're stored as count only
-        // This would need to be improved with proper feature storage
+        // Check the appropriate feature checkboxes based on servicefeatures array
+        if (service.servicefeatures && Array.isArray(service.servicefeatures)) {
+            service.servicefeatures.forEach(featureId => {
+                const checkbox = document.getElementById(`edit_feature_${featureId}`);
+                if (checkbox) {
+                    checkbox.checked = true;
+                }
+            });
+        }
     }
 
     /**
@@ -566,4 +589,3 @@ document.addEventListener('DOMContentLoaded', function() {
         window.serviceManager = new ServiceManager();
     }
 });
-

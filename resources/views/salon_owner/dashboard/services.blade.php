@@ -1,89 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Services - Trimly Admin</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    
-    <!-- Font Awesome Icons -->
+@extends('layouts.navigation')
+
+@section('title', 'Services')
+
+@push('styles')
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <!-- Custom CSS -->
+    <!-- Base CSS Files -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link href="{{ asset('css/register-salon-owner.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/navigation-salon-owner.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dashboard-salon-owner.css') }}" rel="stylesheet">
-</head>
+@endpush
 
-<body class="body-layout">
-    <!-- Header Section -->
-    <header class="bg-white shadow-sm mb-2"> 
-        <nav class="navbar navbar-light">
-            <div class="container-fluid">
-                <!-- Left side: Logo and Brand -->
-                <a class="navbar-brand"> 
-                    <div class="logo me-1">
-                        <img src="{{ asset('images/Trimly Logo.png') }}" alt="Trimly Logo" class="img-fluid logo-image">
-                    </div>
-                    <div class="brand-text">
-                        <p class="main-title fw-bold text-muted mb-0 fs-5">Trimly Admin</p>
-                        <p class="subtitle text-muted mb-0 subtitle-text">{{ session('salon_name', 'Salon') }}</p>
-                    </div>
-                </a>
-
-                <!-- Center: Menu Dropdown -->
-                <div class="menu-dropdown">
-                    <button class="menu-btn" onclick="toggleMenu()" id="menuBtn">
-                        Menu <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="menu-dropdown-content" id="menuDropdown">
-                        <a href="/dashboard-salonowner/appointments" class="menu-dropdown-item">
-                            <i class="fa-regular fa-calendar"></i> Appointments
-                        </a>
-                        <a href="/dashboard-salonowner/customers" class="menu-dropdown-item">
-                            <i class="fa-regular fa-user"></i> Customers
-                        </a>
-                        <a href="/salon-owner/calendar" class="menu-dropdown-item">
-                            <i class="fa-regular fa-calendar-days"></i> Calendar
-                        </a>
-                        <a href="/dashboard-salonowner/services" class="menu-dropdown-item active">
-                            <i class="fa-solid fa-scissors"></i> Services
-                        </a>
-                        <a href="/dashboard-salonowner/settings" class="menu-dropdown-item">
-                            <i class="fa-solid fa-gear"></i> Settings
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Right side: Salon Code and Logout -->
-                <div class="header-actions">
-                    <!-- Salon Code Button with Modal Trigger -->
-                    <a href="#" class="btn-salon-code d-none d-sm-flex btn-owner-back" data-bs-toggle="modal" data-bs-target="#salonCodeModal">
-                        <i class="fa-solid fa-key me-2"></i>
-                        <span>Salon Code</span>
-                    </a>
-                    
-                    <!-- Logout Form -->
-                    <form id="logoutForm" action="/salon-owner/logout" method="POST" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="btn-salon-code d-none d-sm-flex btn-owner-back" style="border: none;">
-                            <i class="fa-solid fa-right-from-bracket me-2"></i>
-                            <span class="d-none d-sm-inline">Logout</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-    </header>
-
+@section('content')
     <!-- Main Content Area -->
     <main class="main-content">
         <div class="container">
@@ -135,17 +65,18 @@
                         <h5 class="modal-title" id="addServiceModalLabel">Add New Service</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form id="addServiceForm" action="{{ route('salonowner.services.post') }}" method="POST" class="needs-validation" novalidate>
-                    <div class="modal-body">
+                    <form id="addServiceForm" class="needs-validation" action="{{ route('salonowner.services.post' ) }}" method="POST" novalidate> 
+                        @csrf
+                        <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="serviceName" class="form-label">Service Name *</label>
-                                    <input type="text" class="form-control" id="serviceName" placeholder="e.g. Full Grooming Package" required>
+                                    <input type="text" class="form-control" id="servicename" name="servicename" placeholder="e.g. Full Grooming Package" required>
                                     <div class="invalid-feedback">Please provide a service name.</div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="serviceCategory" class="form-label">Category *</label>
-                                    <input type="text" class="form-control" id="serviceCategory" placeholder="e.g. Complete Service" required>
+                                    <input type="text" class="form-control" id="servicecategory" name="servicecategory" placeholder="e.g. Complete Service" required>
                                     <div class="invalid-feedback">Please provide a category.</div>
                                 </div>
                             </div>
@@ -153,19 +84,19 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="serviceDuration" class="form-label">Duration (minutes) *</label>
-                                    <input type="number" class="form-control" id="serviceDuration" placeholder="60" min="15" required>
+                                    <input type="number" class="form-control" id="serviceduration" name="serviceduration" placeholder="60" min="15" required>
                                     <div class="invalid-feedback">Minimum duration is 15 minutes.</div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="servicePrice" class="form-label">Price ($) *</label>
-                                    <input type="number" class="form-control" id="servicePrice" placeholder="0" step="0.01" min="0" required>
+                                    <input type="number" class="form-control" id="serviceprice" name="serviceprice" placeholder="0" step="0.01" min="0" required>
                                     <div class="invalid-feedback">Please provide a valid price.</div>
                                 </div>
                             </div>
                             
                             <div class="mb-3">
                                 <label for="serviceDescription" class="form-label">Description *</label>
-                                <textarea class="form-control" id="serviceDescription" rows="3" placeholder="Describe your service..." required></textarea>
+                                <textarea class="form-control" id="servicedescription" name="servicedescription" rows="3" placeholder="Describe your service..." required></textarea>
                                 <div class="invalid-feedback">Please provide a service description.</div>
                             </div>
                             
@@ -187,7 +118,7 @@
                                                                name="features[]" 
                                                                value="{{ $feature->id }}">
                                                         <label class="form-check-label" for="feature_{{ $feature->id }}">
-                                                            {{ $feature->display_name }}
+                                                            {{ $feature->display_name ?? $feature->servicefeature_name }}
                                                         </label>
                                                     </div>
                                                 @endforeach
@@ -196,14 +127,14 @@
                                     @endif
                                 </div>
                             </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-owner-back" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button submit" class="btn btn-owner-continue" id="saveServiceBtn">
-                            <i class="fa-solid fa-save me-2"></i>Save Service
-                        </button>
-                    </div>
-                   </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-owner-back" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-owner-continue" id="saveServiceBtn">
+                                <i class="fa-solid fa-save me-2"></i>Save Service
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -222,12 +153,12 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="editServiceName" class="form-label">Service Name *</label>
-                                    <input type="text" class="form-control" id="editServiceName" required>
+                                    <input type="text" class="form-control" id="editServiceName" name="servicename" required>
                                     <div class="invalid-feedback">Please provide a service name.</div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="editServiceCategory" class="form-label">Category *</label>
-                                    <input type="text" class="form-control" id="editServiceCategory" required>
+                                    <input type="text" class="form-control" id="editServiceCategory" name="category" required>
                                     <div class="invalid-feedback">Please provide a category.</div>
                                 </div>
                             </div>
@@ -235,19 +166,19 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="editServiceDuration" class="form-label">Duration (minutes) *</label>
-                                    <input type="number" class="form-control" id="editServiceDuration" min="15" required>
+                                    <input type="number" class="form-control" id="editServiceDuration" name="duration" min="15" required>
                                     <div class="invalid-feedback">Minimum duration is 15 minutes.</div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="editServicePrice" class="form-label">Price ($) *</label>
-                                    <input type="number" class="form-control" id="editServicePrice" step="0.01" min="0" required>
+                                    <input type="number" class="form-control" id="editServicePrice" name="price" step="0.01" min="0" required>
                                     <div class="invalid-feedback">Please provide a valid price.</div>
                                 </div>
                             </div>
                             
                             <div class="mb-3">
                                 <label for="editServiceDescription" class="form-label">Description *</label>
-                                <textarea class="form-control" id="editServiceDescription" rows="3" required></textarea>
+                                <textarea class="form-control" id="editServiceDescription" name="description" rows="3" required></textarea>
                                 <div class="invalid-feedback">Please provide a service description.</div>
                             </div>
                             
@@ -269,7 +200,7 @@
                                                                name="edit_features[]" 
                                                                value="{{ $feature->id }}">
                                                         <label class="form-check-label" for="edit_feature_{{ $feature->id }}">
-                                                            {{ $feature->display_name }}
+                                                            {{ $feature->display_name ?? $feature->servicefeature_name }}
                                                         </label>
                                                     </div>
                                                 @endforeach
@@ -333,42 +264,8 @@
             </div>
         </div>
     </main>
+@endsection
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-    
-    <script src="{{ asset('js/owner/dashboard.js') }}" defer></script>
+@push('scripts')
     <script src="{{ asset('js/owner/service-api.js') }}" defer></script>
-    
-    <script>
-        // Menu toggle function
-        function toggleMenu() {
-            const dropdown = document.getElementById('menuDropdown');
-            dropdown.classList.toggle('show');
-        }
-        
-        // Copy salon code function
-        function copySalonCode() {
-            const salonCode = document.getElementById('salonCodeDisplay').textContent.trim();
-            navigator.clipboard.writeText(salonCode).then(function() {
-                alert('Salon code copied to clipboard!');
-            });
-        }
-        
-        // Close dropdown when clicking outside
-        window.onclick = function(event) {
-            if (!event.target.matches('.menu-btn')) {
-                const dropdowns = document.getElementsByClassName("menu-dropdown-content");
-                for (let i = 0; i < dropdowns.length; i++) {
-                    const openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
-    </script>
-</body>
-</html>
+@endpush
