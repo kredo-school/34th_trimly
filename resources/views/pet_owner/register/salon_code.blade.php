@@ -4,7 +4,7 @@
 
 @push('styles')
     <style>
-     
+
     </style>
 @endpush
 
@@ -62,18 +62,6 @@
             <form action="{{ route('pet_owner.register.saloncode.post') }}" method="post">
                 @csrf
 
-               
-                @if ($errors->any())
-                    <div class="alert alert-danger" role="alert">
-                        <ul class="mb-0">
-                            @foreach ($errors->all() as $e)
-                                <li>{{ $e }}</li>
-                            @endforeach
-                            /ul>
-                    </div>
-                @endif
-              
-                
                 @if (session('success'))
                     <div class="alert alert-success" role="alert">
                         {{ session('success') }}
@@ -94,6 +82,15 @@
                     @error('salonCode')
                         <div class="alert alert-danger mt-2" role="alert">{{ $message }}</div>
                     @enderror
+                </div>
+                <div class="pet-card mt-3">
+                    <div class="card-body">
+                        <h4 class="fw-bold">Don't have a salon code?</h4>
+                        <p class="mb-0 text-muted">
+                            Contact your preferred salon to get an invitation code.
+                            This ensures you can book appointments and access their specific services.
+                        </p>
+                    </div>
                 </div>
 
                 <div class="d-flex justify-content-end mt-4">
