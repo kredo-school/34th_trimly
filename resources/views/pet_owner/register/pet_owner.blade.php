@@ -191,7 +191,7 @@
                     <a href="{{ route('pet_owner.register.saloncode') }}" class="btn btn-back">
                         <i class="fa-solid fa-arrow-left me-2"></i>Back
                     </a>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-continue" id="continueBtn" disabled>
                         Continue <i class="fa-solid fa-arrow-right ms-2"></i>
                     </button>
                 </div>
