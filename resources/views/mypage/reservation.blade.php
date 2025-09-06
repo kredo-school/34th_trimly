@@ -30,7 +30,7 @@
                 <div class="mb-2">
                     <div class="section-header">
                         <div>
-                            <h4 class="fw-bold">Upcoming Appointments</h4>
+                            <h4 class="fw-bold"><i class="fa-solid fa-calendar-alt me-1"></i>Upcoming Appointments</h4>
                             <p>Your scheduled grooming appointments</p>
                         </div>
                         <a href="/mypage/reservation/new" class="btn btn-primary">New Appointment</a>
