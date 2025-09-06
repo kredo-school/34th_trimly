@@ -6,8 +6,14 @@
       
     
     <style>
-        body {
-            background-color: #FBF8F3;
+        /* Page-scoped overrides: keep changes local to this view */
+        body.body-layout {
+            background-color: #FEFCF1 !important; /* override nav CSS forcing white */
+            background: #FEFCF1 !important;
+        }
+        .main-content {
+            background-color: transparent !important; /* allow page background to show */
+            background: transparent !important;
         }
 
         .container {
