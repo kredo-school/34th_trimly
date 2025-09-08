@@ -23,13 +23,15 @@
             <div class="row g-4">
                 {{-- Edit form container --}}
                 <div class="col-12 col-md-10 col-lg-8">
-                    <a href="{{ route('mypage.pets.index') }}" class="mb-4"><i
-                            class="fa-solid fa-arrow-left me-2"></i>Back to My Pets</a>
+                    <a href="{{ route('mypage.pets.index') }}" class="mb-4"><i class="fa-solid fa-arrow-left me-2"></i>Back
+                        to My Pets</a>
                     <div class="card p-4">
                         <div class="pet-card-header d-flex justify-content-between align-items-center mb-4">
-                            <div class="pet-name-display fs-3">
-                                <i class="fa-solid fa-heart"></i>
-                                <span>{{ $pet->name }}</span>
+                            <div class="pet-name-display d-flex align-items-center">
+                                <h5 class="mb-0 fw-bold d-flex align-items-center">
+                                    <i class="fa-solid fa-heart me-2 fs-3"></i>
+                                    {{ $pet->name }}
+                                </h5>
                             </div>
                             <div class="pet-actions">
                                 <button type="button" class="btn pet-action-btn text-danger" data-bs-toggle="modal"

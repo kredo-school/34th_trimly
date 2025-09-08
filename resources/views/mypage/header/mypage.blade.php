@@ -2,12 +2,12 @@
 <header class="bg-white mb-2 custom-app-header">
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="d-flex align-items-center w-100" style="padding-left:0;padding-right:0;">
-            <a class="navbar-brand d-flex align-items-center p-0" href="#">
+            {{-- <a class="navbar-brand d-flex align-items-center p-0" href="#"> --}}
                 <div class="logo">
                     <img src="{{ asset('images/Trimly Logo.png') }}" alt="Trimly Logo">
                     <span class="logo-text">Trimly</span>
                 </div>
-            </a>
+            {{-- </a> --}}
             <button class="navbar-toggler ms-auto d-lg-none" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                 aria-label="Toggle navigation">
