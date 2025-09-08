@@ -18,6 +18,11 @@ class CalendarController extends Controller
 {
     public function index(Request $request)
     {
+        // Require salon owner session
+        if (!$request->session()->has('salon_owner_id')) {
+            return redirect()->route('salonowner.login');
+        }
+
         // Get month and year from request or use current
         $year = $request->input('year', date('Y'));
         $month = $request->input('month', date('n'));
@@ -26,12 +31,31 @@ class CalendarController extends Controller
         $month = max(1, min(12, intval($month)));
         $year = max(2020, min(2030, intval($year)));
         
-        // For now, using hardcoded salon_code. In production, get from authenticated salon owner
-        $salonCode = 'TEST_SALON_001';
+        // Use logged-in salon owner's salon_code from session
+        $salonCode = $request->session()->get('salon_code');
+        if (!$salonCode) {
+            // Fallback: redirect to login if salon_code missing
+            return redirect()->route('salonowner.login');
+        }
         
         // Get first and last day of the month
         $firstDay = Carbon::create($year, $month, 1);
         $lastDay = $firstDay->copy()->endOfMonth();
+        
+        // Auto-complete past appointments for this salon
+        $today = Carbon::today()->toDateString();
+        $nowTime = Carbon::now()->format('H:i:s');
+        
+        Appointment::where('salon_code', $salonCode)
+            ->whereNotIn('status', [2, 3]) // exclude cancelled(2) and completed(3)
+            ->where(function($q) use ($today, $nowTime) {
+                $q->whereDate('appointment_date', '<', $today)
+                  ->orWhere(function($q) use ($today, $nowTime) {
+                      $q->whereDate('appointment_date', $today)
+                        ->where('appointment_time_end', '<=', $nowTime);
+                  });
+            })
+            ->update(['status' => 3]);
         
         // Get appointments for this month
         $appointments = Appointment::where('salon_code', $salonCode)

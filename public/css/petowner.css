@@ -71,23 +71,114 @@
 /* =====================================================
    Pet Owner side  - Header
    ===================================================== */
-/* 1. Register Page */
-.logo {
+
+/* ヘッダー寸法: users.profile.header に合わせる */
+.custom-app-header {
+    background-color: #ffffff;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* ロゴ（users.profile.header と統一） */
+.custom-app-header .navbar-brand {
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 1;
+    font-size: 1rem;
+}
+
+.custom-app-header .logo {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.logo img {
-    height: 80px;
+.custom-app-header .logo img {
+    height: 40px;
     width: auto;
+    display: block;
 }
 
-.logo-text {
+.custom-app-header .logo-text {
+    font-family: 'Poppins', sans-serif;
     font-size: 20px;
     font-weight: 700;
+    color: #333;
+    display: inline-block;
+    line-height: 1;
 }
 
+/* ログアウトボタンのスタイル */
+.btn-logout {
+    background-color: #FEFCF1 !important;
+    color: #666 !important;
+    border: 1px solid #e0e0e0 !important;
+    height: 40px;
+    padding: 0 20px !important;
+}
+
+.btn-logout:hover {
+    background-color: #e0e0e0 !important;
+    color: #6c757d !important;
+}
+
+/* ナビゲーションリンクのスタイル */
+.navbar-nav .nav-item .nav-link {
+    color: #666 !important;
+    font-weight: 600;
+    margin-right: 16px;
+    font-size: 14px;
+    /* users.profile.header のテキスト感に寄せる */
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #c8a882 !important;
+}
+
+.navbar-nav .nav-item .nav-link i {
+    color: #666 !important;
+}
+
+.navbar-nav .nav-item .nav-link i:hover {
+    color: #c8a882 !important;
+}
+
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 15px;
+        border-top: 1px solid #e9ecef;
+        padding-top: 15px;
+    }
+
+    .navbar-collapse .custom-nav-links,
+    .navbar-collapse form.d-flex.ms-lg-auto {
+        margin: 0 !important;
+        width: 100%;
+    }
+
+    .navbar-collapse .nav-item {
+        justify-content: center;
+    }
+}
+
+/* グローバル .navbar の影を打ち消す */
+.custom-app-header .navbar {
+    box-shadow: none !important;
+    background-color: transparent;
+    position: static;
+    /* disable sticky from global */
+    padding-top: 0;
+    /* remove bootstrap default 0.5rem */
+    padding-bottom: 0;
+    /* remove bootstrap default 0.5rem */
+    padding-left: 0;
+    padding-right: 0;
+    min-height: auto;
+}
 
 
 
@@ -95,17 +186,18 @@
    Pet Owner side  - Register
    ===================================================== */
 /* 1. SalonCode Page */
-/* Input Form */
+/* Input Form　Same as above */
+
 
 /* 2. PetOwner Page */
-/* InputForm */
+/* InputForm　Same as above */
 /*Toggle icon */
 .toggle-password {
     cursor: pointer;
 }
 
 /* 3. Pet Page */
-/* InputForm */
+/* InputForm 　Same as above*/
 /* Add pet Button */
 .btn-add-pet {
     background-color: #FEFCF1;
@@ -161,18 +253,22 @@
 .info-pair .info-value {
     flex-grow: 1;
 }
+
 .info-pair .info-label {
     flex-basis: auto;
     text-align: left;
     color: #6c757d;
 }
+
 .info-pair .info-value {
     flex-basis: auto;
     text-align: left;
 }
+
 .info-item-row {
     margin-bottom: 8px;
 }
+
 .info-value.full-width {
     text-align: left;
 }
@@ -183,16 +279,19 @@
     font-size: 1.15rem;
     margin-bottom: 5px;
 }
+
 .pet-sub-info {
     color: #888;
     font-size: 0.95rem;
     margin-bottom: 15px;
     display: block;
 }
+
 .pet-separator {
     border-bottom: 1px dashed #e9ecef;
     margin: 20px 0;
 }
+
 .pet-separator:last-child {
     display: none;
 }
@@ -205,4 +304,373 @@
     width: 80px;
     height: 80px;
     font-size: 3rem;
+}
+
+/* =====================================================
+   Pet Owner side  - MyPage
+   ===================================================== */
+/* 1.Profile Page */
+/* Input Form */
+.form-control-readonly {
+    background-color: #FEFCF1;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 12px 15px;
+    color: #333;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    min-height: calc(2.25rem + 2px);
+    /* Bootstrap form-control の高さに合わせる */
+}
+
+.form-control-readonly .fa-solid {
+    color: #a68c76;
+    margin-right: 10px;
+}
+
+.form-control-readonly .value-text {
+    flex-grow: 1;
+    /* テキストが残りのスペースを占める */
+    color: #adb5bd;
+}
+
+/* 目玉アイコンは .toggle-password が付与されている部分にのみ適用 */
+.input-group-custom .toggle-password {
+    background-color: #FEFCF1;
+    border-left: none;
+    /* input との間のボーダーは不要 */
+    color: #a68c76;
+    /* アイコンの色 (画像に合わせて) */
+    cursor: pointer;
+    height: calc(2.25rem + 2px);
+    /* Bootstrap form-control の高さに合わせる */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 15px;
+}
+
+/* input がフォーカスされた時の .toggle-password のボーダースタイル */
+.input-group-custom .form-control:focus+.toggle-password {
+    border-color: #a68c76;
+    /* フォーカス時の枠線色を合わせる */
+    box-shadow: 0 0 0 0.25rem rgba(166, 140, 118, 0.25);
+    /* フォーカス時の影を合わせる */
+}
+
+/* 2.Profile-edit Page */
+/* InputField */
+.input-group-custom-edit {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    /* form-control-readonly と同じボーダー */
+    border-radius: 10px;
+    /* form-control-readonly と同じ角丸 */
+    background-color: #FEFCF1;
+    /* form-control-readonly と同じ背景色 */
+    min-height: calc(2.25rem + 2px);
+    /* Bootstrap form-control の高さに合わせる */
+    overflow: hidden;
+    /* 角丸からはみ出さないように */
+}
+
+.input-group-custom-edit .input-group-text-custom-edit {
+    background-color: transparent;
+    border: none;
+    color: #a68c76;
+    padding-left: 15px;
+    padding-right: 0;
+    display: flex;
+    align-items: center;
+}
+
+.input-group-custom-edit .form-control-inline {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding-left: 5px;
+    padding-right: 15px;
+    color: #333;
+    height: auto;
+    flex-grow: 1;
+}
+
+.input-group-custom-edit .form-control-inline-select {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding-left: 5px;
+    padding-right: 15px;
+    color: #333;
+    height: auto;
+    flex-grow: 1;
+}
+
+/* 目玉アイコン */
+/* input-group自体にボーダーと角丸を適用 */
+.input-group-custom {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* input-group-textの背景色とボーダーを調整 */
+.input-group-text-custom {
+    background-color: #FEFCF1;
+    border: none;
+    color: #6c757d;
+    padding-right: 8px;
+    padding: 0.75rem 1rem;
+    /* アイコン側のパディングも調整して高さを揃える */
+}
+
+/* input-group内のform-controlのボーダーと角丸を調整 */
+.input-group .form-control {
+    background-color: #FEFCF1;
+    border: none;
+    border-radius: 0;
+    /* 角丸を削除 (input-group-customに任せる) */
+}
+
+/* Cancelbutton */
+.btn-cancel {
+    background-color: #FEFCF1 !important;
+    color: #666;
+    border: 1px solid #e0e0e0;
+    height: 40px;
+    padding: 0 20px;
+}
+
+.btn-cancel:hover {
+    background-color: #e0e0e0;
+    color: #6c757d;
+}
+
+/* 3.Pet Page */
+/* Input field　Same as above */
+
+/* 4.Pet-edit Page */
+.form-control-inline {
+    background-color: #FEFCF1 !important;
+    /* 背景色を追加 */
+    border: 1px solid #e0e0e0;
+    /* 既存の読み取り専用フィールドと揃えるためにボーダーを追加 */
+    border-radius: 10px;
+    /* 既存の読み取り専用フィールドと揃えるために角丸を追加 */
+    padding: 12px 15px;
+    /* 既存の読み取り専用フィールドと揃えるためにパディングを追加 */
+    color: #333;
+    /* テキストの色 */
+    font-size: 1rem;
+    height: auto;
+    flex-grow: 1;
+    box-shadow: none;
+    /*デフォルトの focus 時の影を削除*/
+}
+
+.form-control-inline-select {
+    background-color: #FEFCF1 !important;
+    /* 背景色を追加 */
+    border: 1px solid #e0e0e0;
+    /* ボーダーを追加 */
+    border-radius: 10px;
+    /* 角丸を追加 */
+    padding: 12px 15px;
+    /* パディングを追加 */
+    color: #333;
+    /* テキストの色 */
+    font-size: 1rem;
+    height: auto;
+    flex-grow: 1;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.form-control-textarea-inline {
+    background-color: #FEFCF1 !important;
+    /* 背景色を追加 */
+    border: 1px solid #e0e0e0;
+    /* ボーダーを追加 */
+    border-radius: 10px;
+    /* 角丸を追加 */
+    padding: 12px 15px;
+    /* パディングを追加 */
+    color: #333;
+    /* テキストの色 */
+    font-size: 1rem;
+    height: auto;
+    min-height: 100px;
+    flex-grow: 1;
+    resize: vertical;
+    box-shadow: none;
+    /* デフォルトの focus 時の影を削除 */
+}
+
+/* 5.Add-edit Page */
+/*.pet-card*/
+.pet-card {
+    background-color: #f9f5f2;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+/* 6.Salon Page */
+/*Salon info*/
+.salon-code-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    /* 各アイテム間のスペース */
+}
+
+.salon-code-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* アイコンとテキストの間 */
+}
+
+.salon-code-icon {
+    color: #a68c76;
+    font-size: 1.2rem;
+}
+
+.salon-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #6c757d;
+}
+
+.salon-details {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.salon-code-status {
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 5px;
+    background-color: #dcfce6;
+    /* Light blue for Active */
+    color: #166434;
+    /* Blue text */
+}
+
+/*7.Reservation Page */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+/* appointment-card */
+.appointment-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.appointment-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.appointment-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.appointment-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #6c757d;
+    margin-bottom: 5px;
+}
+
+.appointment-subtitle {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 5px;
+}
+
+.appointment-date {
+    font-size: 0.9rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+/* status */
+.status-badge {
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 5px;
+}
+
+.status-upcoming {
+    background-color: #e0f2f7;
+    color: #007bff;
+}
+
+.status-completed {
+    background-color: #e6f8ee;
+    color: #28a745;
+}
+
+.status-cancelled {
+    background-color: #fce6e6;
+    color: #dc3545;
+}
+
+/* actions */
+.appointment-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.appointment-actions .price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #6c757d;
+    margin-right: 15px;
+}
+
+.btn-again {
+    background-color: #FEFCF1 !important;
+    color: #666 !important;
+    border: 1px solid #e0e0e0;
+    height: 40px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-again:hover {
+    background-color: #e0e0e0;
+    color: #6c757d;
 }

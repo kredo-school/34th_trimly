@@ -6,8 +6,14 @@
       
     
     <style>
-        body {
-            background-color: #FBF8F3;
+        /* Page-scoped overrides: keep changes local to this view */
+        body.body-layout {
+            background-color: #FEFCF1 !important; /* override nav CSS forcing white */
+            background: #FEFCF1 !important;
+        }
+        .main-content {
+            background-color: transparent !important; /* allow page background to show */
+            background: transparent !important;
         }
 
         .container {
@@ -222,6 +228,14 @@
             background-color: #FF6B6B;
             color: white;
         }
+        .status-completed {
+            background-color: #e6f8ee; /* light green */
+            color: #2e7d32;
+        }
+        .status-pending {
+            background-color: #fff3cd; /* light amber */
+            color: #856404;
+        }
 
         .action-btn {
             background: none;
@@ -432,8 +446,16 @@
                         $petName = $appointment->pet->name ?? 'Pet';
                         $petBreed = $appointment->pet->breed ?? 'Unknown breed';
                         $appointmentTime = Carbon\Carbon::parse($appointment->appointment_time_start)->format('h:i A');
-                        $statusClass = $appointment->status == 1 ? 'status-confirmed' : ($appointment->status == 2 ? 'status-cancelled' : 'status-confirmed');
-                        $statusText = $appointment->status == 1 ? 'confirmed' : ($appointment->status == 2 ? 'cancelled' : 'pending');
+                        $statusClass = $appointment->status == 1
+                            ? 'status-confirmed'
+                            : ($appointment->status == 2
+                                ? 'status-cancelled'
+                                : ($appointment->status == 3 ? 'status-completed' : 'status-pending'));
+                        $statusText = $appointment->status == 1
+                            ? 'confirmed'
+                            : ($appointment->status == 2
+                                ? 'cancelled'
+                                : ($appointment->status == 3 ? 'completed' : 'pending'));
                     @endphp
                     <div class="appointment-card">
                         <div class="appointment-avatar">{{ $ownerInitial }}</div>

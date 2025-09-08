@@ -4,111 +4,6 @@
 
 @push('styles')
     <style>
-        /* セクションヘッダー */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        /* appointment-card */
-        .appointment-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 15px;
-        }
-
-        .appointment-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .appointment-details {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            text-align: left;
-        }
-
-        .appointment-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #6c757d;
-            margin-bottom: 5px;
-        }
-
-        .appointment-subtitle {
-            font-size: 0.9rem;
-            color: #6c757d;
-            margin-bottom: 5px;
-        }
-
-        .appointment-date {
-            font-size: 0.9rem;
-            color: #6c757d;
-            font-weight: 500;
-        }
-
-        /* status */
-        .status-badge {
-            font-size: 0.75rem;
-            font-weight: bold;
-            padding: 4px 8px;
-            border-radius: 5px;
-        }
-
-        .status-upcoming {
-            background-color: #e0f2f7;
-            color: #007bff;
-        }
-
-        .status-completed {
-            background-color: #e6f8ee;
-            color: #28a745;
-        }
-
-        .status-cancelled {
-            background-color: #fce6e6;
-            color: #dc3545;
-        }
-
-        /* actions */
-        .appointment-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 8px;
-        }
-
-        .appointment-actions .price {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #6c757d;
-            margin-right: 15px;
-        }
-
-        .btn-again {
-            background-color: #FEFCF1 !important;
-            color: #666 !important;
-            border: 1px solid #e0e0e0;
-            height: 40px;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-again:hover {
-            background-color: #e0e0e0;
-            color: #6c757d;
-        }
     </style>
 @endpush
 
@@ -135,7 +30,7 @@
                 <div class="mb-2">
                     <div class="section-header">
                         <div>
-                            <h4 class="fw-bold">Upcoming Appointments</h4>
+                            <h4 class="fw-bold"><i class="fa-solid fa-calendar-alt me-1"></i>Upcoming Appointments</h4>
                             <p>Your scheduled grooming appointments</p>
                         </div>
                         <a href="/mypage/reservation/new" class="btn btn-primary">New Appointment</a>
