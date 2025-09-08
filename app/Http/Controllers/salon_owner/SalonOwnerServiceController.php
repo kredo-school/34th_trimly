@@ -199,13 +199,12 @@ class SalonOwnerServiceController extends Controller
             }
 
             // Process features - save as JSON array
-            $servicefeatures = $request->has('features') ? array_map('intval', $request->features) : [];
+            $servicefeatures = $request->has('features') ? $request->features : [];
 
             $serviceData = array_merge($validated, [
                 'salon_code' => $salon->salon_code,
-                'servicefeatures' => $servicefeatures
+                'servicefeatures' => json_encode($servicefeatures) 
             ]);
-
             // Remove features from data (it's not a column)
             unset($serviceData['features']);
 
@@ -228,7 +227,7 @@ class SalonOwnerServiceController extends Controller
                     'formatted_price' => number_format($service->price, 2),
                     'description' => $service->description,
                     'servicefeatures' => $service->servicefeatures,
-                    'servicefeatures_display' => !empty($service->servicefeatures) ? implode(',', $service->servicefeatures) : '',
+                    'servicefeatures_display' => !empty($service->servicefeatures) ? implode(',', json_decode($service->servicefeatures, true)) : '',
                     'features' => $features,
                     'features_count' => count($features),
                     'created_at' => $service->created_at->format('Y-m-d H:i:s'),
@@ -287,8 +286,9 @@ class SalonOwnerServiceController extends Controller
 
             // Update features if provided
             if ($request->has('features')) {
-                $validated['servicefeatures'] = array_map('intval', $request->features);
+                $validated['servicefeatures'] = $request->features; 
             }
+            
 
             // Remove features from validated data (it's not a column)
             unset($validated['features']);
@@ -453,11 +453,21 @@ class SalonOwnerServiceController extends Controller
     {
         $featureIds = [];
         
-        // Handle different data types
-        if (is_array($features) && !empty($features)) {
+        // JSON decode
+        if (is_string($features)) {
+            $decoded = json_decode($features, true);
+            if (is_array($decoded)) {
+                $featureIds = $decoded;
+            } else {
+                return [];
+            }
+        }
+        // Handle array directly
+        elseif (is_array($features) && !empty($features)) {
             $featureIds = $features;
-        } elseif (is_numeric($features) && $features > 0) {
-            // Legacy support: if still integer, treat as single feature
+        }
+        // Legacy support for integer
+        elseif (is_numeric($features) && $features > 0) {
             $featureIds = [$features];
         } else {
             return [];
@@ -486,28 +496,9 @@ class SalonOwnerServiceController extends Controller
      * @return string
      */
     private function formatDuration(int $duration): string
-    {
-        if ($duration >= 120) {
-            $hours = floor($duration / 60);
-            $minutes = $duration % 60;
-            
-            if ($minutes > 0) {
-                return "{$hours} hours {$minutes} minutes";
-            }
-            return "{$hours} hours";
-        } elseif ($duration >= 60) {
-            $hours = floor($duration / 60);
-            $minutes = $duration % 60;
-            
-            if ($minutes > 0) {
-                return "{$hours} hour {$minutes} minutes";
-            }
-            return "{$hours} hour";
-        }
-        
-        return "{$duration} minutes";
-    }
-
+{
+    return $duration . 'min';
+}
     /**
      * Get service categories for the salon
      *
