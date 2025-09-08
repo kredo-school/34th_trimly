@@ -13,7 +13,7 @@
             <div class="col-12 col-md-8 col-lg-6">
                 <div class="login-container text-center">
                     <div class="logo">
-                        <img src="{{ asset('images/Trimly Logo.png') }}" alt="Trymly Logo" class="img-fluid mx-auto d-block">
+                        <img src="{{ asset('images/Trimly Logo.png') }}" alt="Trymly Logo" class="img-fluid mx-auto d-block" style="max-width:150px; height:auto;">
                     </div>
                     <h2>Welcome Back!</h2>
                     <p>Sign in to manage your pets and book appointments</p>
