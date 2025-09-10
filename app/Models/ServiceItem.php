@@ -39,7 +39,7 @@ class ServiceItem extends Model
     protected $casts = [
         'price' => 'decimal:2',
         'duration' => 'integer',
-        'servicefeatures' => 'integer'
+        'servicefeatures' => 'array'
     ];
 
     /**
