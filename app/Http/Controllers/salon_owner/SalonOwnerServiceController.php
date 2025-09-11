@@ -4,15 +4,30 @@ namespace App\Http\Controllers\salon_owner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\ServiceItem;
 use App\Models\Salon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SalonOwnerServiceController extends Controller
-
 {
+    /**
+     * Get current salon from session
+     */
+    private function getCurrentSalon(Request $request)
+    {
+        // Get salon code from session
+        $salonCode = $request->session()->get('salon_code');
+        
+        if (!$salonCode) {
+            return null;
+        }
+        
+        // Find salon by salon code
+        return Salon::where('salon_code', $salonCode)->first();
+    }
+
     /**
      * Get salon owner's service list
      *
@@ -22,41 +37,33 @@ class SalonOwnerServiceController extends Controller
     public function index(Request $request): JsonResponse
     {
         try {
-            // Get authenticated salon owner
-            $salonOwner = Auth::guard('salon-owner')->user();
+            $salon = $this->getCurrentSalon($request);
             
-            if (!$salonOwner) {
+            if (!$salon) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Unauthorized'
                 ], 401);
             }
 
-            // Get salon owned by the salon owner
-            $salon = Salon::where('owner_id', $salonOwner->id)->first();
-            
-            if (!$salon) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Salon not found'
-                ], 404);
-            }
-
-            // Get service list with pagination
+            // Get service list
             $services = ServiceItem::where('salon_code', $salon->salon_code)
-                ->when($request->search, function ($query, $search) {
-                    return $query->search($search);
-                })
-                ->when($request->category, function ($query, $category) {
-                    return $query->byCategory($category);
-                })
-                ->orderBy($request->sort_by ?? 'created_at', $request->sort_order ?? 'desc')
-                ->paginate($request->per_page ?? 10);
+                ->whereNull('deleted_at')
+                ->orderBy('created_at', 'desc')
+                ->get();
 
             // Format response data
-            $services->getCollection()->transform(function ($service) {
-                // Parse features (assuming comma-separated or JSON)
+            $formattedServices = $services->map(function ($service) {
                 $features = $this->parseFeatures($service->servicefeatures);
+                
+                // Handle servicefeatures based on type
+                $servicefeaturesArray = [];
+                if (is_array($service->servicefeatures)) {
+                    $servicefeaturesArray = $service->servicefeatures;
+                } elseif (is_numeric($service->servicefeatures) && $service->servicefeatures !== null) {
+                    // If still integer, convert to array
+                    $servicefeaturesArray = [$service->servicefeatures];
+                }
                 
                 return [
                     'id' => $service->id,
@@ -68,7 +75,8 @@ class SalonOwnerServiceController extends Controller
                     'price' => $service->price,
                     'formatted_price' => number_format($service->price, 2),
                     'description' => $service->description,
-                    'servicefeatures' => $service->servicefeatures,
+                    'servicefeatures' => $servicefeaturesArray,
+                    'servicefeatures_display' => !empty($servicefeaturesArray) ? implode(',', $servicefeaturesArray) : '',
                     'features' => $features,
                     'features_count' => count($features),
                     'created_at' => $service->created_at->format('Y-m-d H:i:s'),
@@ -78,10 +86,11 @@ class SalonOwnerServiceController extends Controller
 
             return response()->json([
                 'success' => true,
-                'data' => $services
+                'data' => $formattedServices
             ], 200);
 
         } catch (\Exception $e) {
+            Log::error('Failed to fetch services: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to fetch service list',
@@ -93,14 +102,21 @@ class SalonOwnerServiceController extends Controller
     /**
      * Get service details
      *
+     * @param Request $request
      * @param int $id
      * @return JsonResponse
      */
-    public function show($id): JsonResponse
+    public function show(Request $request, $id): JsonResponse
     {
         try {
-            $salonOwner = Auth::guard('salon-owner')->user();
-            $salon = Salon::where('owner_id', $salonOwner->id)->first();
+            $salon = $this->getCurrentSalon($request);
+            
+            if (!$salon) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unauthorized'
+                ], 401);
+            }
 
             $service = ServiceItem::where('salon_code', $salon->salon_code)
                 ->where('id', $id)
@@ -113,6 +129,16 @@ class SalonOwnerServiceController extends Controller
                 ], 404);
             }
 
+            $features = $this->parseFeatures($service->servicefeatures);
+            
+            // Handle servicefeatures based on type
+            $servicefeaturesArray = [];
+            if (is_array($service->servicefeatures)) {
+                $servicefeaturesArray = $service->servicefeatures;
+            } elseif (is_numeric($service->servicefeatures) && $service->servicefeatures !== null) {
+                $servicefeaturesArray = [$service->servicefeatures];
+            }
+
             return response()->json([
                 'success' => true,
                 'data' => [
@@ -121,17 +147,21 @@ class SalonOwnerServiceController extends Controller
                     'servicename' => $service->servicename,
                     'category' => $service->category,
                     'duration' => $service->duration,
-                    'formatted_duration' => $service->formatted_duration,
+                    'formatted_duration' => $this->formatDuration($service->duration),
                     'price' => $service->price,
-                    'formatted_price' => $service->formatted_price,
+                    'formatted_price' => number_format($service->price, 2),
                     'description' => $service->description,
-                    'servicefeatures' => $service->servicefeatures,
+                    'servicefeatures' => $servicefeaturesArray,
+                    'servicefeatures_display' => !empty($servicefeaturesArray) ? implode(',', $servicefeaturesArray) : '',
+                    'features' => $features,
+                    'features_count' => count($features),
                     'created_at' => $service->created_at->format('Y-m-d H:i:s'),
                     'updated_at' => $service->updated_at->format('Y-m-d H:i:s'),
                 ]
             ], 200);
 
         } catch (\Exception $e) {
+            Log::error('Failed to fetch service details: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to fetch service',
@@ -147,25 +177,41 @@ class SalonOwnerServiceController extends Controller
      * @return JsonResponse
      */
     public function store(Request $request): JsonResponse
-    {
+    { Log::info('start store function' );
         $validated = $request->validate([
             'servicename' => 'required|string|max:100',
             'category' => 'required|string|max:100',
             'duration' => 'required|integer|min:15',
             'price' => 'required|numeric|min:0',
             'description' => 'required|string',
-            'servicefeatures' => 'required|integer|min:0'
+            'features' => 'array',
+            'features.*' => 'exists:servicefeatures_statuses,id'
         ]);
 
         try {
-            $salonOwner = Auth::guard('salon-owner')->user();
-            $salon = Salon::where('owner_id', $salonOwner->id)->first();
+            $salon = $this->getCurrentSalon($request);
+            
+            if (!$salon) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unauthorized'
+                ], 401);
+            }
+
+            // Process features - save as JSON array
+            $servicefeatures = $request->has('features') ? $request->features : [];
 
             $serviceData = array_merge($validated, [
-                'salon_code' => $salon->salon_code
+                'salon_code' => $salon->salon_code,
+                'servicefeatures' => json_encode($servicefeatures) 
             ]);
+            // Remove features from data (it's not a column)
+            unset($serviceData['features']);
 
             $service = ServiceItem::create($serviceData);
+
+            // Get feature details for response
+            $features = $this->parseFeatures($service->servicefeatures);
 
             return response()->json([
                 'success' => true,
@@ -176,16 +222,20 @@ class SalonOwnerServiceController extends Controller
                     'servicename' => $service->servicename,
                     'category' => $service->category,
                     'duration' => $service->duration,
-                    'formatted_duration' => $service->formatted_duration,
+                    'formatted_duration' => $this->formatDuration($service->duration),
                     'price' => $service->price,
-                    'formatted_price' => $service->formatted_price,
+                    'formatted_price' => number_format($service->price, 2),
                     'description' => $service->description,
                     'servicefeatures' => $service->servicefeatures,
+                    'servicefeatures_display' => !empty($service->servicefeatures) ? implode(',', json_decode($service->servicefeatures, true)) : '',
+                    'features' => $features,
+                    'features_count' => count($features),
                     'created_at' => $service->created_at->format('Y-m-d H:i:s'),
                 ]
             ], 201);
 
         } catch (\Exception $e) {
+            Log::error('Failed to create service: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to create service',
@@ -209,12 +259,19 @@ class SalonOwnerServiceController extends Controller
             'duration' => 'sometimes|integer|min:15',
             'price' => 'sometimes|numeric|min:0',
             'description' => 'sometimes|string',
-            'servicefeatures' => 'sometimes|integer|min:0'
+            'features' => 'sometimes|array',
+            'features.*' => 'exists:servicefeatures_statuses,id'
         ]);
 
         try {
-            $salonOwner = Auth::guard('salon-owner')->user();
-            $salon = Salon::where('owner_id', $salonOwner->id)->first();
+            $salon = $this->getCurrentSalon($request);
+            
+            if (!$salon) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unauthorized'
+                ], 401);
+            }
 
             $service = ServiceItem::where('salon_code', $salon->salon_code)
                 ->where('id', $id)
@@ -227,7 +284,19 @@ class SalonOwnerServiceController extends Controller
                 ], 404);
             }
 
+            // Update features if provided
+            if ($request->has('features')) {
+                $validated['servicefeatures'] = $request->features; 
+            }
+            
+
+            // Remove features from validated data (it's not a column)
+            unset($validated['features']);
+
             $service->update($validated);
+
+            // Get feature details for response
+            $features = $this->parseFeatures($service->servicefeatures);
 
             return response()->json([
                 'success' => true,
@@ -238,16 +307,20 @@ class SalonOwnerServiceController extends Controller
                     'servicename' => $service->servicename,
                     'category' => $service->category,
                     'duration' => $service->duration,
-                    'formatted_duration' => $service->formatted_duration,
+                    'formatted_duration' => $this->formatDuration($service->duration),
                     'price' => $service->price,
-                    'formatted_price' => $service->formatted_price,
+                    'formatted_price' => number_format($service->price, 2),
                     'description' => $service->description,
                     'servicefeatures' => $service->servicefeatures,
+                    'servicefeatures_display' => !empty($service->servicefeatures) ? implode(',', $service->servicefeatures) : '',
+                    'features' => $features,
+                    'features_count' => count($features),
                     'updated_at' => $service->updated_at->format('Y-m-d H:i:s'),
                 ]
             ], 200);
 
         } catch (\Exception $e) {
+            Log::error('Failed to update service: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to update service',
@@ -257,16 +330,23 @@ class SalonOwnerServiceController extends Controller
     }
 
     /**
-     * Delete a service
+     * Delete a service (soft delete)
      *
+     * @param Request $request
      * @param int $id
      * @return JsonResponse
      */
-    public function destroy($id): JsonResponse
+    public function destroy(Request $request, $id): JsonResponse
     {
         try {
-            $salonOwner = Auth::guard('salon-owner')->user();
-            $salon = Salon::where('owner_id', $salonOwner->id)->first();
+            $salon = $this->getCurrentSalon($request);
+            
+            if (!$salon) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unauthorized'
+                ], 401);
+            }
 
             $service = ServiceItem::where('salon_code', $salon->salon_code)
                 ->where('id', $id)
@@ -287,6 +367,7 @@ class SalonOwnerServiceController extends Controller
             ], 200);
 
         } catch (\Exception $e) {
+            Log::error('Failed to delete service: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to delete service',
@@ -296,17 +377,148 @@ class SalonOwnerServiceController extends Controller
     }
 
     /**
-     * Get service categories for the salon
+     * Display the services page with features list
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     */
+    public function showServicesPage(Request $request)
+    {
+        // Development: Skip authentication temporarily
+        if (!$request->session()->has('salon_owner_id')) {
+            // Set test session data
+            $request->session()->put('salon_owner_id', 2);
+            $request->session()->put('salon_code', 'G2P674052');
+            $request->session()->put('salon_name', 'TEST');
+        }
+        
+        // Get all service features
+        $serviceFeatures = DB::table('servicefeatures_statuses')
+            ->whereNull('deleted_at')
+            ->orderBy('id')
+            ->get();
+        
+        // Get salon info for display
+        $salon = $this->getCurrentSalon($request);
+        
+        // Use dummy data if salon not found
+        if (!$salon) {
+            $salon = new \stdClass();
+            $salon->id = 1;
+            $salon->salon_code = 'G2P674052';
+            $salon->salon_name = 'TEST';
+        }
+        
+        return view('salon_owner.dashboard.services', [
+            'serviceFeatures' => $serviceFeatures,
+            'salon' => $salon
+        ]);
+    }
+
+    /**
+     * Get all service features
      *
      * @return JsonResponse
      */
-    public function categories(): JsonResponse
+    public function getFeatures(): JsonResponse
     {
         try {
-            $salonOwner = Auth::guard('salon-owner')->user();
-            $salon = Salon::where('owner_id', $salonOwner->id)->first();
+            $features = DB::table('servicefeatures_statuses')
+                ->whereNull('deleted_at')
+                ->orderBy('id')
+                ->get();
+            
+            return response()->json([
+                'success' => true,
+                'data' => $features
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to fetch features: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch features',
+                'error' => config('app.debug') ? $e->getMessage() : null
+            ], 500);
+        }
+    }
+
+    /**
+     * Parse features from servicefeatures field
+     * servicefeatures is now stored as JSON array
+     *
+     * @param mixed $features
+     * @return array
+     */
+    private function parseFeatures($features): array
+    {
+        $featureIds = [];
+        
+        // JSON decode
+        if (is_string($features)) {
+            $decoded = json_decode($features, true);
+            if (is_array($decoded)) {
+                $featureIds = $decoded;
+            } else {
+                return [];
+            }
+        }
+        // Handle array directly
+        elseif (is_array($features) && !empty($features)) {
+            $featureIds = $features;
+        }
+        // Legacy support for integer
+        elseif (is_numeric($features) && $features > 0) {
+            $featureIds = [$features];
+        } else {
+            return [];
+        }
+        
+        // Get feature details from database
+        $featureData = DB::table('servicefeatures_statuses')
+            ->whereIn('id', $featureIds)
+            ->whereNull('deleted_at')
+            ->get()
+            ->map(function ($feature) {
+                return [
+                    'id' => $feature->id,
+                    'name' => $feature->display_name ?? $feature->servicefeature_name
+                ];
+            })
+            ->toArray();
+        
+        return $featureData;
+    }
+
+    /**
+     * Format duration for display
+     *
+     * @param int $duration
+     * @return string
+     */
+    private function formatDuration(int $duration): string
+{
+    return $duration . 'min';
+}
+    /**
+     * Get service categories for the salon
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function categories(Request $request): JsonResponse
+    {
+        try {
+            $salon = $this->getCurrentSalon($request);
+            
+            if (!$salon) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unauthorized'
+                ], 401);
+            }
 
             $categories = ServiceItem::where('salon_code', $salon->salon_code)
+                ->whereNull('deleted_at')
                 ->distinct()
                 ->pluck('category')
                 ->filter()
@@ -318,83 +530,12 @@ class SalonOwnerServiceController extends Controller
             ], 200);
 
         } catch (\Exception $e) {
+            Log::error('Failed to fetch categories: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to fetch categories',
                 'error' => config('app.debug') ? $e->getMessage() : null
             ], 500);
         }
-    }
-
-    /**
-     * Parse features from servicefeatures field
-     *
-     * @param mixed $features
-     * @return array
-     */
-    private function parseFeatures($features): array
-    {
-        // If features is stored as JSON
-        if (is_string($features) && $this->isJson($features)) {
-            return json_decode($features, true);
-        }
-        
-        // If features is a number representing feature count
-        if (is_numeric($features)) {
-            // Return default features based on count
-            $allFeatures = [
-                'Bath & Shampoo',
-                'Nail Trim',
-                'Ear Cleaning',
-                'Hair Cut & Styling',
-                'Brushing & De-matting',
-                'Professional Drying',
-                'Perfuming & Deodorizing',
-                'Paw Pad Trim',
-                'Sanitary Trim',
-                'Coat Conditioning',
-                'De-shedding Treatment',
-                'Flea & Tick Treatment',
-                'Teeth Cleaning',
-                'Aromatherapy'
-            ];
-            
-            return array_slice($allFeatures, 0, $features);
-        }
-        
-        return [];
-    }
-
-    /**
-     * Format duration for display
-     *
-     * @param int $duration
-     * @return string
-     */
-    private function formatDuration(int $duration): string
-    {
-        if ($duration >= 60) {
-            $hours = floor($duration / 60);
-            $minutes = $duration % 60;
-            
-            if ($minutes > 0) {
-                return "{$hours}h {$minutes} minutes";
-            }
-            return "{$hours}h";
-        }
-        
-        return "{$duration} minutes";
-    }
-
-    /**
-     * Check if string is JSON
-     *
-     * @param string $string
-     * @return bool
-     */
-    private function isJson($string): bool
-    {
-        json_decode($string);
-        return (json_last_error() == JSON_ERROR_NONE);
     }
 }

@@ -4,80 +4,6 @@
 
        @push('styles')
            <style>
-               /* Input Form */
-               .form-control-readonly {
-                   background-color: #FEFCF1;
-                   border: 1px solid #e0e0e0;
-                   border-radius: 10px;
-                   padding: 12px 15px;
-                   color: #333;
-                   font-size: 1rem;
-                   display: flex;
-                   align-items: center;
-                   min-height: calc(2.25rem + 2px);
-                   /* Bootstrap form-control の高さに合わせる */
-               }
-
-               .form-control-readonly .fa-solid {
-                   color: #a68c76;
-                   margin-right: 10px;
-               }
-
-               .form-control-readonly .value-text {
-                   flex-grow: 1;
-                   /* テキストが残りのスペースを占める */
-                   color: #adb5bd;
-               }
-
-               /* 目玉アイコンは .toggle-password が付与されている部分にのみ適用 */
-               .input-group-custom .toggle-password {
-                   background-color: #FEFCF1;
-                   border-left: none;
-                   /* input との間のボーダーは不要 */
-                   color: #a68c76;
-                   /* アイコンの色 (画像に合わせて) */
-                   cursor: pointer;
-                   height: calc(2.25rem + 2px);
-                   /* Bootstrap form-control の高さに合わせる */
-                   display: flex;
-                   align-items: center;
-                   justify-content: center;
-                   padding-left: 10px;
-                   padding-right: 15px;
-               }
-
-               /* input がフォーカスされた時の .toggle-password のボーダースタイル */
-               .input-group-custom .form-control:focus+.toggle-password {
-                   border-color: #a68c76;
-                   /* フォーカス時の枠線色を合わせる */
-                   box-shadow: 0 0 0 0.25rem rgba(166, 140, 118, 0.25);
-                   /* フォーカス時の影を合わせる */
-               }
-
-               /* input-group自体にボーダーと角丸を適用 */
-               .input-group-custom {
-                   border: 1px solid #e0e0e0;
-                   border-radius: 8px;
-                   overflow: hidden;
-               }
-
-               /* input-group-textの背景色とボーダーを調整 */
-               .input-group-text-custom {
-                   background-color: #FEFCF1;
-                   border: none;
-                   color: #6c757d;
-                   padding-right: 8px;
-                   padding: 0.75rem 1rem;
-                   /* アイコン側のパディングも調整して高さを揃える */
-               }
-
-               /* input-group内のform-controlのボーダーと角丸を調整 */
-               .input-group .form-control {
-                   background-color: #FEFCF1;
-                   border: none;
-                   border-radius: 0;
-                   /* 角丸を削除 (input-group-customに任せる) */
-               }
            </style>
        @endpush
 
@@ -88,7 +14,7 @@
        @section('content')
            <div class="card p-4 mb-4">
                <div class="d-flex justify-content-between align-items-center mb-4">
-                   <h4 class="card-title mb-0">Pet Owner Information</h4>
+                   <h4 class="mb-0 fw-bold"><i class="fa-solid fa-user me-1"></i>Pet Owner Information</h4>
                    {{-- edit button --}}
                    <a href="{{ route('mypage.profile.edit') }}" class="btn btn-primary">
                        <i class="fa-regular fa-pen-to-square"></i>
@@ -144,7 +70,7 @@
 
            {{--Password reset--}}
            <div class="card p-4">
-               <h4 class="card-title mb-4">Change Password</h4>
+               <h4 class="mb-4 fw-bold"><i class="fa-solid fa-lock me-2"></i>Change Password</h4>
 
                <form action="{{ route('mypage.password.update') }}" method="POST">
                    @csrf

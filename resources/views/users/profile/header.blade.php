@@ -3,7 +3,7 @@
         <img src="{{ asset('images/Trimly Logo.png') }}" alt="Trimly Logo">
         <span class="logo-text">Trimly</span>
     </div>
-    <a href="/mypage" class="back-link">
+    <a href="/mypage/profile" class="back-link">
         ← Back to My page
     </a>
 </header>

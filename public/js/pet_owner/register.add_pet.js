@@ -151,4 +151,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     attachDeleteListeners();
+
+    const form = document.querySelector("form");
+    const continueBtn = document.getElementById("continueBtn");
+
+    if (form && continueBtn) {
+        // 初期状態を無効化
+        continueBtn.disabled = true;
+
+        form.addEventListener("input", function () {
+            let allFilled = true;
+
+            form.querySelectorAll("input[required], select[required]").forEach(function (input) {
+                if (!input.value.trim()) {
+                    allFilled = false;
+                }
+            });
+
+            continueBtn.disabled = !allFilled;
+        });
+    }
 });

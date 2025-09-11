@@ -22,9 +22,11 @@ use App\Http\Controllers\salon_owner\SalonOwnerSettingsController;
 use App\Http\Controllers\salon_owner\SalonOwnerCustomerController;
 //Dashborard - calendar// 
 use App\Http\Controllers\SalonOwner\CalendarController;
+
 Route::get('/', function () {
     return view('welcome');
 });
+
 // Compatibility aliases for default Laravel auth route names
 Route::get('/login', function () {
     return redirect()->route('pet_owner.login');
@@ -96,9 +98,14 @@ Route::middleware(['auth:petowner'])->group(function () {
     Route::delete('/mypage/reservation/{appointment}', [MypageReservationController::class, 'destroy'])->name('mypage.reservation.destroy');
     Route::post('/mypage/reservation/{appointment}/rebook', [MypageReservationController::class, 'rebook'])->name('mypage.reservation.rebook');
 });
+
+
+
+
 /* =====================================================
    Salon Owner side  - Login
    ===================================================== */
+
 // Owner Login Page (View)
 Route::get('/login-salonowner', function () {
     return view('salon_owner/login');
@@ -107,6 +114,7 @@ Route::get('/login-salonowner', function () {
 Route::get('/salon-owner/login', function () {
     return redirect()->route('salonowner.login', [], 301);
 });
+
 // Owner Login API Routes
 Route::post('/salon-owner/login', [SalonOwnerLoginController::class, 'login']);
 Route::post('/salon-owner/logout', [SalonOwnerLoginController::class, 'logout']);
@@ -161,9 +169,11 @@ Route::delete('/customers/{id}', [SalonOwnerCustomerController::class, 'destroy'
 // Route::get('dashboard-salonowner/settings', function () {
 //     return view('salon_owner/dashboard/settings');
 // });
+
 // Settings page route
 Route::get('dashboard-salonowner/settings', [SalonOwnerSettingsController::class, 'showSettingsPage'])
     ->name('salon-owner.settings');
+
 // API routes for settings
 Route::prefix('api/salon-owner')->middleware(['web'])->group(function () {
     Route::get('/settings', [SalonOwnerSettingsController::class, 'index']);
@@ -183,4 +193,5 @@ Route::prefix('api/salon-owner')->middleware(['web'])->group(function () {
     Route::post('/services', [SalonOwnerServiceController::class, 'store'])->name('salonowner.services.post');
     Route::put('/services/{id}', [SalonOwnerServiceController::class, 'update']);
     Route::delete('/services/{id}', [SalonOwnerServiceController::class, 'destroy']);
+
 });

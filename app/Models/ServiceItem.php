@@ -39,7 +39,7 @@ class ServiceItem extends Model
     protected $casts = [
         'price' => 'decimal:2',
         'duration' => 'integer',
-        'servicefeatures' => 'integer'
+        'servicefeatures' => 'array'
     ];
 
     /**
@@ -68,6 +68,31 @@ class ServiceItem extends Model
               ->orWhere('description', 'like', "%{$search}%");
         });
     }
+    /**
+ * Get formatted duration attribute
+ */
+public function getFormattedDurationAttribute()
+{
+    if ($this->duration >= 60) {
+        $hours = floor($this->duration / 60);
+        $minutes = $this->duration % 60;
+        
+        if ($minutes > 0) {
+            return "{$hours}h {$minutes} minutes";
+        }
+        return "{$hours}h";
+    }
+    
+    return "{$this->duration} minutes";
+}
+
+/**
+ * Get formatted price attribute
+ */
+public function getFormattedPriceAttribute()
+{
+    return number_format($this->price, 2);
+}
 
     /**
      * Scope to filter by category

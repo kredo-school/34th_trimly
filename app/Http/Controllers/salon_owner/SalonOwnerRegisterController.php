@@ -77,6 +77,8 @@ class SalonOwnerRegisterController extends Controller
             'lastname' => $data['lastname'],
             'email_address' => $data['email_address'],
             'phone' => $data['phone'],
+            'business_address' => $data['businessAddress'],  // add
+            'city' => $data['city'],                        // add
             'state' => $data['state'],
             'password' => Hash::make($data['password']),
             'website' => $data['website'],

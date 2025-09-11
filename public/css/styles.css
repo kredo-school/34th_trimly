@@ -505,7 +505,7 @@ a:hover {
   animation: fadeIn 0.2s ease;
 }
 
-.modal {
+/* .modal {
   background-color: var(--color-surface);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);
@@ -514,6 +514,14 @@ a:hover {
   max-height: 90vh;
   overflow-y: auto;
   animation: slideUp 0.3s ease;
+} */
+
+.modal-dialog {
+  max-width: 500px;
+  margin: auto; /* 左右中央 */
+  display: flex;
+  align-items: center; /* 上下中央 */
+  min-height: 100vh;   /* 画面全体の高さで真ん中に */
 }
 
 .modal-header {
