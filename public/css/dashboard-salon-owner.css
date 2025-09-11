@@ -1039,6 +1039,18 @@
     display: inline-block !important;
     margin: 2px !important;
  }
+ .feature-badge2 {
+   background-color: white!important;
+   border-radius: 15px !important;
+   color: #333 !important;
+   padding: 4px 12px !important;
+   font-size: 0.75rem !important;
+   font-weight: 500 !important;
+   display: inline-block !important;
+   margin: 2px !important;
+   border: 1px solid #ddd;
+
+}
  
  .feature-badge:hover {
     background-color: #c9b896 !important;
@@ -1065,6 +1077,7 @@
     text-align: right;
     margin-bottom: 2rem;
  }
+ 
  
  /* Add Service Button Icon Color */
  .owner-add-service-container .btn i,

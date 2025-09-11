@@ -202,7 +202,7 @@ Route::prefix('api/salon-owner')->middleware(['web'])->group(function () {
     Route::get('/services', [SalonOwnerServiceController::class, 'index']);
     Route::get('/services/features', [SalonOwnerServiceController::class, 'getFeatures']); 
     Route::get('/services/{id}', [SalonOwnerServiceController::class, 'show']);
-    Route::post('/services/create', [SalonOwnerServiceController::class, 'store'])->name('salonowner.services.post');
+    Route::post('/services', [SalonOwnerServiceController::class, 'store'])->name('salonowner.services.post');
     Route::put('/services/{id}', [SalonOwnerServiceController::class, 'update']);
     Route::delete('/services/{id}', [SalonOwnerServiceController::class, 'destroy']);
 

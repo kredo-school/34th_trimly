@@ -30,19 +30,27 @@ class SalonController extends Controller
 
         $ownerId = Auth::guard('petowner')->id();
 
-        $dup = SalonCode::where('petowner_id', $ownerId)
+        //すでに（削除済みを含めて）同じコードがあるか確認
+        $existing = SalonCode::withTrashed()
+            ->where('petowner_id', $ownerId)
             ->where('salon_code', $data['salon_code'])
-            ->exists();
+            ->first();
 
-        if ($dup) {
+        if ($existing) {
+            if ($existing->trashed()) {
+                //削除済みなら復元
+                $existing->restore();
+                $existing->touch(); // 任意：更新日時を今に
+                return back()->with('success', 'Salon code has been re-linked to your account.');
+            }
+            // 既にアクティブ
             return back()->with('error', 'This salon is already registered.')->withInput();
         }
-
+        //初回登録
         SalonCode::create([
             'petowner_id' => $ownerId,
             'salon_code'  => $data['salon_code'],
         ]);
-
         return back()->with('success', 'Added the salon.');
     }
 

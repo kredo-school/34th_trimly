@@ -84,14 +84,14 @@
                         <span>Salon Code</span>
                     </a>
                     
-                  <!-- Logout Form -->
-             <form id="logoutForm" action="/salon-owner/logout" method="POST" style="display: inline;">
-                 @csrf
-                   <button type="submit" class="btn-salon-code d-none d-sm-flex btn-owner-back" style="border: none;">
-                     <i class="fa-solid fa-right-from-bracket me-2"></i>
-                  <span class="d-none d-sm-inline">Logout</span>
-                </button>
-    </form>
+               <!-- Logout Form -->
+            <form id="logoutForm" action="/salon-owner/logout" method="POST" style="display: inline;">
+              @csrf
+              <button type="submit" class="btn-salon-code d-none d-sm-flex btn-owner-back" style="border: none;">
+             <i class="fa-solid fa-right-from-bracket me-2"></i>
+              <span class="d-none d-sm-inline">Logout</span>
+            </button>
+            </form>
 </div>
             </div>
         </nav>
@@ -117,7 +117,7 @@
                 </div>
                     
                     <!-- Copy Button -->
-                    <button class="btn btn-copy-code" id="copyCodeBtn">
+                    <button class="btn btn-copy-code" id="copyCodeBtn" onclick="copySalonCode()">
                         <i class="fa-regular fa-copy me-2"></i>Copy Code
                     </button>
                     
