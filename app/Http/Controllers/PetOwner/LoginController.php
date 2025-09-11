@@ -19,17 +19,16 @@ class LoginController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            // 'remember_me' が存在し、'on' の値を持つことを検証
-            'remember_me' => 'accepted',
+           
         ]);
 
-        // 2. 認証情報の準備
+        // 2. prepare for credentials
         $credentials = [
             'email_address' => $request->email,
             'password' => $request->password,
         ];
 
-        // 3. 認証の試行
+        // 3. try to do credential
         // バリデーションが通ったので、Auth::attempt()には'true'か'false'を渡す
         $remember = $request->has('remember_me');
         if (Auth::guard('petowner')->attempt($credentials)) {
@@ -37,7 +36,7 @@ class LoginController extends Controller
             return redirect()->intended('/mypage/profile');
         }
 
-        // 4. 認証失敗
+        // 4. If error
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
@@ -47,7 +46,6 @@ class LoginController extends Controller
     {
         Auth::guard('petowner')->logout();
 
-        // セッションを無効化
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
