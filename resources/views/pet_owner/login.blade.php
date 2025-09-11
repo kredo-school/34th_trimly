@@ -60,8 +60,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="rememberMe" name="remember_me"
-                                        required>
+                                    <input class="form-check-input" type="checkbox" id="rememberMe" name="remember_me">
                                     <label class="form-check-label" for="rememberMe">
                                         Remember me
                                     </label>
