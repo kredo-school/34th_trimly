@@ -20,6 +20,8 @@ use App\Http\Controllers\salon_owner\SalonOwnerRegisterController;
 use App\Http\Controllers\salon_owner\SalonOwnerSettingsController;
 //Dashborard - customer// 
 use App\Http\Controllers\salon_owner\SalonOwnerCustomerController;
+//Dashborard - appointments// 
+use App\Http\Controllers\salon_owner\SalonOwnerAppointmentsController;
 //Dashborard - calendar// 
 use App\Http\Controllers\SalonOwner\CalendarController;
 
@@ -153,9 +155,11 @@ Route::post('/salon-owner/appointments/{id}/cancel', [CalendarController::class,
    Salon Owner side  - Dashborard   
    ===================================================== */
 //Appointments//
-Route::get('dashboard-salonowner/appointments', function () {
-    return view('salon_owner/dashboard/appointments');
-});
+Route::get('dashboard-salonowner/appointments', [SalonOwnerAppointmentsController::class, 'index'])
+    ->name('salon_owner.appointments');
+Route::post('dashboard-salonowner/appointments/{id}/cancel', [SalonOwnerAppointmentsController::class, 'cancel'])
+    ->name('salon_owner.appointments.cancel');
+
 // customers// Customer page
 Route::get('dashboard-salonowner/customers', [SalonOwnerCustomerController::class, 'index'])
 ->name('salonowner.customers');
