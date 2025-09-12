@@ -598,10 +598,37 @@
     color: white !important;
  }
  
+ /* Fix cancelled avatar and badge */
  .owner-customer-avatar.owner-avatar-cancelled {
- 
-    color: white !important;
- }
+   background-color:#ab8b73 !important; 
+   color: white !important;
+
+}
+
+span.badge.owner-badge-cancelled,
+.badge.owner-badge-cancelled,
+.owner-badge-cancelled {
+   background-color: #dc3545 !important; 
+   border: 1px solid #dc3545 !important; 
+   color: white !important;
+   padding: 4px 12px !important;
+   font-size: 0.75rem !important;
+   font-weight: 600 !important;
+   border-radius: 20px !important;
+   text-transform: uppercase !important;
+   letter-spacing: 0.05em !important;
+   display: inline-block !important;
+   visibility: visible !important;
+   opacity: 1 !important;
+}
+
+/* Ensure scissor icon is visible in cancelled status */
+.owner-avatar-cancelled i {
+   color: white !important;
+   display: block !important;
+   visibility: visible !important;
+   opacity: 1 !important;
+}
  
  /* =============================================
    Customer Details Styles
@@ -1940,4 +1967,80 @@ body .container #customersGrid .col-md-6 .card .card-body .owner-pet-section {
 .owner-input-group-custom.owner-password-container {
     min-height: 50px !important;
     align-items: stretch !important;
+}
+/* =============================================
+   DROPDOWN FIX - FINAL SOLUTION
+   ============================================= */
+
+/* Reset all dropdown styles to Bootstrap defaults */
+.dropdown-menu {
+   position: absolute !important;
+   inset: 0px auto auto 0px !important;
+   margin: 0px !important;
+   transform: translate3d(0px, 40px, 0px) !important;
+   display: none;
+}
+
+.dropdown-menu.show {
+   display: block !important;
+}
+
+/* Remove all the overflow visible rules that might be breaking Bootstrap */
+.card,
+.card-body {
+   overflow: inherit !important;
+}
+
+/* Ensure dropdown button works */
+.dropdown-toggle::after {
+   display: inline-block;
+   margin-left: 0.255em;
+   vertical-align: 0.255em;
+   content: "";
+   border-top: 0.3em solid;
+   border-right: 0.3em solid transparent;
+   border-bottom: 0;
+   border-left: 0.3em solid transparent;
+}
+/* Force icon visibility */
+.owner-customer-avatar i.fa-scissors {
+   display: block !important;
+   visibility: visible !important;
+   opacity: 1 !important;
+   color: white !important;
+   font-size: 1.1rem !important;
+}
+
+/* Confirmed status specific */
+.owner-avatar-confirmed {
+   background-color: #ab8b73 !important;
+   color: white !important;
+}
+
+.owner-avatar-confirmed i {
+   color: white !important;
+}/* Force icon visibility with background for confirmed */
+.owner-customer-avatar.owner-avatar-confirmed {
+   background-color: #ab8b73 !important;
+   color: white !important;
+   border-color: #ab8b73 !important;
+}
+
+.owner-avatar-confirmed i {
+   color: white !important;
+   display: block !important;
+   visibility: visible !important;
+   opacity: 1 !important;
+}
+/* Border top utility class for customer cards */
+.owner-section-divider {
+   border-top: 1px solid #f0f0f0;
+   padding-top: 20px;
+   margin-top: 20px;
+}
+/* Pets title style */
+.owner-pets-title {
+   font-size: 0.875rem;
+   letter-spacing: 0.5px;
+   font-weight: 700;
 }

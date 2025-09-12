@@ -10,8 +10,6 @@
     <!-- Salon Owner CSS Files Only -->
     <link href="{{ asset('css/register-salon-owner.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dashboard-salon-owner.css') }}" rel="stylesheet">
-
-    
 @endpush
 
 @section('content')
@@ -19,205 +17,127 @@
     <!-- Search and Filter Section -->
     <div class="card mb-4">
         <div class="card-body">
-            <div class="owner-search-section">
-                <!-- Search Input -->
-                <div class="position-relative flex-grow-1 owner-search-max-width">
-                    <i class="fa-solid fa-magnifying-glass owner-search-icon"></i>
-                    <input type="text" class="owner-search-input" placeholder="Search appointments..." id="searchInput" />
+            <form method="GET" action="{{ route('salon_owner.appointments') }}" id="filterForm">
+                <input type="hidden" name="date" value="{{ request('date', \Carbon\Carbon::today()->toDateString()) }}">
+                
+                <div class="owner-search-section">
+                    <!-- Search Input -->
+                    <div class="position-relative flex-grow-1 owner-search-max-width">
+                        <i class="fa-solid fa-magnifying-glass owner-search-icon"></i>
+                        <input type="text" name="search" class="owner-search-input" 
+                               placeholder="Search appointments..." 
+                               value="{{ request('search') }}" 
+                               id="searchInput" />
+                    </div>
+                    
+                    <!-- Filter Dropdown -->
+                    <div class="dropdown">
+                        <button class="btn btn-secondary owner-status-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-filter me-2"></i>
+                            @if(request('status') == 'confirmed')
+                                Confirmed
+                            @elseif(request('status') == 'completed')
+                                Completed
+                            @elseif(request('status') == 'cancelled')
+                                Cancelled
+                            @else
+                                All Status
+                            @endif
+                            <i class="fa-solid fa-chevron-down ms-2"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" data-status="">All Status</a></li>
+                            <li><a class="dropdown-item" href="#" data-status="confirmed">Confirmed</a></li>
+                            <li><a class="dropdown-item" href="#" data-status="completed">Completed</a></li>
+                            <li><a class="dropdown-item" href="#" data-status="cancelled">Cancelled</a></li>
+                        </ul>
+                    </div>
                 </div>
                 
-                <!-- Filter Dropdown -->
-                <div class="dropdown">
-                    <button class="btn btn-secondary owner-status-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-filter me-2"></i>All Status <i class="fa-solid fa-chevron-down ms-2"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#" data-status="">All Status</a></li>
-                        <li><a class="dropdown-item" href="#" data-status="confirmed">Confirmed</a></li>
-                        <li><a class="dropdown-item" href="#" data-status="completed">Completed</a></li>
-                        <li><a class="dropdown-item" href="#" data-status="cancelled">Cancelled</a></li>
-                    </ul>
-                </div>
-            </div>
+                <input type="hidden" name="status" id="statusInput" value="{{ request('status') }}">
+            </form>
         </div>
     </div>
 
     <!-- Appointments Card -->
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title mb-4">Today's Appointments</h4>
+            <h4 class="card-title mb-4">{{ $displayDate ?? "Today's Appointments" }}</h4>
             
             <div id="appointmentsList">
-                <!-- Appointment Item 1 - CONFIRMED -->
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div class="owner-appointment-item" data-status="confirmed">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="d-flex align-items-center gap-3">
-                                    <!-- Customer Avatar - Confirmed Status -->
-                                    <div class="owner-customer-avatar owner-avatar-confirmed">
-                                        <i class="fa-solid fa-scissors"></i>
-                                    </div>
-                                    
-                                    <!-- Customer Details -->
-                                    <div class="owner-customer-details">
-                                        <div class="d-flex align-items-center justify-content-between mb-1">
-                                            <h5 class="owner-customer-name mb-0 me-auto">Sarah Johnson</h5>
-                                            <span class="badge owner-badge-confirmed ms-4">Confirmed</span>
+                @if(isset($appointments) && $appointments->count() > 0)
+                    @foreach($appointments as $appointment)
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="owner-appointment-item" data-status="{{ $appointment->status == 1 ? 'confirmed' : ($appointment->status == 2 ? 'cancelled' : 'completed') }}">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <!-- Customer Avatar -->
+                                        <div class="owner-customer-avatar owner-avatar-{{ $appointment->status == 1 ? 'confirmed' : ($appointment->status == 2 ? 'cancelled' : 'completed') }}">
+                                            <i class="fa-solid fa-scissors"></i>
                                         </div>
-                                        <div class="owner-service-info text-muted">Full Grooming - Buddy</div>
-                                        <div class="owner-appointment-time text-muted">9:00 AM - 12:00 (3h 00m)</div>
+                                        
+                                        <!-- Customer Details -->
+                                        <div class="owner-customer-details">
+                                            <div class="d-flex align-items-center justify-content-between mb-1">
+                                                <h5 class="owner-customer-name mb-0 me-auto">{{ $appointment->pet->owner->firstname }} {{ $appointment->pet->owner->lastname }}</h5>
+                                                <span class="badge owner-badge-{{ $appointment->status == 1 ? 'confirmed' : ($appointment->status == 2 ? 'cancelled' : 'completed') }} ms-4">
+                                                    {{ $appointment->status == 1 ? 'Confirmed' : ($appointment->status == 2 ? 'Cancelled' : 'Completed') }}
+                                                </span>
+                                            </div>
+                                            <div class="owner-service-info text-muted">{{ $appointment->serviceItem->servicename }} • {{ $appointment->pet->name }}</div>
+                                            <div class="owner-appointment-time text-muted">
+                                                {{ \Carbon\Carbon::parse($appointment->appointment_time_start)->format('g:i A') }}  
+                                                {{ \Carbon\Carbon::parse($appointment->appointment_time_end)->format('g:i A') }}
+                                                @php
+                                                    $start = \Carbon\Carbon::parse($appointment->appointment_time_start);
+                                                    $end = \Carbon\Carbon::parse($appointment->appointment_time_end);
+                                                    $duration = $start->diff($end);
+                                                @endphp
+                                                ({{ $duration->h }}h {{ $duration->i > 0 ? $duration->i . 'm' : '' }})
+                                                <span class="mx-2">    </span>
+                                                <i class="fa-solid fa-phone"></i> {{ $appointment->pet->owner->phone }}
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <!-- Actions Only -->
-                                <div class="d-flex align-items-center">
-                                    <div class="dropdown">
-                                        <button class="btn btn-ghost btn-sm owner-action-menu" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-solid fa-ellipsis-vertical"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-edit me-2"></i>Edit Appointment</a></li>                                      
-                                            <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-trash-can me-2"></i>Cancel Appointment</a></li>
-                                        </ul>
+                                    <!-- Actions Only -->
+                                    <div class="d-flex align-items-center">
+                                        <div class="dropdown">
+                                            <button class="btn btn-ghost btn-sm owner-action-menu" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-edit me-2"></i>Edit Appointment</a></li>
+                                                @if($appointment->status == 1)
+                                                <li>
+                                                    <a class="dropdown-item text-danger cancel-appointment" href="#" 
+                                                       data-id="{{ $appointment->id }}"
+                                                       data-customer="{{ $appointment->pet->owner->firstname }} {{ $appointment->pet->owner->lastname }}"
+                                                       data-service="{{ $appointment->serviceItem->servicename }}">
+                                                        <i class="fa-solid fa-trash-can me-2"></i>Cancel Appointment
+                                                    </a>
+                                                </li>
+                                                @endif
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Appointment Item 2 - CONFIRMED -->
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div class="owner-appointment-item" data-status="confirmed">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="d-flex align-items-center gap-3">
-                                    <!-- Customer Avatar - Confirmed Status -->
-                                    <div class="owner-customer-avatar owner-avatar-confirmed">
-                                        <i class="fa-solid fa-scissors"></i>
-                                    </div>
-                                    
-                                    <!-- Customer Details -->
-                                    <div class="owner-customer-details">
-                                        <div class="d-flex align-items-center justify-content-between mb-1">
-                                            <h5 class="owner-customer-name mb-0 me-auto">Mike Davis</h5>
-                                            <span class="badge owner-badge-confirmed ms-4">Confirmed</span>
-                                        </div>
-                                        <div class="owner-service-info text-muted">Nail Trim - Luna</div>
-                                        <div class="owner-appointment-time text-muted">10:30 AM - 11:30 (1h 00m)</div>
-                                    </div>
-                                </div>
-
-                                <!-- Actions Only -->
-                                <div class="d-flex align-items-center">
-                                    <div class="dropdown">
-                                        <button class="btn btn-ghost btn-sm owner-action-menu" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-solid fa-ellipsis-vertical"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-edit me-2"></i>Edit Appointment</a></li>
-                                            <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-trash-can me-2"></i>Cancel Appointment</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    @endforeach
+                @else
+                    <!-- Empty State -->
+                    <div id="emptyState" class="owner-empty-state text-center">
+                        <i class="fa-regular fa-calendar-xmark text-muted"></i>
+                        <h5 class="text-muted">No appointments found</h5>
+                        <p class="text-muted">Try adjusting your search or filter criteria.</p>
                     </div>
-                </div>
-
-                <!-- Appointment Item 3 - COMPLETED -->
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div class="owner-appointment-item" data-status="completed">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="d-flex align-items-center gap-3">
-                                    <!-- Customer Avatar - Completed Status -->
-                                    <div class="owner-customer-avatar owner-avatar-completed">
-                                        <i class="fa-solid fa-scissors"></i>
-                                    </div>
-                                    
-                                    <!-- Customer Details -->
-                                    <div class="owner-customer-details">
-                                        <div class="d-flex align-items-center justify-content-between mb-1">
-                                            <h5 class="owner-customer-name mb-0 me-auto">Emily Chen</h5>
-                                            <span class="badge owner-badge-completed ms-4">Completed</span>
-                                        </div>
-                                        <div class="owner-service-info text-muted">Bath & Brush - Max</div>
-                                        <div class="owner-appointment-time text-muted">1:00 PM - 2:30 (1h 30m)</div>
-                                    </div>
-                                </div>
-
-                                <!-- Actions Only -->
-                                <div class="d-flex align-items-center">
-                                    <div class="dropdown">
-                                        <button class="btn btn-ghost btn-sm owner-action-menu" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-solid fa-ellipsis-vertical"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-edit me-2"></i>Edit Appointment</a></li>
-                                            <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-trash-can me-2"></i>Cancel Appointment</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Appointment Item 4 - CANCELLED -->
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div class="owner-appointment-item" data-status="cancelled">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="d-flex align-items-center gap-3">
-                                    <!-- Customer Avatar - Cancelled Status -->
-                                    <div class="owner-customer-avatar owner-avatar-cancelled">
-                                        <i class="fa-solid fa-scissors"></i>
-                                    </div>
-                                    
-                                    <!-- Customer Details -->
-                                    <div class="owner-customer-details">
-                                        <div class="d-flex align-items-center justify-content-between mb-1">
-                                            <h5 class="owner-customer-name mb-0 me-auto">Tom Wilson</h5>
-                                            <span class="badge owner-badge-cancelled ms-4">Cancelled</span>
-                                        </div>
-                                        <div class="owner-service-info text-muted">Haircut - Bella</div>
-                                        <div class="owner-appointment-time text-muted">3:30 PM - 4:30 (1h 00m)</div>
-                                    </div>
-                                </div>
-
-                                <!-- Actions Only -->
-                                <div class="d-flex align-items-center">
-                                    <div class="dropdown">
-                                        <button class="btn btn-ghost btn-sm owner-action-menu" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-solid fa-ellipsis-vertical"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-edit me-2"></i>Edit Appointment</a></li>
-                                            <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-trash-can me-2"></i>Cancel Appointment</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Empty State (hidden by default) -->
-                <div id="emptyState" class="owner-empty-state text-center owner-empty-state-display-none">
-                    <i class="fa-regular fa-calendar-xmark text-muted"></i>
-                    <h5 class="text-muted">No appointments found</h5>
-                    <p class="text-muted">Try adjusting your search or filter criteria.</p>
-                </div>
+                @endif
             </div>
         </div>
     </div>
 </div>
-
-
 @endsection
 
-@push('scripts')
-<script src="{{ asset('js/owner/dashboard.js') }}" defer></script>
-@endpush

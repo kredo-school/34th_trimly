@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PetOwner\LoginController;
@@ -21,6 +20,8 @@ use App\Http\Controllers\salon_owner\SalonOwnerRegisterController;
 use App\Http\Controllers\salon_owner\SalonOwnerSettingsController;
 //Dashborard - customer// 
 use App\Http\Controllers\salon_owner\SalonOwnerCustomerController;
+//Dashborard - appointments// 
+use App\Http\Controllers\salon_owner\SalonOwnerAppointmentsController;
 //Dashborard - calendar// 
 use App\Http\Controllers\SalonOwner\CalendarController;
 
@@ -35,7 +36,6 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return redirect()->route('pet_owner.register.saloncode');
 })->name('register');
-
 //add Juri
 Route::get('/mypage/reservation/new', [ReservationController::class, 'selectSalon'])->name('reservation.select-salon');
 Route::get('/mypage/reservation/new/service', [ReservationController::class, 'selectService'])->name('reservation.select-service');
@@ -43,7 +43,6 @@ Route::get('/mypage/reservation/new/pet', [ReservationController::class, 'select
 Route::get('/mypage/reservation/new/schedule', [ReservationController::class, 'selectSchedule'])->name('reservation.select-schedule');
 Route::get('/mypage/reservation/new/confirm', [ReservationController::class, 'confirm'])->name('reservation.confirm');
 Route::post('/mypage/reservation/new/complete', [ReservationController::class, 'complete'])->name('reservation.complete');
-
 /* =====================================================
    Pet Owner side  - Login
    ===================================================== */
@@ -55,7 +54,6 @@ Route::prefix('petowner')->name('pet_owner.')->group(function () {
    Pet Owner side  - Logout
    ===================================================== */
 Route::post('/petowner/logout', [LoginController::class, 'logout'])->name('pet_owner.logout');
-
 /* =====================================================
    Pet Owner side  - Register
    ===================================================== */
@@ -70,7 +68,6 @@ Route::prefix('petowner/register')->name('pet_owner.register.')->group(function 
     Route::post('/confirm', [RegisterController::class, 'postConfirm'])->name('confirm.post');
     Route::get('/complete', [RegisterController::class, 'showComplete'])->name('complete');
 });
-
 /* =====================================================
    Pet Owner side  - MyPage
    ===================================================== */
@@ -115,7 +112,6 @@ Route::middleware(['auth:petowner'])->group(function () {
 Route::get('/login-salonowner', function () {
     return view('salon_owner/login');
 })->name('salonowner.login');
-
 // Backward compatibility: GET /salon-owner/login -> login page (301)
 Route::get('/salon-owner/login', function () {
     return redirect()->route('salonowner.login', [], 301);
@@ -126,16 +122,13 @@ Route::post('/salon-owner/login', [SalonOwnerLoginController::class, 'login']);
 Route::post('/salon-owner/logout', [SalonOwnerLoginController::class, 'logout']);
 Route::get('/salon-owner/profile', [SalonOwnerLoginController::class, 'profile']);
 Route::get('/salon-owner/check', [SalonOwnerLoginController::class, 'check']);
-
 /* =====================================================
    Salon Owner side  -Register 
    ===================================================== */
-
 // //Owner Register - confirm //
 // Route::get('/register-salonowner/confirm', function () {
 //     return view('salon_owner/register/confirm');
 // });
-
 // //Owner Register -saloninfo //
 // Route::get('/register-salonowner/salon-info', function () {
 //     return view('salon_owner/register/salon-info');
@@ -148,14 +141,12 @@ Route::get('/salon-owner/check', [SalonOwnerLoginController::class, 'check']);
 // Route::get('/register-salonowner/complete', function () {
 //     return view('salon_owner/register/complete');
 // });
-
 Route::prefix('register-salonowner')->name('salon.register.')->group(function () {
     Route::get('/', [SalonOwnerRegisterController::class, 'create'])->name('create');
     Route::post('/confirm', [SalonOwnerRegisterController::class, 'confirm'])->name('confirm');
     Route::post('/store', [SalonOwnerRegisterController::class, 'store'])->name('store');
     Route::get('/complete', [SalonOwnerRegisterController::class, 'complete'])->name('complete');
 });
-
 //Owner Appointments Calendar //
 // Juri - 2025-08-30 - Implemented salon owner calendar backend to fetch and display appointments from DB
 Route::get('/salon-owner/calendar', [CalendarController::class, 'index'])->name('salon-owner.calendar');
@@ -164,13 +155,14 @@ Route::post('/salon-owner/appointments/{id}/cancel', [CalendarController::class,
    Salon Owner side  - Dashborard   
    ===================================================== */
 //Appointments//
-Route::get('dashboard-salonowner/appointments', function () {
-    return view('salon_owner/dashboard/appointments');
-});
+Route::get('dashboard-salonowner/appointments', [SalonOwnerAppointmentsController::class, 'index'])
+    ->name('salon_owner.appointments');
+Route::post('dashboard-salonowner/appointments/{id}/cancel', [SalonOwnerAppointmentsController::class, 'cancel'])
+    ->name('salon_owner.appointments.cancel');
+
 // customers// Customer page
 Route::get('dashboard-salonowner/customers', [SalonOwnerCustomerController::class, 'index'])
 ->name('salonowner.customers');
-
 // API routes for customers
 Route::prefix('api/salon-owner')->middleware(['web'])->group(function () {
 Route::get('/customers', [SalonOwnerCustomerController::class, 'getCustomers']);

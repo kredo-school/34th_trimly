@@ -70,3 +70,61 @@ function logout(event) {
     document.body.appendChild(form);
     form.submit();
 }
+
+// Appointments page functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Search input submit with debounce
+    const searchInput = document.getElementById('searchInput');
+    let searchTimeout;
+    
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                document.getElementById('filterForm').submit();
+            }, 500);
+        });
+    }
+
+    // Status filter - Fixed to only target status filter dropdown
+    document.querySelectorAll('.owner-status-dropdown + .dropdown-menu [data-status]').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const statusInput = document.getElementById('statusInput');
+            if (statusInput) {
+                statusInput.value = this.dataset.status;
+                document.getElementById('filterForm').submit();
+            }
+        });
+    });
+
+    // Cancel appointment
+    document.querySelectorAll('.cancel-appointment').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation(); // Prevent dropdown from closing
+            
+            const id = this.dataset.id;
+            const customer = this.dataset.customer;
+            const service = this.dataset.service;
+            
+            if (confirm(`Cancel appointment for ${customer} (${service})?`)) {
+                fetch(`/dashboard-salonowner/appointments/${id}/cancel`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.reload();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        });
+    });
+});

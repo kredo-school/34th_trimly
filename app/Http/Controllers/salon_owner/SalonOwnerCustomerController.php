@@ -87,7 +87,7 @@ class SalonOwnerCustomerController extends Controller
                     return null;
                 }
 
-                // Default statistics (no appointments table)
+                // Default statistics
                 $stats = [
                     'total_visits' => 0,
                     'total_spent' => 0,
@@ -98,17 +98,35 @@ class SalonOwnerCustomerController extends Controller
                 // Check if appointments table exists
                 if (Schema::hasTable('appointments')) {
                     try {
+                        // Fixed query to work with correct table structure
                         $appointmentsQuery = DB::table('appointments')
-                            ->where('salon_id', $salon->id)
-                            ->where('pet_owner_id', $customer->id)
-                            ->whereNull('deleted_at');
+                            ->join('pets', 'appointments.pet_id', '=', 'pets.id')
+                            ->where('appointments.salon_code', $salon->salon_code)
+                            ->where('pets.pet_owner_id', $customer->id)
+                            ->whereNull('appointments.deleted_at');
 
-                        $stats['total_visits'] = $appointmentsQuery->where('status', 'completed')->count();
-                        $stats['total_spent'] = $appointmentsQuery->where('status', 'completed')->sum('total_price') ?? 0;
-                        $stats['last_visit'] = $appointmentsQuery->where('status', 'completed')
-                            ->orderBy('appointment_date', 'desc')
-                            ->value('appointment_date');
+                        // Get total visits (status 3 = completed)
+                        $stats['total_visits'] = (clone $appointmentsQuery)->where('appointments.status', 3)->count();
+                        
+                        // Get total spent (sum of service prices for completed appointments)
+                        $totalSpentQuery = clone $appointmentsQuery;
+                        $stats['total_spent'] = $totalSpentQuery
+                            ->join('service_items', 'appointments.service_item_id', '=', 'service_items.id')
+                            ->where('appointments.status', 3)
+                            ->sum('service_items.price') ?? 0;
+                        
+                        // Get last visit date
+                        $lastVisitQuery = clone $appointmentsQuery;
+                        $lastVisit = $lastVisitQuery
+                            ->where('appointments.status', 3)
+                            ->orderBy('appointments.appointment_date', 'desc')
+                            ->first();
+                            
+                        if ($lastVisit) {
+                            $stats['last_visit'] = \Carbon\Carbon::parse($lastVisit->appointment_date)->format('Y/n/j');
+                        }
                     } catch (\Exception $e) {
+                        Log::error('Error fetching appointment stats: ' . $e->getMessage());
                         // Keep default stats
                     }
                 }
@@ -121,11 +139,21 @@ class SalonOwnerCustomerController extends Controller
                             'id' => $pet->id,
                             'name' => $pet->name ?? 'Unknown',
                             'breed' => $pet->breed ?? 'Unknown',
-                            'age' => $pet->age ? $pet->age . ' years' : 'Unknown',
-                            'size' => $pet->size ? ucfirst($pet->size) : 'Unknown',
-                            'notes' => $pet->special_notes ?? ''
+                            'age' => $pet->age ?? 'Unknown',
+                            'gender' => $pet->gender ?? 'Unknown',
+                            'weight' => $pet->weight ?? 'Unknown',
+                            'notes' => $pet->notes ?? ''
                         ];
                     }
+                }
+
+                // Format address
+                $fullAddress = '';
+                if ($customer->city || $customer->prefecture) {
+                    $addressParts = [];
+                    if ($customer->city) $addressParts[] = $customer->city;
+                    if ($customer->prefecture) $addressParts[] = $customer->prefecture;
+                    $fullAddress = implode(', ', $addressParts);
                 }
 
                 return [
@@ -135,10 +163,9 @@ class SalonOwnerCustomerController extends Controller
                     'full_name' => $customer->firstname . ' ' . $customer->lastname,
                     'email' => $customer->email_address,
                     'phone' => $customer->phone,
-                    'address' => $customer->address ?? '',
+                    'address' => $fullAddress,
                     'city' => $customer->city ?? '',
-                    'state' => $customer->prefecture ?? '',
-                    'zip' => $customer->zip ?? '',
+                    'prefecture' => $customer->prefecture ?? '',
                     'pets' => $pets,
                     'stats' => $stats,
                     'salon_code_id' => $salonCode->id
@@ -227,14 +254,15 @@ class SalonOwnerCustomerController extends Controller
             // Get appointment history if table exists
             if (Schema::hasTable('appointments')) {
                 $appointments = DB::table('appointments')
-                    ->join('salon_services', 'appointments.service_id', '=', 'salon_services.id')
+                    ->join('service_items', 'appointments.service_item_id', '=', 'service_items.id')
                     ->join('pets', 'appointments.pet_id', '=', 'pets.id')
-                    ->where('appointments.salon_id', $salon->id)
-                    ->where('appointments.pet_owner_id', $id)
+                    ->where('appointments.salon_code', $salon->salon_code)
+                    ->where('pets.pet_owner_id', $id)
                     ->whereNull('appointments.deleted_at')
                     ->select(
                         'appointments.*',
-                        'salon_services.service_name',
+                        'service_items.servicename as service_name',
+                        'service_items.price',
                         'pets.name as pet_name'
                     )
                     ->orderBy('appointments.appointment_date', 'desc')

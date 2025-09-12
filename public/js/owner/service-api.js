@@ -359,7 +359,7 @@ class ServiceManager {
                             <i class="fa-regular fa-clock me-2"></i>
                             <span class="me-4">${service.formatted_duration || service.duration + 'min'}</span>
                             <i class="fa-solid fa-dollar-sign me-2"></i>
-                            <span class="me-4">$${service.formatted_price || parseFloat(service.price).toFixed(2)}</span>
+                            <span class="me-4">${service.formatted_price || parseFloat(service.price).toFixed(2)}</span>
                             <i class="fa-solid fa-scissors me-2"></i>
                             <span>${service.features_count || features.length} features</span>
                         </div>

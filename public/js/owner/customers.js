@@ -107,13 +107,18 @@ document.addEventListener('DOMContentLoaded', function() {
             ? formatLastVisit(customer.stats.last_visit)
             : 'No visits yet';
 
-        const petsHtml = customer.pets.map(pet => `
-            <div class="mb-2">
-                <span class="owner-pet-name">${escapeHtml(pet.name)}</span><br>
-                <span class="text-muted owner-pet-details">${escapeHtml(pet.breed)} • ${pet.age} • ${pet.size}</span>
-                ${pet.notes ? `<div class="text-muted owner-pet-notes">${escapeHtml(pet.notes)}</div>` : ''}
-            </div>
-        `).join('');
+            const petsHtml = customer.pets.map(pet => `
+                <div class="mb-2">
+                    <span class="owner-pet-name">${escapeHtml(pet.name)}</span><br>
+                    <span class="text-muted owner-pet-details">
+                        ${escapeHtml(pet.breed || 'Unknown')} • 
+                        ${escapeHtml(pet.age || 'Unknown')} • 
+                        ${escapeHtml(pet.gender || 'Unknown')} • 
+                        ${escapeHtml(pet.weight || 'Unknown')}
+                    </span>
+                    ${pet.notes ? `<div class="text-muted owner-pet-notes">${escapeHtml(pet.notes)}</div>` : ''}
+                </div>
+            `).join('');
 
         return `
             <div class="col-md-6 mb-4">
@@ -152,16 +157,19 @@ document.addEventListener('DOMContentLoaded', function() {
                             ${customer.address ? `
                                 <div class="owner-customer-contact-item">
                                     <i class="fa-solid fa-location-dot text-muted"></i>
-                                    <span>${escapeHtml(customer.address)}, ${escapeHtml(customer.city)}</span>
+                                    <span>${escapeHtml(customer.address)}</span>
                                 </div>
                             ` : ''}
                         </div>
 
                         <!-- Pet Information -->
-                        <div class="owner-pet-section">
-                            <h6 class="mb-2">Pets</h6>
-                            ${petsHtml || '<p class="text-muted">No pets registered</p>'}
-                        </div>
+                        <div class="owner-section-divider">
+                          <h6 class="owner-pets-title mb-2 text-muted">Pets</h6>
+                          <div class="owner-pet-section">
+                          ${petsHtml || '<p class="text-muted">No pets registered</p>'}
+                         </div>
+                         </div>
+
 
                         <!-- Customer Stats -->
                         <div class="owner-customer-stats">
@@ -190,27 +198,29 @@ document.addEventListener('DOMContentLoaded', function() {
     function formatLastVisit(dateString) {
         if (!dateString) return 'No visits yet';
         
-        const date = new Date(dateString);
-        const today = new Date();
-        const yesterday = new Date(today);
-        yesterday.setDate(yesterday.getDate() - 1);
+        // const date = new Date(dateString);
+        // const today = new Date();
+        // const yesterday = new Date(today);
+        // yesterday.setDate(yesterday.getDate() - 1);
         
-        if (date.toDateString() === today.toDateString()) {
-            return 'Today';
-        } else if (date.toDateString() === yesterday.toDateString()) {
-            return 'Yesterday';
-        } else {
-            const days = Math.floor((today - date) / (1000 * 60 * 60 * 24));
-            if (days < 7) {
-                return `${days} days ago`;
-            } else if (days < 30) {
-                const weeks = Math.floor(days / 7);
-                return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
-            } else {
-                return date.toLocaleDateString();
-            }
-        }
+        // if (date.toDateString() === today.toDateString()) {
+        //     return 'Today';
+        // } else if (date.toDateString() === yesterday.toDateString()) {
+        //     return 'Yesterday';
+        // } else {
+        //     const days = Math.floor((today - date) / (1000 * 60 * 60 * 24));
+        //     if (days < 7) {
+        //         return `${days} days ago`;
+        //     } else if (days < 30) {
+        //         const weeks = Math.floor(days / 7);
+        //         return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
+        //     } else {
+        //         return date.toLocaleDateString();
+        //     }
+        // }
+        return dateString; //chaneg the stayle from yesterday to exact dates 
     }
+    
 
     // Delete customer
     window.confirmDeleteCustomer = function(event, customerId, customerName) {

@@ -110,11 +110,11 @@
                                 <input type="hidden" name="salon_code" value="{{ $salonCode }}">
                                 
                                 <!-- Navigation Buttons -->
-                                <div class="d-flex justify-content-between owner-mt-4">
-                                    <!-- Back Button -->
+                                <div class="d-flex justify-content-end owner-mt-4">
+                                    {{-- <!-- Back Button -->
                                     <button type="button" class="btn btn-owner-back" onclick="goBack()">
                                         <i class="fa-solid fa-arrow-left me-2"></i> Back
-                                    </button>
+                                    </button> --}}
                                     
                                     <!-- Continue Button - No onclick handler -->
                                     <button type="submit" class="btn btn-owner-continue">
