@@ -72,7 +72,7 @@
 
 /* Salon Selection Specific */
 .card-title::before {
-    content: '📋';
+    /* content: '📋'; */
     font-size: 24px;
 }
 
@@ -170,7 +170,7 @@
 
 /* Service Selection Specific */
 .service-title::before {
-    content: '✂️';
+    /* content: '✂️'; */
     font-size: 24px;
 }
 
@@ -278,7 +278,7 @@
 
 /* Pet Selection Specific */
 .pet-title::before {
-    content: '🐾';
+    /* content: '🐾'; */
     font-size: 24px;
 }
 
@@ -358,7 +358,7 @@
 
 /* Schedule Selection Specific */
 .schedule-title::before {
-    content: '📅';
+    /* content: '📅'; */
     font-size: 24px;
 }
 
@@ -534,7 +534,7 @@
 
 /* Confirm Page Specific */
 .confirm-title::before {
-    content: '✓';
+    /* content: '✓'; */
     font-size: 24px;
 }
 

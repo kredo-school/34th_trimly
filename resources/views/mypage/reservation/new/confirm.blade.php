@@ -48,7 +48,7 @@
 
     <main class="main-content">
         <div class="card">
-            <h1 class="card-title confirm-title">Confirm Your Booking</h1>
+            <h1 class="card-title confirm-title"><i class="fa-solid fa-check me-2" style="color: #b08968;"></i>Confirm Your Booking</h1>
             
             <div class="confirm-content">
                 <div class="summary-section">
