@@ -70,6 +70,11 @@
     color: #999;
 }
 
+/* Icon styling for titles */
+.icon-primary {
+    color: #b08968;
+}
+
 /* Salon Selection Specific */
 .card-title::before {
     /* content: '📋'; */

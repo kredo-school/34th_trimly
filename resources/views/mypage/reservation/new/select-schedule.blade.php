@@ -48,7 +48,7 @@
 
     <main class="main-content">
         <div class="card">
-            <h1 class="card-title schedule-title"><i class="fas fa-calendar-alt me-2" style="color: #b08968;"></i>Choose Date&Time</h1>
+            <h1 class="card-title schedule-title"><i class="fas fa-calendar-alt me-2 icon-primary"></i>Choose Date&Time</h1>
             
             <div class="schedule-container">
                 <div class="date-section">

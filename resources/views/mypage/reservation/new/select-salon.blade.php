@@ -49,13 +49,13 @@
 
     <main class="main-content">
         <div class="card">
-            <h1 class="card-title"><i class="fa-solid fa-building me-2" style="color: #b08968;"></i>Select Your Salon</h1>
+            <h1 class="card-title"><i class="fa-solid fa-building me-2 icon-primary"></i>Select Your Salon</h1>
             <p class="card-subtitle">Choose from your registered salons</p>
             
             <div class="salon-list">
                 @foreach($salons as $salon)
                 <div class="salon-item" data-salon-id="{{ $salon['id'] }}">
-                    <div class="salon-icon"><i class="fa-solid fa-building" style="color: #b08968;"></i></div>
+                    <div class="salon-icon"><i class="fa-solid fa-building icon-primary"></i></div>
                     <div class="salon-details">
                         <div class="salon-name">{{ $salon['name'] }}</div>
                         <div class="salon-info">Code: {{ $salon['code'] }}</div>
