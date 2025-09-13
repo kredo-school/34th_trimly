@@ -116,7 +116,7 @@
             </div>
 
             <div class="actions">
-                <a href="/mypage/reservation/new/schedule" class="btn btn-back">← Back</a>
+                <a href="{{ route('reservation.select-schedule', request()->only(['salon_id', 'service_id', 'pet_id'])) }}" class="btn btn-back">← Back</a>
                 <button class="btn btn-confirm" id="confirmBtn" disabled>
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 10L8 13L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
