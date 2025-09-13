@@ -90,7 +90,7 @@
 
     <main class="main-content">
         <div class="card">
-            <h1 class="card-title service-title">Choose Your Service</h1>
+            <h1 class="card-title service-title"><i class="fas fa-scissors me-2 icon-primary"></i>Choose Your Service</h1>
             <p class="card-subtitle">Select the service for your pet</p>
 
             <div class="service-grid">
