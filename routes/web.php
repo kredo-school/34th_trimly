@@ -151,6 +151,8 @@ Route::prefix('register-salonowner')->name('salon.register.')->group(function ()
 // Juri - 2025-08-30 - Implemented salon owner calendar backend to fetch and display appointments from DB
 Route::get('/salon-owner/calendar', [CalendarController::class, 'index'])->name('salon-owner.calendar');
 Route::post('/salon-owner/appointments/{id}/cancel', [CalendarController::class, 'cancelAppointment'])->name('salon-owner.appointments.cancel');
+Route::put('/salon-owner/appointments/{id}', [CalendarController::class, 'updateAppointment'])->name('salon-owner.appointments.update');
+Route::get('/salon-owner/api/services', [CalendarController::class, 'getServices'])->name('salon-owner.api.services');
 /* =====================================================
    Salon Owner side  - Dashborard   
    ===================================================== */
