@@ -354,6 +354,175 @@
                 padding: 15px 20px;
             }
         }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-container {
+            background-color: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #999;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .form-section {
+            margin-bottom: 24px;
+        }
+
+        .form-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #333;
+            background-color: white;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #c8a882;
+            box-shadow: 0 0 0 3px rgba(200, 168, 130, 0.1);
+        }
+
+        .form-control[readonly] {
+            background-color: #f8f8f8;
+            cursor: not-allowed;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding: 20px 24px;
+            border-top: 1px solid #e0e0e0;
+            background-color: #f8f8f8;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: #c8a882;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #b39770;
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            background-color: #f5f5f5;
+        }
     </style>
 @endpush
 
@@ -471,7 +640,7 @@
                         <div class="appointment-actions">
                             <button type="button" class="action-btn" onclick="toggleActionMenu(event, 'menu{{ $appointment->id }}')">⋯</button>
                             <div class="action-menu" id="menu{{ $appointment->id }}">
-                                <button class="action-menu-item">
+                                <button type="button" class="action-menu-item" onclick="openEditModal({{ $appointment->id }}, '{{ addslashes($ownerFullName) }}', '{{ addslashes($petName) }}', {{ $appointment->service_item_id }}, '{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('Y-m-d') }}', '{{ substr($appointment->appointment_time_start, 0, 5) }}', {{ $appointment->status }}); event.stopPropagation(); return false;">
                                     <i class="fas fa-edit"></i>
                                     Edit Appointment
                                 </button>
@@ -493,6 +662,90 @@
                     </div>
                 @endforelse
             </div>
+        </div>
+    </div>
+
+    <!-- Edit Appointment Modal -->
+    <div class="modal-overlay" id="editAppointmentModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Appointment</h2>
+                <button type="button" class="modal-close" onclick="closeEditModal()">&times;</button>
+            </div>
+            
+            <form id="editAppointmentForm" method="POST">
+                @csrf
+                @method('PUT')
+                
+                <div class="modal-body">
+                    <!-- Client Information (Read-only) -->
+                    <div class="form-section">
+                        <h3 class="section-title">Client Information</h3>
+                        <div class="form-group">
+                            <label>Client Name</label>
+                            <input type="text" id="editClientName" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Pet Name</label>
+                            <input type="text" id="editPetName" class="form-control" readonly>
+                        </div>
+                    </div>
+
+                    <!-- Service Information -->
+                    <div class="form-section">
+                        <h3 class="section-title">Service Details</h3>
+                        <div class="form-group">
+                            <label for="editService">Service</label>
+                            <select id="editService" name="service_item_id" class="form-control" required>
+                                <option value="">Select a service</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Date & Time -->
+                    <div class="form-section">
+                        <h3 class="section-title">Date & Time</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="editDate">Date</label>
+                                <input type="date" id="editDate" name="appointment_date" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editTime">Time</label>
+                                <input type="time" id="editTime" name="appointment_time_start" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="form-section">
+                        <h3 class="section-title">Status</h3>
+                        <div class="form-group">
+                            <label for="editStatus">Appointment Status</label>
+                            <select id="editStatus" name="status" class="form-control" required>
+                                <option value="0">Pending</option>
+                                <option value="1">Confirmed</option>
+                                <option value="2">Cancelled</option>
+                                <option value="3">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Notes -->
+                    <div class="form-section">
+                        <h3 class="section-title">Notes</h3>
+                        <div class="form-group">
+                            <label for="editNotes">Additional Notes</label>
+                            <textarea id="editNotes" name="notes" class="form-control" rows="3" placeholder="Add any special instructions or notes..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeEditModal()">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Changes</button>
+                </div>
+            </form>
         </div>
     </div>
 @endsection
@@ -602,6 +855,141 @@
                     event.stopPropagation();
                 });
             });
+
+            // Load services for the edit modal
+            loadServices();
+        });
+
+        // Modal Functions
+        function openEditModal(appointmentId, clientName, petName, serviceId, date, time, status) {
+            const modal = document.getElementById('editAppointmentModal');
+            const form = document.getElementById('editAppointmentForm');
+            
+            // Debug log
+            console.log('Opening edit modal with:', {
+                appointmentId, clientName, petName, serviceId, date, time, status
+            });
+            
+            // Set form action
+            form.action = `/salon-owner/appointments/${appointmentId}`;
+            
+            // Populate form fields
+            document.getElementById('editClientName').value = clientName;
+            document.getElementById('editPetName').value = petName;
+            document.getElementById('editService').value = serviceId;
+            document.getElementById('editDate').value = date;
+            document.getElementById('editTime').value = time;
+            document.getElementById('editStatus').value = status;
+            
+            // Show modal
+            modal.classList.add('show');
+            
+            // Close action menu
+            document.querySelectorAll('.action-menu').forEach(menu => {
+                menu.classList.remove('show');
+                menu.style.visibility = 'hidden';
+                menu.style.opacity = '0';
+            });
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById('editAppointmentModal');
+            modal.classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('editAppointmentModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeEditModal();
+            }
+        });
+
+        // Store business hours and open days
+        let businessHours = { open_time: '09:00', close_time: '18:00' };
+        let openDays = [];
+        
+        // Load services for the salon
+        function loadServices() {
+            fetch('/salon-owner/api/services')
+                .then(response => response.json())
+                .then(data => {
+                    // Store business hours and open days
+                    businessHours.open_time = data.open_time ? data.open_time.substring(0, 5) : '09:00';
+                    businessHours.close_time = data.close_time ? data.close_time.substring(0, 5) : '18:00';
+                    openDays = data.open_days || [];
+                    
+                    // Set time input constraints
+                    const timeInput = document.getElementById('editTime');
+                    timeInput.min = businessHours.open_time;
+                    timeInput.max = businessHours.close_time;
+                    
+                    // Populate services
+                    const select = document.getElementById('editService');
+                    select.innerHTML = '<option value="">Select a service</option>';
+                    if (data.services) {
+                        data.services.forEach(service => {
+                            const option = document.createElement('option');
+                            option.value = service.id;
+                            option.textContent = service.servicename;
+                            select.appendChild(option);
+                        });
+                    }
+                    
+                    // Set date input constraints
+                    setDateConstraints();
+                })
+                .catch(error => {
+                    console.error('Error loading services:', error);
+                    // If API endpoint doesn't exist yet, use placeholder data
+                    const select = document.getElementById('editService');
+                    select.innerHTML = `
+                        <option value="">Select a service</option>
+                        <option value="1">Full Grooming</option>
+                        <option value="2">Bath & Brush</option>
+                        <option value="3">Nail Trim</option>
+                        <option value="4">Teeth Cleaning</option>
+                    `;
+                });
+        }
+        
+        // Set date constraints based on business days
+        function setDateConstraints() {
+            const dateInput = document.getElementById('editDate');
+            
+            // Set minimum date to today
+            const today = new Date();
+            const minDate = today.toISOString().split('T')[0];
+            dateInput.min = minDate;
+            
+            // Add event listener to validate selected date
+            dateInput.addEventListener('change', function() {
+                validateSelectedDate(this);
+            });
+        }
+        
+        // Validate if selected date is on an open day
+        function validateSelectedDate(input) {
+            const selectedDate = new Date(input.value);
+            const dayOfWeek = selectedDate.getDay(); // 0 = Sunday, 6 = Saturday
+            
+            // Map day number to day name
+            const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const selectedDayName = dayNames[dayOfWeek];
+            
+            // Check if the selected day is an open day
+            if (openDays.length > 0 && !openDays.includes(selectedDayName)) {
+                alert(`Sorry, the salon is closed on ${selectedDayName}. Please select a different date.`);
+                input.value = '';
+            }
+        }
+        
+        // Validate time within business hours
+        document.getElementById('editTime').addEventListener('change', function() {
+            const selectedTime = this.value;
+            if (selectedTime < businessHours.open_time || selectedTime > businessHours.close_time) {
+                alert(`Please select a time between ${businessHours.open_time} and ${businessHours.close_time}`);
+                this.value = businessHours.open_time;
+            }
         });
     </script>
 @endpush
