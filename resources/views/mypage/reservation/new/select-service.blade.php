@@ -121,7 +121,7 @@
             </div>
 
             <div class="actions">
-                <a href="/mypage/reservation/new" class="btn btn-back">← Back</a>
+                <a href="{{ route('reservation.select-salon') }}" class="btn btn-back">← Back</a>
                 <button class="btn btn-continue" id="continueBtn" disabled>Continue →</button>
             </div>
         </div>

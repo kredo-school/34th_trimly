@@ -80,7 +80,7 @@
             </div>
 
             <div class="actions">
-                <a href="/mypage/reservation/new/service" class="btn btn-back">← Back</a>
+                <a href="{{ route('reservation.select-service', request()->only('salon_id')) }}" class="btn btn-back">← Back</a>
                 <button class="btn btn-continue" id="continueBtn" disabled>Continue →</button>
             </div>
         </div>

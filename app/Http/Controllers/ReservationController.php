@@ -191,10 +191,31 @@ class ReservationController extends Controller
         $serviceId = $request->input('service_id');
         
         // Get salon for open hours
-        $salon = Salon::find($salonId);
+        $salon = Salon::with('openDays')->find($salonId);
         if (!$salon) {
             return redirect()->route('mypage.reservation.new.select-salon')
                 ->with('error', 'Please select a valid salon.');
+        }
+        
+        // Get open days for this salon
+        $openDays = $salon->openDays->pluck('day_of_week')->toArray();
+        
+        // Map day names to numbers (0 = Sunday, 1 = Monday, etc.)
+        $dayMap = [
+            'Sunday' => 0,
+            'Monday' => 1,
+            'Tuesday' => 2,
+            'Wednesday' => 3,
+            'Thursday' => 4,
+            'Friday' => 5,
+            'Saturday' => 6
+        ];
+        
+        $openDayNumbers = [];
+        foreach ($openDays as $day) {
+            if (isset($dayMap[$day])) {
+                $openDayNumbers[] = $dayMap[$day];
+            }
         }
         
         // Generate calendar
@@ -213,11 +234,20 @@ class ReservationController extends Controller
         }
         
         // Add days of the month
+        $today = Carbon::today();
         for ($day = 1; $day <= $daysInMonth; $day++) {
+            $currentDate = Carbon::create($year, $month, $day);
+            $dayOfWeek = $currentDate->dayOfWeek; // 0 = Sunday, 6 = Saturday
+            
+            // Check if this day is a business day and not in the past
+            $isAvailable = in_array($dayOfWeek, $openDayNumbers) && $currentDate->gte($today);
+            
             $calendar[] = [
                 'day' => $day,
-                'dayOfWeek' => date('D', mktime(0, 0, 0, $month, $day, $year)),
-                'isToday' => ($day == date('j') && $month == date('n') && $year == date('Y'))
+                'dayOfWeek' => $currentDate->format('D'),
+                'isToday' => ($day == date('j') && $month == date('n') && $year == date('Y')),
+                'isAvailable' => $isAvailable,
+                'isPast' => $currentDate->lt($today)
             ];
         }
 
@@ -249,11 +279,12 @@ class ReservationController extends Controller
                 'calendar' => $calendar,
                 'monthName' => $monthName,
                 'year' => $year,
-                'month' => $month
+                'month' => $month,
+                'openDays' => $openDays
             ]);
         }
 
-        return view('mypage.reservation.new.select-schedule', compact('calendar', 'timeSlots', 'year', 'monthName', 'month'));
+        return view('mypage.reservation.new.select-schedule', compact('calendar', 'timeSlots', 'year', 'monthName', 'month', 'openDays'));
     }
 
     public function confirm(Request $request)

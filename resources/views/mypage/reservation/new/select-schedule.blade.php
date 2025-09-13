@@ -76,10 +76,14 @@
                             @if($dayInfo === null)
                                 <div class="day-cell empty"></div>
                             @else
-                                <div class="day-cell{{ $dayInfo['isToday'] ? ' today' : '' }}" data-day="{{ $year }}-{{ str_pad($month, 2, '0', STR_PAD_LEFT) }}-{{ str_pad($dayInfo['day'], 2, '0', STR_PAD_LEFT) }}">
+                                <div class="day-cell{{ $dayInfo['isToday'] ? ' today' : '' }}{{ !$dayInfo['isAvailable'] ? ' unavailable' : '' }}{{ $dayInfo['isPast'] ? ' past' : '' }}" 
+                                     data-day="{{ $year }}-{{ str_pad($month, 2, '0', STR_PAD_LEFT) }}-{{ str_pad($dayInfo['day'], 2, '0', STR_PAD_LEFT) }}"
+                                     data-available="{{ $dayInfo['isAvailable'] ? 'true' : 'false' }}">
                                     <div class="day-number">{{ $dayInfo['day'] }}</div>
                                     @if($dayInfo['isToday'])
                                         <div class="day-label">Today</div>
+                                    @elseif(!$dayInfo['isAvailable'])
+                                        <div class="day-label">Closed</div>
                                     @endif
                                 </div>
                             @endif
@@ -98,7 +102,7 @@
             </div>
 
             <div class="actions">
-                <a href="/mypage/reservation/new/pet" class="btn btn-back">← Back</a>
+                <a href="{{ route('reservation.select-pet', request()->only(['salon_id', 'service_id'])) }}" class="btn btn-back">← Back</a>
                 <button class="btn btn-continue" id="continueBtn" disabled>Continue →</button>
             </div>
         </div>
@@ -151,6 +155,11 @@
 
             dayCells.forEach(cell => {
                 cell.addEventListener('click', function() {
+                    // Check if the day is available for booking
+                    if (this.dataset.available === 'false' || this.classList.contains('unavailable') || this.classList.contains('past')) {
+                        return; // Don't allow selection of unavailable days
+                    }
+                    
                     dayCells.forEach(c => c.classList.remove('selected'));
                     this.classList.add('selected');
                     selectedDate = this.dataset.day;
