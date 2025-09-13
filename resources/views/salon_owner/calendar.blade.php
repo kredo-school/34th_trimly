@@ -196,7 +196,7 @@
         }
 
         .client-name {
-            font-size: 15px;
+            font-size: 18px;
             font-weight: 600;
             color: #333;
         }
@@ -462,8 +462,9 @@
                         <div class="appointment-details">
                             <div class="client-info">
                                 <span class="client-name">{{ $ownerFullName }}</span>
-                                <span class="service-type">{{ $serviceName }} • {{ $petName }}</span>
+                                {{-- <span class="service-type">{{ $serviceName }} • {{ $petName }}</span> --}}
                             </div>
+                            <div class="service-type">{{ $serviceName }} • {{ $petName }}</div>
                             <div class="appointment-meta">{{ $appointmentTime }} • {{ $petBreed }}</div>
                         </div>
                         <span class="appointment-status {{ $statusClass }}">{{ $statusText }}</span>
