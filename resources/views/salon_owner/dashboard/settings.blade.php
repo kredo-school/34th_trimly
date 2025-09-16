@@ -14,8 +14,9 @@
            crossorigin="anonymous" referrerpolicy="no-referrer" />
        <!-- Base CSS Files -->
        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-       <link href="{{ asset('css/register-salon-owner.css') }}" rel="stylesheet">
+
        <link href="{{ asset('css/dashboard-salon-owner.css') }}" rel="stylesheet">
+       <link href="{{ asset('css/register-salon-owner.css') }}" rel="stylesheet">
    @endpush
    
    @section('content')

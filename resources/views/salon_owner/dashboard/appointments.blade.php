@@ -87,7 +87,8 @@
                                             </div>
                                             <div class="owner-service-info text-muted">{{ $appointment->serviceItem->servicename }} • {{ $appointment->pet->name }}</div>
                                             <div class="owner-appointment-time text-muted">
-                                                {{ \Carbon\Carbon::parse($appointment->appointment_time_start)->format('g:i A') }}  
+                                                <i class="fa-regular fa-clock"></i> 
+                                                {{ \Carbon\Carbon::parse($appointment->appointment_time_start)->format('g:i A') }} - 
                                                 {{ \Carbon\Carbon::parse($appointment->appointment_time_end)->format('g:i A') }}
                                                 @php
                                                     $start = \Carbon\Carbon::parse($appointment->appointment_time_start);
@@ -95,7 +96,7 @@
                                                     $duration = $start->diff($end);
                                                 @endphp
                                                 ({{ $duration->h }}h {{ $duration->i > 0 ? $duration->i . 'm' : '' }})
-                                                <span class="mx-2">    </span>
+                                                <span class="mx-2"></span>
                                                 <i class="fa-solid fa-phone"></i> {{ $appointment->pet->owner->phone }}
                                             </div>
                                         </div>

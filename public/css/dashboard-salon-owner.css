@@ -54,7 +54,25 @@
     color: #666 !important; /* Darker placeholder color for better visibility */
     opacity: 1 !important;
  }
- 
+ /* =============================================
+   SETTINGS PAGE - FORCE NO BORDER RADIUS
+   ============================================= */
+.owner-register-container .owner-input-group-custom input.form-control,
+.owner-register-container .owner-input-group-custom select.form-control,
+.owner-register-container .owner-input-group-custom textarea.form-control {
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+/* Ensure the group container has proper overflow */
+.owner-register-container .owner-input-group-custom {
+    overflow: hidden !important;
+}
  .owner-search-input:focus {
     outline: none;
     border-color: var(--color-primary);
@@ -123,7 +141,7 @@
    .owner-search-section {
     background-color: #fefcf1 !important;
     padding: 20px !important;
-    border-radius: 8px !important;
+    border-radius: 12px !important;
     display: flex !important;
     align-items: center !important;
     gap: 20px !important;
@@ -339,7 +357,7 @@
  
  /* Make dropdown menus have same border radius as cards */
  .dropdown-menu {
-    border-radius: 0.375rem !important; /* Same as Bootstrap card default */
+    border-radius: 12px !important; /* Same as Bootstrap card default */
     background-color: #ffffff !important;
     border: 1px solid #e0e0e0 !important;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
@@ -377,6 +395,13 @@
  
     color: #bb2d3b !important;
  }
+ /* Ensure all dropdowns have the same radius */
+.dropdown-menu,
+#appointmentsList .dropdown-menu,
+#customersGrid .dropdown-menu,
+.owner-action-menu + .dropdown-menu {
+    border-radius: 12px !important;
+}
  
  /* =============================================
    FLAT UI - REMOVE ALL SHADOWS AND 3D EFFECTS
@@ -1042,7 +1067,7 @@ span.badge.owner-badge-cancelled,
     color: #333 !important;
     border-radius: 8px !important;
     padding: 8px 16px !important;
-    font-weight: 500 !important;
+    
  
  }
  
@@ -1090,7 +1115,7 @@ span.badge.owner-badge-cancelled,
     color: #333 !important;
     border-radius: 8px !important;
     padding: 8px 16px !important;
-    font-weight: 500 !important;
+   
     border: none !important;
  }
  
@@ -1192,6 +1217,12 @@ span.badge.owner-badge-cancelled,
     border-color: #ddd;
     margin-top: 0.5rem;
  }
+
+ .owner-section-divider2 {
+   border-top: 1px solid #f0f0f0;
+   padding-top: 20px;
+   margin-top: 20px;
+}
  
  .owner-time-input {
     padding-right: 40px;
@@ -1653,19 +1684,19 @@ body .container #customersGrid .col-md-6 .card .card-body .owner-pet-section {
    UNIFIED CARD BORDER RADIUS
    ============================================= */
 
-/* Apply same border radius to ALL cards */
+
 .card {
-    border-radius: 0.375rem !important; /* Bootstrap default = 6px */
+   border-radius: 12px !important; /* 0.375rem → 12px */
 }
 
 /* Override for customer cards to match other cards */
 #customersGrid .card {
-    border-radius: 0.375rem !important; /* 8px → 0.375rem (6px) */
+   border-radius: 12px !important; /* 0.375rem → 12px */
 }
 
 /* Also update pet section to match */
 #customersGrid .owner-pet-section {
-    border-radius: 0.25rem !important; /* Slightly smaller for inner sections */
+   border-radius: 8px !important;
 }
 
 /* Ensure all cards have the same border radius */
@@ -1673,8 +1704,8 @@ body .container #customersGrid .col-md-6 .card .card-body .owner-pet-section {
 #appointmentsList .card,
 #customersGrid .card,
 .service-card {
-    border-radius: 0.375rem !important;
-    overflow: hidden !important;
+   border-radius: 12px !important; 
+   overflow: hidden !important;
 }
 /* =============================================
    MODAL STYLES - MODERN UI (UPDATED)
@@ -1745,7 +1776,7 @@ body .container #customersGrid .col-md-6 .card .card-body .owner-pet-section {
 /* Form Inputs - Modern style */
 .modal-body .form-control {
     border: 1.5px solid #e8e8e8 !important;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
     padding: 14px 18px !important;
     font-size: 1rem !important;
     background-color: #fefcf1 !important; 
@@ -1856,7 +1887,7 @@ body .container #customersGrid .col-md-6 .card .card-body .owner-pet-section {
     background-color: #fefcf1 !important;
     color: #666 !important;
     border: 1.5px solid #e0e0e0 !important;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
     padding: 12px 32px !important;
     font-weight: 600 !important;
     font-size: 0.95rem !important;
@@ -1874,9 +1905,8 @@ body .container #customersGrid .col-md-6 .card .card-body .owner-pet-section {
     background-color: #d4c4a8 !important;
     color: white !important;
     border: none !important;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
     padding: 12px 32px !important;
-    font-weight: 600 !important;
     font-size: 0.95rem !important;
     transition: all 0.2s ease !important;
     min-width: 140px !important;
@@ -2008,6 +2038,7 @@ body .container #customersGrid .col-md-6 .card .card-body .owner-pet-section {
    visibility: visible !important;
    opacity: 1 !important;
    color: white !important;
+   background-color: #D5C4B8;
    font-size: 1.1rem !important;
 }
 
@@ -2033,14 +2064,201 @@ body .container #customersGrid .col-md-6 .card .card-body .owner-pet-section {
    opacity: 1 !important;
 }
 /* Border top utility class for customer cards */
-.owner-section-divider {
-   border-top: 1px solid #f0f0f0;
-   padding-top: 20px;
-   margin-top: 20px;
-}
+
 /* Pets title style */
 .owner-pets-title {
    font-size: 0.875rem;
    letter-spacing: 0.5px;
    font-weight: 700;
+}
+
+/* =============================================
+   REMOVE ALL BUTTON ANIMATIONS
+   ============================================= */
+
+/* Override modal button animations */
+.modal-footer .btn-salon-code:hover,
+.modal-footer .btn-owner-continue:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Ensure all buttons have no animations */
+.btn-salon-code:hover,
+.btn-owner-continue:hover,
+.btn-owner-back:hover,
+.btn-owner-dashboard:hover,
+button:hover,
+.btn:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    transition: none !important;
+}
+/* =============================================
+   UNIFIED AVATAR COLORS - ALL STATUS TYPES
+   ============================================= */
+
+/* Apply same color scheme to all avatar status types */
+.owner-customer-avatar.owner-avatar-confirmed,
+.owner-customer-avatar.owner-avatar-completed,
+.owner-customer-avatar.owner-avatar-cancelled {
+    background-color: #D5C4B8 !important; 
+    color: #ab8b73 !important;  
+    border-color: #D5C4B8 !important;
+}
+
+/* Ensure scissor icon uses the correct color */
+.owner-customer-avatar i.fa-scissors {
+    color: #ab8b73 !important; 
+}
+
+/* =============================================
+   SEARCH SECTION COMPACT LAYOUT
+   ============================================= */
+
+/* Very small padding for search card */
+.container > .card:first-child .card-body {
+   padding: 6px 12px !important;  
+}
+
+/* Remove search section internal padding */
+.owner-search-section {
+   padding: 0 !important;
+   margin-bottom: 0 !important;
+   gap: 8px !important;
+}
+
+/* Make search input and button very compact */
+.owner-search-input,
+.owner-status-dropdown {
+   height: 32px !important;  
+   min-height: 32px !important;
+   font-size: 13px !important; 
+   padding: 4px 12px 4px 38px  !important;
+}
+
+.owner-status-dropdown {
+   padding: 4px 12px !important;
+}
+
+/* Adjust search icon for smaller size */
+.owner-search-icon {
+   font-size: 13px !important;
+   left: 12px !important;
+}
+
+/* Remove any margins */
+.owner-search-section .position-relative,
+.owner-search-section .dropdown {
+   margin: 0 !important;
+}
+
+.owner-search-section .dropdown-menu {
+   bottom: auto !important; 
+   top: 100% !important;    
+   margin-bottom: 0 !important; 
+   margin-top: 5px !important;  
+}
+
+
+#customersGrid .card {
+ 
+   border: 1px solid #e0e0e0 !important; 
+   border-radius: 12px !important;         
+   box-shadow: none !important;           
+   background-color: #ffffff !important;  
+   transition: none !important;            
+}
+
+
+#customersGrid .card:hover {
+   border: 1px solid #e0e0e0 !important; 
+   box-shadow: none !important;            
+   transform: none !important;            
+}
+
+
+.card {
+   border: 1px solid #e0e0e0!important;
+   box-shadow: none !important;
+}
+
+#customersGrid .card,
+#customersGrid .col-md-6 .card,
+.container .card,
+.row .card {
+   border: 1px solid #e0e0e0 !important;
+   
+   border-radius: 12px !important;
+   box-shadow: none !important;
+}
+
+#customersGrid .card {
+   border-color: #e0e0e0 !important;  /* #f0f0f0 > #d0d0d0  */
+}
+/* =============================================
+   Force Fix Dropdown Menu Display
+   ============================================= */
+
+/* Override compact layout that might be hiding items */
+.owner-search-section .dropdown-menu {
+   position: absolute !important;
+   top: 100% !important;
+   right: 0 !important;
+   left: auto !important;
+   margin-top: 5px !important;
+   min-width: 180px !important;
+   width: auto !important;
+   height: auto !important;
+   max-height: none !important;
+   overflow: visible !important;
+   padding: 8px 0 !important;
+   display: block !important; /* Force display when shown */
+   opacity: 1 !important;
+   visibility: visible !important;
+}
+
+/* Force all dropdown items to be visible */
+.dropdown-menu li {
+   display: block !important;
+   height: auto !important;
+   visibility: visible !important;
+   opacity: 1 !important;
+   overflow: visible !important;
+}
+
+.dropdown-menu .dropdown-item {
+   display: block !important;
+   width: 100% !important;
+   padding: 10px 16px !important;
+   clear: both !important;
+   font-weight: 400 !important;
+   color: #333 !important;
+   text-align: inherit !important;
+   white-space: nowrap !important;
+   background-color: transparent !important;
+   border: 0 !important;
+   visibility: visible !important;
+   opacity: 1 !important;
+   height: auto !important;
+   overflow: visible !important;
+}
+
+/* Remove any height restrictions from dropdown menu when shown */
+.dropdown-menu.show {
+   height: auto !important;
+   max-height: none !important;
+   overflow: visible !important;
+}
+
+/* Ensure the dropdown container doesn't clip */
+.owner-search-section,
+.owner-search-section .dropdown {
+   overflow: visible !important;
+}
+
+/* Force specific height for the UL element */
+.dropdown-menu ul,
+.dropdown-menu {
+   min-height: 160px !important; /* 4 items × ~40px each */
 }

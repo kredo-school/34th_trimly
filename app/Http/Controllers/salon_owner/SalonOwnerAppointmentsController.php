@@ -83,8 +83,15 @@ class SalonOwnerAppointmentsController extends Controller
         // Order by appointment time
         $appointments = $query->orderBy('appointment_time_start')->get();
 
-        // Format display date
-        $displayDate = Carbon::parse($date)->format('l, F j, Y');
+        // Format display date - Show "Today's Appointments" for current date
+        $carbonDate = Carbon::parse($date);
+        $today = Carbon::today();
+
+        if ($carbonDate->isSameDay($today)) {
+            $displayDate = "Today's Appointments";
+        } else {
+            $displayDate = $carbonDate->format('l, F j, Y');
+        }
 
         return view('salon_owner.dashboard.appointments', compact('appointments', 'displayDate', 'status', 'search', 'date'));
     }
