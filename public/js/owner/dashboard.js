@@ -128,3 +128,37 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+//  appointment dropdown menu
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle dropdown item clicks
+    const dropdownItems = document.querySelectorAll('.dropdown-menu .dropdown-item');
+    const statusInput = document.getElementById('statusInput');
+    const filterForm = document.getElementById('filterForm');
+    
+    dropdownItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get the status value
+            const status = this.getAttribute('data-status');
+            
+            // Set the hidden input value
+            statusInput.value = status;
+            
+            // Submit the form
+            filterForm.submit();
+        });
+    });
+    
+    // Handle search input
+    const searchInput = document.getElementById('searchInput');
+    let searchTimeout;
+    
+    searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            filterForm.submit();
+        }, 500); // Submit after 500ms of no typing
+    });
+});

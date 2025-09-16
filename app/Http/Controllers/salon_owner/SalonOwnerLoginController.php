@@ -70,24 +70,18 @@ class SalonOwnerLoginController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function logout(Request $request): JsonResponse
+    public function logout(Request $request)
     {
         try {
             // Clear salon owner session
             $request->session()->forget(['salon_owner_id', 'salon_code']);
             $request->session()->flush();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Logout successful'
-            ], 200);
-
+    
+            
+            return redirect()->route('salonowner.login');
+    
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Logout failed',
-                'error' => $e->getMessage()
-            ], 500);
+            return redirect()->route('salonowner.login');
         }
     }
 

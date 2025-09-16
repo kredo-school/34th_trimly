@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
 
                         <!-- Pet Information -->
-                        <div class="owner-section-divider">
+                        <div class="owner-section-divider2">
                           <h6 class="owner-pets-title mb-2 text-muted">Pets</h6>
                           <div class="owner-pet-section">
                           ${petsHtml || '<p class="text-muted">No pets registered</p>'}
