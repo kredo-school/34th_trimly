@@ -36,7 +36,7 @@
             <h2 class="details-heading">Appointment Details</h2>
             
             <div class="service-details">
-                <div class="service-icon">✂️</div>
+                <div class="service-icon"><i class="fas fa-scissors me-2 icon-primary"></i></div>
                 <div>
                     <h3 class="service-name">{{ $bookingDetails['service']['name'] }}</h3>
                     <p class="service-duration">Duration: {{ $bookingDetails['service']['duration'] }}</p>
