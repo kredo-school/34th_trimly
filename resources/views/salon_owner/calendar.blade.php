@@ -976,8 +976,12 @@
             const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             const selectedDayName = dayNames[dayOfWeek];
             
+            // Convert both to lowercase for comparison
+            const openDaysLower = openDays.map(day => day.toLowerCase());
+            const selectedDayLower = selectedDayName.toLowerCase();
+            
             // Check if the selected day is an open day
-            if (openDays.length > 0 && !openDays.includes(selectedDayName)) {
+            if (openDays.length > 0 && !openDaysLower.includes(selectedDayLower)) {
                 alert(`Sorry, the salon is closed on ${selectedDayName}. Please select a different date.`);
                 input.value = '';
             }
