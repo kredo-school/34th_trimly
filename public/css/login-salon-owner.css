@@ -433,3 +433,12 @@ body::before {
         align-items: flex-start;
     }
 }
+/* Make password toggle eye icon same gray as register page */
+.owner-password-toggle i {
+    color: #999 !important; /* same gray tone */
+    transition: color 0.2s;
+  }
+  
+  .owner-password-toggle:hover i {
+    color: #999 !important; /* slightly darker on hover */
+  }

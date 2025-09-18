@@ -73,92 +73,121 @@ function logout(event) {
 
 // Appointments page functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Only run on appointments page
+    if (!document.getElementById('filterForm')) return;
+    
     // Search input submit with debounce
     const searchInput = document.getElementById('searchInput');
+    const statusInput = document.getElementById('statusInput');
+    const filterForm = document.getElementById('filterForm');
     let searchTimeout;
     
     if (searchInput) {
         searchInput.addEventListener('input', function() {
             clearTimeout(searchTimeout);
             searchTimeout = setTimeout(() => {
-                document.getElementById('filterForm').submit();
+                filterForm.submit();
             }, 500);
         });
     }
 
-    // Status filter - Fixed to only target status filter dropdown
-    document.querySelectorAll('.owner-status-dropdown + .dropdown-menu [data-status]').forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const statusInput = document.getElementById('statusInput');
-            if (statusInput) {
-                statusInput.value = this.dataset.status;
-                document.getElementById('filterForm').submit();
-            }
-        });
-    });
-
-    // Cancel appointment
-    document.querySelectorAll('.cancel-appointment').forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation(); // Prevent dropdown from closing
-            
-            const id = this.dataset.id;
-            const customer = this.dataset.customer;
-            const service = this.dataset.service;
-            
-            if (confirm(`Cancel appointment for ${customer} (${service})?`)) {
-                fetch(`/dashboard-salonowner/appointments/${id}/cancel`, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        window.location.reload();
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-            }
-        });
-    });
-});
-
-//  appointment dropdown menu
-document.addEventListener('DOMContentLoaded', function() {
-    // Handle dropdown item clicks
-    const dropdownItems = document.querySelectorAll('.dropdown-menu .dropdown-item');
-    const statusInput = document.getElementById('statusInput');
-    const filterForm = document.getElementById('filterForm');
-    
+    // Status filter dropdown
+    const dropdownItems = document.querySelectorAll('.dropdown-menu .dropdown-item[data-status]');
     dropdownItems.forEach(item => {
         item.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // Get the status value
             const status = this.getAttribute('data-status');
-            
-            // Set the hidden input value
-            statusInput.value = status;
-            
-            // Submit the form
-            filterForm.submit();
+            if (status !== null) {
+                statusInput.value = status;
+                filterForm.submit();
+            }
         });
     });
-    
-    // Handle search input
-    const searchInput = document.getElementById('searchInput');
-    let searchTimeout;
-    
-    searchInput.addEventListener('input', function() {
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-            filterForm.submit();
-        }, 500); // Submit after 500ms of no typing
+
+    // Edit Appointment functionality - Event delegation approach
+    document.addEventListener('click', function(e) {
+        const editButton = e.target.closest('.edit-appointment');
+        if (!editButton) return;
+        
+        // e.preventDefault();
+        // e.stopPropagation();
+        
+        // Close any open dropdowns
+        const dropdowns = document.querySelectorAll('.dropdown-menu.show');
+        dropdowns.forEach(dropdown => {
+            dropdown.classList.remove('show');
+        });
+        
+        // Get appointment data using getAttribute (more reliable)
+        const appointmentId = editButton.getAttribute('data-id');
+        const customerName = editButton.getAttribute('data-customer');
+        const serviceName = editButton.getAttribute('data-service');
+        const date = editButton.getAttribute('data-date');
+        const startTime = editButton.getAttribute('data-start-time');
+        const endTime = editButton.getAttribute('data-end-time');
+        const status = editButton.getAttribute('data-status');
+        
+        // Wait a moment for dropdown to close
+        setTimeout(() => {
+            // Populate modal fields
+            document.getElementById('editAppointmentId').value = appointmentId || '';
+            document.getElementById('editCustomerName').value = customerName || '';
+            document.getElementById('editServiceName').value = serviceName || '';
+            document.getElementById('editDate').value = date || '';
+            document.getElementById('editStartTime').value = startTime || '';
+            document.getElementById('editEndTime').value = endTime || '';
+            document.getElementById('editStatus').value = status || '1';
+            
+            // Set form action
+            const form = document.getElementById('editAppointmentForm');
+            form.action = `/dashboard-salonowner/appointments/${appointmentId}`;
+            
+            // Show modal
+            const modalElement = document.getElementById('editAppointmentModal');
+            if (modalElement) {
+                const modal = new bootstrap.Modal(modalElement);
+                modal.show();
+            }
+        }, 100);
     });
+
+    // Cancel appointment - Event delegation approach
+    document.addEventListener('click', function(e) {
+        const cancelButton = e.target.closest('.cancel-appointment');
+        if (!cancelButton) return;
+        
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const id = cancelButton.getAttribute('data-id');
+        const customer = cancelButton.getAttribute('data-customer');
+        const service = cancelButton.getAttribute('data-service');
+        
+        if (confirm(`Cancel appointment for ${customer} (${service})?`)) {
+            fetch(`/dashboard-salonowner/appointments/${id}/cancel`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.reload();
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    });
+
+    // Edit form submit handler
+    const editAppointmentForm = document.getElementById('editAppointmentForm');
+    if (editAppointmentForm) {
+        editAppointmentForm.addEventListener('submit', function(e) {
+            // Allow normal form submission
+            // The controller will handle the redirect
+        });
+    }
 });
