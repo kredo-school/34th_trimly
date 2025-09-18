@@ -201,20 +201,23 @@ class ReservationController extends Controller
         $openDays = $salon->openDays->pluck('day_of_week')->toArray();
         
         // Map day names to numbers (0 = Sunday, 1 = Monday, etc.)
+        // Support both lowercase and capitalized formats
         $dayMap = [
-            'Sunday' => 0,
-            'Monday' => 1,
-            'Tuesday' => 2,
-            'Wednesday' => 3,
-            'Thursday' => 4,
-            'Friday' => 5,
-            'Saturday' => 6
+            'sunday' => 0,
+            'monday' => 1,
+            'tuesday' => 2,
+            'wednesday' => 3,
+            'thursday' => 4,
+            'friday' => 5,
+            'saturday' => 6
         ];
         
         $openDayNumbers = [];
         foreach ($openDays as $day) {
-            if (isset($dayMap[$day])) {
-                $openDayNumbers[] = $dayMap[$day];
+            // Convert to lowercase for comparison
+            $dayLower = strtolower($day);
+            if (isset($dayMap[$dayLower])) {
+                $openDayNumbers[] = $dayMap[$dayLower];
             }
         }
         

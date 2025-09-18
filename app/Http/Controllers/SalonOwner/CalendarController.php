@@ -162,7 +162,11 @@ class CalendarController extends Controller
         $dayName = $selectedDate->format('l'); // Get day name (e.g., 'Monday')
         $openDays = $salon->openDays->pluck('day_of_week')->toArray();
         
-        if (!empty($openDays) && !in_array($dayName, $openDays)) {
+        // Convert open days to lowercase for comparison
+        $openDaysLower = array_map('strtolower', $openDays);
+        $dayNameLower = strtolower($dayName);
+        
+        if (!empty($openDaysLower) && !in_array($dayNameLower, $openDaysLower)) {
             return redirect()->back()->with('error', 'The salon is closed on ' . $dayName . '. Please select a different date.');
         }
         
