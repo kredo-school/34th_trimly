@@ -2197,68 +2197,41 @@ button:hover,
    border-color: #e0e0e0 !important;  /* #f0f0f0 > #d0d0d0  */
 }
 /* =============================================
-   Force Fix Dropdown Menu Display
+   Fix Dropdown Position - Keep it under button
    ============================================= */
 
-/* Override compact layout that might be hiding items */
+/* Remove the media query with position fixed */
+@media (min-width: 768px) {
+   .owner-search-section .dropdown-menu.show {
+       position: absolute !important; /* Change back to absolute */
+       z-index: 99999 !important;
+       margin-top: 5px !important;
+   }
+}
+
+/* Position dropdown correctly under All Status button */
+.owner-search-section .dropdown {
+   position: relative !important;
+}
+
 .owner-search-section .dropdown-menu {
    position: absolute !important;
    top: 100% !important;
-   right: 0 !important;
+   right: 0 !important; /* Align to right edge of button */
    left: auto !important;
+   z-index: 99999 !important;
    margin-top: 5px !important;
-   min-width: 180px !important;
-   width: auto !important;
-   height: auto !important;
-   max-height: none !important;
-   overflow: visible !important;
-   padding: 8px 0 !important;
-   display: block !important; /* Force display when shown */
-   opacity: 1 !important;
-   visibility: visible !important;
+   min-width: 160px !important;
 }
 
-/* Force all dropdown items to be visible */
-.dropdown-menu li {
-   display: block !important;
-   height: auto !important;
-   visibility: visible !important;
-   opacity: 1 !important;
-   overflow: visible !important;
+/* Ensure the search card stays on top */
+.container > .card:first-child {
+   position: relative !important;
+   z-index: 100 !important;
 }
 
-.dropdown-menu .dropdown-item {
-   display: block !important;
-   width: 100% !important;
-   padding: 10px 16px !important;
-   clear: both !important;
-   font-weight: 400 !important;
-   color: #333 !important;
-   text-align: inherit !important;
-   white-space: nowrap !important;
-   background-color: transparent !important;
-   border: 0 !important;
-   visibility: visible !important;
-   opacity: 1 !important;
-   height: auto !important;
-   overflow: visible !important;
-}
-
-/* Remove any height restrictions from dropdown menu when shown */
-.dropdown-menu.show {
-   height: auto !important;
-   max-height: none !important;
-   overflow: visible !important;
-}
-
-/* Ensure the dropdown container doesn't clip */
-.owner-search-section,
-.owner-search-section .dropdown {
-   overflow: visible !important;
-}
-
-/* Force specific height for the UL element */
-.dropdown-menu ul,
-.dropdown-menu {
-   min-height: 160px !important; /* 4 items × ~40px each */
+/* Keep appointment cards below */
+#appointmentsList .card {
+   position: relative !important;
+   z-index: 1 !important;
 }

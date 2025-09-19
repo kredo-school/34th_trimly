@@ -10,6 +10,23 @@
     <!-- Salon Owner CSS Files Only -->
     <link href="{{ asset('css/register-salon-owner.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dashboard-salon-owner.css') }}" rel="stylesheet">
+    
+    <style>
+        /* Modal Size Fix */
+        #editAppointmentModal .modal-dialog {
+            max-width: 500px !important;
+            margin: 1.75rem auto !important;
+        }
+        
+        #editAppointmentModal .modal-content {
+            max-height: calc(100vh - 3.5rem) !important;
+        }
+        
+        #editAppointmentModal .modal-body {
+            max-height: calc(100vh - 200px) !important;
+            overflow-y: auto !important;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -96,7 +113,7 @@
                                                     $duration = $start->diff($end);
                                                 @endphp
                                                 ({{ $duration->h }}h {{ $duration->i > 0 ? $duration->i . 'm' : '' }})
-                                                <span class="mx-2"></span>
+                                                <span class="mx-2">•</span>
                                                 <i class="fa-solid fa-phone"></i> {{ $appointment->pet->owner->phone }}
                                             </div>
                                         </div>
@@ -108,16 +125,28 @@
                                             <button class="btn btn-ghost btn-sm owner-action-menu" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                                             </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-edit me-2"></i>Edit Appointment</a></li>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li>
+                                                    <button type="button" class="dropdown-item edit-appointment-btn"
+                                                            data-appointment-id="{{ $appointment->id }}"
+                                                            data-customer-name="{{ $appointment->pet->owner->firstname }} {{ $appointment->pet->owner->lastname }}"
+                                                            data-pet-id="{{ $appointment->pet_id }}"
+                                                            data-pet-owner-id="{{ $appointment->pet->pet_owner_id }}"
+                                                            data-service-id="{{ $appointment->service_item_id }}"
+                                                            data-date="{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('Y-m-d') }}"
+                                                            data-start-time="{{ \Carbon\Carbon::parse($appointment->appointment_time_start)->format('H:i') }}"
+                                                            data-status="{{ $appointment->status }}">
+                                                        <i class="fa-solid fa-edit me-2"></i>Edit Appointment
+                                                    </button>
+                                                </li>
                                                 @if($appointment->status == 1)
                                                 <li>
-                                                    <a class="dropdown-item text-danger cancel-appointment" href="#" 
-                                                       data-id="{{ $appointment->id }}"
-                                                       data-customer="{{ $appointment->pet->owner->firstname }} {{ $appointment->pet->owner->lastname }}"
-                                                       data-service="{{ $appointment->serviceItem->servicename }}">
+                                                    <button type="button" class="dropdown-item text-danger cancel-appointment-btn"
+                                                            data-appointment-id="{{ $appointment->id }}"
+                                                            data-customer-name="{{ $appointment->pet->owner->firstname }} {{ $appointment->pet->owner->lastname }}"
+                                                            data-service-name="{{ $appointment->serviceItem->servicename }}">
                                                         <i class="fa-solid fa-trash-can me-2"></i>Cancel Appointment
-                                                    </a>
+                                                    </button>
                                                 </li>
                                                 @endif
                                             </ul>
@@ -140,5 +169,115 @@
         </div>
     </div>
 </div>
+
+<!-- Edit Appointment Modal -->
+<div class="modal fade" id="editAppointmentModal" tabindex="-1" aria-labelledby="editAppointmentModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editAppointmentModalLabel">Edit Appointment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editAppointmentForm" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <input type="hidden" id="editAppointmentId" name="id">
+
+                    <!-- Customer (Read-only) -->
+                    <div class="mb-3">
+                        <label class="form-label">Customer</label>
+                        <input type="text" class="form-control" id="editCustomerName" readonly style="background-color: #f8f9fa;">
+                    </div>
+
+                    <!-- Pet Selection -->
+                    <div class="mb-3">
+                        <label for="editPetId" class="form-label">Pet Name <span class="text-danger">*</span></label>
+                        <select class="form-control" id="editPetId" name="pet_id" required>
+                            <option value="">Select pet</option>
+                            <!-- Options will be dynamically populated based on customer -->
+                        </select>
+                    </div>
+
+                    <!-- Service Selection -->
+                    <div class="mb-3">
+                        <label for="editServiceId" class="form-label">Service <span class="text-danger">*</span></label>
+                        <select class="form-control" id="editServiceId" name="service_item_id" required>
+                            <option value="">Select service</option>
+                            @if(isset($services))
+                                @foreach($services as $service)
+                                    <option value="{{ $service->id }}" data-duration="{{ $service->duration ?? 30 }}">
+                                        {{ $service->servicename }} ({{ $service->duration ?? 30 }} min)
+                                    </option>
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
+
+                    <!-- Date -->
+                    <div class="mb-3">
+                        <label for="editDate" class="form-label">Date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="editDate" name="appointment_date" required>
+                    </div>
+
+                    <!-- Start Time (30-minute intervals) -->
+                    <div class="mb-3">
+                        <label for="editStartTime" class="form-label">Start Time <span class="text-danger">*</span></label>
+                        <select class="form-control" id="editStartTime" name="appointment_time_start" required>
+                            <option value="">Select start time</option>
+                            @php
+                                $startHour = 9;  // Business hours start
+                                $endHour = 18;   // Business hours end
+                                for ($hour = $startHour; $hour < $endHour; $hour++) {
+                                    foreach (['00', '30'] as $minute) {
+                                        $time24 = sprintf("%02d:%s", $hour, $minute);
+                                        $time12 = date("g:i A", strtotime($time24));
+                                        echo "<option value=\"{$time24}\">{$time12}</option>";
+                                    }
+                                }
+                                // Final hour
+                                $finalTime24 = sprintf("%02d:00", $endHour);
+                                $finalTime12 = date("g:i A", strtotime($finalTime24));
+                                echo "<option value=\"{$finalTime24}\">{$finalTime12}</option>";
+                            @endphp
+                        </select>
+                    </div>
+
+                    <!-- End Time (Auto-calculated) -->
+                    <div class="mb-3">
+                        <label class="form-label">End Time (Auto-calculated)</label>
+                        <input type="text" class="form-control" id="editEndTimeDisplay" readonly style="background-color: #f8f9fa;">
+                        <small class="text-muted">End time will be calculated based on selected service duration</small>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="mb-3">
+                        <label for="editStatus" class="form-label">Status <span class="text-danger">*</span></label>
+                        <select class="form-control" id="editStatus" name="status" required>
+                            <option value="1">Confirmed</option>
+                            <option value="2">Cancelled</option>
+                            <option value="3">Completed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-owner-back" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-owner-continue">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Customer Pets Data for JavaScript -->
+<script>
+    window.customerPetsData = {!! json_encode($customerPets) !!};
+    
+</script>
+
 @endsection
 
+@push('scripts')
+<script src="{{ asset('js/owner/appointments.js') }}"></script>
+@endpush

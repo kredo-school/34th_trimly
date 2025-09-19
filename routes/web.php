@@ -161,6 +161,9 @@ Route::get('dashboard-salonowner/appointments', [SalonOwnerAppointmentsControlle
     ->name('salon_owner.appointments');
 Route::post('dashboard-salonowner/appointments/{id}/cancel', [SalonOwnerAppointmentsController::class, 'cancel'])
     ->name('salon_owner.appointments.cancel');
+Route::put('dashboard-salonowner/appointments/{id}', [SalonOwnerAppointmentsController::class, 'update'])
+    ->name('salon_owner.appointments.update');
+
 
 // customers// Customer page
 Route::get('dashboard-salonowner/customers', [SalonOwnerCustomerController::class, 'index'])
