@@ -95,10 +95,16 @@ class SalonOwnerAppointmentsController extends Controller
             $displayDate = $carbonDate->format('l, F j, Y');
         }
 
-        // Get all pets that have appointments at this salon (for edit modal)
-        $pets = Pet::whereHas('appointments', function($q) use ($salonCode) {
-            $q->where('salon_code', $salonCode);
-        })->with('owner')->orderBy('name')->get();
+        // Get unique customers and their pets for the edit modal
+        $customerPets = [];
+        foreach ($appointments as $appointment) {
+            $ownerId = $appointment->pet->pet_owner_id; // Fixed: use pet_owner_id
+            if (!isset($customerPets[$ownerId])) {
+                $customerPets[$ownerId] = Pet::where('pet_owner_id', $ownerId) // Fixed: use pet_owner_id
+                    ->orderBy('name')
+                    ->get();
+            }
+        }
 
         // Get all services for this salon (for edit modal)
         $services = ServiceItem::where('salon_code', $salonCode)
@@ -106,7 +112,7 @@ class SalonOwnerAppointmentsController extends Controller
             ->get();
 
         return view('salon_owner.dashboard.appointments', 
-            compact('appointments', 'displayDate', 'status', 'search', 'date', 'pets', 'services'));
+            compact('appointments', 'displayDate', 'status', 'search', 'date', 'customerPets', 'services'));
     }
 
     public function cancel(Request $request, $id)
@@ -143,6 +149,7 @@ class SalonOwnerAppointmentsController extends Controller
         // Find the appointment
         $appointment = Appointment::where('salon_code', $salonCode)
             ->where('id', $id)
+            ->with('pet')
             ->firstOrFail();
         
         // Validate the request
@@ -153,6 +160,18 @@ class SalonOwnerAppointmentsController extends Controller
             'pet_id' => 'required|exists:pets,id',
             'service_item_id' => 'required|exists:service_items,id'
         ]);
+        
+        // Verify that the pet belongs to the same owner
+        $pet = Pet::find($validated['pet_id']);
+        if ($pet->pet_owner_id !== $appointment->pet->pet_owner_id) { // Fixed: use pet_owner_id
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid pet selection'
+                ], 422);
+            }
+            return back()->withErrors(['pet_id' => 'Invalid pet selection']);
+        }
         
         // Get service duration to calculate end time
         $service = ServiceItem::find($validated['service_item_id']);

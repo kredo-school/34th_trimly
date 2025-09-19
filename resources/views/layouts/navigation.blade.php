@@ -135,6 +135,6 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     
-    <script src="{{ asset('js/owner/dashboard.js') }}" defer></script>
+    <script src="{{ asset('js/owner/dashboard.js') }}"></script>
 </body>
 </html>
